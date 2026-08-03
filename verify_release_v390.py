@@ -1,4 +1,4 @@
-"""Portable end-to-end verifier for the frozen V389 release."""
+"""Portable end-to-end verifier for the frozen V390 release."""
 
 from __future__ import annotations
 
@@ -16,9 +16,21 @@ import pandas as pd
 
 
 ROOT = Path(__file__).resolve().parent
-MANIFEST = ROOT / "manifest_v389.json"
-EXCLUDED_NAMES = {MANIFEST.name, "verification_receipt_v389.json"}
+MANIFEST = ROOT / "manifest_v390.json"
+EXCLUDED_NAMES = {MANIFEST.name, "verification_receipt_v390.json"}
 EXCLUDED_PARTS = {".git", ".venv", "__pycache__"}
+EXCLUDED_SUFFIXES = {
+    ".aux",
+    ".bbl",
+    ".blg",
+    ".fdb_latexmk",
+    ".fls",
+    ".log",
+    ".out",
+    ".spl",
+    ".synctex",
+    ".xdv",
+}
 FORBIDDEN_SUFFIXES = {".zip", ".7z", ".rar", ".mat", ".h5", ".hdf5", ".pkl", ".pickle", ".joblib", ".sav"}
 
 
@@ -37,7 +49,9 @@ def tracked_files() -> list[Path]:
             continue
         if any(part in EXCLUDED_PARTS for part in path.relative_to(ROOT).parts):
             continue
-        if path.suffix in {".pyc", ".pyo"}:
+        if path.suffix in {".pyc", ".pyo", *EXCLUDED_SUFFIXES}:
+            continue
+        if path.name.endswith(".synctex.gz"):
             continue
         files.append(path)
     return sorted(files, key=lambda p: p.relative_to(ROOT).as_posix())
@@ -90,13 +104,29 @@ def verify_manifest(passed: list[str]) -> None:
     manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
     expected = {item["path"]: item for item in manifest["files"]}
     actual = {path.relative_to(ROOT).as_posix(): path for path in tracked_files()}
-    check(manifest["version"] == "v389", "manifest version", passed)
+    check(manifest["version"] == "v390", "manifest version", passed)
     check(set(actual) == set(expected), "manifest has no missing or untracked files", passed)
     for relative, path in actual.items():
         item = expected[relative]
         if path.stat().st_size != item["bytes"] or sha256(path) != item["sha256"]:
             raise AssertionError(f"manifest mismatch: {relative}")
     check(True, f"all {len(actual)} file hashes", passed)
+
+
+def verify_strict_json(passed: list[str]) -> None:
+    def reject_constant(value: str) -> None:
+        raise ValueError(f"non-standard JSON constant: {value}")
+
+    count = 0
+    for path in tracked_files():
+        if path.suffix.lower() != ".json":
+            continue
+        json.loads(
+            path.read_text(encoding="utf-8"),
+            parse_constant=reject_constant,
+        )
+        count += 1
+    check(True, f"all {count} JSON files use strict syntax", passed)
 
 
 def verify_release_boundary(passed: list[str]) -> None:
@@ -117,6 +147,41 @@ def verify_external_mechanism(passed: list[str]) -> None:
     check(len(predictions) == 9_712, "external record count", passed)
     check(predictions["cell_id"].nunique() == 659, "external physical-cell count", passed)
     check(predictions["domain"].nunique() == 6, "external dataset count", passed)
+    check(
+        not predictions[["domain", "cell_id", "target_cycle_number"]].isna().any().any(),
+        "external identity columns have no missing values",
+        passed,
+    )
+
+    identity = pd.read_csv(base / "external_record_identity_v390.csv")
+    check(len(identity) == len(predictions), "external record identity count", passed)
+    check(identity["record_id"].is_unique, "external record identities are unique", passed)
+    for column in ["domain", "cell_id"]:
+        check(
+            identity[column].astype(str).tolist()
+            == predictions[column].astype(str).tolist(),
+            f"external record identity aligns: {column}",
+            passed,
+        )
+    check(
+        np.allclose(
+            identity["target_cycle_number"].to_numpy(float),
+            predictions["target_cycle_number"].to_numpy(float),
+            rtol=0.0,
+            atol=1e-12,
+        ),
+        "external record identity aligns: target_cycle_number",
+        passed,
+    )
+    shared = identity.duplicated(
+        ["domain", "cell_id", "target_cycle_number"], keep=False
+    )
+    check(
+        int(shared.sum()) == 2
+        and int(identity["within_nominal_cycle_ordinal"].max()) == 1,
+        "nominal-cycle tie is explicitly identified",
+        passed,
+    )
 
     predictions = predictions.copy()
     predictions["effect"] = (predictions["pchp_method"] - predictions["truth"]).abs() - (predictions["fixed_shift"] - predictions["truth"]).abs()
@@ -133,7 +198,9 @@ def verify_external_mechanism(passed: list[str]) -> None:
     displacement = float(np.max(np.abs(predictions["pchp_method"] - predictions["protected_state"])))
     realized_harm = float(np.max((predictions["pchp_method"] - predictions["truth"]).abs() - (predictions["protected_state"] - predictions["truth"]).abs()))
     max_increase = 0.0
-    for _, frame in predictions.sort_values(["domain", "cell_id", "target_cycle_number"]).groupby(["domain", "cell_id"], sort=False):
+    for _, frame in predictions.sort_values(
+        ["domain", "cell_id", "target_cycle_number"], kind="mergesort"
+    ).groupby(["domain", "cell_id"], sort=False):
         if len(frame) > 1:
             max_increase = max(max_increase, float(np.max(np.diff(frame["pchp_method"].to_numpy(float)))))
     check(displacement <= 0.01 + 1e-12, "external displacement budget", passed)
@@ -146,10 +213,24 @@ def verify_manuscript(passed: list[str]) -> None:
     en = (manuscript / "main_en.tex").read_text(encoding="utf-8")
     zh = (manuscript / "main_zh.tex").read_text(encoding="utf-8")
     bib = (manuscript / "references.bib").read_text(encoding="utf-8")
+    metadata = (manuscript / "submission_metadata_en_v390.md").read_text(encoding="utf-8")
     check("Prefix-Causal Harm-Budget Projection for Cross-Domain Lithium-Ion Battery Capacity-Retention Estimation" in en, "final English title", passed)
     check("面向跨域锂离子电池容量保持率估计的" in zh and "前缀因果损害预算投影" in zh, "final Chinese title", passed)
     check("Yuyang Wu" in en and "Aiping Jiang" in en, "author order", passed)
     check("0.00690" in en and "0.00690" in zh and "7.54" in en and "7.54" in zh, "bilingual headline numbers", passed)
+    check(
+        "label-free deployment still lacks a joint contract" in en
+        and "无标签部署仍缺少一种" in zh,
+        "bounded bilingual novelty statement",
+        passed,
+    )
+    check(
+        "GitHub and any persistent code archive are intentionally deferred" not in metadata
+        and "https://github.com/xiansuqiushui-dotcom/pchp-battery-capacity-retention" in metadata,
+        "submission metadata matches public repository status",
+        passed,
+    )
+    check("pages     = {2217--2223}" in bib, "SAFER page range present", passed)
     check("\\iffalse" not in en and "\\iffalse" not in zh, "no hidden manuscript branch", passed)
     cited = set()
     for text in [en, zh, (manuscript / "supplement_en.tex").read_text(encoding="utf-8"), (manuscript / "supplement_zh.tex").read_text(encoding="utf-8")]:
@@ -168,10 +249,35 @@ def main() -> int:
     passed: list[str] = []
 
     verify_manifest(passed)
+    verify_strict_json(passed)
     verify_release_boundary(passed)
     verify_external_mechanism(passed)
     verify_manuscript(passed)
 
+    run_checked(
+        "V390 replay-readiness classification",
+        [sys.executable, "replay_v390.py", "--check-package"],
+        ROOT,
+        passed,
+    )
+    run_checked(
+        "V390 validated public API tests",
+        [sys.executable, "-m", "unittest", "-v", "test_pchp_release_api_v390.py"],
+        ROOT,
+        passed,
+    )
+    run_checked(
+        "standard core unit-test discovery",
+        [sys.executable, "-m", "unittest", "discover", "-s", "core_v368", "-p", "test_*.py", "-v"],
+        ROOT,
+        passed,
+    )
+    run_checked(
+        "standard update unit-test discovery",
+        [sys.executable, "-m", "unittest", "discover", "-s", "updates_v389", "-p", "test_*.py", "-v"],
+        ROOT,
+        passed,
+    )
     run_checked("legacy V368 reproducibility core", [sys.executable, "verify_reproducibility_v368.py"], ROOT / "core_v368", passed)
     updates = ROOT / "updates_v389"
     for test in [
@@ -183,7 +289,7 @@ def main() -> int:
         run_checked(test, [sys.executable, test], updates, passed)
 
     receipt = {
-        "version": "v389",
+        "version": "v390",
         "status": "PASS",
         "checks_passed": len(passed),
         "python": platform.python_version(),
@@ -194,10 +300,11 @@ def main() -> int:
         "check_labels": passed,
     }
     if args.write_receipt:
-        path = ROOT / "verification_receipt_v389.json"
-        path.write_text(json.dumps(receipt, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        path = ROOT / "verification_receipt_v390.json"
+        with path.open("w", encoding="utf-8", newline="\n") as stream:
+            stream.write(json.dumps(receipt, indent=2, ensure_ascii=False) + "\n")
         print(f"Wrote {path.name}")
-    print(f"V389 RELEASE VERIFICATION PASSED: {len(passed)} checks")
+    print(f"V390 RELEASE VERIFICATION PASSED: {len(passed)} checks")
     return 0
 
 

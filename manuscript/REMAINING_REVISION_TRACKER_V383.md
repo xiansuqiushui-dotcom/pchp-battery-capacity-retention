@@ -36,7 +36,7 @@
 | R9 | 最终标题 | **完成** | 稳定后的中英文贡献主线 | 英文题目为“Prefix-Causal Harm-Budget Projection for Cross-Domain Lithium-Ion Battery Capacity-Retention Estimation”；中文题目为“面向跨域锂离子电池容量保持率估计的前缀因果损害预算投影” | 任务、对象和方法特色可直接识别 |
 | R10 | 摘要与引言终压缩 | **完成** | V388 中英文摘要、引言与贡献段 | 英文摘要在正文词与行内数值表达式计数口径下均低于 250 词，覆盖现实痛点、缺口、方法、规模、核心结果、BaSyTec 边界和决策价值；引言从换电运营商引入新供应商电芯的现实场景出发 | 主张直接且与证据相称，限制集中在讨论而非反复防御 |
 | R11 | 最终期刊版式与投稿材料 | **科学与文件准备完成；待投稿系统操作** | 四份定稿 PDF、LaTeX 源、独立 Highlights、图文摘要、元数据、声明文本、cover letter 与投稿清单 | 当前材料满足已核对的 Applied Energy 文件与内容要求；通讯作者电话及 Elsevier 工具生成的利益冲突文档只能在投稿系统由作者补全 | 不再因科学内容变化反复调格式；人工门户字段不伪造 |
-| R12 | GitHub 与持久归档 | **完成** | `pchp_battery_capacity_retention_release_v389`；MIT License；`manifest_v389.json`；`verification_receipt_v389.json` | 已排除第三方原始压缩包、原始 MAT 文件和模型包；418 个文件受 SHA-256 管理；`.gitattributes` 禁止跨平台换行转换；独立 Python 3.10.11 环境中 29/29 个顶层检查通过；无单文件达到 GitHub 100 MB 限制；公开仓库为 <https://github.com/xiansuqiushui-dotcom/pchp-battery-capacity-retention>，真实地址已回填中英文数据可用性声明与引用元数据 | 用户指定的“最后执行”顺序已遵守；公开发布、链接回填、重新编译与链接页视觉检查均完成；Zenodo DOI 为可选增强 |
+| R12 | GitHub 与持久归档 | **完成** | `pchp_battery_capacity_retention_release_v390`；MIT License；`manifest_v390.json`；`verification_receipt_v390.json` | 已排除第三方原始压缩包、原始 MAT 文件和模型包；`.gitattributes` 禁止跨平台换行转换；V390 增加严格 JSON、标准测试发现、记录身份和复现入口分类检查；无单文件达到 GitHub 100 MB 限制；公开仓库为 <https://github.com/xiansuqiushui-dotcom/pchp-battery-capacity-retention> | V389 标签保持冻结；V390 只修复提交与复现工程，不改变冻结预测或估计量；Zenodo DOI 为可选增强 |
 
 ## 逐项关闭规则
 
@@ -49,39 +49,39 @@
 
 ### R1 — 六外部数据集稳健性与精确推断
 
-- 冻结协议：`E:/CCF/interventional_battery_learning/EXTERNAL_ROBUSTNESS_PROTOCOL_V384.json`
-- 执行程序：`E:/CCF/interventional_battery_learning/audit_external_robustness_v384.py`
-- 验证测试：`E:/CCF/interventional_battery_learning/test_external_robustness_v384.py`，共 7 项，全部通过。
-- 结果目录：`E:/CCF/interventional_battery_learning/external_robustness_v384`
+- 冻结协议：`../updates_v389/EXTERNAL_ROBUSTNESS_PROTOCOL_V384.json`
+- 执行程序：`../updates_v389/audit_external_robustness_v384.py`
+- 验证测试：`../updates_v389/test_external_robustness_v384.py`，共 7 项，全部通过。
+- 结果目录：`../updates_v389/external_robustness_v384`
 - 主要外部估计量：PCHP 相对常数偏移的数据集等权电芯宏平均 MAE 差为 \(-0.006897\)；电芯等权与记录等权差分别为 \(-0.007367\) 和 \(-0.008864\)。
 - 小样本解释：全部聚合与剔除分析保持有利方向，但六个数据集的双侧精确符号翻转值为 \(0.0625\)；正文未将其包装成额外的 \(0.05\) 水平确认主张。
 
 ### R2 — 单调约束三臂消融
 
-- 冻结协议：`E:/CCF/interventional_battery_learning/MONOTONICITY_ABLATION_PROTOCOL_V385.json`
-- 执行程序：`E:/CCF/interventional_battery_learning/audit_monotonicity_ablation_v385.py`
-- 验证测试：`E:/CCF/interventional_battery_learning/test_monotonicity_ablation_v385.py`，共 8 项，全部通过。
-- 结果目录：`E:/CCF/interventional_battery_learning/monotonicity_ablation_v385`
+- 冻结协议：`../updates_v389/MONOTONICITY_ABLATION_PROTOCOL_V385.json`
+- 执行程序：`../updates_v389/audit_monotonicity_ablation_v385.py`
+- 验证测试：`../updates_v389/test_monotonicity_ablation_v385.py`，共 8 项，全部通过。
+- 结果目录：`../updates_v389/monotonicity_ablation_v385`
 - 干净识别比较：逐点损害管道实验臂相对严格 PCHP 只移除上一输出形成的上限；严格减逐点实验臂的域等权 MAE 差为 \(+0.000260\)，完整域 bootstrap \(95\%\) 区间为 \([-0.000538,0.001095]\)，精确 \(2^{12}\) 符号翻转值为 \(0.5654\)。
 - 机制收益：逐点实验臂产生 \(38{,}580\) 次向上修订，影响 \(483/586\) 个电芯，最大回升为 \(0.02\)；严格 PCHP 的对应三项均为零。因此，严格单调性提供了不可回写的轨迹合同，而未观察到与零清晰分离的平均精度代价。
 - 替代合同：有界恢复的域等权 MAE 为 \(0.069584\)，相对严格 PCHP 的差为 \(-0.000794\)，区间为 \([-0.002708,0.001041]\)；其最差域 MAE 高 \(0.00443\)，且允许每条记录最多回升 \(0.005\)。该实验臂不被写成单组件删除或新的部署选择。
 
 ### R3 — 数值输出上限敏感性
 
-- 冻结协议：`E:/CCF/interventional_battery_learning/OUTPUT_RANGE_SENSITIVITY_PROTOCOL_V386.json`
-- 执行程序：`E:/CCF/interventional_battery_learning/audit_output_range_sensitivity_v386.py`
-- 验证测试：`E:/CCF/interventional_battery_learning/test_output_range_sensitivity_v386.py`，共 8 项，全部通过。
-- 结果目录：`E:/CCF/interventional_battery_learning/output_range_sensitivity_v386`
+- 冻结协议：`../updates_v389/OUTPUT_RANGE_SENSITIVITY_PROTOCOL_V386.json`
+- 执行程序：`../updates_v389/audit_output_range_sensitivity_v386.py`
+- 验证测试：`../updates_v389/test_output_range_sensitivity_v386.py`，共 8 项，全部通过。
+- 结果目录：`../updates_v389/output_range_sensitivity_v386`
 - 完整重放：在数值输出上限 \(1.1,1.2,1.3,1.5\) 下，开发数据、六个外部数据集和 BaSyTec 均有零条输出相对于 \(1.3\) 发生变化；相应 MAE 分别固定为 \(0.070378\)、\(0.126365\) 和 \(0.165101\)，全部轨迹、范围、位移和观测损失证书通过。
 - 分布依据：三个目标兼容数据面的保存候选、受保护状态和最终输出均低于最小审计上限 \(1.1\)。因此 \(1.3\) 被保留为预先存在且在当前证据中不活跃的保守计算边界，而不是根据精度结果选择的常数。
 - NASA 清单核正：先在 \(34\) 个电芯、\(2{,}598\) 条结果盲预测记录上重放完整轨迹，再连接 \(33\) 个可评分电芯、\(2{,}556\) 条标签；其中 \(144\) 条标签高于 \(1.3\)，最大值为 \(21.77\)，但候选最大值仅为 \(0.9326\)。该结果定位为目标尺度不兼容，而不是输出截断造成的误差。
 
 ### R4 — 完整数据筛选与样本流转
 
-- 冻结协议：E:/CCF/interventional_battery_learning/DATA_FLOW_PROTOCOL_V387.json
-- 执行程序：E:/CCF/interventional_battery_learning/audit_data_flow_v387.py
-- 验证测试：E:/CCF/interventional_battery_learning/test_data_flow_v387.py，共 8 项，全部通过。
-- 结果目录：E:/CCF/interventional_battery_learning/data_flow_v387
+- 冻结协议：`../updates_v389/DATA_FLOW_PROTOCOL_V387.json`
+- 执行程序：`../updates_v389/audit_data_flow_v387.py`
+- 验证测试：`../updates_v389/test_data_flow_v387.py`，共 8 项，全部通过。
+- 结果目录：`../updates_v389/data_flow_v387`
 - 开发数据：\(605{,}005\) 条候选记录中有 \(143\) 条结构性剔除，得到 \(604{,}862\) 条符合特征约定的记录；每个 \(586\) 电芯保留前五条投运参照记录后，最终评分记录为 \(601{,}932\)。全部来源电芯均进入最终评分集合。
 - 六个外部数据集：从 \(945\) 个来源电芯按冻结的最小历史和参照资格规则得到 \(659\) 个评分电芯、\(9{,}712\) 条评分记录；无任何基于模型误差或效应方向的排除。
 - 边界项目：BaSyTec 从 \(48\) 个来源电芯得到 \(47\) 个特征参照电芯和 \(45\) 个结果合格电芯，共 \(2{,}969\) 条评分记录；NASA 从 \(34\) 个预测电池得到 \(33\) 个结果合格电池和 \(2{,}556\) 条评分记录。
@@ -99,16 +99,16 @@
 - 英文最终题目：`Prefix-Causal Harm-Budget Projection for Cross-Domain Lithium-Ion Battery Capacity-Retention Estimation`。
 - 中文最终题目：`面向跨域锂离子电池容量保持率估计的前缀因果损害预算投影`。
 - 英文摘要含 224 个正文词；若每个行内数值表达式另计一个词，则为 244 词，两种口径均低于期刊 250 词上限。中英文引言均从换电运营商引入新供应商电芯、参考容量滞后而维护决策必须提前作出的现实场景起笔。
-- 术语、主张—证据和审稿风险终审记录：`TERMINOLOGY_CLAIM_AND_REVIEWER_AUDIT_V388.md`；超级完善版 Skill 最终完成审计：`FINAL_SUPER_SKILL_COMPLETION_AUDIT_V389.md`。
+- 术语、主张—证据和审稿风险终审记录：`TERMINOLOGY_CLAIM_AND_REVIEWER_AUDIT_V388.md`；V390 最终完成审计：`FINAL_SUPER_SKILL_COMPLETION_AUDIT_V390.md`。
 
 ### R11 — 期刊格式与投稿材料
 
-- 投稿核对清单：`APPLIED_ENERGY_SUBMISSION_CHECKLIST_V389.md`。
+- 投稿核对清单：`APPLIED_ENERGY_SUBMISSION_CHECKLIST_V390.md`。
 - 独立 Highlights：`highlights.txt`；5 条均小于等于 85 个字符。
 - 图文摘要：`graphical_abstract_applied_energy_v388.pdf` 与 `graphical_abstract_applied_energy_v388.png`；位图尺寸为 (2340\times900) 像素。
-- 投稿元数据：`submission_metadata_en_v388.md`；cover letter：`cover_letter_en_v388.txt`；利益冲突一致性文本：`competing_interest_declaration_text_v388.txt`。
+- 投稿元数据：`submission_metadata_en_v390.md`；cover letter：`cover_letter_en_v388.txt`；利益冲突一致性文本：`competing_interest_declaration_text_v388.txt`。
 - 最终编译：英文主稿 44 页，SHA-256 `8bc5af58f5eb55702f48d7bcd854e29b3e5b80f8d53213e4675a3b86199b9bb4`；中文主稿 28 页，`55f2436e4a74e44a75cf9e4e065a2fa36a68bce7a372f9c3ba671fb9e2ec60e1`；英文补充 20 页，`e6edc590f39285a0f857dd89ad04884a048eb1c2a48a19f38c9b58bd1a406863`；中文补充 18 页，`46afeec65da46126dc512b4a40d4055a6dba9f94d001a33c919ae55785519c5e`。
-- 四份日志中未定义引文、未定义交叉引用、溢出版面、LaTeX 致命错误和紧急终止命中数均为 0；V389 渲染完成中英文标题页、相关工作、图 3、外部确认、BaSyTec、局限、结论、声明与参考文献的视觉核验。完整记录见 `BUILD_QA_V389.md`。
+- 四份日志中未定义引文、未定义交叉引用、溢出版面、LaTeX 致命错误和紧急终止命中数均为 0；V390 已完成四份 PDF 共 110 页的总览和关键页高清核验。完整记录见 `BUILD_QA_V390.md`。
 - 仍需作者在投稿系统中填写通讯作者电话，并使用 Elsevier 工具生成利益冲突 `.doc`/`.docx`；这两项不属于稿件科学内容缺口。
 
 ### R12 — GitHub 公开发布

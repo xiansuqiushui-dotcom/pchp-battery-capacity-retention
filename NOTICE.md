@@ -22,3 +22,10 @@ The author-created release is published at
 https://github.com/xiansuqiushui-dotcom/pchp-battery-capacity-retention.
 Historical submission-planning documents retained inside the hash-pinned
 `core_v368/` snapshot are provenance artifacts, not current submission files.
+
+The presence of a historical execution script does not imply that its
+provider-dependent inputs are redistributed. `REPLAY_READINESS_V390.md` and
+`replay_v390.py` classify every V380--V387 entry point as direct replay,
+provider-dependent refit/full recomputation, or historical archival refit.
+The launcher reports absent inputs before execution and never downloads or
+substitutes third-party data.

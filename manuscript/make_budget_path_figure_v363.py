@@ -54,7 +54,19 @@ def parse_pair(value: str) -> tuple[float, float]:
 
 def configure_font(chinese: bool) -> None:
     if chinese:
-        font_path = Path(r"C:\Windows\Fonts\msyh.ttc")
+        candidates = [
+            Path(r"C:\Windows\Fonts\msyh.ttc"),
+            Path(r"C:\Windows\Fonts\msyhbd.ttc"),
+            Path("/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc"),
+            Path("/usr/share/fonts/opentype/noto/NotoSansCJKsc-Regular.otf"),
+            Path("/System/Library/Fonts/PingFang.ttc"),
+        ]
+        font_path = next((path for path in candidates if path.is_file()), None)
+        if font_path is None:
+            raise RuntimeError(
+                "No supported Chinese font was found. Install Microsoft YaHei, "
+                "Noto Sans CJK SC, Source Han Sans SC, or PingFang SC."
+            )
         font_manager.fontManager.addfont(font_path)
         family = font_manager.FontProperties(fname=font_path).get_name()
     else:
