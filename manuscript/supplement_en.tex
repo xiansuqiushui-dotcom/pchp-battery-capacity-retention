@@ -32,7 +32,7 @@
 \setlength{\headheight}{14pt}
 
 \title{Supplementary Material\\
-\large Prefix-Causal Harm-Budget Projection for Cross-Domain Lithium-Ion Battery Capacity-Retention Estimation}
+\large Risk-Controlled Online Updating of Cross-Domain Lithium-Ion Battery Capacity-Retention Estimates via Prefix-Causal Projection}
 \author{Yuyang Wu\textsuperscript{1} \quad Aiping Jiang\textsuperscript{1,*}\\[0.35em]
 \small\textsuperscript{1}SILC Business School, Shanghai University, Shanghai 201899, China\\
 \small\textsuperscript{*}Corresponding author: \href{mailto:ap724@shu.edu.cn}{ap724@shu.edu.cn}}
@@ -161,13 +161,13 @@ NASA & 34 & 7,885 & 34 & 2,768 & 34 & 2,598 & 33 & 2,556 \\
 
 For AMPERE, four characterization members had fewer than three required Step-13 rows; Imperial excluded $42$ summary rows without a matched charge member. Luh excluded six invalid checkups and $48$ cells with fewer than six valid paired checkups. ILCC excluded seven cells with fewer than six valid capacities. Stanford retained $30$ of $259$ source cells after requiring six valid diagnostics; the ingestion report records $9{,}060$ diagnostic exclusions due to charge-window gaps, incomplete window coverage, or fewer than seven cycles, but not a comparable raw diagnostic denominator. Multistage excluded three RPT members missing capacity, charge, or discharge fields and two cells with fewer than six valid RPTs. In BaSyTec, F0001 was reserved before outcome access for parser development; F0009 and F0048 fell outside the frozen first-five reference-capacity support interval. For NASA, $5{,}117$ cycle records lacked a valid fixed charge window and $170$ commissioning records were withheld. The independent label audit rejected $44$ invalid discharge-capacity records; one predicted battery consequently lacked a valid first-five target reference, leaving its $42$ prediction records unscored.
 
-\section{Feature-by-weighting attribution audit}
+\section{Factorial attribution of feature construction and source weighting}
 
-The post-freeze $2\times2$ audit crossed raw versus commissioning-reference-change features with pooled versus domain-equal source weighting. The four candidates used identical strict leave-one-domain-out folds, ExtraTrees settings, source-row caps, imputers, and random seed. Each candidate was then passed through the current PCHP operator using the raw/pooled predictor as the protected state and the frozen V326 outer-domain $\alpha$ schedule. The selected change/domain-equal arm reproduced the V327 prediction ledger with maximum absolute error $0$.
+The $2\times2$ factorial attribution analysis was conducted after the main model and evaluation protocol had been frozen. It crossed raw versus commissioning-reference-change features with pooled versus domain-equal source weighting. The four candidates used identical strict leave-one-domain-out folds, ExtraTrees settings, source-row caps, imputers, and random seed. Each candidate was then passed through the current PCHP operator using the raw/pooled predictor as the protected state and the frozen V326 outer-domain $\alpha$ schedule. The selected change/domain-equal arm reproduced the V327 prediction ledger with maximum absolute error $0$.
 
 \begin{table}[H]
 \centering
-\caption{Four-arm feature-by-weighting audit. MAE is averaged equally across cells and then across the $12$ complete held-out domains.}
+\caption{Four-arm feature-by-weighting factorial analysis. MAE is averaged equally across cells and then across the $12$ complete held-out domains.}
 \label{tab:factorial_arms}
 \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}Xrrr}
 \toprule
@@ -185,7 +185,7 @@ Before projection, the change-feature effect was $-0.02105$ under pooled weighti
 
 \begin{table}[H]
 \centering
-\caption{Paired PCHP-layer effects in the $2\times2$ audit.}
+\caption{Paired PCHP-layer effects in the $2\times2$ factorial attribution analysis.}
 \label{tab:factorial_effects}
 \scriptsize
 \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}Xrrrr}
@@ -203,7 +203,7 @@ Feature-by-weighting interaction & $0.00016$ & $[-0.00093,0.00133]$ & --- & --- 
 
 \begin{table}[H]
 \centering
-\caption{SHA-256 identifiers for the V383 $2\times2$ attribution audit.}
+\caption{SHA-256 identifiers for the V383 $2\times2$ factorial attribution analysis.}
 \label{tab:factorial_hashes}
 \begin{tabularx}{\textwidth}{lX}
 \toprule
@@ -314,9 +314,9 @@ V378 audit report & {\scriptsize\ttfamily\seqsplit{411007452ed8c095258f3949af959
 \end{tabularx}
 \end{table}
 
-\section{Untuned secondary-backbone portability audit}
+\section{Secondary-backbone portability analysis}
 
-This protocol-locked retrospective audit replaced both primary ExtraTrees regressors with Ridge, HistGradientBoosting, or LightGBM while preserving the data, feature contract, weighting, outer-domain exclusions, harm budget, PCHP operator, and exact V326 outer-domain $\alpha$ schedule. No secondary-backbone hyperparameter or $\alpha$ tuning was permitted. Each backbone produced $601{,}932$ post-reference predictions over the same $586$ cells and $12$ complete domains. The independent verifier recomputed the domain effects and all deterministic certificates from the saved record-level predictions and passed $196$ named checks.
+This protocol-locked retrospective analysis replaced both primary ExtraTrees regressors with Ridge, HistGradientBoosting, or LightGBM while preserving the data, feature contract, weighting, outer-domain exclusions, harm budget, PCHP operator, and exact V326 outer-domain $\alpha$ schedule. Its purpose was to test contract portability rather than optimize or rank the model families; no secondary-backbone hyperparameter or $\alpha$ tuning was permitted. Each backbone produced $601{,}932$ post-reference predictions over the same $586$ cells and $12$ complete domains. The independent verifier recomputed the domain effects and all deterministic certificates from the saved record-level predictions and passed $196$ named checks.
 
 \begin{table}[H]
 \centering
@@ -358,7 +358,7 @@ A compact pre-normalized Transformer ($73{,}377$ parameters; two encoder layers;
 
 \begin{table}[H]
 \centering
-\caption{Zero-shot battery-sequence Transformer audit. The interval is a physical-cell bootstrap interval for PCHP minus the protected state.}
+\caption{Zero-shot battery-sequence Transformer stress test. The interval is a physical-cell bootstrap interval for PCHP minus the protected state.}
 \label{tab:transformer_audit}
 \scriptsize
 \begin{tabular}{lrrrrl}

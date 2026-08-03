@@ -29,7 +29,7 @@
 \setlength{\headheight}{14pt}
 
 \title{补充材料\\
-\large 面向跨域锂离子电池容量保持率估计的前缀因果损害预算投影}
+\large 跨域锂离子电池容量保持率估计的风险受控在线更新：前缀因果投影方法}
 \author{吴雨阳\textsuperscript{1} \quad 姜爱萍\textsuperscript{1,*}\\[0.35em]
 \small\textsuperscript{1}上海大学悉尼工商学院，上海 201899\\
 \small\textsuperscript{*}通讯作者：\href{mailto:ap724@shu.edu.cn}{ap724@shu.edu.cn}}
@@ -158,13 +158,13 @@ NASA & 34 & 7,885 & 34 & 2,768 & 34 & 2,598 & 33 & 2,556 \\
 
 AMPERE 中有 $4$ 个表征文件不具备至少三行规定的 Step-13 数据；Imperial 排除 $42$ 条缺少匹配充电文件的汇总记录。Luh 排除 $6$ 次无效检查，并排除有效配对检查少于六次的 $48$ 个电芯。ILCC 排除有效容量少于六次的 $7$ 个电芯。Stanford 在要求至少六次有效诊断后，从 $259$ 个来源电芯中保留 $30$ 个；导入报告记录了 $9{,}060$ 次因充电窗口间断、窗口覆盖不完整或循环数少于七次而产生的诊断排除，但没有保留可比的原始诊断总数。Multistage 排除 $3$ 个缺失容量、充电或放电字段的 RPT 文件，以及有效 RPT 少于六次的 $2$ 个电芯。BaSyTec 的 F0001 在访问结果之前被指定用于解析程序开发；F0009 和 F0048 超出冻结的前五条参照容量支持区间。NASA 中有 $5{,}117$ 条循环记录不具备有效的固定充电窗口，另有 $170$ 条投运参照记录不参与预测。独立标签审计拒绝 $44$ 条无效放电容量记录；其中一个已生成预测的电池因而无法构造有效的前五条结果参照，其 $42$ 条预测记录不进入评分。
 
-\section{特征与权重的因子归因审计}
+\section{特征构造与源域权重的因子归因分析}
 
-事后 $2\times2$ 审计交叉比较原始特征与投运参照变化特征，以及合并样本权重与域等权。四个候选模型采用完全相同的严格留一域外验证划分、ExtraTrees 参数、源域记录上限、缺失值处理器和随机种子。随后，每个候选均通过当前 PCHP 算子：以原始特征加合并权重模型作为受保护预测器，并复用冻结的 V326 逐外层域 $\alpha$ 日程。最终选用的变化特征加域等权实验臂对 V327 预测账本的最大绝对复现误差为 $0$。
+$2\times2$ 因子归因分析在主模型和评估协议冻结后开展，交叉比较原始特征与投运参照变化特征，以及合并样本权重与域等权。四个候选模型采用完全相同的严格留一域外验证划分、ExtraTrees 参数、源域记录上限、缺失值处理器和随机种子。随后，每个候选均通过当前 PCHP 算子：以原始特征加合并权重模型作为受保护预测器，并复用冻结的 V326 逐外层域 $\alpha$ 日程。最终选用的变化特征加域等权实验臂对 V327 预测账本的最大绝对复现误差为 $0$。
 
 \begin{table}[H]
 \centering
-\caption{特征与权重的四臂因子审计。MAE 先在电芯内计算，再对 $12$ 个完整留出域等权平均。}
+\caption{特征构造与源域权重的四臂因子分析。MAE 先在电芯内计算，再对 $12$ 个完整留出域等权平均。}
 \label{tab:factorial_arms_zh}
 \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}Xrrr}
 \toprule
@@ -182,7 +182,7 @@ AMPERE 中有 $4$ 个表征文件不具备至少三行规定的 Step-13 数据�
 
 \begin{table}[H]
 \centering
-\caption{$2\times2$ 审计中 PCHP 层的配对效应。}
+\caption{$2\times2$ 因子归因分析中 PCHP 层的配对效应。}
 \label{tab:factorial_effects_zh}
 \scriptsize
 \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}Xrrrr}
@@ -200,7 +200,7 @@ AMPERE 中有 $4$ 个表征文件不具备至少三行规定的 Step-13 数据�
 
 \begin{table}[H]
 \centering
-\caption{V383 $2\times2$ 归因审计的 SHA-256 标识。}
+\caption{V383 $2\times2$ 因子归因分析的 SHA-256 标识。}
 \label{tab:factorial_hashes_zh}
 \begin{tabularx}{\textwidth}{lX}
 \toprule
@@ -311,9 +311,9 @@ V378 审计报告 & {\scriptsize\ttfamily\seqsplit{411007452ed8c095258f3949af959
 \end{tabularx}
 \end{table}
 
-\section{未额外调参的次级骨干可移植性审计}
+\section{次级骨干可移植性分析}
 
-该协议锁定的回顾性审计将两个主要 ExtraTrees 回归器同时替换为 Ridge、HistGradient\-Boosting 或 LightGBM，并保持数据、特征合同、权重、外层目标域排除、损害预算、PCHP 算子以及 V326 的逐外层域 $\alpha$ 日程完全不变。次级骨干不允许重新调节超参数或 $\alpha$。每个骨干均在相同的 $12$ 个完整数据域和 $586$ 个电芯上生成 $601{,}932$ 条投运参照后预测。独立验证器从保存的逐记录预测重算域级效应与全部确定性证书，共通过 $196$ 项具名检查。
+该协议锁定的回顾性分析将两个主要 ExtraTrees 回归器同时替换为 Ridge、HistGradient\-Boosting 或 LightGBM，并保持数据、特征合同、权重、外层目标域排除、损害预算、PCHP 算子以及 V326 的逐外层域 $\alpha$ 日程完全不变。实验目的在于检验约束的架构可移植性，而非优化或排名模型族；因此次级骨干不允许重新调节超参数或 $\alpha$。每个骨干均在相同的 $12$ 个完整数据域和 $586$ 个电芯上生成 $601{,}932$ 条投运参照后预测。独立验证器从保存的逐记录预测重算域级效应与全部确定性证书，共通过 $196$ 项具名检查。
 
 \begin{table}[H]
 \centering
@@ -355,7 +355,7 @@ V375 独立验证回执 & {\scriptsize\ttfamily\seqsplit{26e81d0a73374a954e518dc
 
 \begin{table}[H]
 \centering
-\caption{电池序列 Transformer 的零样本迁移审计。区间为 PCHP 减受保护状态的物理电芯 bootstrap 区间。}
+\caption{电池序列 Transformer 的零样本迁移压力测试。区间为 PCHP 减受保护状态的物理电芯 bootstrap 区间。}
 \label{tab:transformer_audit_zh}
 \scriptsize
 \begin{tabular}{lrrrrl}
