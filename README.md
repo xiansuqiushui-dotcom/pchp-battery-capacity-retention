@@ -1,8 +1,14 @@
-# Prefix-Causal Harm-Budget Projection for Battery Capacity-Retention Estimation
+# Risk-Controlled Online Updating of Cross-Domain Battery Capacity-Retention Estimates
 
-This is the V390 frozen reproducibility release accompanying the manuscript
-*Prefix-Causal Harm-Budget Projection for Cross-Domain Lithium-Ion Battery
-Capacity-Retention Estimation*.
+This is the V391 manuscript-alignment and reproducibility release accompanying
+the manuscript *Risk-Controlled Online Updating of Cross-Domain Lithium-Ion
+Battery Capacity-Retention Estimates via Prefix-Causal Projection*.
+
+V391 updates the title, abstract, terminology, applied framing, bilingual
+manuscript sources, and compiled manuscript PDFs. It does not change the
+datasets, estimands, models, predictions, figures, scientific code, or reported
+numerical results. The immutable V390 scientific parent remains available at
+https://github.com/xiansuqiushui-dotcom/pchp-battery-capacity-retention/releases/tag/v390.
 
 Repository: https://github.com/xiansuqiushui-dotcom/pchp-battery-capacity-retention
 
@@ -13,8 +19,10 @@ before the capacity outcome is observed.
 
 ## Release contents
 
-- `manuscript/`: final bilingual manuscript and supplementary sources, compiled
-  PDFs, figures, submission assets, and reviewer-risk records.
+- `manuscript/`: current bilingual manuscript and supplementary sources,
+  compiled PDFs, figures, and public QA records. V391 journal-portal metadata
+  and correspondence files remain local and are not part of this update;
+  older submission files are retained only as release provenance.
 - `core_v368/`: the immutable, hash-pinned reproducibility core audited through
   V378. Historical planning files inside this snapshot are provenance records,
   not current submission documents.
@@ -29,6 +37,10 @@ before the capacity outcome is observed.
 - `verify_release_v390.py`: authoritative portable release verifier.
 - `manifest_v390.json`: SHA-256 manifest for every release payload file.
 - `verification_receipt_v390.json`: clean-environment verification receipt.
+- `verify_release_v391.py`, `manifest_v391.json`, and
+  `verification_receipt_v391.json`: the corresponding verifier, payload
+  manifest, and clean verification receipt for the presentation-only V391
+  update while retaining all V390 scientific checks.
 
 No third-party raw archive or fitted model bundle is redistributed. Saved CSV
 and Parquet tables are derived research artifacts required to verify the
@@ -43,17 +55,19 @@ Python 3.10 is the frozen reference environment.
 python -m venv .venv
 .\.venv\Scripts\python -m pip install --upgrade pip
 .\.venv\Scripts\python -m pip install -r requirements.txt
-.\.venv\Scripts\python verify_release_v390.py --write-receipt
+.\.venv\Scripts\python verify_release_v391.py --write-receipt
 ```
 
-The verifier checks every payload hash, strict JSON syntax, the release
-boundary, the unique V390 external record ledger, the final six-dataset
+The V391 verifier checks every current payload hash, strict JSON syntax, the
+release boundary, the unique V390 external record ledger, the final six-dataset
 estimand and two-stage bootstrap, the validated public API, standard unit-test
-discovery, the immutable V368 verifier, V384--V387 result tests, bilingual
+discovery, the immutable V368 verifier, V384--V387 result tests, V391 bilingual
 manuscript numbers and citation keys, and the four compiled PDFs.
 
-The manifest excludes itself and the generated verification receipt to avoid
-self-referential hashes. All other non-ignored payload files are hash-pinned.
+The V391 manifest excludes itself and its generated verification receipt to
+avoid self-referential hashes. All other release payload files are hash-pinned.
+The V390 verifier remains authoritative when checking out the immutable V390
+tag; it is retained on the current branch as scientific-release provenance.
 
 ## Replay boundary
 
@@ -84,8 +98,8 @@ latexmk -xelatex -interaction=nonstopmode -halt-on-error supplement_zh.tex
 
 The manifest pins the distributed PDF bytes. A local LaTeX rebuild can produce
 identical text, geometry, figures, and content streams while changing only PDF
-creation/modification timestamps; rerun `make_manifest_v390.py` only when
-preparing a new versioned release, never merely to conceal an unexplained
+creation/modification timestamps; rerun `make_manifest_v391.py` only when
+preparing this exact versioned release, never merely to conceal an unexplained
 scientific difference.
 
 ## Evidence boundary

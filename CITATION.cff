@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this software or its derived audit artifacts, please cite the accompanying manuscript."
-title: "Prefix-Causal Harm-Budget Projection for Cross-Domain Lithium-Ion Battery Capacity-Retention Estimation"
+title: "Risk-Controlled Online Updating of Cross-Domain Lithium-Ion Battery Capacity-Retention Estimates via Prefix-Causal Projection"
 type: software
 authors:
   - family-names: Wu
@@ -8,7 +8,7 @@ authors:
     orcid: "https://orcid.org/0009-0002-4641-0753"
   - family-names: Jiang
     given-names: Aiping
-version: "v390"
+version: "v391"
 date-released: "2026-08-03"
 license: MIT
 repository-code: "https://github.com/xiansuqiushui-dotcom/pchp-battery-capacity-retention"
