@@ -138,7 +138,7 @@
       "affected_cells": 483,
       "fraction_affected_cells": 0.8242320819112628,
       "maximum_output_increase": 0.020000000000000018,
-      "maximum_recovery_envelope_excess": NaN
+      "maximum_recovery_envelope_excess": null
     },
     {
       "method": "strict_monotone",
@@ -148,7 +148,7 @@
       "affected_cells": 0,
       "fraction_affected_cells": 0.0,
       "maximum_output_increase": 0.0,
-      "maximum_recovery_envelope_excess": NaN
+      "maximum_recovery_envelope_excess": null
     },
     {
       "method": "bounded_recovery",

@@ -190,7 +190,7 @@ def transition_metrics(frame: pd.DataFrame) -> pd.DataFrame:
                 "fraction_affected_cells": affected_cells / EXPECTED_COUNTS["cells"],
                 "maximum_output_increase": maximum_increase,
                 "maximum_recovery_envelope_excess": (
-                    recovery_excess if method == "bounded_recovery" else np.nan
+                    recovery_excess if method == "bounded_recovery" else None
                 ),
             }
         )
@@ -322,8 +322,10 @@ def main() -> None:
         name: {"path": str(path), "sha256": sha256_file(path), "bytes": int(path.stat().st_size)}
         for name, path in artifacts.items()
     }
-    report_path.write_text(json.dumps(report, indent=2), encoding="utf-8")
-    print(json.dumps(report, indent=2))
+    report_path.write_text(
+        json.dumps(report, indent=2, allow_nan=False), encoding="utf-8"
+    )
+    print(json.dumps(report, indent=2, allow_nan=False))
 
 
 if __name__ == "__main__":

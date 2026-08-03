@@ -8,7 +8,7 @@ authors:
     orcid: "https://orcid.org/0009-0002-4641-0753"
   - family-names: Jiang
     given-names: Aiping
-version: "v389"
+version: "v390"
 date-released: "2026-08-03"
 license: MIT
 repository-code: "https://github.com/xiansuqiushui-dotcom/pchp-battery-capacity-retention"

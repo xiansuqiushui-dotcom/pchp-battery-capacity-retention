@@ -1,4 +1,4 @@
-# Submission metadata — V388
+# Submission metadata — V390
 
 ## Article title
 
@@ -31,5 +31,4 @@ The authors declare that they have no known competing financial interests or per
 
 ## Data and code status
 
-Third-party data remain under their providers' terms and will not be redistributed by default. The author-created review package is available from the corresponding author on reasonable request during peer review. GitHub and any persistent code archive are intentionally deferred until the final scientific and release freeze.
-
+Third-party data remain under their providers' terms and are not redistributed in the release. The frozen author-created code, manuscript sources, permitted derived audit artifacts, manifest, and verification workflow are publicly available at https://github.com/xiansuqiushui-dotcom/pchp-battery-capacity-retention. Provider access routes and the boundary between direct numerical replay and provider-dependent full recomputation are documented in `NOTICE.md`, `core_v368/DATA_SOURCES.md`, `core_v368/FULL_REPRODUCTION.md`, and `REPLAY_READINESS_V390.md`.

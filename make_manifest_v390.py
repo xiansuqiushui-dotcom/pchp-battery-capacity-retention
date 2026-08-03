@@ -1,4 +1,4 @@
-"""Create the deterministic V389 release manifest."""
+"""Create the deterministic V390 release manifest."""
 
 from __future__ import annotations
 
@@ -8,9 +8,21 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent
-OUTPUT = ROOT / "manifest_v389.json"
-EXCLUDED_NAMES = {OUTPUT.name, "verification_receipt_v389.json"}
+OUTPUT = ROOT / "manifest_v390.json"
+EXCLUDED_NAMES = {OUTPUT.name, "verification_receipt_v390.json"}
 EXCLUDED_PARTS = {".git", ".venv", "__pycache__"}
+EXCLUDED_SUFFIXES = {
+    ".aux",
+    ".bbl",
+    ".blg",
+    ".fdb_latexmk",
+    ".fls",
+    ".log",
+    ".out",
+    ".spl",
+    ".synctex",
+    ".xdv",
+}
 
 
 def sha256(path: Path) -> str:
@@ -28,7 +40,9 @@ def tracked_files() -> list[Path]:
             continue
         if any(part in EXCLUDED_PARTS for part in path.relative_to(ROOT).parts):
             continue
-        if path.suffix in {".pyc", ".pyo"}:
+        if path.suffix in {".pyc", ".pyo", *EXCLUDED_SUFFIXES}:
+            continue
+        if path.name.endswith(".synctex.gz"):
             continue
         files.append(path)
     return sorted(files, key=lambda p: p.relative_to(ROOT).as_posix())
@@ -44,7 +58,7 @@ def main() -> None:
         for path in tracked_files()
     ]
     manifest = {
-        "version": "v389",
+        "version": "v390",
         "release_date": "2026-08-03",
         "title": "Prefix-Causal Harm-Budget Projection for Cross-Domain Lithium-Ion Battery Capacity-Retention Estimation",
         "license_for_author_created_software": "MIT",
@@ -56,10 +70,10 @@ def main() -> None:
         "total_bytes": sum(item["bytes"] for item in records),
         "files": records,
     }
-    OUTPUT.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    with OUTPUT.open("w", encoding="utf-8", newline="\n") as stream:
+        stream.write(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n")
     print(f"Wrote {OUTPUT.name}: {len(records)} files, {manifest['total_bytes']} bytes")
 
 
 if __name__ == "__main__":
     main()
-
