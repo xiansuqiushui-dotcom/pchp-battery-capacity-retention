@@ -1,0 +1,237 @@
+{
+  "version": "v385",
+  "status": "MONOTONICITY_ABLATION_COMPLETE",
+  "classification": "post-hoc retrospective development ablation; all development outcomes were historically opened",
+  "information_boundary": {
+    "domains": 12,
+    "cells": 586,
+    "records": 601932,
+    "independent_unit": "complete held-out development dataset domain",
+    "nested_units": [
+      "physical cell",
+      "record"
+    ],
+    "refitting": false,
+    "all_development_outcomes_historically_opened": true
+  },
+  "summary": [
+    {
+      "method": "bounded_recovery",
+      "domain_equal_cell_macro_mae": 0.06958390255195183,
+      "worst_domain_cell_macro_mae": 0.14973796261426345
+    },
+    {
+      "method": "pointwise_tube",
+      "domain_equal_cell_macro_mae": 0.07011798541228416,
+      "worst_domain_cell_macro_mae": 0.1453074741276922
+    },
+    {
+      "method": "strict_monotone",
+      "domain_equal_cell_macro_mae": 0.07037751214694384,
+      "worst_domain_cell_macro_mae": 0.1453074741276922
+    }
+  ],
+  "comparisons": {
+    "strict_minus_pointwise": {
+      "method": "strict_monotone",
+      "reference": "pointwise_tube",
+      "difference_direction": "MAE(strict_monotone) - MAE(pointwise_tube)",
+      "domain_equal_mean_difference": 0.00025952673465967055,
+      "median_domain_difference": 4.890464607084505e-05,
+      "domain_bootstrap_95_percent_interval": [
+        -0.0005377139483590318,
+        0.0010945627573034481
+      ],
+      "exact_two_sided_sign_flip_p": 0.5654296875,
+      "exact_assignments": 4096,
+      "domain_wins_ties_losses_for_method": [
+        3,
+        1,
+        8
+      ],
+      "per_domain_difference": {
+        "CALB": 1.6795566238902992e-06,
+        "CALCE": -0.002922563254645842,
+        "HNEI": 0.00020729779090294942,
+        "HUST": -0.00014521144179512752,
+        "MATR": 0.0037441130035632264,
+        "MICH": 5.85607747780742e-05,
+        "MICH_EXP": 0.0009910034719126382,
+        "RWTH": 0.0,
+        "SDU": 0.001306075599014342,
+        "SNL": -0.0003071379360973514,
+        "UL_PUR": 0.00014125473429563162,
+        "XJTU": 3.92485173636159e-05
+      }
+    },
+    "bounded_minus_strict": {
+      "method": "bounded_recovery",
+      "reference": "strict_monotone",
+      "difference_direction": "MAE(bounded_recovery) - MAE(strict_monotone)",
+      "domain_equal_mean_difference": -0.0007936095949920124,
+      "median_domain_difference": -0.0007457271448456024,
+      "domain_bootstrap_95_percent_interval": [
+        -0.002708435703410258,
+        0.00104125361789082
+      ],
+      "exact_two_sided_sign_flip_p": 0.44921875,
+      "exact_assignments": 4096,
+      "domain_wins_ties_losses_for_method": [
+        7,
+        0,
+        5
+      ],
+      "per_domain_difference": {
+        "CALB": -0.002629431122774195,
+        "CALCE": 0.0033030397176987206,
+        "HNEI": -0.007870902563659743,
+        "HUST": 0.0006187772427696039,
+        "MATR": -0.004669861789025287,
+        "MICH": 0.0008621287654313192,
+        "MICH_EXP": -0.0027727405499392843,
+        "RWTH": 0.004430488486571238,
+        "SDU": -0.0013555758543719876,
+        "SNL": 0.0022304913997282932,
+        "UL_PUR": -0.00013587843531921717,
+        "XJTU": -0.0015338504370136091
+      }
+    },
+    "bounded_minus_pointwise": {
+      "method": "bounded_recovery",
+      "reference": "pointwise_tube",
+      "difference_direction": "MAE(bounded_recovery) - MAE(pointwise_tube)",
+      "domain_equal_mean_difference": -0.0005340828603323418,
+      "median_domain_difference": -2.2061978190615616e-05,
+      "domain_bootstrap_95_percent_interval": [
+        -0.002197177004154726,
+        0.0009474866182588364
+      ],
+      "exact_two_sided_sign_flip_p": 0.5732421875,
+      "exact_assignments": 4096,
+      "domain_wins_ties_losses_for_method": [
+        6,
+        0,
+        6
+      ],
+      "per_domain_difference": {
+        "CALB": -0.002627751566150305,
+        "CALCE": 0.0003804764630528784,
+        "HNEI": -0.0076636047727567935,
+        "HUST": 0.0004735658009744764,
+        "MATR": -0.0009257487854620605,
+        "MICH": 0.0009206895402093934,
+        "MICH_EXP": -0.0017817370780266462,
+        "RWTH": 0.004430488486571238,
+        "SDU": -4.9500255357645684e-05,
+        "SNL": 0.0019233534636309418,
+        "UL_PUR": 5.376298976414451e-06,
+        "XJTU": -0.0014946019196499932
+      }
+    }
+  },
+  "transition_metrics": [
+    {
+      "method": "pointwise_tube",
+      "positive_output_transitions": 38580,
+      "total_output_transitions": 601346,
+      "fraction_positive_transitions": 0.06415607653497321,
+      "affected_cells": 483,
+      "fraction_affected_cells": 0.8242320819112628,
+      "maximum_output_increase": 0.020000000000000018,
+      "maximum_recovery_envelope_excess": NaN
+    },
+    {
+      "method": "strict_monotone",
+      "positive_output_transitions": 0,
+      "total_output_transitions": 601346,
+      "fraction_positive_transitions": 0.0,
+      "affected_cells": 0,
+      "fraction_affected_cells": 0.0,
+      "maximum_output_increase": 0.0,
+      "maximum_recovery_envelope_excess": NaN
+    },
+    {
+      "method": "bounded_recovery",
+      "positive_output_transitions": 57332,
+      "total_output_transitions": 601346,
+      "fraction_positive_transitions": 0.09533945515560094,
+      "affected_cells": 574,
+      "fraction_affected_cells": 0.9795221843003413,
+      "maximum_output_increase": 0.0050000000000000044,
+      "maximum_recovery_envelope_excess": 4.336808689942018e-18
+    }
+  ],
+  "deterministic_certificates": {
+    "pointwise_tube": {
+      "protected_reference": "strict_state",
+      "maximum_absolute_displacement": 0.010000000000000009,
+      "maximum_observed_absolute_loss_increase": 0.010000000000000009,
+      "minimum_prediction": 0.3399285599284209,
+      "maximum_prediction": 1.014274133806225,
+      "harm_budget_passed": true,
+      "range_passed": true
+    },
+    "strict_monotone": {
+      "protected_reference": "strict_state",
+      "maximum_absolute_displacement": 0.010000000000000009,
+      "maximum_observed_absolute_loss_increase": 0.010000000000000009,
+      "minimum_prediction": 0.3399285599284209,
+      "maximum_prediction": 1.014274133806225,
+      "harm_budget_passed": true,
+      "range_passed": true
+    },
+    "bounded_recovery": {
+      "protected_reference": "bounded_recovery_state",
+      "maximum_absolute_displacement": 0.010000000000000009,
+      "maximum_observed_absolute_loss_increase": 0.010000000000000009,
+      "minimum_prediction": 0.33993062703424226,
+      "maximum_prediction": 1.017146839525978,
+      "harm_budget_passed": true,
+      "range_passed": true
+    }
+  },
+  "strict_v327_maximum_reproduction_error": 0.0,
+  "interpretation_contract": "The strict-minus-pointwise comparison isolates the output-order constraint. The bounded-recovery comparison is an alternative state-and-output contract, not a single-component deletion.",
+  "artifacts": {
+    "protocol": {
+      "path": "E:\\CCF\\interventional_battery_learning\\MONOTONICITY_ABLATION_PROTOCOL_V385.json",
+      "sha256": "5ca2c74dc88fe6bdf18a797696eafdefad99b1c5156833b6a5a5510347c58b69",
+      "bytes": 2430
+    },
+    "implementation": {
+      "path": "E:\\CCF\\interventional_battery_learning\\audit_monotonicity_ablation_v385.py",
+      "sha256": "802e29ad84f599f958ac690f009b89d0aff22eb4ff6382b0935a8afdc89828d3",
+      "bytes": 12994
+    },
+    "input": {
+      "path": "E:\\CCF\\interventional_battery_learning\\bounded_recovery_pchp_v374\\bounded_recovery_outer_predictions_v374.parquet",
+      "sha256": "c7c0045abfa8fdaa862604a273fe1da8f4409e0741148a74c6220f2212c11bdb",
+      "bytes": 32147430
+    },
+    "predictions": {
+      "path": "E:\\CCF\\interventional_battery_learning\\monotonicity_ablation_v385\\monotonicity_ablation_predictions_v385.parquet",
+      "sha256": "fd42c68ba54c4b5347ede0574262a6dc4d38d9c2d487efc460b790fb64c138d4",
+      "bytes": 28812060
+    },
+    "cell_metrics": {
+      "path": "E:\\CCF\\interventional_battery_learning\\monotonicity_ablation_v385\\monotonicity_ablation_cell_metrics_v385.csv",
+      "sha256": "bdc29a120299337e96e89ac3ad89ddf5b60aec05c22ba46ce32cbb171193be79",
+      "bytes": 114177
+    },
+    "domain_metrics": {
+      "path": "E:\\CCF\\interventional_battery_learning\\monotonicity_ablation_v385\\monotonicity_ablation_domain_metrics_v385.csv",
+      "sha256": "ae94d42397d74f26e6ae3e3345c7610f7b239b777044c2c9828e358f30eeea6f",
+      "bytes": 1685
+    },
+    "summary": {
+      "path": "E:\\CCF\\interventional_battery_learning\\monotonicity_ablation_v385\\monotonicity_ablation_summary_v385.csv",
+      "sha256": "6a1a3ab89a4f3dc4853e06eada9bdb876926d01953ba924f125b030ca2721624",
+      "bytes": 233
+    },
+    "transitions": {
+      "path": "E:\\CCF\\interventional_battery_learning\\monotonicity_ablation_v385\\monotonicity_ablation_transitions_v385.csv",
+      "sha256": "9d91e5640eaff26ac6182770a6ebbe59632979b6e598867a719f0ccf4fb06844",
+      "bytes": 440
+    }
+  }
+}

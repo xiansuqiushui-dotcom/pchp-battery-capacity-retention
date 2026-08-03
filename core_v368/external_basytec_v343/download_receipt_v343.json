@@ -1,0 +1,301 @@
+{
+  "downloaded_cell_zips": [
+    {
+      "key": "F0001.zip",
+      "md5": "8181a89aee2e525ca52b60491ee3209b",
+      "sha256": "AD9527AB6F56C18E6E802D2820B5F53679EA6405844031E304A6CD7725A7F066",
+      "size": 16057058
+    },
+    {
+      "key": "F0002.zip",
+      "md5": "3eaca9d8eff8ccf2d1caf55575a3af76",
+      "sha256": "6FBFA6575AFE0F7CAA4DDFE81E76A8891B19E65502C3C0362BCE503F4A702007",
+      "size": 21349140
+    },
+    {
+      "key": "F0003.zip",
+      "md5": "4f3c7587d697b2b863b36a13a7ab8f25",
+      "sha256": "E97F980F5E154F6DA67F609308601D32574CE2B1BEEBF657897916676F47FEF2",
+      "size": 18026931
+    },
+    {
+      "key": "F0004.zip",
+      "md5": "c082612d0c9b67b8f2a198a5903174b6",
+      "sha256": "071C93AF8F9D5D47D62DB5205F5C43E4CFE9200921538876F1E3F1E79598B5D6",
+      "size": 17415630
+    },
+    {
+      "key": "F0006.zip",
+      "md5": "f932b32f27a4dc71cae6ee88a9807bff",
+      "sha256": "6C8A1C40EC9E78C2D1563FE21972967FEF70AC1B230C811BA35678B415335B4F",
+      "size": 16544248
+    },
+    {
+      "key": "F0007.zip",
+      "md5": "e3357a887d4816c391a08e8f980c9d5d",
+      "sha256": "FA55599290A9C44C8D1AF530B8499C2E3FBAD43C6470A14B957FC83C0905BFE9",
+      "size": 18993991
+    },
+    {
+      "key": "F0008.zip",
+      "md5": "081abc8d8a9f80356a94c969876c859d",
+      "sha256": "68C8ADAB53E6945AFD3C44ED988D3431D881C2673AD8708830BF019AE2335E77",
+      "size": 17502175
+    },
+    {
+      "key": "F0009.zip",
+      "md5": "ee9838a4edf56986c308baf8fdc91247",
+      "sha256": "E0703ACB4701742069C9E62319A9A3182D2DD50BE1CEB72839FD81CECE48A0E9",
+      "size": 17395999
+    },
+    {
+      "key": "F0010.zip",
+      "md5": "90c6fde8fbe8c4b67a29d367fbe13912",
+      "sha256": "EEDB4B9E67A1CDCBC7F98736D745187B1E5E33B5F62422FFB44613EBA7D8A453",
+      "size": 21778184
+    },
+    {
+      "key": "F0011.zip",
+      "md5": "e54ba03b052ada1796efdb2e5a64f32d",
+      "sha256": "8BED0E83C3BC0FE96D24247300062347B25D15461D137FEB045D3B12B877DC08",
+      "size": 19603671
+    },
+    {
+      "key": "F0012.zip",
+      "md5": "5b10d50c934007d6d2ccabb547d3e16a",
+      "sha256": "EACA78E704E65056977B727A1D6FCB9CB60FCC6DC6254535B9CC1F6E7B63FAF5",
+      "size": 22465474
+    },
+    {
+      "key": "F0013.zip",
+      "md5": "ada82366609bf8d9a6802af172f7541a",
+      "sha256": "A8CDD28F41E144E07F4A2E9780B0B369DF38474C3755CCD9580984284B739C42",
+      "size": 18929131
+    },
+    {
+      "key": "F0014.zip",
+      "md5": "707cc97d190d71062372d3bad6e164fd",
+      "sha256": "955611A9A5EC3EFC437AFEEA49A9657FCE271919298799D2DADDE43ADD085361",
+      "size": 16139416
+    },
+    {
+      "key": "F0016.zip",
+      "md5": "51c03f04d8536a430542417a67137140",
+      "sha256": "51EBC9F79CDFB849AFE3F968420B31E5CD6B7E8608372E521753B88FFD3AB4C3",
+      "size": 18872153
+    },
+    {
+      "key": "F0017.zip",
+      "md5": "a6f91aa58d46dd4eda47447a280b645c",
+      "sha256": "A8E9C62CD044A1A197CBC40E8D01C288621509A5BCB2826CBEDB94ECA64013BB",
+      "size": 22379415
+    },
+    {
+      "key": "F0022.zip",
+      "md5": "1dbda5a8194f7d8cbfac99a5510d93a4",
+      "sha256": "B45E5246AF18FB06A0732F60DF9FB34908F3F1331D58B42782296948AEF666AD",
+      "size": 18603441
+    },
+    {
+      "key": "F0026.zip",
+      "md5": "600b832902aecbab5935843ff8ef5c29",
+      "sha256": "7F3D0D1AEDD5FE424FA775BBCAF03F6DDC24470C966E976598ACF74301526333",
+      "size": 18872466
+    },
+    {
+      "key": "F0031.zip",
+      "md5": "85a2f4c569988219a771faae19624068",
+      "sha256": "40602BD3E9A0B706B2E3996B5353D2D79EF418CDC83A0F0078121E26851DADEF",
+      "size": 24280725
+    },
+    {
+      "key": "F0036.zip",
+      "md5": "9377cd2d0b3e2d51aa1e05a33948b61f",
+      "sha256": "7F1B5D03AB3401E7B573FBD7B638F4681F79A7D056F6A10D49DDC8E5029C884E",
+      "size": 19199268
+    },
+    {
+      "key": "F0048.zip",
+      "md5": "c3ca8579033d140c3f9bed3b48ea6bda",
+      "sha256": "B71EBB36F566F3BEAA5EB334A132FCBF3EB6A2DD93A321457A11D0F5F4000C7E",
+      "size": 16718780
+    },
+    {
+      "key": "F0052.zip",
+      "md5": "7b39bc193c53aafbfa4168d5f272567e",
+      "sha256": "DA4A7B04E651A10EA8873FEC6BF8C86197FE09FEBBAD358F5AAF0A0BF6FB684C",
+      "size": 20961230
+    },
+    {
+      "key": "F0054.zip",
+      "md5": "8694a70bf9f1ad3f00faab49fd372f5a",
+      "sha256": "16A49D9C5BFF74490DD671E303725161564463E0B84CEDCB0C19DC4F7C9AFFC6",
+      "size": 19878540
+    },
+    {
+      "key": "F0056.zip",
+      "md5": "6cef8e590d81fe0ef3acb15e5143eb78",
+      "sha256": "5C29F2440555FE2F2D8C8236ABFC4D6E5D1493A65B29DD1B2A66BD8C1C910B51",
+      "size": 18706834
+    },
+    {
+      "key": "F0063.zip",
+      "md5": "dbb3fe38acf671fe97b34974593ce049",
+      "sha256": "2C0ABDD8C3BD84868AB8F8A5977CFEA152118CECEC61DE953D387ADF02B502D8",
+      "size": 22358104
+    },
+    {
+      "key": "F0064.zip",
+      "md5": "509b91d301b5bee506436c82e0935f12",
+      "sha256": "77811BA2A5E07043AEE7BF3921308A8AE5E2BE26F350892D6D40A2FDD663F6B1",
+      "size": 22791615
+    },
+    {
+      "key": "F0065.zip",
+      "md5": "c693d10349132b719c8fe617f99f4e28",
+      "sha256": "00CBE5AAB8DD3A6516F3A433991EA2FCB4ED6C2BDD46EF0BCE3005D837EEB993",
+      "size": 15945271
+    },
+    {
+      "key": "F0067.zip",
+      "md5": "87776042e7074403523cb640eefb8676",
+      "sha256": "FA56DE5E4611B0F4A4D2C6B6EC379995691DFE4A519308635F5838930D10EDC6",
+      "size": 17492508
+    },
+    {
+      "key": "F0068.zip",
+      "md5": "2900d376f34a2efa65b5a0275be1ee74",
+      "sha256": "C35F4D9C9EDDB04CDDCF4515EDEE3379B494752B1A0259ABEEE03580D28D044D",
+      "size": 15958404
+    },
+    {
+      "key": "F0069.zip",
+      "md5": "48750846ff47d198498e6a2ec7022d91",
+      "sha256": "1356A181234909D3500F73C92D860611395F4F1D00CBE8675587BD6F483C4B11",
+      "size": 22890494
+    },
+    {
+      "key": "F0108.zip",
+      "md5": "7b7c4d62f76a9c92fa472e9c824e9652",
+      "sha256": "72AFA3DAB8D7D1E72549761ED4728AE1FDD0226A53AED9A8CE981B5069BF45BA",
+      "size": 22462953
+    },
+    {
+      "key": "F0126.zip",
+      "md5": "b1cf107b2e34697b7c90b3a2b5371efc",
+      "sha256": "BC13B77D735042E648295B117C6341639FA80E202D0B44573DF788B091A9A9BB",
+      "size": 16423595
+    },
+    {
+      "key": "F0127.zip",
+      "md5": "70be18054b38e0e32fe6d2913658683b",
+      "sha256": "7487E46816432A49E39B294918B86149FDBB730277A767DF00267573582B1B9F",
+      "size": 16373600
+    },
+    {
+      "key": "F0129.zip",
+      "md5": "d45f7e9ab2246a5c4f19b594a0df51a8",
+      "sha256": "27BEF59AF0BA4B29AAECDF79384C6FB95C4CE5BF5AC402A4E444F9D90D6C1C44",
+      "size": 17478359
+    },
+    {
+      "key": "F0132.zip",
+      "md5": "9e72022e29962d72631db5760a92cbe2",
+      "sha256": "7F97DD04962FD1A69AB78ED0E4CC321224B7857749DD86FDCE5D96B4923CB49F",
+      "size": 19167301
+    },
+    {
+      "key": "F0133.zip",
+      "md5": "adc015404691f6df2fa5dae8e335f7cf",
+      "sha256": "081C50520FDCCE1D054B9503ABA3E4AA6A346BE874EAB0A8BC1603233AEC7270",
+      "size": 21514129
+    },
+    {
+      "key": "F0136.zip",
+      "md5": "152d6ef9484c9546ad1a44a9aecb3408",
+      "sha256": "7498F4A8EB478E0A10E9C0BE85C69801748115CF1088E3BBFBF1B116FAB361A2",
+      "size": 21270168
+    },
+    {
+      "key": "F0138.zip",
+      "md5": "275e64c8061dec28295c88ed0d495995",
+      "sha256": "416D3A4BF999E4637DC2C0796CF517C31D2EE7578254320CC19B576051A40ADE",
+      "size": 17152373
+    },
+    {
+      "key": "F0139.zip",
+      "md5": "4aceef21ecf4f3942af3a513339d9b9e",
+      "sha256": "C54BB6A548659072F9B7D35CCB8206674EDFC271F5F3AC23419FDDF50DA7F0E5",
+      "size": 16900607
+    },
+    {
+      "key": "F0141.zip",
+      "md5": "1bf7d6d34ca743cad8d4fa6ee7f802bb",
+      "sha256": "6D76FB1B2D1EC91D644C92EE35E91D3B960455792FA30206A060C409A0B5E9B6",
+      "size": 20550888
+    },
+    {
+      "key": "F0142.zip",
+      "md5": "415a9ccdddbe7ed1466ab9e65d5c62c1",
+      "sha256": "2DF5EFA5F38573497EBD3CDD3F7394A850BFE82F595CCD20EFD76160809906FD",
+      "size": 19094795
+    },
+    {
+      "key": "F0143.zip",
+      "md5": "4d9f1077c96bd01cefbe20b4ef986295",
+      "sha256": "012995D0D0093F65EF53C8DB06EE978E6479071AA4C2D678B18F3139D520F6BF",
+      "size": 17424366
+    },
+    {
+      "key": "F0144.zip",
+      "md5": "0e425d447a480f1d3285c685bd5365b3",
+      "sha256": "B683B5AB6811065978B820BBA7791305A86C6B4FF4E2F8288985F709C4167C84",
+      "size": 18451077
+    },
+    {
+      "key": "F0145.zip",
+      "md5": "21d5fb2a4207f8312532ebd72210dabf",
+      "sha256": "5CDF2FCC80788AB7A5B985B06A16A4DC275F8E1FC39EC0591C3E517DEF4CACBF",
+      "size": 18688024
+    },
+    {
+      "key": "F0148.zip",
+      "md5": "7eb3e074daecfa2abb8297373dd10c45",
+      "sha256": "AA5BAEF68D5DD9A458B54CCD56E45B56F73EC12C8EA9912F2EC67B2EDF2A17F4",
+      "size": 20164545
+    },
+    {
+      "key": "F0150.zip",
+      "md5": "e0f7fd8ab3a915deb584e1f486557a2e",
+      "sha256": "CBCCFBB4FF33DC1FE8B9AB409846C64D963769583D14A9DE7B552A9AA43FFFE1",
+      "size": 16568166
+    },
+    {
+      "key": "F0152.zip",
+      "md5": "6c4efa5886acbc71c6803def34c5f678",
+      "sha256": "4C9D2208D1439F498FB3D02DBAB6929E7932260EA6125EBBEEA9D8CE4B9D78D3",
+      "size": 19575507
+    },
+    {
+      "key": "F0155.zip",
+      "md5": "644756145d5712af7739e6ade1fc1c02",
+      "sha256": "C3BE889E391E57257C647D19910BCBAC7DE64D5F9E243D7620B0001F89EF6A18",
+      "size": 22555253
+    },
+    {
+      "key": "F0156.zip",
+      "md5": "effde6ecbe742d618ebaa2b245496177",
+      "sha256": "2628FDC17E4AFAAAA87BD004E392BE9F4492FF01EB523CD23AA228019F4DA89C",
+      "size": 18335046
+    }
+  ],
+  "generated_at_local": "2026-08-02T07:14:50.184104+08:00",
+  "metadata_snapshot": {
+    "canonical_roster_sha256": "3DD11AC092B1EF2F2BD442577A94DE339C80C94380A9FC3065717DB73E626932",
+    "path": "E:\\CCF\\interventional_battery_learning\\external_basytec_v343\\zenodo_record_snapshot_v343.json",
+    "sha256": "E729E8596641EE20B9408CEBC70376C2C722A1FCA06C67287185EB47B815CD3E"
+  },
+  "runtime_seconds": 888.1733873000048,
+  "status": "FROZEN_EXTERNAL_ROSTER_DOWNLOADED_AND_VERIFIED",
+  "total_bytes": 918261048
+}

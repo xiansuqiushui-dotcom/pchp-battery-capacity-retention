@@ -1,0 +1,775 @@
+\documentclass[UTF8,11pt]{ctexart}
+\usepackage[a4paper,top=22mm,bottom=24mm,left=23mm,right=23mm,headsep=7mm,footskip=12mm]{geometry}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{pdflscape}
+\usepackage{graphicx}
+\usepackage{seqsplit}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\captionsetup{font=small,labelfont=bf,labelsep=period,justification=justified,singlelinecheck=false}
+\setlength{\parskip}{0.16em}
+\setlength{\parindent}{2em}
+\setlength{\emergencystretch}{3em}
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+\raggedbottom
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{补充材料}
+\fancyhead[R]{吴雨阳、姜爱萍}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\setlength{\headheight}{14pt}
+
+\title{补充材料\\
+\large 面向跨域锂离子电池容量保持率估计的前缀因果损害预算投影}
+\author{吴雨阳\textsuperscript{1} \quad 姜爱萍\textsuperscript{1,*}\\[0.35em]
+\small\textsuperscript{1}上海大学悉尼工商学院，上海 201899\\
+\small\textsuperscript{*}通讯作者：\href{mailto:ap724@shu.edu.cn}{ap724@shu.edu.cn}}
+\date{}
+
+\begin{document}
+\maketitle
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+
+\section{电池数据集及其工程异质性}
+
+表~\ref{tab:development_engineering_zh} 与表~\ref{tab:external_engineering_zh} 仅报告冻结处理表中可核验的工程属性，不依据模型表现反推缺失信息。温度为评分工件中可获得的范围（按数据源分别为早期充电实测温度或环境设定温度）；NR 表示该字段在相应工件中未报告或不可用。开发域元数据来自 BatteryLife 处理约定及其归档快照 \cite{tan2025batterylife,batterylife2026processed}；外部数据行还与六项原始数据记录进行了核对 \cite{wheeler2025lfp,kirkaldy2024comprehensive,luh2024dataset,li2024varyingusage,lam2025calendar,stroebl2024multistage}。倍率与荷电状态区间描述进入评分记录的协议元数据，并不代表原始数据仓库中所有实验的统一规格。
+
+\begin{landscape}
+\begin{table}[H]
+\centering
+\caption{十二个开发域的工程属性。电芯数和记录数对应首五条参考记录之后的评分集合。}
+\label{tab:development_engineering_zh}
+\scriptsize
+\setlength{\tabcolsep}{3.2pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabularx}{\linewidth}{@{}lrrp{3.0cm}p{1.25cm}p{1.45cm}p{4.3cm}X@{}}
+\toprule
+数据域 & 电芯 & 记录 & 化学体系；形态 & $Q_n$ (Ah) & 温度 ($^\circ$C) & 充/放电倍率；循环 SOC & 留出域所代表的主要偏移 \\
+\midrule
+CALB & 27 & 2,629 & NMC/石墨；方形 & 58 & 0--45 & 1--5C / 1--15C；0--100\% & 大容量电芯、倍率与温度变化 \\
+CALCE & 13 & 14,233 & LCO/石墨；方形 & 1.10--1.35 & NR & 0.5C / 0.5--1C；0--100\% & LCO 化学体系与小容量方形形态 \\
+HNEI & 14 & 15,085 & LCO--NMC 混合正极/石墨；18650 & 2.8 & NR & 2C / 1C；0--100\% & 混合正极化学体系与批次差异 \\
+HUST & 77 & 145,735 & LFP/石墨；18650 & 1.1 & NR & 5C / 2--5C；0--100\% & 高倍率 LFP 循环 \\
+MATR & 169 & 139,148 & LFP/石墨；18650 & 1.1 & 24.9--42.2 & 1--8C / 4C；0--100\% & 多种快速充电策略 \\
+MICH & 40 & 19,681 & NMC111/石墨；软包 & 2.36 & NR & 1C / 1C；0--100\% & 软包形态与 NMC111 化学体系 \\
+MICH\_EXP & 18 & 6,455 & NMC111/石墨；软包 & 5.0 & NR & 0.2--2C / 0.2--2C；0--100 或 50--100\% & 容量尺度、倍率及局部 SOC 协议 \\
+RWTH & 48 & 105,140 & NMC/石墨；18650 & 1.85 & NR & 2C / 2C；20--80\% & 局部 SOC 区间下的表观容量目标 \\
+SDU & 86 & 48,716 & NMC532/石墨；圆柱 & 2.4 & 24.4--32.2 & 倍率 NR；0--100\% & 倍率元数据不可用的 NMC532 数据源 \\
+SNL & 61 & 96,092 & LFP/NCA/NMC；18650 & 1.1--3.2 & 14.3--46.3$^{a}$ & 0.5C / 0.5--3C；0--100 或 20--80\% & 多化学体系、温度、倍率与 SOC 混合 \\
+UL\_PUR & 10 & 2,195 & NCA/石墨；18650 & 3.4 & 19.7--33.2 & 2C / 1C；0--100\% & NCA 化学体系与较高充电倍率 \\
+XJTU & 23 & 6,823 & NMC523/石墨；18650 & 2.0 & NR & 2--3C / 1C；0--100\% & NMC523 化学体系与混合充电倍率 \\
+\bottomrule
+\end{tabularx}
+\vspace{2pt}
+\parbox{0.97\linewidth}{\scriptsize $^{a}$温度范围仅基于具有该测量通道的 SNL 评分记录。LCO、LFP、NCA 与 NMC 分别表示钴酸锂、磷酸铁锂、镍钴铝氧化物与镍锰钴氧化物。}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{六个协议冻结外部数据集的工程属性。电芯数和记录数对应实际进入评估的参考后记录。}
+\label{tab:external_engineering_zh}
+\scriptsize
+\setlength{\tabcolsep}{3.2pt}
+\renewcommand{\arraystretch}{1.06}
+\begin{tabularx}{\linewidth}{@{}lrrp{3.1cm}p{1.2cm}p{1.4cm}p{4.4cm}X@{}}
+\toprule
+数据集 & 电芯 & 记录 & 化学体系；形态 & $Q_n$ (Ah) & 温度 ($^\circ$C) & 表征/老化元数据 & 相对开发域的主要偏移 \\
+\midrule
+AMPERE A123 LFP & 20 & 743 & LFP/石墨；18650 & 1.1 & NR & $\tfrac{1}{3}$C 充放电；0--100\% SOC & 独立 LFP 数据仓库与表征流程 \\
+Imperial M50T & 40 & 269 & NMC811/石墨--SiO$_x$；21700 & 5.0 & 环境 10--40 & 0.3C / 0.1C RPT；多种 SOC 区间 & 大容量 21700、电硅氧负极、温度与 SOC 偏移 \\
+Luh NMC--SiO$_x$ & 180 & 2,377 & NMC/石墨--SiO$_x$；18650 & 3.0 & 环境 0--40 & 0--1.67C / 0--1C；多种 SOC 区间 & 宽范围日历/循环条件与 SiO$_x$ 负极 \\
+ILCC 变工况 & 244 & 4,211 & NMC/石墨；聚合物软包 & 0.25 & 环境 30 & 0.5--3C / 0.5--2.475C；不同放电深度 & 小容量软包与高协议多样性 \\
+Stanford 日历老化 & 30 & 765 & LCO/LFP/NCA；18650 与软包 & 0.24--3.50$^{b}$ & 环境 24--60 & 0.2C RPT；多个 SOC 下的日历存储 & 混合化学体系、形态与日历老化条件 \\
+Multistage 50E & 145 & 1,347 & NCA/石墨；21700 & 4.9 & 环境 23--45 & 0.2--1C / 0.2--2C；不同局部 SOC 区间 & 大容量电芯的多阶段设计老化 \\
+\bottomrule
+\end{tabularx}
+\vspace{2pt}
+\parbox{0.97\linewidth}{\scriptsize $^{b}$Stanford 数据的标称容量由冻结导入流程根据所报告的 $0.2C$ 表征电流重建，因此该范围属于派生元数据，并非单一制造商规格。Luh 元数据中的零倍率表示非循环的日历工况。}
+\end{table}
+\end{landscape}
+
+\section{证据与样本流审计}
+
+表~\ref{tab:development_flow_zh} 与表~\ref{tab:external_flow_zh} 直接依据冻结的导入报告和最终预测账本重建样本流。“候选记录”是进入相应冻结结构解析程序的记录数，并非原始数据仓库中所有数据行或测量值的通用计数。NR 表示上游报告未保留可比的原始记录总数，本文不依据下游数量反推。特征参照资格要求具备足够且有效的充电侧历史，以构造前五条投运特征参照；结果参照资格还要求前五条放电容量能够形成有效结果参照。任何电芯或记录均未因预测误差大小或方法比较方向而被排除。
+
+\begin{landscape}
+\begin{table}[H]
+\centering
+\caption{开发数据域的记录流。全部来源电芯均保留至最终评分集合。}
+\label{tab:development_flow_zh}
+\scriptsize
+\setlength{\tabcolsep}{5.2pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular}{@{}lrrrrrr@{}}
+\toprule
+数据域 & 来源电芯 & 候选记录 & 结构性剔除 & 特征记录 & 保留的前五条参照记录 & 评分记录 \\
+\midrule
+CALB & 27 & 2,764 & 0 & 2,764 & 135 & 2,629 \\
+CALCE & 13 & 14,298 & 0 & 14,298 & 65 & 14,233 \\
+HNEI & 14 & 15,164 & 9 & 15,155 & 70 & 15,085 \\
+HUST & 77 & 146,120 & 0 & 146,120 & 385 & 145,735 \\
+MATR & 169 & 140,001 & 8 & 139,993 & 845 & 139,148 \\
+MICH & 40 & 19,895 & 14 & 19,881 & 200 & 19,681 \\
+MICH\_EXP & 18 & 6,545 & 0 & 6,545 & 90 & 6,455 \\
+RWTH & 48 & 105,397 & 17 & 105,380 & 240 & 105,140 \\
+SDU & 86 & 49,146 & 0 & 49,146 & 430 & 48,716 \\
+SNL & 61 & 96,492 & 95 & 96,397 & 305 & 96,092 \\
+UL\_PUR & 10 & 2,245 & 0 & 2,245 & 50 & 2,195 \\
+XJTU & 23 & 6,938 & 0 & 6,938 & 115 & 6,823 \\
+\midrule
+合计 & 586 & 605,005 & 143 & 604,862 & 2,930 & 601,932 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{外部数据与边界测试项目的样本流。参照后特征电芯具有足够的充电侧历史；结果合格电芯还具有有效的结果参照。}
+\label{tab:external_flow_zh}
+\scriptsize
+\setlength{\tabcolsep}{3.7pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular}{@{}lrrrrrrrr@{}}
+\toprule
+数据集/项目 & 来源电芯 & 候选记录 & 特征电芯 & 特征记录 & 参照后电芯 & 参照后记录 & 结果合格电芯 & 评分记录 \\
+\midrule
+AMPERE A123 LFP & 20 & 847 & 20 & 843 & 20 & 743 & 20 & 743 \\
+Imperial M50T & 40 & 511 & 40 & 469 & 40 & 269 & 40 & 269 \\
+Luh NMC--SiO$_x$ & 228 & 3,463 & 228 & 3,457 & 180 & 2,377 & 180 & 2,377 \\
+ILCC 变工况 & 251 & NR & 251 & NR & 244 & 4,211 & 244 & 4,211 \\
+Stanford 日历老化 & 259 & NR & 259 & NR & 30 & 765 & 30 & 765 \\
+Multistage 50E & 147 & 2,085 & 147 & 2,082 & 145 & 1,347 & 145 & 1,347 \\
+BaSyTec & 48 & NR & 47 & 3,336 & 47 & 3,101 & 45 & 2,969 \\
+NASA & 34 & 7,885 & 34 & 2,768 & 34 & 2,598 & 33 & 2,556 \\
+\bottomrule
+\end{tabular}
+\end{table}
+\end{landscape}
+
+AMPERE 中有 $4$ 个表征文件不具备至少三行规定的 Step-13 数据；Imperial 排除 $42$ 条缺少匹配充电文件的汇总记录。Luh 排除 $6$ 次无效检查，并排除有效配对检查少于六次的 $48$ 个电芯。ILCC 排除有效容量少于六次的 $7$ 个电芯。Stanford 在要求至少六次有效诊断后，从 $259$ 个来源电芯中保留 $30$ 个；导入报告记录了 $9{,}060$ 次因充电窗口间断、窗口覆盖不完整或循环数少于七次而产生的诊断排除，但没有保留可比的原始诊断总数。Multistage 排除 $3$ 个缺失容量、充电或放电字段的 RPT 文件，以及有效 RPT 少于六次的 $2$ 个电芯。BaSyTec 的 F0001 在访问结果之前被指定用于解析程序开发；F0009 和 F0048 超出冻结的前五条参照容量支持区间。NASA 中有 $5{,}117$ 条循环记录不具备有效的固定充电窗口，另有 $170$ 条投运参照记录不参与预测。独立标签审计拒绝 $44$ 条无效放电容量记录；其中一个已生成预测的电池因而无法构造有效的前五条结果参照，其 $42$ 条预测记录不进入评分。
+
+\section{特征与权重的因子归因审计}
+
+事后 $2\times2$ 审计交叉比较原始特征与投运参照变化特征，以及合并样本权重与域等权。四个候选模型采用完全相同的严格留一域外验证划分、ExtraTrees 参数、源域记录上限、缺失值处理器和随机种子。随后，每个候选均通过当前 PCHP 算子：以原始特征加合并权重模型作为受保护预测器，并复用冻结的 V326 逐外层域 $\alpha$ 日程。最终选用的变化特征加域等权实验臂对 V327 预测账本的最大绝对复现误差为 $0$。
+
+\begin{table}[H]
+\centering
+\caption{特征与权重的四臂因子审计。MAE 先在电芯内计算，再对 $12$ 个完整留出域等权平均。}
+\label{tab:factorial_arms_zh}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}Xrrr}
+\toprule
+特征 & 源域权重 & 候选 MAE & PCHP MAE & 最差域 PCHP MAE \\
+\midrule
+原始特征 & 合并权重 & $0.07790$ & $0.07625$ & $0.14400$ \\
+原始特征 & 域等权 & $0.08169$ & $0.07588$ & $0.14351$ \\
+投运参照变化 & 合并权重 & $0.05685$ & $0.07059$ & $0.14531$ \\
+投运参照变化 & 域等权 & $0.05694$ & $0.07038$ & $0.14531$ \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+投影前，变化特征在合并权重和域等权下的效应分别为 $-0.02105$ 与 $-0.02474$。表~\ref{tab:factorial_effects_zh} 报告 PCHP 层的配对效应，负值有利于所述干预。区间来自对完整数据域执行 $100{,}000$ 次 bootstrap 重采样；$p$ 值来自全部 $2^{12}=4{,}096$ 种配对符号分配。两种权重下的特征效应方向一致，而两个权重主效应和特征—权重交互效应均未与零明确分离。
+
+\begin{table}[H]
+\centering
+\caption{$2\times2$ 审计中 PCHP 层的配对效应。}
+\label{tab:factorial_effects_zh}
+\scriptsize
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}Xrrrr}
+\toprule
+对比 & MAE 平均差 & $95\%$ 区间 & 精确 $p$ & 胜/平/负 \\
+\midrule
+变化特征对原始特征，合并权重 & $-0.00566$ & $[-0.00941,-0.00235]$ & $0.0078$ & $11/0/1$ \\
+变化特征对原始特征，域等权 & $-0.00550$ & $[-0.00970,-0.00184]$ & $0.0103$ & $10/0/2$ \\
+域等权对合并权重，原始特征 & $-0.00037$ & $[-0.00166,0.00064]$ & $0.6357$ & $7/0/5$ \\
+域等权对合并权重，变化特征 & $-0.00021$ & $[-0.00058,0.00015]$ & $0.3027$ & $7/1/4$ \\
+特征—权重交互效应 & $0.00016$ & $[-0.00093,0.00133]$ & --- & --- \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{V383 $2\times2$ 归因审计的 SHA-256 标识。}
+\label{tab:factorial_hashes_zh}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+工件 & SHA-256 \\
+\midrule
+审计程序 & {\scriptsize\ttfamily\seqsplit{8f674bd9b452c71af7d6080f5058d0d94047e2c90f00ad34799630a21e831518}} \\
+结果报告 & {\scriptsize\ttfamily\seqsplit{2fa763c923b552bb87d218269f4a2266ce7ec309972e43db7fda1f14e041ab60}} \\
+候选预测账本 & {\scriptsize\ttfamily\seqsplit{96073dfe964f3cd119bfa5cff5622f6aec87481a84df7f3da1ec59beb5a2957a}} \\
+投影预测账本 & {\scriptsize\ttfamily\seqsplit{09e172a62f840d4afb0d7ed45188c892e01c21503e39e5af463090d55c892098}} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{冻结工件链}
+
+表~\ref{tab:hashes_zh} 记录部分 SHA-256 标识，用于将前缀因果实现、嵌套开发评估、样本流审计、强无保护比较器、结果隔离的 BaSyTec 确认与 NASA 工作流和论文结果绑定。原始数据仍遵循相应数据仓库与许可证规定。
+
+\begin{table}[H]
+\centering
+\caption{因果方法、证据流审计与协议冻结外部流程的部分 SHA-256 标识。}
+\label{tab:hashes_zh}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+工件 & SHA-256 \\
+\midrule
+前缀因果投影实现 & {\scriptsize\ttfamily\seqsplit{ce7288a129c17114e1ca57432c6417beba7938d58db2b1fd0a87171c479eb54c}} \\
+嵌套开发预测 & {\scriptsize\ttfamily\seqsplit{d7a9a8c06923841260d98526dff665562ca27624357a4d514f6bc75563c69534}} \\
+候选控制实现 & {\scriptsize\ttfamily\seqsplit{0f6523700082cff38aa26cd05385d3cf3252d436ccdbc22821355e7029861873}} \\
+源域调优无保护比较器报告 & {\scriptsize\ttfamily\seqsplit{ed11518ea3e1eaa42148bf4421f0570d775074ae697260a8edf9fbac0798c252}} \\
+样本流协议 & {\scriptsize\ttfamily\seqsplit{94975fc1371f28591bf69e6c82d5e3d6d2bb1677e4bfa6af4e5d97ddac25f981}} \\
+样本流审计程序 & {\scriptsize\ttfamily\seqsplit{2131b21b91991b7a73d260b7799264aea43ad296e1ddb21c8143a74d22fff3c1}} \\
+逐数据面样本流账本 & {\scriptsize\ttfamily\seqsplit{6417dca163da4e9fe872b480f9072a6985def149008f5aea57c23fe306ce47c7}} \\
+样本流审计报告 & {\scriptsize\ttfamily\seqsplit{48c2f0f62c1a08b1939bf3808bb4a4a3e99489d3510042c94aadb7373cdf7cfe}} \\
+BaSyTec 最终预冻结协议 & {\scriptsize\ttfamily\seqsplit{2e7c34cc3e56cbd5901d18b3989d18754d08e66e7448205197e5b6aa9658643a}} \\
+BaSyTec 只读表头普查 & {\scriptsize\ttfamily\seqsplit{35c4fa46ad72f00f09a17282e0ed4a2c04ec03c33c852ea621fafc746ab6a656}} \\
+BaSyTec 冻结预测 & {\scriptsize\ttfamily\seqsplit{2e27780968f909b0d1d1a05b2b90370e2735e99f3a8e8926b781150751b6f8f6}} \\
+BaSyTec 单次结果报告 & {\scriptsize\ttfamily\seqsplit{eb6bf718810577fe6e91228301e7352236a991d9899b3002fc2ee2d5753ec2b0}} \\
+BaSyTec 独立统计审计 & {\scriptsize\ttfamily\seqsplit{7726061409e3a897fa2677c519a7a1af8e3ca1771fac384d8f0feed2c0682fc7}} \\
+NASA 预冻结协议 & {\scriptsize\ttfamily\seqsplit{37507d16ed8f13bd4aa378f3da3480dad691addf383c31b00ad613bb7397adea}} \\
+NASA 官方压缩包 & {\scriptsize\ttfamily\seqsplit{82302a7db4fc1b34e0b6676326610438d43b816bdf11a69d1d012a464ef2f92e}} \\
+NASA 冻结预测 & {\scriptsize\ttfamily\seqsplit{4d8264d94e224be12a5574cc403047e10276c78652d80a4841086f4e409ceaa9}} \\
+NASA 独立评分程序 & {\scriptsize\ttfamily\seqsplit{9894c1cbecae80e8a0712b812257ab474974ee3a3ea8df418e6306f94bdf40ba}} \\
+NASA 单次结果报告 & {\scriptsize\ttfamily\seqsplit{d92be40ab5c34b6324667af549cfde34b15857d02e8c0c654579111854de48b1}} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{保证与工作流核验}
+
+历史冻结的 $30$ 项 V321 单元测试覆盖因果状态单调性、单位同化率、前缀不变性、当前可行域最近点投影、取值范围与损害预算区间、精确损害恒等式及损害域等价性、零预算不可能性、递归可行性与精确可行核成员关系、非对称损失约束、时变可行性与最小可行预算、不合法约束、非有限与形状不匹配输入，以及电芯内处理后的原顺序恢复。另设的 $4$ 项 V377 单元测试覆盖精确局部近端表示、受保护状态与完整算子的前缀非扩张性，以及单位 Lipschitz 常数的紧性；二者合计为 $34$ 项聚焦 PCHP 测试，且未修改历史 V321 文件。$4$ 项合成 NASA 工作流测试、$5$ 项 BaSyTec 表头族测试与 $1$ 项合成 MATLAB 集成测试核验字段隔离和两阶段执行。开发、BaSyTec 与 NASA 报告还分别核验最大位移、观察绝对损失增量、轨迹单调性、独立单位数量、冻结文件身份和聚合量重构。
+
+\section{回顾性预算路径审计}
+
+预算路径分析在执行前锁定协议，但当时全部开发域结果已经打开。其唯一主要经验估计量是 PCHP 减精确预算可行偏移 MAE 差的预算归一化积分，再对完整数据域等权平均；各预算点区间仅作描述。V361 原始验证器记录为 \texttt{NARROW}，原因是其中一个历史锚点在 $10^{-12}$ 容差下，把 V327 高精度数值与仅保留十位小数的报告 JSON 比较。本文没有修改或重跑 V361。另行冻结的 V362 审计核验了权威汇总 CSV、全部十二个逐域记录、V326 仅用源域的选择清单以及全部非锚点科学门槛，将该失败归类为序列化精度假阴性，同时保留回顾性标签与 V361 原始决策记录。
+
+\begin{table}[H]
+\centering
+\caption{预算路径分析与独立锚点审计的 SHA-256 标识。}
+\label{tab:budget_hashes_zh}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+工件 & SHA-256 \\
+\midrule
+V361 分析预冻结记录 & {\scriptsize\ttfamily\seqsplit{7bc32a42d2c20e61471357126f6281e3a11ac976979d56056b68b243f6a6c4d6}} \\
+V361 分析程序 & {\scriptsize\ttfamily\seqsplit{bdd0a1aeaf715d25fe574feb52b1679551a608999ab49848a3ff8c6dfd701f79}} \\
+V361 结果报告 & {\scriptsize\ttfamily\seqsplit{6e8d09554f73f1df7cdf6cf8affdaaf1c13eec80b6778b5e58616038ec02781b}} \\
+V361 逐域 AUC 表 & {\scriptsize\ttfamily\seqsplit{f3c1275be42e9de2d38a4d516c3518a3777bad5a0341f4d07a2852d28693c416}} \\
+V362 审计预冻结记录 & {\scriptsize\ttfamily\seqsplit{49b986a77346f28c80c3d024bae6caff58de469124c422db726945c72400ea56}} \\
+V362 审计程序 & {\scriptsize\ttfamily\seqsplit{ca3e2be80c1e995daeaa90741ab6d6e07af94424a294d6b80e09f050b32640b5}} \\
+V362 审计报告 & {\scriptsize\ttfamily\seqsplit{8e02eca68f7016d0ec08100195689e0129cccc90fc8add7b6ecc4a275b323608}} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{有限样本域级敏感性审计}
+
+由于开发估计量只有 $12$ 个独立完整域效应，V378 使用互补的小样本方法重算三项配对比较：对每项域等权均值穷举全部 $2^{12}=4{,}096$ 个符号分配，并计算 Student-$t$ 区间、精确配对 Wilcoxon 检验以及只使用方向的精确符号检验。该审计在开发结果已经打开后执行，属于敏感性分析而非新的确认性检验；冻结估计量和百分位 bootstrap 主报告均未改变。
+
+\begin{table}[H]
+\centering
+\caption{基于完整数据域的事后有限样本敏感性。均值为负表示 PCHP 更优；所有检验值均为双侧描述性结果。}
+\label{tab:small_n_sensitivity_zh}
+\scriptsize
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}Xrrrrl}
+\toprule
+比较 & 均值 & Student-$t$ $95\%$ 区间 & 符号翻转值 & 符号检验值 & 胜/平/负 \\
+\midrule
+PCHP 对受保护基线 & $-0.004862$ & $[-0.007033,-0.002692]$ & $0.000977$ & $0.006348$ & $11/0/1$ \\
+PCHP 对匹配常数偏移对照 & $-0.004773$ & $[-0.008581,-0.000965]$ & $0.016602$ & $0.145996$ & $9/0/3$ \\
+积分预算路径 AUC & $-0.006942$ & $[-0.011718,-0.002166]$ & $0.007812$ & $0.006348$ & $11/0/1$ \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+对效应大小敏感的三种分析均保留负向域等权均值。与匹配常数偏移对照的比较中，纯方向符号检验值没有低于 $0.05$，因此该结果支持的是存在域间异质性的平均效用贡献，而不是普适支配，也不是随机抽取一个新域时改善概率大于一半的主张。
+
+\begin{table}[H]
+\centering
+\caption{V378 有限样本审计的 SHA-256 标识。}
+\label{tab:small_n_hashes_zh}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+产物 & SHA-256 \\
+\midrule
+V378 审计程序 & {\scriptsize\ttfamily\seqsplit{50426e90264f15e1632d0fa8403be7b16c7ef09c9076a34be05897f1a0b0b578}} \\
+V378 审计报告 & {\scriptsize\ttfamily\seqsplit{411007452ed8c095258f3949af959e2518dc1c63e648583e5ffe9dde3b265ae9}} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{未额外调参的次级骨干可移植性审计}
+
+该协议锁定的回顾性审计将两个主要 ExtraTrees 回归器同时替换为 Ridge、HistGradient\-Boosting 或 LightGBM，并保持数据、特征合同、权重、外层目标域排除、损害预算、PCHP 算子以及 V326 的逐外层域 $\alpha$ 日程完全不变。次级骨干不允许重新调节超参数或 $\alpha$。每个骨干均在相同的 $12$ 个完整数据域和 $586$ 个电芯上生成 $601{,}932$ 条投运参照后预测。独立验证器从保存的逐记录预测重算域级效应与全部确定性证书，共通过 $196$ 项具名检查。
+
+\begin{table}[H]
+\centering
+\caption{零额外调参可移植性结果。差值定义为 PCHP 减相应受保护状态 MAE；负值有利于 PCHP。区间为对完整数据域重采样得到的 Bonferroni 调整双侧 $98.33\%$ 百分位区间。}
+\label{tab:backbone_portability_zh}
+\scriptsize
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}Xrrrrl}
+\toprule
+骨干 & 受保护 MAE & PCHP MAE & 差值 & 调整后区间 & 胜/平/负 \\
+\midrule
+Ridge & $0.11192$ & $0.10773$ & $-0.00419$ & $[-0.00677,-0.00131]$ & $10/0/2$ \\
+HistGradientBoosting & $0.07674$ & $0.07249$ & $-0.00425$ & $[-0.00633,-0.00203]$ & $11/0/1$ \\
+LightGBM & $0.07674$ & $0.07252$ & $-0.00422$ & $[-0.00621,-0.00231]$ & $11/0/1$ \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+三个预冻结合取门均通过。最大位移与最大观测绝对损失增量均位于 $0.01$ 预算内，受保护状态和输出的最大上升均为 $0$，输出保持在 $[0,1.3]$，精确前缀重放的最大差为 $0$。由于全部开发结果此前已经打开，该结果只能排除三个所审计模型族内的 ExtraTrees 特异性解释，不能建立外部确认、普适模型独立性、深度模型可移植性或最佳骨干优越性。
+
+\begin{table}[H]
+\centering
+\caption{V375 可移植性审计的 SHA-256 标识。}
+\label{tab:backbone_hashes_zh}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+工件 & SHA-256 \\
+\midrule
+V375 预冻结 JSON & {\scriptsize\ttfamily\seqsplit{ed6c7b6d119d4a3bb9111e27cae198c73f9c8590b3bb09756548ef06a95993e9}} \\
+V375 审计程序 & {\scriptsize\ttfamily\seqsplit{d1924aa47c516e4f3474942e87044df7d5bec746531b8f3816244f610e92d5eb}} \\
+V375 结果报告 & {\scriptsize\ttfamily\seqsplit{862482438df32b59a19cfe8c4d15f413a11ee0baa2fd8e4451c9066e4d76562d}} \\
+V375 独立验证回执 & {\scriptsize\ttfamily\seqsplit{26e81d0a73374a954e518dcda7e37bdd61ba04e88b407f8de55c82476a889376}} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{电池序列 Transformer 压力测试}
+
+轻量预归一化 Transformer 含 $73{,}377$ 个参数、$2$ 个编码器层、$4$ 个注意力头，模型维度为 $64$；输入为首次 $600\,\mathrm{s}$ 内每隔 $10\,\mathrm{s}$ 采样的电压、C 倍率和归一化充电增量。三个固定的仅源域集成成员在具备序列数据的 $8$ 个开发域上训练 $15$ 轮，训练数据包含 $206$ 个电芯和 $20{,}425$ 条均衡抽样记录；随后在完整 SDU 与 MATR 轨迹上进行不含目标域微调的评估，共包含 $255$ 个电芯和 $187{,}864$ 条记录。序列候选使用权威 V327 受保护状态、逐外层域 $\alpha$ 和 $\delta=0.01$ 进行投影，目标标签仅在最终评分时使用。
+
+\begin{table}[H]
+\centering
+\caption{电池序列 Transformer 的零样本迁移审计。区间为 PCHP 减受保护状态的物理电芯 bootstrap 区间。}
+\label{tab:transformer_audit_zh}
+\scriptsize
+\begin{tabular}{lrrrrl}
+\toprule
+数据集 & Transformer & Transformer+PCHP & 受保护状态 & 主模型 PCHP & PCHP 减受保护 $95\%$ 区间 \\
+\midrule
+MATR & $0.05311$ & $0.05208$ & $0.05079$ & $0.04947$ & $[0.00039,0.00219]$ \\
+SDU  & $0.14671$ & $0.07381$ & $0.06793$ & $0.06529$ & $[0.00484,0.00688]$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+该 Transformer 候选的迁移表现不及受保护的表格模型状态。尽管如此，PCHP 仍显著压缩了较大的候选误差，并严格执行既定运行约束：最大位移和最大实际绝对损失增量在浮点容差内均为 $0.01$，预算、取值范围和单调性违规数均为 $0$。该结果支持架构兼容性与损害控制，但不构成所测 Transformer 提升预测效用的证据。
+
+\begin{table}[H]
+\centering
+\caption{V383 电池序列 Transformer 审计的 SHA-256 标识。}
+\label{tab:transformer_hashes_zh}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+工件 & SHA-256 \\
+\midrule
+审计程序 & {\scriptsize\ttfamily\seqsplit{86476e41f23f6769d052db052a8d0ee1e5a56f80a31d7dab3bb0ecf23fb36b68}} \\
+结果报告 & {\scriptsize\ttfamily\seqsplit{1acf00ad2191fe5b361f56c59ac4614b3138daca0d7e2706ddc7f5da4aafb247}} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{回顾性轨迹单调约束消融}
+
+V385 审计复用 $12$ 个留出开发域、$586$ 个物理电芯和 $601{,}932$ 条记录的冻结预测。逐点损害管道实验臂只去除上一条发布输出形成的上界，把未改变的候选逐记录投影到同一严格受保护状态周围的 $[b_{it}-0.01,b_{it}+0.01]$ 区间；因此，该比较在固定受保护状态、候选、取值范围和损害预算的条件下单独识别输出单调性的作用。严格实验臂以最大误差零精确复现权威 V327 预测。有界恢复实验臂复用 V374 仅利用源域选择的替代合同，允许受保护状态和输出每条记录最多回升 $0.005$；因此，它是另一种状态—输出合同，而不是单一组件删除。
+
+\begin{table}[H]
+\centering
+\caption{轨迹单调约束消融。MAE 先在物理电芯内平均，再在完整留出域之间等权平均。同一电芯相邻记录间输出增量大于 $10^{-12}$ 时记为一次正向跃迁。}
+\label{tab:monotonicity_ablation_zh}
+\scriptsize
+\begin{tabular}{lrrrrr}
+\toprule
+合同 & 域等权 MAE & 最差域 MAE & 正向跃迁数 & 涉及电芯 & 最大回升 \\
+\midrule
+逐点损害管道 & $0.070118$ & $0.145307$ & $38{,}580$ & $483/586$ & $0.020$ \\
+严格非增 PCHP & $0.070378$ & $0.145307$ & $0$ & $0/586$ & $0$ \\
+有界恢复 & $0.069584$ & $0.149738$ & $57{,}332$ & $574/586$ & $0.005$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+相对于逐点损害管道，严格单调性使域等权 MAE 改变 $+0.000260$；完整域配对 bootstrap $95\%$ 区间为 $[-0.000538,0.001095]$，精确 $2^{12}$ 符号翻转值为 $0.5654$，严格实验臂的逐域胜/平/负为 $3/1/8$。因此，严格轨迹合同消除了影响 $82.4\%$ 电芯的 $38{,}580$ 次向上修订，而平均精度代价没有与零清晰分离。有界恢复相对于严格 PCHP 的 MAE 改变为 $-0.000794$，但区间 $[-0.002708,0.001041]$ 和精确值 $0.4492$ 均未区分两个实验臂，其最差域 MAE 反而高 $0.00443$。三个实验臂均保持在 $[0,1.3]$ 内，并通过各自受保护状态下的 $0.01$ 位移和观测绝对损失证书；有界恢复的最大包络超额为 $4.34\times10^{-18}$。据此，本文为不可回写的非增记录合同保留严格 PCHP；该回顾性消融不用于选择新的部署合同。
+
+\begin{table}[H]
+\centering
+\caption{V385 轨迹单调约束消融的 SHA-256 标识。}
+\label{tab:monotonicity_hashes_zh}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+工件 & SHA-256 \\
+\midrule
+冻结协议 & {\scriptsize\ttfamily\seqsplit{5ca2c74dc88fe6bdf18a797696eafdefad99b1c5156833b6a5a5510347c58b69}} \\
+审计程序 & {\scriptsize\ttfamily\seqsplit{802e29ad84f599f958ac690f009b89d0aff22eb4ff6382b0935a8afdc89828d3}} \\
+验证测试 & {\scriptsize\ttfamily\seqsplit{d307adb08ce5165f72afa900942ca7c57bf06e3d6df3d58d8e7c7dd58254cc57}} \\
+结果报告 & {\scriptsize\ttfamily\seqsplit{ef6026f091166183cde16cdacb87e746b76c66e5f3267187aec9123bc8af4ab5}} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{回顾性数值输出上限敏感性}
+
+V386 审计检验声明的数值输出范围是否取代学习候选与轨迹合同而决定了论文结果。审计在保存的投影前预测上，以 $1.1$、$1.2$、$1.3$ 和 $1.5$ 为上限重放未修改的 V321 投影算子，同时固定下限 $0$、仅用源域选择的同化率、$\delta=0.01$、电芯内记录顺序和全部评价单位。模型不重新拟合，也不依据精度选择上限。开发数据、六个外部数据集和 BaSyTec 被视为目标兼容的证据面；NASA 仅作为目标尺度不兼容压力测试，并被禁止用于选择上限。
+
+对 NASA，审计先在 $34$ 个电芯的全部 $2{,}598$ 条结果盲预测记录上重放投影，再连接 $33$ 个可评分电芯的 $2{,}556$ 条已发布标签。这样，即使部分记录缺少匹配的放电标签，也不会改变原始因果轨迹。在参照上限 $1.3$ 下，四个数据面的重放均以最大误差零复现保存的受保护状态和 PCHP 输出。
+
+\begin{table}[H]
+\centering
+\caption{数值输出上限敏感性。开发数据和六个外部数据集报告域等权电芯宏平均 MAE，两个单一边界数据面报告电芯宏平均 MAE。“变化数”表示任一所测上限相对于 $1.3$ 重放发生变化的输出数。}
+\label{tab:output_bound_sensitivity_zh}
+\small
+\setlength{\tabcolsep}{4.2pt}
+\begin{tabular}{lrrrrrr}
+\toprule
+数据面 & 标签最大值 & 候选最大值 & 输出最大值 & MAE & 变化数 & 标签 $>1.3$ \\
+\midrule
+开发数据 & 1.059406 & 1.021457 & 1.014274 & 0.070378 & 0 & 0 \\
+六个外部数据集 & 0.998467 & 0.981420 & 0.985900 & 0.126365 & 0 & 0 \\
+BaSyTec & 1.004612 & 0.974823 & 0.907277 & 0.165101 & 0 & 0 \\
+NASA 压力测试 & 21.770609 & 0.932633 & 0.937209 & 0.727908 & 0 & 144/2,556 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+四个数据面保存的原始基线和原始候选均低于 $1.1$。因此，在 $1.1$--$1.5$ 的完整网格上，每次重放得到的受保护状态、PCHP 输出、电芯/数据域 MAE 和最差域 MAE 均完全一致；取值范围、非增轨迹、$0.01$ 位移及观测绝对损失检查全部通过。目标兼容证据据此将数值上限归类为 \texttt{NONBINDING}。本文保留 $1.3$ 这一预先存在的保守计算上限，而不把它表述为根据报告结果调出的数值。NASA 标签的第 $95$ 百分位数为 $1.4401$、最大值为 $21.77$，暴露的是归一化尺度不兼容；依据这些标签扩大输出范围将改变任务定义，而不是修复模型。
+
+\begin{table}[H]
+\centering
+\caption{V386 数值输出上限审计的 SHA-256 标识。}
+\label{tab:output_bound_hashes_zh}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+工件 & SHA-256 \\
+\midrule
+冻结协议 & {\scriptsize\ttfamily\seqsplit{aef0f74f7a4b2ac683214c0617021a02c4c0d8dd9a51e99856a716f6b080d0ba}} \\
+审计程序 & {\scriptsize\ttfamily\seqsplit{1e33f1249033a05564498a0e909982fd06f9ac90674b6f34193ba0e139ac73a2}} \\
+验证测试 & {\scriptsize\ttfamily\seqsplit{c31f55285b35bc0be942caba2b4416216f5e6a8348f283d6942ff6146810a228}} \\
+结果报告 & {\scriptsize\ttfamily\seqsplit{a44ae0e520f20197726cc1bf714a4035fe1b78a0204d8d92672d4e0e9588e424}} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{协议冻结的 NASA 目标兼容性压力测试}
+
+NASA PCoE Battery Data Set~5 依据官方元数据选定，并在下载压缩包之前完成冻结 \cite{saha2007nasa}。协议固定了官方压缩包身份、MATLAB 文件的递归纳入规则、充放电配对、\(600\,\mathrm{s}\) 充电窗口、前五次参照、特征字段、\(\alpha=0.01\)、\(\delta=0.01\)、最小电池记录数、估计量、判定标准，以及预测与评分程序的哈希。去除重复身份后，\(38\) 个文件对应 \(34\) 个物理电池。
+
+标签盲阶段只访问循环类型、时间，以及充电记录中的电压、电流、温度和时间数组；在不读取放电容量的条件下，为全部 \(34\) 个电池生成并哈希冻结 \(2{,}598\) 条参照后预测。独立评分阶段随后读取冻结的放电定位信息和标量 \texttt{Capacity} 字段，构造前五次归一化目标，并对预测工件评分一次。预设标签审计拒绝 \(44\) 条非标量、非有限或非正的放电容量记录。其中一个已生成预测的电池因而无法构造有效的前五次结果参照，最终得到 \(33\) 个电池和 \(2{,}556\) 条评分记录。访问结果后，电池清单、参照、模型、参数和终点均未改变。
+
+在 \(33\) 个合格电池上，受保护因果状态与 PCHP 的电池等权 MAE 分别为 \(0.73379\) 与 \(0.72791\)。配对差为 \(-0.00588\)，物理电池配对 bootstrap \(95\%\) 区间为 \([-0.00784,-0.00373]\)；其中 \(27\) 个电池改善，\(6\) 个恶化。最大电池层级损害为 \(0.00849\)。每条预测均满足 \(|p_{it}-b_{it}|\leq0.01\)，最大观测绝对损失增量在浮点容差内为 \(0.01\)，受保护轨迹与发布轨迹均保持非增。
+
+该绝对目标不足以支持高精度容量保持率主张。电池 B0041 的前五次参照容量为 \(0.05584\,\mathrm{Ah}\)，最大归一化值为 \(21.77\)；B0039 的参照容量为 \(0.47114\,\mathrm{Ah}\)，最大归一化值为 \(3.76\)。全部评分标签的第 \(95\) 百分位数为 \(1.4401\)，最大值为 \(21.77\)，而保存的候选最大值仅为 \(0.9326\)。因此，该实验只支持严重目标偏移下的同记录相对损害控制结论；它不构成高精度绝对 SOH 估计、独立实验室重复或前瞻采集验证的证据。
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/fig5_nasa_stress_zh.pdf}
+\caption{协议冻结的 NASA 目标兼容性压力测试。\textbf{A}，全部 \(33\) 个合格物理电池的 PCHP 减受保护状态配对 MAE；负值表示 PCHP 更优，菱形与区间分别表示电池等权均值和对物理电池执行 \(100{,}000\) 次配对 bootstrap 得到的 \(95\%\) 区间。\textbf{B}，按电池展示的已发布归一化容量标签，纵轴采用对数尺度，并标出冻结模型范围 \([0,1.3]\)。\(2{,}556\) 条记录均为嵌套于电池内的重复测量。}
+\label{fig:supp_nasa_zh}
+\end{figure}
+
+\section{协议冻结的外部机制与决策代价确认}
+
+V380 协议冻结了六个外部电池数据集、$659$ 个电芯、$9{,}712$ 条参照后记录、完整开发集 ExtraTrees 拟合、$\alpha=0.01$、$\delta=0.01$、开发数据精确选出的 $+0.01$ 常数预算可行偏移、数据集等权估计量、随机种子 $20{,}260{,}803$ 下 $100{,}000$ 次两阶段数据集—电芯 bootstrap、确定性证书标准以及决策代价网格。这些数据档案曾在其他探索分支中出现，但其外部结果或汇总均未影响 PCHP、比较器、估计量、代价协议或判定标准。因此，该实验界定为未受这些数据影响的协议冻结外部机制确认，而不是前瞻盲法采集。
+
+PCHP 将数据集等权 MAE 从常数偏移的 $0.1332619550$ 降至 $0.1263647858$。配对差为 $-0.0068971692$，两阶段 $95\%$ 区间为 $[-0.0119216689,-0.0021174927]$，六个数据集中的五个改善；受保护状态 MAE 为 $0.1306078750$。最大位移和观测遗憾在浮点容差内均为 $0.01$，受保护与投影轨迹的最大上升均为零，独立前缀重放的最大差亦为零。验证器通过全部 $49$ 项具名检查，并将机制推断与确定性证书均判定为 \texttt{PASS}。
+
+随后实施的事后稳健性审计原样复用 V380 冻结预测账本，不重新拟合或调参，不选择阈值，也不删除数据集。完整外部数据集仍是顶层分析单位，电芯和记录均视为嵌套观测。表~\ref{tab:external_robustness_zh} 将不同加权所对应的目标总体变化与冻结的数据集等权估计量区分开来；负值表示 PCHP 更优。
+
+\begin{table}[H]
+\centering
+\caption{外部聚合敏感性。各数值均为 PCHP MAE 减比较器 MAE。精确 $p$ 值穷举六个数据集层级电芯宏平均效应的全部 $2^6=64$ 种符号分配。仅常数偏移比较是主要精确检验；受保护状态比较为描述性结果。}
+\label{tab:external_robustness_zh}
+\scriptsize
+\begin{tabular}{lrrrrrr}
+\toprule
+比较器 & 数据集均值 & 电芯均值 & 记录均值 & 数据集中位数 & 电芯中位数 & 精确 $p$ \\
+\midrule
+常数偏移 & $-0.006897$ & $-0.007367$ & $-0.008864$ & $-0.007143$ & $-0.004226$ & $0.0625$ \\
+受保护状态 & $-0.004243$ & $-0.001943$ & $-0.002507$ & $-0.005912$ & $-0.003373$ & $0.1250$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+该方向不依赖于任一外部数据集。PCHP 相对于常数偏移的六个逐一剔除均值全部为负，范围为 $[-0.008653,-0.004798]$；删除按电芯数和记录数均为最大的 ISU--ILCC 后，均值仍为 $-0.006567$。相对于受保护状态，逐一剔除范围为 $[-0.005517,-0.003411]$，删除最大数据集后的效应为 $-0.005207$。因此，外部优势在预先声明的聚合和剔除检查下方向稳定。不过，六个顶层单位中有一个数据集效应为正，主要比较的双侧精确符号翻转值为 $0.0625$；本文将其作为效应方向的敏感性证据，而不另行宣称达到 $0.05$ 水平的确认性结论。
+
+\begin{table}[H]
+\centering
+\caption{数据集等权连续非对称决策代价。漏检退化项相对于不必要复核项的权重为 $r$。}
+\label{tab:external_decision_cost_zh}
+\begin{tabular}{rrrr}
+\toprule
+$r$ & 受保护状态 & 常数偏移 & PCHP \\
+\midrule
+$1$  & $0.13061$ & $0.13326$ & $0.12636$ \\
+$2$  & $0.21527$ & $0.22425$ & $0.20970$ \\
+$5$  & $0.46925$ & $0.49721$ & $0.45970$ \\
+$10$ & $0.89254$ & $0.95214$ & $0.87636$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+在主要设定 $\tau=0.80$、$r=5$ 下，由于没有 PCHP 更新跨越动作阈值，三种方法的二元复核代价相同。验证器据此保留二元决策收益的预设 \texttt{PASS\_NON\_CLAIM} 状态；得到支持的决策结果是 PCHP 相对于常数偏移将连续代价降低 $7.54\%$。
+
+观测区间事件审计将迟报定义为预测首次越阈晚于实际首次越阈，或在随访结束前始终未预测越阈；过早复核定义为预测首次越阈早于实际首次越阈，对于随访期内实际未越阈的电芯，任何预测越阈均视为过早复核。计算受限延迟时，未出现预测越阈的电芯按末次观测之后一条记录进行删失。表~\ref{tab:threshold_events_zh} 报告主要的 $80\%$ 容量保持率阈值。各指标对数据集等权，比例先在物理电芯内计算再聚合。
+
+\begin{table}[H]
+\centering
+\caption{$\tau=0.80$ 时观测区间内的首次越阈指标。三种方法产生完全相同的阈值动作。}
+\label{tab:threshold_events_zh}
+\scriptsize
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X*{5}{>{\centering\arraybackslash}X}}
+\toprule
+方法 & 受限绝对延迟 & 迟报延迟第 $95$ 百分位 & 绝对循环延迟 & 迟报电芯率 & 过早复核率$^{c}$ \\
+\midrule
+受保护状态 & $9.32$ & $16.49$ & $1206.33$ & $0.914$ & $0.086$ \\
+常数偏移 & $9.32$ & $16.49$ & $1206.33$ & $0.914$ & $0.086$ \\
+PCHP & $9.32$ & $16.49$ & $1206.33$ & $0.914$ & $0.086$ \\
+\bottomrule
+\end{tabularx}
+
+\vspace{2pt}
+\parbox{0.96\linewidth}{\scriptsize $^{c}$仅在实际发生越阈的电芯中计算。除“绝对循环延迟”采用数据源的循环序号坐标外，其余延迟均以记录序号为单位。}
+\end{table}
+
+敏感性阈值得到相同的运行结论。在 $\tau=0.70$ 时，PCHP 与常数偏移的首次越阈延迟以及电芯级迟报和过早复核率完全相同，但 PCHP 的数据集等权过早复核记录率增加 $0.00489$。在 $\tau=0.90$ 时，PCHP 仅使受限绝对延迟减少 $0.00357$ 条记录，使电芯宏平均迟报记录率减少 $0.00071$，数据集等权迟报或过早越阈电芯率不变。因此，当前预算改变的是连续误差的严重程度，而不是具有实际规模的阈值时序。
+
+\begin{table}[H]
+\centering
+\caption{V383 阈值事件审计的 SHA-256 标识。}
+\label{tab:threshold_hashes_zh}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+工件 & SHA-256 \\
+\midrule
+审计程序 & {\scriptsize\ttfamily\seqsplit{92d28a2e5f5a8c3826d95a99165e616c285fc5872d45d7d0c9bc521bd00c3264}} \\
+结果报告 & {\scriptsize\ttfamily\seqsplit{19122af913409a4c2f0254e7604ccb288926253a22653e1ef61fb18336275830}} \\
+电芯指标表 & {\scriptsize\ttfamily\seqsplit{591569b17bcfad5632d9acc370bf592bbc3e8c353df56cc8998e1a692980bd9c}} \\
+数据集等权汇总 & {\scriptsize\ttfamily\seqsplit{df427571293dbcf67191dc07f1db132f00837f65b989db24b86e0519df15089f}} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{V380 机制确认与 V384 外部稳健性审计的 SHA-256 标识。}
+\label{tab:external_v380_hashes_zh}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+工件 & SHA-256 \\
+\midrule
+V380 预冻结协议 & {\scriptsize\ttfamily\seqsplit{128fa29a2b21ad8022adf3afecc6351e8b480e770c4c8833a032c7097575b5cc}} \\
+V380 执行程序 & {\scriptsize\ttfamily\seqsplit{9a4e819a20f1053dc2ae447a396800fa4b88af49a101de1692503f18d4d0deb1}} \\
+V380 独立验证器 & {\scriptsize\ttfamily\seqsplit{479533c75f362bd64f9d00c44582612ab39e994ba08d16d04bdb886990831830}} \\
+冻结预测 & {\scriptsize\ttfamily\seqsplit{474d01b7473ed30aaa79f117ab1a9237e5028201ecab74dbce37932d3ac9f5e3}} \\
+数据集指标 & {\scriptsize\ttfamily\seqsplit{482b6f3717f656c6fcd74ee932aae172c8a5029feebdff5ba21757478ded27b2}} \\
+决策代价汇总 & {\scriptsize\ttfamily\seqsplit{4fa9c0716b2fc9c4b56e0c03699207e3cad16aa7fff1e57747d603cf3e2c2d74}} \\
+V380 结果报告 & {\scriptsize\ttfamily\seqsplit{e46f1157791f8da33e401833327dc2dba791a43df496a2d7204a932cf25c4655}} \\
+独立验证回执 & {\scriptsize\ttfamily\seqsplit{798406ec12cbd8ce0c89a12779cdb7b389bd06f52f76d04cb6876d08964b45c3}} \\
+V384 稳健性协议 & {\scriptsize\ttfamily\seqsplit{0d10e30f6497be482b074a89cd3bb3e8c8d6f3b2864fa9453ea9bf7e0b73c517}} \\
+V384 审计程序 & {\scriptsize\ttfamily\seqsplit{e80ed65a64b68d137da436aebcaa606d2e7263270843d3c98ab6dfd931e0c54d}} \\
+V384 验证测试 & {\scriptsize\ttfamily\seqsplit{d0611d66c8281c5d9943579d0f0603c4feafab14c4ad1545ce9d7ffa2810084e}} \\
+V384 结果报告 & {\scriptsize\ttfamily\seqsplit{60a8dc4d1dfa440c2815cfc05ae523c113dfc3f3cf759b1c28e698ee0c5a5832}} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{解析证明与损失约束扩展}
+
+\subsection{受保护状态与投影算子的证明}
+
+受保护状态具有前缀不变性：\(b_{i1}\) 只使用 \(r_{i1}\)，之后每个 \(b_{it}\) 都是 \((b_{i,t-1},r_{it})\) 的确定性函数。对记录序号归纳可知，在时刻 \(t\) 之后扩展轨迹不会改变前 \(t\) 个状态。当 \(t>1\) 时，同一更新还具有精确近端形式
+\begin{equation}
+ b_{it}=\underset{q\in\mathcal Y,\ q\leq b_{i,t-1}}{\arg\min}
+ \left\{\frac{\alpha}{2}(q-r_{it})^2+
+ \frac{1-\alpha}{2}(q-b_{i,t-1})^2\right\}.
+ \label{eq:supp_protected_proximal_zh}
+\end{equation}
+无约束极小点为 \((1-\alpha)b_{i,t-1}+\alpha r_{it}\)；投影到单向可行集等价于先以 \(\min\{r_{it},b_{i,t-1}\}\) 代替 \(r_{it}\)，再截断到 \(\mathcal Y\)，恰好得到受保护状态递推。
+
+\paragraph{递归可行性与轨迹约束。}
+在第一条参照后记录，\(p_{i0}=1.3\) 且 \(b_{i1}\in[0,1.3]\)，所以下端点 \(\max\{0,b_{i1}-\delta\}\) 不会超过定义上端点的任一项。假设时刻 \(t-1\) 的区间可行。由 \(b_{it}\leq b_{i,t-1}\) 与 \(p_{i,t-1}\geq\max\{0,b_{i,t-1}-\delta\}\)，有
+\[
+ p_{i,t-1}\geq\max\{0,b_{it}-\delta\}.
+\]
+因此当前区间非空。投影保证取值范围和 \(|p_{it}-b_{it}|\leq\delta\)；上一输出形成的上界保证 \(p_{it}\leq p_{i,t-1}\)；全部输入的前缀可测性保证前缀因果性。
+
+\paragraph{前缀非扩张性。}
+记
+\[
+ F_\alpha(x,z)=\Pi_{\mathcal Y}\!\left((1-\alpha)x+\alpha\min\{x,z\}\right).
+\]
+最小值算子在上确界范数下具有联合 \(1\)-Lipschitz 性；与 \(x\) 的凸组合及标量截断均不增大该常数。由初始化与归纳可得
+\[
+ \max_{s\leq t}|b_{is}-\widetilde b_{is}|
+ \leq\max_{s\leq t}|r_{is}-\widetilde r_{is}|.
+\]
+再定义 \(L(b)=\max\{0,b-\delta\}\) 与 \(U(b,u)=\min\{1.3,b+\delta,u\}\)，发布输出可写为
+\[
+ p_{it}=\operatorname{med}\{L(b_{it}),c_{it},U(b_{it},p_{i,t-1})\}.
+\]
+最小值、最大值和中位数算子均具有联合 \(1\)-Lipschitz 性，因而
+\[
+ |p_{it}-\widetilde p_{it}|
+ \leq\max\{|b_{it}-\widetilde b_{it}|,
+ |c_{it}-\widetilde c_{it}|,
+ |p_{i,t-1}-\widetilde p_{i,t-1}|\}.
+\]
+归纳即得正文的前缀层面不等式。若两次运行仅有位于区间内部的候选相差 \(\varepsilon>0\)，则相应输出也恰好相差 \(\varepsilon\)，故常数 \(1\) 为紧常数。
+
+\paragraph{绝对损失精确域、可延拓性与最接近候选的最优性。}
+由三角不等式，对所有 \(y\) 均有
+\[
+ |p-y|-|b-y|\leq|p-b|,
+\]
+且在 \(y=b\) 处取等号。因此，结果一致绝对损失域恰为 \([b-\delta,b+\delta]\)；再与数值范围和上一输出半直线相交，即得到正文中的 \(I_{it}\)。当 \(\delta=0\) 时，任意 \(p\neq b\) 都会在 \(y=b\) 处产生 \(|p-b|>0\) 的额外损失。
+
+对任意 \(q\in I_{it}\) 及受保护状态任意未来非增轨迹，令 \(L_{is}=\max\{0,b_{is}-\delta\}\)。该下端点轨迹非增，始终满足取值范围与损害预算，并从不高于 \(q\)，故构成一条可行延拓。区间外的点已经违反当前约束，因而不可能延拓。最后，在精确可行集 \(I_{it}\) 上，严格凸目标 \(\tfrac12(p-c_{it})^2\) 的唯一极小点为 \(\Pi_{I_{it}}(c_{it})\)。
+
+\subsection{其他损失约束的扩展}
+
+\paragraph{度量损失。}
+对任意度量空间 \((\mathcal M,d)\)，有
+\begin{equation}
+ \sup_{y\in\mathcal M}[d(p,y)-d(b,y)]=d(p,b).
+ \label{eq:supp_metric_identity_zh}
+\end{equation}
+上界来自三角不等式，在 \(y=b\) 处取等号。因此，精确损害域是以 \(b\) 为中心、半径为 \(\delta\) 的闭度量球。该恒等式是既有度量性质的直接推论；本文用它揭示部署约束背后的几何结构。
+
+\paragraph{平方损失与声明的结果集合。}
+设 \(L<U\)、\(b,p\in[L,U]\)，且 \(\ell_2(q,y)=(q-y)^2\)，则
+\begin{equation}
+ \sup_{y\in[L,U]}[(p-y)^2-(b-y)^2]
+ =
+ \begin{cases}
+ (p-b)(p+b-2L), & p\geq b,\\
+ (b-p)(2U-p-b), & p<b.
+ \end{cases}
+ \label{eq:supp_squared_identity_zh}
+\end{equation}
+损失差展开为 \((p-b)(p+b-2y)\)，它关于 \(y\) 为仿射函数，最大端点随 \(p-b\) 的符号切换。分别求解两侧预算不等式，得到精确可行域
+\begin{equation}
+ \mathcal H^{(2)}_\delta(b;[L,U])
+ =
+ \left[
+ \max\!\left\{L,U-\sqrt{(U-b)^2+\delta}\right\},
+ \min\!\left\{U,L+\sqrt{(b-L)^2+\delta}\right\}
+ \right].
+ \label{eq:supp_squared_region_zh}
+\end{equation}
+若结果集合改为 \(\mathbb R\)，则每个 \(p\neq b\) 的最坏额外平方损失均为无穷：当 \(p>b\) 时，损失差在 \(y\to-\infty\) 时发散；当 \(p<b\) 时，则在 \(y\to+\infty\) 时发散。
+
+记式~\eqref{eq:supp_squared_region_zh} 的两个端点为 \(\underline q^{(2)}_\delta(b)\) 与 \(\overline q^{(2)}_\delta(b)\)。下端点关于 \(b\) 单调不减，因此当受保护状态非增时，
+\[
+ I^{(2)}_{it}=
+ [\underline q^{(2)}_\delta(b_{it}),
+ \min\{\overline q^{(2)}_\delta(b_{it}),p_{i,t-1}\}]
+\]
+可由与绝对损失相同的归纳证明为非空，并对每个 \(y\in[L,U]\) 保证额外平方损失不超过 \(\delta\)。只有当 \([L,U]\) 是可信的结果约束时，该扩展才成立。
+
+\paragraph{方向加权绝对损失。}
+对正代价 \(c_{\mathrm{under}}\) 与 \(c_{\mathrm{over}}\)，定义
+\[
+ \ell_{\mathrm{asym}}(p,y)
+ =c_{\mathrm{under}}(y-p)_+
+ +c_{\mathrm{over}}(p-y)_+.
+\]
+分情况计算可得
+\begin{equation}
+ \sup_{y\in\mathbb R}
+ [\ell_{\mathrm{asym}}(p,y)-\ell_{\mathrm{asym}}(b,y)]
+ =
+ \begin{cases}
+ c_{\mathrm{over}}(p-b), & p\geq b,\\
+ c_{\mathrm{under}}(b-p), & p<b.
+ \end{cases}
+ \label{eq:supp_asymmetric_identity_zh}
+\end{equation}
+因此，决策损失预算 \(\eta\) 给出的精确方向区间为
+\[
+ \left[b-\frac{\eta}{c_{\mathrm{under}}},
+ b+\frac{\eta}{c_{\mathrm{over}}}\right].
+\]
+当代价和预算在单条轨迹内保持不变时，将该区间与 \([0,1.3]\) 和上一输出上界相交，可保持递归可行性。令两个代价相等且 \(\eta=\delta\)，即可恢复实验使用的 PCHP 约束。
+
+若代价和预算随 \(t\) 变化，定义
+\[
+ L_{it}=\max\!\left\{0,b_{it}-\frac{\eta_{it}}{c_{\mathrm{under},it}}\right\},
+ \qquad
+ U_{it}=\min\!\left\{1.3,b_{it}+\frac{\eta_{it}}{c_{\mathrm{over},it}}\right\}.
+\]
+已实现区间 \([L_{it},\min\{U_{it},p_{i,t-1}\}]\) 非空，当且仅当 \(L_{it}\leq p_{i,t-1}\)。该递推对任意候选序列均可行，当且仅当所有 \(t\geq2\) 均满足 \(L_{it}\leq L_{i,t-1}\)。给定已经发布的上一输出，当前最小可行预算为
+\begin{equation}
+ \eta^{\min}_{it}
+ =c_{\mathrm{under},it}(b_{it}-p_{i,t-1})_+.
+ \label{eq:supp_minimum_viable_budget_zh}
+\end{equation}
+若声明预算低于该值，系统必须显式失败，而不能静默扩大预算。
+
+\paragraph{聚合继承。}
+对非负权重 \(w_k\)，逐记录保证直接推出
+\[
+ \sum_k w_k(|p_k-y_k|-|b_k-y_k|)
+ \leq\sum_k w_k\delta_k.
+\]
+这一确定性继承不要求独立性假设。实际效用的统计不确定性仍由“数据域—电芯—记录”的抽样层级决定。
+
+\section{损失几何验证记录}
+
+在执行数值检验之前，V366 扩展已完成冻结。确定性验证器不读取任何电池结果；随机种子为 $20{,}260{,}802$，容差为 $10^{-12}$。验证内容包括度量恒等式、有界平方损失上确界与可行域闭式、有效边界等式、相邻区间外点违反、递归可行性以及整个实数轴上的平方损失发散构造。全部 $27$ 个聚合检查通过。在 $200{,}000$ 个随机有界配置中，最大公式差为 $1.3323\times10^{-15}$；在 $2{,}000$ 条长度为 $128$ 的非增轨迹中，最大预算超额为 $7.7716\times10^{-16}$，最大输出增量为 $0$。这些测试针对转录与实现错误，理论主张仍以解析证明为依据。
+
+\begin{table}[H]
+\centering
+\caption{预冻结 V366 损失几何扩展的 SHA-256 标识。}
+\label{tab:loss_geometry_hashes_zh}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+工件 & SHA-256 \\
+\midrule
+V366 损失几何预冻结记录 & {\scriptsize\ttfamily\seqsplit{3e9b0494c23d10500889a27811fe8b9c29de74e60712271467e4d0c28ad0d1d0}} \\
+V366 确定性验证器 & {\scriptsize\ttfamily\seqsplit{6961dcf3d141397b07e6890d952d52e60689209a7386395d3f51e54e2557a344}} \\
+V366 验证报告 & {\scriptsize\ttfamily\seqsplit{72cbb80861c9fc456a2aa7ba857757a33f3eb3585b7b9121366f70894476c8b0}} \\
+V366 主张—来源审计 & {\scriptsize\ttfamily\seqsplit{4c430aca07747dc4651173c4458a69fc664d4fae4d684071fe0f97fe5dc2308a}} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{前缀非扩张性验证记录}
+
+V377 算子稳定性协议在数值执行前完成冻结，且验证器不读取任何电池结果。随机种子为 $20{,}260{,}802$，绝对容差为 $2\times10^{-12}$。
+
+验证共完成 $3{,}888$ 项受保护状态穷举局部检查、$21{,}168$ 项投影穷举局部检查、$108$ 项近端等价检查，以及 $30{,}000$ 对独立生成的随机轨迹检查。受保护状态不等式的最大超额为 $1.1102\times10^{-16}$，完整输出不等式的最大超额为 $3.2818\times10^{-16}$；显式紧性见证在浮点表示精度内恰好达到 $0.03$ 的输入间距。报告状态为 \texttt{\seqsplit{PCHP\_PREFIX\_NONEXPANSIVENESS\_V377\_PASSED}}。这些检查针对实现与证明转录错误；定理的科学依据仍是上文给出的解析证明。
+
+\begin{table}[H]
+\centering
+\caption{V377 算子稳定性验证的 SHA-256 标识。}
+\label{tab:stability_hashes_zh}
+\scriptsize
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+工件 & SHA-256 \\
+\midrule
+V377 确定性验证器 & {\scriptsize\ttfamily\seqsplit{9abe330253305b02250bba00da337ec8003fe5c9aa99b535a4af2cb842e38b35}} \\
+V377 验证报告 & {\scriptsize\ttfamily\seqsplit{2421dd474feb23a349b3be01354de240baf7b945ce5bbcdc95d5c7edbbd683f8}} \\
+V377 四项测试扩展 & {\scriptsize\ttfamily\seqsplit{66f2fc349826e6e9c1fa22529a99546e5a30405dbbc7ee11b4dc8f2c1c76f14e}} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}

@@ -1,0 +1,190 @@
+\documentclass[11pt]{article}
+\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{seqsplit}
+\usepackage[hidelinks]{hyperref}
+
+\title{Supplementary Reproducibility Record\\
+\large Risk-Controlled Cross-Domain Battery State-of-Health Estimation via Prefix-Causal Harm-Budget Projection}
+\author{Yuyang Wu}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Frozen artifact chain}
+
+Table~\ref{tab:hashes} records selected SHA-256 identifiers that bind the prefix-causal implementation, nested development evaluation, unprotected comparator, prospectively locked BaSyTec external validation, and NASA workflow to the reported results. Original datasets remain governed by their respective repositories and licences.
+
+\begin{table}[H]
+\centering
+\caption{Selected SHA-256 identifiers for the causal method and two protocol-frozen external workflows.}
+\label{tab:hashes}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+Artifact & SHA-256 \\
+\midrule
+Prefix-causal projection implementation & {\scriptsize\ttfamily\seqsplit{ce7288a129c17114e1ca57432c6417beba7938d58db2b1fd0a87171c479eb54c}} \\
+Nested development predictions & {\scriptsize\ttfamily\seqsplit{d7a9a8c06923841260d98526dff665562ca27624357a4d514f6bc75563c69534}} \\
+Candidate-control implementation & {\scriptsize\ttfamily\seqsplit{0f6523700082cff38aa26cd05385d3cf3252d436ccdbc22821355e7029861873}} \\
+Source-tuned unprotected comparator report & {\scriptsize\ttfamily\seqsplit{ed11518ea3e1eaa42148bf4421f0570d775074ae697260a8edf9fbac0798c252}} \\
+BaSyTec final pre-freeze protocol & {\scriptsize\ttfamily\seqsplit{2e7c34cc3e56cbd5901d18b3989d18754d08e66e7448205197e5b6aa9658643a}} \\
+BaSyTec header-only inventory & {\scriptsize\ttfamily\seqsplit{35c4fa46ad72f00f09a17282e0ed4a2c04ec03c33c852ea621fafc746ab6a656}} \\
+Frozen BaSyTec predictions & {\scriptsize\ttfamily\seqsplit{2e27780968f909b0d1d1a05b2b90370e2735e99f3a8e8926b781150751b6f8f6}} \\
+BaSyTec one-shot result report & {\scriptsize\ttfamily\seqsplit{eb6bf718810577fe6e91228301e7352236a991d9899b3002fc2ee2d5753ec2b0}} \\
+BaSyTec independent statistical audit & {\scriptsize\ttfamily\seqsplit{7726061409e3a897fa2677c519a7a1af8e3ca1771fac384d8f0feed2c0682fc7}} \\
+NASA pre-freeze protocol & {\scriptsize\ttfamily\seqsplit{37507d16ed8f13bd4aa378f3da3480dad691addf383c31b00ad613bb7397adea}} \\
+Official NASA archive & {\scriptsize\ttfamily\seqsplit{82302a7db4fc1b34e0b6676326610438d43b816bdf11a69d1d012a464ef2f92e}} \\
+Frozen NASA predictions & {\scriptsize\ttfamily\seqsplit{4d8264d94e224be12a5574cc403047e10276c78652d80a4841086f4e409ceaa9}} \\
+Independent NASA scoring program & {\scriptsize\ttfamily\seqsplit{9894c1cbecae80e8a0712b812257ab474974ee3a3ea8df418e6306f94bdf40ba}} \\
+NASA one-shot result report & {\scriptsize\ttfamily\seqsplit{d92be40ab5c34b6324667af549cfde34b15857d02e8c0c654579111854de48b1}} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Guarantee and workflow verification}
+
+Thirty historical V321 unit tests cover causal-state monotonicity, unit assimilation, prefix invariance, nearest-current-feasible projection, range and tube membership, the exact harm identity and harm-region equivalence, zero-budget impossibility, recursive feasibility and exact viability-kernel membership, asymmetric-loss contracts, time-varying feasibility and minimum viable budgets, invalid contracts, non-finite and shape-mismatched inputs, and cellwise order restoration. Four separate V377 unit tests cover the exact local proximal representation, protected-state and complete-operator prefix nonexpansiveness, and tightness of the unit Lipschitz constant, giving $34$ focused PCHP tests without modifying the historical V321 file. Four synthetic NASA workflow tests, five BaSyTec header-family tests, and one synthetic MATLAB integration test verify field isolation and two-stage execution. The development, BaSyTec, and NASA reports additionally check maximum displacement, observed absolute-loss increase, trajectory monotonicity, independent-unit counts, frozen file identities, and aggregate reconstruction.
+
+\section{Retrospective budget-path audit}
+
+The budget-path analysis was protocol-locked before its computation but after all development-domain outcomes had been opened. Its single primary empirical estimand is the domain-equal mean of the budget-normalized integrated PCHP-minus-exact-budget-feasible-shift MAE difference. Per-budget intervals are descriptive. The original V361 validator recorded \texttt{NARROW} because one historical anchor compared the high-precision V327 value with a report JSON rounded to ten decimal places under a $10^{-12}$ tolerance. V361 was not modified or rerun. A separately frozen V362 audit verified the authoritative aggregate CSV, all twelve domain rows, the V326 source-only selection roster, and all non-anchor scientific gates. It classified the anchor failure as a serialization-precision false negative while retaining the retrospective label and the original V361 decision record.
+
+\begin{table}[H]
+\centering
+\caption{SHA-256 identifiers for the budget-path analysis and independent anchor audit.}
+\label{tab:budget_hashes}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+Artifact & SHA-256 \\
+\midrule
+V361 analysis pre-freeze & {\scriptsize\ttfamily\seqsplit{7bc32a42d2c20e61471357126f6281e3a11ac976979d56056b68b243f6a6c4d6}} \\
+V361 analysis program & {\scriptsize\ttfamily\seqsplit{bdd0a1aeaf715d25fe574feb52b1679551a608999ab49848a3ff8c6dfd701f79}} \\
+V361 result report & {\scriptsize\ttfamily\seqsplit{6e8d09554f73f1df7cdf6cf8affdaaf1c13eec80b6778b5e58616038ec02781b}} \\
+V361 domain AUC table & {\scriptsize\ttfamily\seqsplit{f3c1275be42e9de2d38a4d516c3518a3777bad5a0341f4d07a2852d28693c416}} \\
+V362 audit pre-freeze & {\scriptsize\ttfamily\seqsplit{49b986a77346f28c80c3d024bae6caff58de469124c422db726945c72400ea56}} \\
+V362 audit program & {\scriptsize\ttfamily\seqsplit{ca3e2be80c1e995daeaa90741ab6d6e07af94424a294d6b80e09f050b32640b5}} \\
+V362 audit report & {\scriptsize\ttfamily\seqsplit{8e02eca68f7016d0ec08100195689e0129cccc90fc8add7b6ecc4a275b323608}} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Finite-sample domain sensitivity audit}
+
+Because the development estimands have only $12$ independent complete-domain effects, V378 recomputed three paired comparisons using complementary small-sample procedures. For each comparison it enumerated all $2^{12}=4{,}096$ sign assignments for the domain-equal mean, computed a Student-$t$ interval, and reported exact paired Wilcoxon and direction-only sign tests. This audit was performed after the development outcomes had been opened. It is a sensitivity analysis, not a new confirmatory test, and it leaves the frozen estimands and percentile-bootstrap reports unchanged.
+
+\begin{table}[H]
+\centering
+\caption{Post-hoc finite-sample sensitivity over complete domains. Negative means favor PCHP. All test values are two-sided and descriptive.}
+\label{tab:small_n_sensitivity}
+\scriptsize
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}Xrrrrl}
+\toprule
+Comparison & Mean & Student-$t$ $95\%$ interval & Sign-flip value & Sign-test value & W/T/L \\
+\midrule
+PCHP vs protected baseline & $-0.004862$ & $[-0.007033,-0.002692]$ & $0.000977$ & $0.006348$ & $11/0/1$ \\
+PCHP vs candidate-free shift & $-0.004773$ & $[-0.008581,-0.000965]$ & $0.016602$ & $0.145996$ & $9/0/3$ \\
+Integrated budget-path AUC & $-0.006942$ & $[-0.011718,-0.002166]$ & $0.007812$ & $0.006348$ & $11/0/1$ \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The magnitude-sensitive calculations preserve all three negative domain-equal mean directions. The direction-only sign test for the candidate-free comparison does not fall below $0.05$, so that result supports an average utility contribution with heterogeneous domain effects, not universal dominance or a claim that improvement is more likely than not in a randomly drawn new domain.
+
+\begin{table}[H]
+\centering
+\caption{SHA-256 identifiers for the V378 finite-sample audit.}
+\label{tab:small_n_hashes}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+Artifact & SHA-256 \\
+\midrule
+V378 audit program & {\scriptsize\ttfamily\seqsplit{50426e90264f15e1632d0fa8403be7b16c7ef09c9076a34be05897f1a0b0b578}} \\
+V378 audit report & {\scriptsize\ttfamily\seqsplit{411007452ed8c095258f3949af959e2518dc1c63e648583e5ffe9dde3b265ae9}} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Untuned secondary-backbone portability audit}
+
+This protocol-locked retrospective audit replaced both primary ExtraTrees regressors with Ridge, HistGradientBoosting, or LightGBM while preserving the data, feature contract, weighting, outer-domain exclusions, harm budget, PCHP operator, and exact V326 outer-domain $\alpha$ schedule. No secondary-backbone hyperparameter or $\alpha$ tuning was permitted. Each backbone produced $601{,}932$ post-reference predictions over the same $586$ cells and $12$ complete domains. The independent verifier recomputed the domain effects and all deterministic certificates from the saved record-level predictions and passed $196$ named checks.
+
+\begin{table}[H]
+\centering
+\caption{Zero-additional-tuning portability results. Differences are PCHP minus the corresponding protected-state MAE; negative values favor PCHP. Intervals are Bonferroni-adjusted two-sided $98.33\%$ percentile intervals from complete-domain bootstrap resampling.}
+\label{tab:backbone_portability}
+\scriptsize
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}Xrrrrl}
+\toprule
+Backbone & Protected MAE & PCHP MAE & Difference & Adjusted interval & W/T/L \\
+\midrule
+Ridge & $0.11192$ & $0.10773$ & $-0.00419$ & $[-0.00677,-0.00131]$ & $10/0/2$ \\
+HistGradientBoosting & $0.07674$ & $0.07249$ & $-0.00425$ & $[-0.00633,-0.00203]$ & $11/0/1$ \\
+LightGBM & $0.07674$ & $0.07252$ & $-0.00422$ & $[-0.00621,-0.00231]$ & $11/0/1$ \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+All three pre-frozen conjunction gates passed. Maximum displacement and observed absolute-loss increase remained within the $0.01$ budget, maximum protected-state and output increases were zero, outputs remained in $[0,1.3]$, and exact prefix replay had maximum difference zero. Because all development outcomes had already been opened, this result excludes an ExtraTrees-specific explanation within the three audited families but does not establish external confirmation, universal model independence, deep-model portability, or best-backbone superiority.
+
+\begin{table}[H]
+\centering
+\caption{SHA-256 identifiers for the V375 portability audit.}
+\label{tab:backbone_hashes}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+Artifact & SHA-256 \\
+\midrule
+V375 pre-freeze JSON & {\scriptsize\ttfamily\seqsplit{ed6c7b6d119d4a3bb9111e27cae198c73f9c8590b3bb09756548ef06a95993e9}} \\
+V375 audit program & {\scriptsize\ttfamily\seqsplit{d1924aa47c516e4f3474942e87044df7d5bec746531b8f3816244f610e92d5eb}} \\
+V375 result report & {\scriptsize\ttfamily\seqsplit{862482438df32b59a19cfe8c4d15f413a11ee0baa2fd8e4451c9066e4d76562d}} \\
+V375 independent verification receipt & {\scriptsize\ttfamily\seqsplit{26e81d0a73374a954e518dcda7e37bdd61ba04e88b407f8de55c82476a889376}} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Loss-geometry falsification record}
+
+The V366 extension was frozen before numerical execution. Its deterministic validator read no battery outcome and used seed $20{,}260{,}802$ with tolerance $10^{-12}$. It verified the metric identity, the exact bounded squared-loss supremum and feasible interval, active-boundary equality, adjacent exterior-point violation, recursive feasibility, and the full-real-line squared-loss divergence construction. All $27$ aggregate checks passed. Across $200{,}000$ random bounded configurations, the maximum formula discrepancy was $1.3323\times10^{-15}$. Across $2{,}000$ non-increasing trajectories of length $128$, the maximum budget excess was $7.7716\times10^{-16}$ and the maximum output increase was zero. These tests target transcription and implementation errors; the analytical proofs remain the scientific basis of the claims.
+
+\begin{table}[H]
+\centering
+\caption{SHA-256 identifiers for the pre-frozen V366 loss-geometry extension.}
+\label{tab:loss_geometry_hashes}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+Artifact & SHA-256 \\
+\midrule
+V366 loss-geometry pre-freeze & {\scriptsize\ttfamily\seqsplit{3e9b0494c23d10500889a27811fe8b9c29de74e60712271467e4d0c28ad0d1d0}} \\
+V366 deterministic validator & {\scriptsize\ttfamily\seqsplit{6961dcf3d141397b07e6890d952d52e60689209a7386395d3f51e54e2557a344}} \\
+V366 validation report & {\scriptsize\ttfamily\seqsplit{72cbb80861c9fc456a2aa7ba857757a33f3eb3585b7b9121366f70894476c8b0}} \\
+V366 claim-source audit & {\scriptsize\ttfamily\seqsplit{4c430aca07747dc4651173c4458a69fc664d4fae4d684071fe0f97fe5dc2308a}} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Prefix nonexpansiveness falsification record}
+
+The V377 operator-stability protocol was frozen before numerical execution. The validator read no battery outcomes and used seed $20{,}260{,}802$ with absolute tolerance $2\times10^{-12}$. It completed $3{,}888$ exhaustive local protected-state checks, $21{,}168$ exhaustive local projection checks, $108$ proximal-equivalence checks, and $30{,}000$ independently generated trajectory-pair checks. The maximum protected-state inequality excess was $1.1102\times10^{-16}$; the maximum complete-output inequality excess was $3.2818\times10^{-16}$; and the explicit witness attained the input separation $0.03$ exactly up to floating-point representation. The report recorded a pass. These checks target implementation and proof-transcription failures; the theorem remains supported by the analytical proof in the main text.
+
+\begin{table}[H]
+\centering
+\caption{SHA-256 identifiers for the V377 operator-stability falsification.}
+\label{tab:stability_hashes}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+Artifact & SHA-256 \\
+\midrule
+V377 deterministic validator & {\scriptsize\ttfamily\seqsplit{9abe330253305b02250bba00da337ec8003fe5c9aa99b535a4af2cb842e38b35}} \\
+V377 validation report & {\scriptsize\ttfamily\seqsplit{2421dd474feb23a349b3be01354de240baf7b945ce5bbcdc95d5c7edbbd683f8}} \\
+V377 four-test extension & {\scriptsize\ttfamily\seqsplit{66f2fc349826e6e9c1fa22529a99546e5a30405dbbc7ee11b4dc8f2c1c76f14e}} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\end{document}

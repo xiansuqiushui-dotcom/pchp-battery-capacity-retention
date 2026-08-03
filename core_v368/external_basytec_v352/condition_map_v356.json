@@ -1,0 +1,298 @@
+{
+  "source_header": [
+    null,
+    "cell_name",
+    "temperature",
+    "c-rate"
+  ],
+  "rows": [
+    {
+      "row_id": 1,
+      "cell_name": "F0001",
+      "temperature_c": 25,
+      "c_rate": 1.5
+    },
+    {
+      "row_id": 2,
+      "cell_name": "F0002",
+      "temperature_c": 55,
+      "c_rate": 0.5
+    },
+    {
+      "row_id": 3,
+      "cell_name": "F0003",
+      "temperature_c": 30,
+      "c_rate": 1
+    },
+    {
+      "row_id": 4,
+      "cell_name": "F0004",
+      "temperature_c": 10,
+      "c_rate": 1.5
+    },
+    {
+      "row_id": 5,
+      "cell_name": "F0006",
+      "temperature_c": 30,
+      "c_rate": 1.5
+    },
+    {
+      "row_id": 6,
+      "cell_name": "F0007",
+      "temperature_c": 55,
+      "c_rate": 0.75
+    },
+    {
+      "row_id": 7,
+      "cell_name": "F0008",
+      "temperature_c": 25,
+      "c_rate": 1
+    },
+    {
+      "row_id": 8,
+      "cell_name": "F0009",
+      "temperature_c": 0,
+      "c_rate": 1.5
+    },
+    {
+      "row_id": 9,
+      "cell_name": "F0010",
+      "temperature_c": 30,
+      "c_rate": 0.5
+    },
+    {
+      "row_id": 10,
+      "cell_name": "F0011",
+      "temperature_c": 30,
+      "c_rate": 0.75
+    },
+    {
+      "row_id": 11,
+      "cell_name": "F0012",
+      "temperature_c": 10,
+      "c_rate": 0.5
+    },
+    {
+      "row_id": 12,
+      "cell_name": "F0013",
+      "temperature_c": 10,
+      "c_rate": 1
+    },
+    {
+      "row_id": 13,
+      "cell_name": "F0014",
+      "temperature_c": 25,
+      "c_rate": 1.5
+    },
+    {
+      "row_id": 14,
+      "cell_name": "F0016",
+      "temperature_c": 0,
+      "c_rate": 1
+    },
+    {
+      "row_id": 15,
+      "cell_name": "F0017",
+      "temperature_c": 10,
+      "c_rate": 0.5
+    },
+    {
+      "row_id": 16,
+      "cell_name": "F0022",
+      "temperature_c": 45,
+      "c_rate": 0.75
+    },
+    {
+      "row_id": 17,
+      "cell_name": "F0026",
+      "temperature_c": 25,
+      "c_rate": 0.75
+    },
+    {
+      "row_id": 18,
+      "cell_name": "F0031",
+      "temperature_c": 55,
+      "c_rate": 1.5
+    },
+    {
+      "row_id": 19,
+      "cell_name": "F0036",
+      "temperature_c": 10,
+      "c_rate": 0.75
+    },
+    {
+      "row_id": 20,
+      "cell_name": "F0048",
+      "temperature_c": 0,
+      "c_rate": 1.5
+    },
+    {
+      "row_id": 21,
+      "cell_name": "F0052",
+      "temperature_c": 25,
+      "c_rate": 0.5
+    },
+    {
+      "row_id": 22,
+      "cell_name": "F0054",
+      "temperature_c": 30,
+      "c_rate": 0.75
+    },
+    {
+      "row_id": 23,
+      "cell_name": "F0056",
+      "temperature_c": 25,
+      "c_rate": 0.75
+    },
+    {
+      "row_id": 24,
+      "cell_name": "F0063",
+      "temperature_c": 45,
+      "c_rate": 0.5
+    },
+    {
+      "row_id": 25,
+      "cell_name": "F0064",
+      "temperature_c": 0,
+      "c_rate": 0.5
+    },
+    {
+      "row_id": 26,
+      "cell_name": "F0065",
+      "temperature_c": 55,
+      "c_rate": 1.5
+    },
+    {
+      "row_id": 27,
+      "cell_name": "F0067",
+      "temperature_c": 55,
+      "c_rate": 1
+    },
+    {
+      "row_id": 28,
+      "cell_name": "F0068",
+      "temperature_c": 45,
+      "c_rate": 1.5
+    },
+    {
+      "row_id": 29,
+      "cell_name": "F0069",
+      "temperature_c": 30,
+      "c_rate": 0.5
+    },
+    {
+      "row_id": 30,
+      "cell_name": "F0108",
+      "temperature_c": 0,
+      "c_rate": 0.5
+    },
+    {
+      "row_id": 31,
+      "cell_name": "F0126",
+      "temperature_c": 10,
+      "c_rate": 1.5
+    },
+    {
+      "row_id": 32,
+      "cell_name": "F0127",
+      "temperature_c": 45,
+      "c_rate": 1.5
+    },
+    {
+      "row_id": 33,
+      "cell_name": "F0129",
+      "temperature_c": 25,
+      "c_rate": 1
+    },
+    {
+      "row_id": 34,
+      "cell_name": "F0132",
+      "temperature_c": 45,
+      "c_rate": 0.75
+    },
+    {
+      "row_id": 35,
+      "cell_name": "F0133",
+      "temperature_c": 55,
+      "c_rate": 0.5
+    },
+    {
+      "row_id": 36,
+      "cell_name": "F0136",
+      "temperature_c": 25,
+      "c_rate": 0.5
+    },
+    {
+      "row_id": 37,
+      "cell_name": "F0138",
+      "temperature_c": 45,
+      "c_rate": 1
+    },
+    {
+      "row_id": 38,
+      "cell_name": "F0139",
+      "temperature_c": 55,
+      "c_rate": 1
+    },
+    {
+      "row_id": 39,
+      "cell_name": "F0141",
+      "temperature_c": 0,
+      "c_rate": 0.75
+    },
+    {
+      "row_id": 40,
+      "cell_name": "F0142",
+      "temperature_c": 55,
+      "c_rate": 0.75
+    },
+    {
+      "row_id": 41,
+      "cell_name": "F0143",
+      "temperature_c": 45,
+      "c_rate": 1
+    },
+    {
+      "row_id": 42,
+      "cell_name": "F0144",
+      "temperature_c": 10,
+      "c_rate": 1
+    },
+    {
+      "row_id": 43,
+      "cell_name": "F0145",
+      "temperature_c": 0,
+      "c_rate": 1
+    },
+    {
+      "row_id": 44,
+      "cell_name": "F0148",
+      "temperature_c": 10,
+      "c_rate": 0.75
+    },
+    {
+      "row_id": 45,
+      "cell_name": "F0150",
+      "temperature_c": 30,
+      "c_rate": 1.5
+    },
+    {
+      "row_id": 46,
+      "cell_name": "F0152",
+      "temperature_c": 0,
+      "c_rate": 0.75
+    },
+    {
+      "row_id": 47,
+      "cell_name": "F0155",
+      "temperature_c": 45,
+      "c_rate": 0.5
+    },
+    {
+      "row_id": 48,
+      "cell_name": "F0156",
+      "temperature_c": 30,
+      "c_rate": 1
+    }
+  ]
+}

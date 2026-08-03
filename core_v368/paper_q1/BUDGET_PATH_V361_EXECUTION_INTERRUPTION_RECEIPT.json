@@ -1,0 +1,11 @@
+{
+  "status": "EXECUTION_INTERRUPTED_BY_OUTER_COMMAND_TIMEOUT_BEFORE_SCIENTIFIC_OUTPUT",
+  "recorded_at_local": "2026-08-02T09:17:35.5524005+08:00",
+  "protocol_version": "v361",
+  "script_sha256_after_interruption": "bdd0a1aeaf715d25fe574feb52b1679551a608999ab49848a3ff8c6dfd701f79",
+  "outer_command_timeout_seconds": 5,
+  "scientific_output_directory_created": false,
+  "budget_or_domain_results_emitted": false,
+  "protocol_or_gate_change_permitted": false,
+  "restart_rule": "Rerun the identical frozen script with a sufficient outer runtime limit."
+}

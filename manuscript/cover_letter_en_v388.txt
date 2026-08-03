@@ -1,0 +1,22 @@
+Dear Editor,
+
+Please consider our manuscript, “Prefix-Causal Harm-Budget Projection for Cross-Domain Lithium-Ion Battery Capacity-Retention Estimation,” for publication as a research article.
+
+Battery-health estimates are often needed from partial charge records before a reference-capacity test is available. Cross-domain models can adapt predictions to a new cell population, but an operator cannot know whether a label-free update helps at the time it is issued, and retrospective processing can allow future observations to rewrite a record already used for a maintenance decision. We address this deployment gap with prefix-causal harm-budget projection (PCHP), an output-space layer that admits learned updates only through the exact recursively feasible interval defined by a protected causal state, a declared per-record harm budget, and the previously issued output.
+
+The method provides an outcome-uniform bound on the increase in absolute loss relative to the protected state, preserves every emitted prefix, enforces non-increasing health records, and executes in constant time per update. The evidence combines nested evaluation across 12 development domains, 586 cells, and 601,932 records; protocol-frozen confirmation on six additional datasets with 659 cells; an outcome-blind BaSyTec evaluation; matched controls; deterministic certificate tests; and a decision-linked asymmetric-cost analysis. At a 5:1 missed-degradation-to-unnecessary-review cost ratio, PCHP reduced continuous asymmetric cost by 7.54% while preserving the binary 80% review decision under the declared budget.
+
+The work fits an applied-energy audience because it turns cross-domain battery-health learning into an auditable online decision component, explicitly connecting prediction adaptation, operational risk control, and maintenance consequences. The manuscript is original, is not under consideration elsewhere, and has been approved by both authors. We declare no competing interests and no specific grant funding.
+
+Thank you for your consideration.
+
+Sincerely,
+
+Yuyang Wu, first author
+SILC Business School, Shanghai University
+1946929704@shu.edu.cn
+
+Aiping Jiang, corresponding author
+SILC Business School, Shanghai University
+ap724@shu.edu.cn
+

@@ -1,0 +1,592 @@
+{
+  "accuracy": {
+    "cell_equal_baseline_mae": 0.17495645823561903,
+    "cell_equal_pchp_mae": 0.1651006553284595,
+    "cell_equal_source_tuned_candidate_mae": 0.06172132665421798,
+    "comparisons": {
+      "pchp_minus_baseline": {
+        "cell_bootstrap_ci95": [
+          -0.010000000000000007,
+          -0.009592648597701363
+        ],
+        "cell_equal_mean": -0.009855802907159565,
+        "exact_two_sided_sign_p_descriptive": 5.684341886080802e-14,
+        "win_fraction_excluding_ties": 1.0,
+        "wins_ties_losses": [
+          45,
+          0,
+          0
+        ]
+      },
+      "pchp_minus_source_tuned_candidate": {
+        "cell_bootstrap_ci95": [
+          0.0883135856889677,
+          0.11957992026608588
+        ],
+        "cell_equal_mean": 0.10337932867424146,
+        "exact_two_sided_sign_p_descriptive": 5.684341886080802e-14,
+        "win_fraction_excluding_ties": 0.0,
+        "wins_ties_losses": [
+          0,
+          0,
+          45
+        ]
+      },
+      "source_tuned_candidate_minus_baseline": {
+        "cell_bootstrap_ci95": [
+          -0.12946792822046033,
+          -0.09812855887635649
+        ],
+        "cell_equal_mean": -0.11323513158140106,
+        "exact_two_sided_sign_p_descriptive": 5.684341886080802e-14,
+        "win_fraction_excluding_ties": 1.0,
+        "wins_ties_losses": [
+          45,
+          0,
+          0
+        ]
+      }
+    },
+    "pchp_gain_over_baseline": 0.009855802907159565,
+    "pchp_utility_retention_fraction": 0.08703838437344463,
+    "source_tuned_candidate_gain_over_baseline": 0.11323513158140106
+  },
+  "amendment_artifacts_sha256": {
+    "common": "93276A7A7ED418CDED94FC0130C9B79C163C016039E93B6F2AE437D4CA6F28E7",
+    "prediction_report": "2E27780968F909B0D1D1A05B2B90370E2735E99F3A8E8926B781150751B6F8F6",
+    "wrapper": "2BEC2CD58D09C163FA95A34B03267D24E13B5325FBFE07FEA1DFD2A968D02D84"
+  },
+  "artifacts": [
+    {
+      "path": "E:\\CCF\\interventional_battery_learning\\external_basytec_v352\\scored_v354\\basytec_scored_records_v354.parquet",
+      "sha256": "614B26CB58A99DB11530B66C20A3763C59C627C713DE8F99AD3D56DD520031BE"
+    },
+    {
+      "path": "E:\\CCF\\interventional_battery_learning\\external_basytec_v352\\scored_v354\\basytec_cell_metrics_v354.csv",
+      "sha256": "463C633344C53D9CAD5041091DF5AC8159D6C8A5B7D29B76AFEEDF4CA787AE0A"
+    },
+    {
+      "path": "E:\\CCF\\interventional_battery_learning\\external_basytec_v352\\label_blind_v353\\basytec_label_blind_prediction_report_v353.json",
+      "sha256": "2E27780968F909B0D1D1A05B2B90370E2735E99F3A8E8926B781150751B6F8F6"
+    },
+    {
+      "path": "E:\\CCF\\interventional_battery_learning\\score_basytec_frozen_confirmation_v345.py",
+      "sha256": "E6096F69B0CD533AF7C7206E4B913217A8809C874AD98244D12BD65584FB41D2"
+    }
+  ],
+  "bootstrap": {
+    "interval": "95% percentile",
+    "replicates": 100000,
+    "seed": 20260808,
+    "unit": "physical_cell"
+  },
+  "capacity_unseal_audit": [
+    {
+      "aging_member": "F0002/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0002",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "comma",
+      "zip_name": "F0002.zip"
+    },
+    {
+      "aging_member": "F0003/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0003",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "whitespace",
+      "zip_name": "F0003.zip"
+    },
+    {
+      "aging_member": "F0004/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0004",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "comma",
+      "zip_name": "F0004.zip"
+    },
+    {
+      "aging_member": "F0006/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0006",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "whitespace",
+      "zip_name": "F0006.zip"
+    },
+    {
+      "aging_member": "F0007/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0007",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "comma",
+      "zip_name": "F0007.zip"
+    },
+    {
+      "aging_member": "F0008/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0008",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "comma",
+      "zip_name": "F0008.zip"
+    },
+    {
+      "aging_member": "F0009/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0009",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "comma",
+      "zip_name": "F0009.zip"
+    },
+    {
+      "aging_member": "F0010/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0010",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "whitespace",
+      "zip_name": "F0010.zip"
+    },
+    {
+      "aging_member": "F0011/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0011",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "whitespace",
+      "zip_name": "F0011.zip"
+    },
+    {
+      "aging_member": "F0012/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0012",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "comma",
+      "zip_name": "F0012.zip"
+    },
+    {
+      "aging_member": "F0013/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0013",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "comma",
+      "zip_name": "F0013.zip"
+    },
+    {
+      "aging_member": "F0014/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0014",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "comma",
+      "zip_name": "F0014.zip"
+    },
+    {
+      "aging_member": "F0016/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0016",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "comma",
+      "zip_name": "F0016.zip"
+    },
+    {
+      "aging_member": "F0017/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0017",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "whitespace",
+      "zip_name": "F0017.zip"
+    },
+    {
+      "aging_member": "F0022/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0022",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "comma",
+      "zip_name": "F0022.zip"
+    },
+    {
+      "aging_member": "F0026/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0026",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "comma",
+      "zip_name": "F0026.zip"
+    },
+    {
+      "aging_member": "F0031/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0031",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "comma",
+      "zip_name": "F0031.zip"
+    },
+    {
+      "aging_member": "F0036/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0036",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "whitespace",
+      "zip_name": "F0036.zip"
+    },
+    {
+      "aging_member": "F0048/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0048",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "whitespace",
+      "zip_name": "F0048.zip"
+    },
+    {
+      "aging_member": "F0052/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0052",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "comma",
+      "zip_name": "F0052.zip"
+    },
+    {
+      "aging_member": "F0054/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0054",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "comma",
+      "zip_name": "F0054.zip"
+    },
+    {
+      "aging_member": "F0056/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0056",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "comma",
+      "zip_name": "F0056.zip"
+    },
+    {
+      "aging_member": "F0063/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0063",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "comma",
+      "zip_name": "F0063.zip"
+    },
+    {
+      "aging_member": "F0064/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0064",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "comma",
+      "zip_name": "F0064.zip"
+    },
+    {
+      "aging_member": "F0065/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0065",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "comma",
+      "zip_name": "F0065.zip"
+    },
+    {
+      "aging_member": "F0067/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0067",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "comma",
+      "zip_name": "F0067.zip"
+    },
+    {
+      "aging_member": "F0068/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0068",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "whitespace",
+      "zip_name": "F0068.zip"
+    },
+    {
+      "aging_member": "F0069/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0069",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "comma",
+      "zip_name": "F0069.zip"
+    },
+    {
+      "aging_member": "F0108/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0108",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "whitespace",
+      "zip_name": "F0108.zip"
+    },
+    {
+      "aging_member": "F0126/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0126",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "whitespace",
+      "zip_name": "F0126.zip"
+    },
+    {
+      "aging_member": "F0127/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0127",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "comma",
+      "zip_name": "F0127.zip"
+    },
+    {
+      "aging_member": "F0129/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0129",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "comma",
+      "zip_name": "F0129.zip"
+    },
+    {
+      "aging_member": "F0132/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0132",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "whitespace",
+      "zip_name": "F0132.zip"
+    },
+    {
+      "aging_member": "F0133/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0133",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "comma",
+      "zip_name": "F0133.zip"
+    },
+    {
+      "aging_member": "F0136/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0136",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "comma",
+      "zip_name": "F0136.zip"
+    },
+    {
+      "aging_member": "F0138/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0138",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "comma",
+      "zip_name": "F0138.zip"
+    },
+    {
+      "aging_member": "F0139/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0139",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "comma",
+      "zip_name": "F0139.zip"
+    },
+    {
+      "aging_member": "F0141/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0141",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "comma",
+      "zip_name": "F0141.zip"
+    },
+    {
+      "aging_member": "F0142/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0142",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "comma",
+      "zip_name": "F0142.zip"
+    },
+    {
+      "aging_member": "F0143/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0143",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "whitespace",
+      "zip_name": "F0143.zip"
+    },
+    {
+      "aging_member": "F0144/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0144",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "whitespace",
+      "zip_name": "F0144.zip"
+    },
+    {
+      "aging_member": "F0145/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0145",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "whitespace",
+      "zip_name": "F0145.zip"
+    },
+    {
+      "aging_member": "F0148/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0148",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "comma",
+      "zip_name": "F0148.zip"
+    },
+    {
+      "aging_member": "F0150/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0150",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "comma",
+      "zip_name": "F0150.zip"
+    },
+    {
+      "aging_member": "F0152/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0152",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "whitespace",
+      "zip_name": "F0152.zip"
+    },
+    {
+      "aging_member": "F0155/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0155",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "comma",
+      "zip_name": "F0155.zip"
+    },
+    {
+      "aging_member": "F0156/M0002_aging.txt",
+      "capacity_rule": "sum positive consecutive decreases in cumulative Ah at negative-current rows within cycle",
+      "capacity_source_field": "Ah[Ah]",
+      "cell_id": "F0156",
+      "cycles_with_capacity": 71,
+      "cycles_without_valid_capacity": 1,
+      "delimiter_family": "comma",
+      "zip_name": "F0156.zip"
+    }
+  ],
+  "chronology": "Predictions were written and SHA-256 frozen before this scorer accessed any discharge-capacity value. Team-level prior-exposure attestation remains required.",
+  "contract": {
+    "budget_soh_units": 0.01,
+    "maximum_cell_macro_pchp_harm": -0.004646925252200576,
+    "maximum_observed_pchp_loss_regret": 0.010000000000000009,
+    "maximum_pchp_displacement": 0.010000000000000009,
+    "maximum_source_tuned_candidate_displacement": 0.2850779278184211,
+    "source_tuned_candidate_violating_cells": 45,
+    "source_tuned_candidate_violating_records": 2969
+  },
+  "decision": "RETAIN",
+  "design": {
+    "eligible_physical_cells": 45,
+    "estimand": "cell-equal mean of within-cell MAE differences",
+    "exclusions": {
+      "reference_capacity_outside_frozen_physical_range": 2
+    },
+    "independent_unit": "physical_cell",
+    "nested_unit": "aging_cycle_within_physical_cell",
+    "official_cells": 47,
+    "scored_cycle_records": 2969,
+    "target": "cycle discharge capacity divided by the median of the first five structurally eligible cycle capacities"
+  },
+  "development_cells_excluded": [
+    "F0001.zip"
+  ],
+  "gates": {
+    "all_harm_contract_checks": true,
+    "at_least_two_thirds_cells_improve": true,
+    "cell_bootstrap_interval_upper_below_zero": true,
+    "cell_equal_mean_pchp_minus_baseline_below_zero": true,
+    "execution_at_least_36_cells": true
+  },
+  "generated_at_local": "2026-08-02T08:03:53.609758+08:00",
+  "protocol_version": "V352_HEADER_FAMILY_COMPLETE",
+  "runtime_seconds": 668.0907182000083,
+  "status": "BASYTEC_FROZEN_EXTERNAL_CONFIRMATION_COMPLETED"
+}

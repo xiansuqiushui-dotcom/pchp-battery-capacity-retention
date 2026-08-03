@@ -1,0 +1,95 @@
+{
+  "version": "v341",
+  "report_date": "2026-08-02",
+  "seed": 20260802,
+  "tolerance": 1e-12,
+  "prefreeze": "paper_q1/TIME_VARYING_VIABILITY_PREFREEZE_V341.json",
+  "prefreeze_sha256": "80C3662681FBC71612470A16910E0A7199D1DB767CC8826405A77EF87A001127",
+  "implementation": "prefix_causal_harm_projection_v321.py",
+  "implementation_sha256": "CE7288A129C17114E1CA57432C6417BEBA7938D58DB2B1FD0A87171C479EB54C",
+  "unit_tests": "test_prefix_causal_harm_projection_v321.py",
+  "unit_tests_sha256": "7D21846C6F23670CFEB4DDBA9CC4035B3F7B85E13914F148F239794CB75DF1EA",
+  "decision": "RETAIN",
+  "status": "PASS",
+  "gates": [
+    {
+      "gate": "exhaustive_small_grid",
+      "status": "PASS",
+      "evidence": {
+        "schedules": 2160,
+        "candidate_trajectories": 58320,
+        "viable_schedules": 1029,
+        "nonviable_schedules": 1131
+      }
+    },
+    {
+      "gate": "randomized_viable_schedules",
+      "status": "PASS",
+      "evidence": {
+        "schedules": 300,
+        "candidate_trajectories": 12000,
+        "records": 504880,
+        "prefix_replays": 12000
+      }
+    },
+    {
+      "gate": "constructive_upward_boundary_failures",
+      "status": "PASS",
+      "evidence": {
+        "counterexamples": 1000,
+        "matched_failure_indices": 1000
+      }
+    },
+    {
+      "gate": "realized_prefix_equivalence",
+      "status": "PASS",
+      "evidence": {
+        "trajectories": 3000,
+        "feasible": 305,
+        "infeasible": 2695
+      }
+    },
+    {
+      "gate": "minimum_budget_exactness",
+      "status": "PASS",
+      "evidence": {
+        "active_trials": 1000,
+        "rejected_immediately_below": 1000,
+        "inactive_zero_floor_trials": 500
+      }
+    },
+    {
+      "gate": "upper_cost_feasibility_invariance",
+      "status": "PASS",
+      "evidence": {
+        "trajectories": 2000,
+        "feasible": 163,
+        "infeasible": 1837
+      }
+    },
+    {
+      "gate": "constant_schedule_exact_recovery",
+      "status": "PASS",
+      "evidence": {
+        "random_trajectories": 1000,
+        "exact_array_equalities": 2000
+      }
+    },
+    {
+      "gate": "invalid_contracts_fail_closed",
+      "status": "PASS",
+      "evidence": {
+        "invalid_cases": 11,
+        "rejected": 11
+      }
+    },
+    {
+      "gate": "existing_unit_suite",
+      "status": "PASS",
+      "evidence": {
+        "tests": 30,
+        "return_code": 0
+      }
+    }
+  ]
+}

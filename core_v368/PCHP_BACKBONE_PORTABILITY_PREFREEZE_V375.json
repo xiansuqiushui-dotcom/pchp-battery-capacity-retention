@@ -1,0 +1,70 @@
+{
+  "version": "v375",
+  "status": "PREFROZEN_BEFORE_V375_EXECUTION",
+  "date": "2026-08-02",
+  "scope": "protocol-locked retrospective secondary development audit",
+  "question": "Does current PCHP retain utility and deterministic certificates across three structurally different regressors without backbone-specific tuning?",
+  "information_boundary": {
+    "outer_domains": 12,
+    "physical_cells": 586,
+    "post_reference_rows_per_backbone": 601932,
+    "independent_unit": "complete battery dataset domain",
+    "historically_opened_development_data": true,
+    "outer_target_labels_used_for_training_or_selection": false,
+    "external_confirmation": false
+  },
+  "secondary_backbones": ["ridge", "hist_gradient_boosting", "lightgbm"],
+  "primary_backbone_unchanged": "extra_trees_primary",
+  "budget_soh_units": 0.01,
+  "alpha_schedule": {
+    "path": "nested_prefix_causal_selection_v326/nested_alpha_selections_v326.csv",
+    "sha256": "7440327383458225bd8b92f2998620eec4d8d924b8e31cfab05428faaca81eab",
+    "selected_for_primary_backbone_only": true,
+    "reused_without_secondary_backbone_tuning": true
+  },
+  "inputs": {
+    "batterylife_early_charge_soh_v109.parquet": "89ce9711f91b0ba7d4a14db7766055a76cce1223a553baff270abac08fed6c8e",
+    "batterylife_external_hust_rwth_v124.parquet": "2765e6ee85b7ed4000140b55396e40d271cfc9ecf464663d391a607964cdd9d8",
+    "batterylife_sdu_early_charge_soh_v145.parquet": "8db4f121dad4afb151327e85facfd6da1346f2b56409a9b487e7aaa345e33613",
+    "batterylife_matr_early_charge_soh_v151.parquet": "00395c408410efa6d72c7e5936964993388739ec52ced6693fc4f3ff4b544542",
+    "nested_prefix_causal_selection_v326/nested_source_only_alpha_selection_v326_report.json": "0197b5c8f2b2f42168d88ea4fa0625ca100a5c852a6af5df451f15dbfba02e8f",
+    "evaluate_backbone_generality_v314.py": "888c3502909a7d10d4a9ba0279ef7a947be56f54960cf85ee89fea87c3888bcc",
+    "analyze_method_ablation_v315.py": "60bef7d6449c4b668e63e8dbac1b4f8fe828e3c5b6161138a784eafda46f3f5d",
+    "prefix_causal_harm_projection_v321.py": "ce7288a129c17114e1ca57432c6417beba7938d58db2b1fd0a87171c479eb54c"
+  },
+  "model_contract": {
+    "source_rows_per_cell_cap": 80,
+    "seed": 20260801,
+    "baseline_features": "raw early-charge features plus cycle number",
+    "candidate_features": "baseline features plus commissioning-referenced absolute changes",
+    "baseline_weighting": "ordinary pooled source rows",
+    "candidate_weighting": "equal total weight per source domain",
+    "secondary_hyperparameter_tuning": false
+  },
+  "primary_estimand": "outer-domain-equal cell-macro MAE difference: PCHP minus the same backbone's protected causal state",
+  "bootstrap": {
+    "independent_unit": "complete battery dataset domain",
+    "repetitions": 100000,
+    "seed": 20260802,
+    "family": 3,
+    "interval": "two-sided Bonferroni-adjusted percentile 98.33%",
+    "lower_quantile": 0.008333333333333333,
+    "upper_quantile": 0.9916666666666667
+  },
+  "retain_gates_per_secondary_backbone": {
+    "mean_difference_below_zero": true,
+    "adjusted_interval_upper_below_zero": true,
+    "minimum_improved_outer_domains": 9,
+    "all_deterministic_certificates": true,
+    "prefix_replay_difference": 0.0
+  },
+  "conjunction_gate": "all three secondary backbones must pass every gate",
+  "failure_action": "REJECT without deleting a backbone, changing the estimand, tuning secondary hyperparameters, or weakening the conjunction gate",
+  "permitted_claim_if_retained": "PCHP retained domain-level utility and deterministic certificates across three untuned secondary backbones in retrospective development evidence",
+  "forbidden_claims": [
+    "universal model independence",
+    "deep-learning validation",
+    "new external confirmation",
+    "best-backbone superiority"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "protocol_version": "V387",
+  "status": "PASS",
+  "surface_rows": 20,
+  "missing_raw_record_surfaces": [
+    "ISU_ILCC_NMC",
+    "STANFORD_CALENDAR",
+    "BASYTEC"
+  ],
+  "development_identity": "604,862 contract-admissible records minus five commissioning records for each of 586 cells equals 601,932 scored records.",
+  "external_identity": "945 published/source cells minus 286 structurally or reference-ineligible cells equals 659 scored cells.",
+  "interpretation": "Counts describe evidence flow, not independent sample size. Repeated records remain nested within physical cells and cells within datasets.",
+  "artifacts": {
+    "protocol_sha256": "94975fc1371f28591bf69e6c82d5e3d6d2bb1677e4bfa6af4e5d97ddac25f981"
+  }
+}

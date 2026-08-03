@@ -1,0 +1,87 @@
+{
+  "status": "POSTHOC_SOURCE_GROUP_SENSITIVITY_COMPLETED",
+  "reason": "MICH and MICH_EXP share an experimental program; merging them tests whether treating them as separate development domains materially drives either effect.",
+  "primary_estimator_unchanged": true,
+  "analyses": [
+    {
+      "analysis": "primary_development",
+      "status": "POSTHOC_CONSERVATIVE_SOURCE_GROUP_SENSITIVITY",
+      "independent_sensitivity_unit": "experimental source group",
+      "source_groups": 11,
+      "merged_domains": {
+        "MICH_PROGRAM": [
+          "MICH",
+          "MICH_EXP"
+        ]
+      },
+      "source_group_equal_baseline_mae": 0.07320521390106711,
+      "source_group_equal_pchp_mae": 0.0685193610795971,
+      "source_group_equal_pchp_minus_baseline": -0.004685852821470012,
+      "bootstrap": {
+        "replicates": 100000,
+        "seed": 20260803,
+        "ci95": [
+          -0.006667048938040285,
+          -0.002738406164937248
+        ]
+      },
+      "source_group_wins_ties_losses": [
+        10,
+        0,
+        1
+      ],
+      "leave_one_source_group_out_mean_range": [
+        -0.005263669898055313,
+        -0.004167638973188053
+      ],
+      "all_leave_one_source_group_out_means_negative": true
+    },
+    {
+      "analysis": "candidate_control",
+      "status": "POSTHOC_CONSERVATIVE_SOURCE_GROUP_SENSITIVITY",
+      "independent_sensitivity_unit": "experimental source group",
+      "source_groups": 11,
+      "merged_domains": {
+        "MICH_PROGRAM": [
+          "MICH",
+          "MICH_EXP"
+        ]
+      },
+      "source_group_equal_baseline_mae": 0.07318599810130004,
+      "source_group_equal_pchp_mae": 0.0685193610795971,
+      "source_group_equal_pchp_minus_baseline": -0.004666637021702945,
+      "bootstrap": {
+        "replicates": 100000,
+        "seed": 20260804,
+        "ci95": [
+          -0.00824926401148149,
+          -0.0012516269734047557
+        ]
+      },
+      "source_group_wins_ties_losses": [
+        8,
+        0,
+        3
+      ],
+      "leave_one_source_group_out_mean_range": [
+        -0.00555707689891555,
+        -0.003466528652346539
+      ],
+      "all_leave_one_source_group_out_means_negative": true
+    }
+  ],
+  "inputs": [
+    {
+      "path": "nested_prefix_causal_outer_v327/nested_outer_domain_metrics_v327.csv",
+      "sha256": "724C65D212BEA87B4C35E99D6FDF1A72708C9991D51DC51EC1777592AB29A7C3"
+    },
+    {
+      "path": "candidate_information_control_v333/candidate_information_domain_metrics_v333.csv",
+      "sha256": "D9C48CF22F5602029A7CD06D6B0E884EB667B2A10C6EA9C6AEDFFA54655FEF70"
+    }
+  ],
+  "output": {
+    "path": "source_group_sensitivity_v339/source_group_effects_v339.csv",
+    "sha256": "0CE29B64228CC6462B94600012B583E87C933C30DEAB55EE627C5D3C2A55A965"
+  }
+}

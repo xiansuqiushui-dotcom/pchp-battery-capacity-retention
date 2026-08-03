@@ -1,0 +1,79 @@
+{
+  "version": "V362",
+  "audit_scope": "independent operational audit of the V361 delta=0.01 historical anchor",
+  "scientific_outputs_recomputed": false,
+  "v361_files_modified": false,
+  "frozen_input_hashes": {
+    "v361_analysis_script": "bdd0a1aeaf715d25fe574feb52b1679551a608999ab49848a3ff8c6dfd701f79",
+    "v361_prefreeze": "7bc32a42d2c20e61471357126f6281e3a11ac976979d56056b68b243f6a6c4d6",
+    "v361_report": "6e8d09554f73f1df7cdf6cf8affdaaf1c13eec80b6778b5e58616038ec02781b",
+    "v361_summary": "340adf8ed60a68c748b5b03aa0fa20ede6ed068a93561bd2a8ca164d747e4240",
+    "v361_domain_metrics": "9e9798814776c22cd0542247ceb86b3abb0e1421ee02ad9985e86c88728fe191",
+    "v361_pchp_selections": "338748019aad99d9e8901dc54a1f8415ee80dc1538486a5e950a873886e6f1fe",
+    "v326_alpha_selections": "7440327383458225bd8b92f2998620eec4d8d924b8e31cfab05428faaca81eab",
+    "v327_report": "32b855617954088371fad07620cdc9c90d93cca541b952a2ec1b96f6444f668b",
+    "v327_summary": "79323655efb23e523ff05d1187ef6d8038e0b295a9e58ca5545fda266a7ad8a3",
+    "v327_domain_metrics": "724c65d212bea87b4c35e99d6fdf1a72708c9991d51dc51ec1777592ab29a7c3"
+  },
+  "hash_checks": {
+    "v361_analysis_script": true,
+    "v361_prefreeze": true,
+    "v361_report": true,
+    "v361_summary": true,
+    "v361_domain_metrics": true,
+    "v361_pchp_selections": true,
+    "v326_alpha_selections": true,
+    "v327_report": true,
+    "v327_summary": true,
+    "v327_domain_metrics": true
+  },
+  "operational_diagnostic": {
+    "authoritative_v327_csv_value": 0.0703775121469438,
+    "rounded_v327_json_value_used_by_v361_anchor": 0.0703775121,
+    "absolute_rounding_difference": 4.694379607261823e-11,
+    "v361_original_anchor_tolerance": 1e-12,
+    "rounded_json_comparison_fails_at_original_tolerance": true,
+    "v361_recorded_pchp_mae_anchor_false": true,
+    "v361_recorded_status_preserved": true,
+    "v361_recorded_decision_preserved": true
+  },
+  "authoritative_aggregate_checks": {
+    "pchp_mae_matches_v327_high_precision_csv": true,
+    "baseline_mae_matches_v327_high_precision_csv": true,
+    "pchp_minus_baseline_matches_high_precision_csv_difference": true
+  },
+  "domain_checks": {
+    "domains": 12,
+    "maximum_absolute_pchp_difference": 9.71445146547012e-17,
+    "maximum_absolute_baseline_difference": 0.0
+  },
+  "selection_checks": {
+    "domain_roster_matches_v326": true,
+    "selected_alpha_roster_matches_v326": true,
+    "inner_method_score_matches_v326": true,
+    "outer_target_labels_unused_in_both": true
+  },
+  "corrected_anchor_checks": {
+    "pchp_mae_matches_v327_high_precision_csv": true,
+    "baseline_mae_matches_v327_high_precision_csv": true,
+    "pchp_minus_baseline_matches_high_precision_csv_difference": true,
+    "all_domain_pchp_metrics_match_v327": true,
+    "all_domain_baseline_metrics_match_v327": true,
+    "all_domain_physical_cell_counts_match_v327": true,
+    "domain_roster_matches_v326": true,
+    "selected_alpha_roster_matches_v326": true,
+    "inner_method_score_matches_v326": true,
+    "outer_target_labels_unused_in_both": true
+  },
+  "scientific_gates_preserved": {
+    "all_structural_checks": true,
+    "primary_auc_mean_below_zero": true,
+    "primary_auc_bootstrap_upper_below_zero": true,
+    "majority_positive_budgets_favor_pchp": true,
+    "v361_primary_auc_values_unchanged": true
+  },
+  "audit_pass": true,
+  "status": "V361_ANCHOR_FAILURE_CONFIRMED_AS_JSON_PRECISION_FALSE_NEGATIVE",
+  "decision": "RETAIN_V361_SCIENTIFIC_RESULT_AS_PROTOCOL_LOCKED_RETROSPECTIVE_SENSITIVITY_WITH_V362_AUDIT_TRAIL",
+  "interpretation_boundary": "This audit repairs only the provenance and numerical-precision validation of the historical anchor. It does not change the V361 data, estimand, budget grid, model selection, bootstrap, scientific gates, or retrospective status, and it does not convert the analysis into external confirmation."
+}

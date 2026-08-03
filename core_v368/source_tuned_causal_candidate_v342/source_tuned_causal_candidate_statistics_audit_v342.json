@@ -1,0 +1,105 @@
+{
+  "audit_conclusion": {
+    "primary_narrow_decision_unchanged": true,
+    "reason": "Merging MICH and MICH_EXP does not restore the pre-frozen utility gate; the source-tuned unprotected comparator remains substantially more accurate, while PCHP alone retains the exact pointwise harm tube."
+  },
+  "bootstrap": {
+    "interpretation": "post-hoc heterogeneity sensitivity; not population-confirmatory coverage",
+    "replicates": 100000,
+    "seed": 20260807,
+    "unit": "experimental_source_group"
+  },
+  "comparisons": {
+    "pchp_minus_baseline": {
+      "bootstrap_ci95_posthoc": [
+        -0.006680477445302235,
+        -0.0027533592645383213
+      ],
+      "exact_two_sided_sign_p_descriptive": 0.01171875,
+      "leave_one_group_out_mean_range": [
+        -0.005263669898055318,
+        -0.004167638973188058
+      ],
+      "mean": -0.004685852821470017,
+      "wins_ties_losses": [
+        10,
+        0,
+        1
+      ]
+    },
+    "pchp_minus_source_tuned_candidate": {
+      "bootstrap_ci95_posthoc": [
+        0.001459570805932515,
+        0.026666935110105525
+      ],
+      "exact_two_sided_sign_p_descriptive": 0.2265625,
+      "leave_one_group_out_mean_range": [
+        0.009944841593074415,
+        0.0184572535251633
+      ],
+      "mean": 0.014131445594446713,
+      "wins_ties_losses": [
+        3,
+        0,
+        8
+      ]
+    },
+    "source_tuned_candidate_minus_baseline": {
+      "bootstrap_ci95_posthoc": [
+        -0.03301895469330422,
+        -0.0044655404779379
+      ],
+      "exact_two_sided_sign_p_descriptive": 0.0654296875,
+      "leave_one_group_out_mean_range": [
+        -0.02372092342321862,
+        -0.01415238211240644
+      ],
+      "mean": -0.018817298415916728,
+      "wins_ties_losses": [
+        9,
+        0,
+        2
+      ]
+    }
+  },
+  "design": {
+    "dataset_domains": 12,
+    "experimental_source_groups_after_merge": 11,
+    "independent_unit_for_primary_cross_domain_summary": "complete_dataset_domain",
+    "merged_domains": {
+      "MICH_PROGRAM": [
+        "MICH",
+        "MICH_EXP"
+      ]
+    },
+    "nested_measurements": "records_within_physical_cells",
+    "physical_cells": 586,
+    "record_count": 601932,
+    "sensitivity_unit": "experimental_source_group"
+  },
+  "inputs": [
+    {
+      "path": "source_tuned_causal_candidate_v342/source_tuned_causal_candidate_cell_metrics_v342.csv",
+      "sha256": "7EF4D2677BE17E7A0E31F8F719A77DA3E4111ABEBD3A9D642618FD90DF89551B"
+    },
+    {
+      "path": "source_tuned_causal_candidate_v342/source_tuned_causal_candidate_domain_metrics_v342.csv",
+      "sha256": "86890A76D164B4BE6DD716AE3F7BAB91D0D0B6C27DFD1AC4C09D55B8257D482A"
+    }
+  ],
+  "reconstruction": {
+    "max_abs_error_domain_metrics_from_cell_records": 5.551115123125783e-17,
+    "passes_1e-12": true
+  },
+  "role": "sensitivity_only_not_a_new_confirmatory_test",
+  "source_group_equal_accuracy": {
+    "baseline_mae": 0.07320521390106711,
+    "pchp_gain_over_baseline": 0.004685852821470021,
+    "pchp_mae": 0.0685193610795971,
+    "pchp_utility_retention_fraction": 0.24901836161063706,
+    "source_tuned_candidate_gain_over_baseline": 0.018817298415916735,
+    "source_tuned_causal_candidate_mae": 0.05438791548515038
+  },
+  "status": "POSTHOC_STATISTICAL_AUDIT_COMPLETED",
+  "version": "v342"
+}

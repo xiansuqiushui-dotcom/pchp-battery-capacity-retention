@@ -1,0 +1,59 @@
+{
+  "version": "v374",
+  "status": "PREFROZEN_BEFORE_V374_EXECUTION",
+  "date": "2026-08-02",
+  "scope": "protocol-locked retrospective development-domain extension",
+  "primary_method_unchanged_before_decision": true,
+  "inputs": {
+    "nested_selection_report": {
+      "path": "nested_prefix_causal_selection_v326/nested_source_only_alpha_selection_v326_report.json",
+      "sha256": "0197b5c8f2b2f42168d88ea4fa0625ca100a5c852a6af5df451f15dbfba02e8f"
+    },
+    "outer_predictions": {
+      "path": "prefix_causal_rccp_v322/prefix_causal_predictions_v322.parquet",
+      "sha256": "0182daef40d779a57a5fb9da2d1e076f24a1c569fe5068d34960a1ca6cb8b9f8"
+    },
+    "authoritative_operator": {
+      "path": "paper_q1/rccp_reproducibility_v368/prefix_causal_harm_projection_v321.py",
+      "sha256": "ce7288a129c17114e1ca57432c6417beba7938d58db2b1fd0a87171c479eb54c"
+    }
+  },
+  "information_boundary": {
+    "outer_domains": 12,
+    "physical_cells": 586,
+    "post_reference_rows": 601932,
+    "independent_unit": "complete battery dataset domain",
+    "outer_target_labels_used_for_selection": false,
+    "historically_opened_development_data": true,
+    "external_confirmation": false
+  },
+  "budget_soh_units": 0.01,
+  "alpha_grid": [1.0, 0.5, 0.2, 0.1, 0.05, 0.03, 0.02, 0.015, 0.01, 0.005],
+  "recovery_grid_soh_per_record": [0.0, 0.00025, 0.0005, 0.001, 0.002, 0.005],
+  "selection_metric": "inner-domain-equal cell-macro MAE of the final bounded-recovery method",
+  "tie_breaker": ["smallest recovery allowance", "largest downward assimilation rate"],
+  "primary_estimand": "outer-domain-equal cell-macro MAE difference: bounded-recovery PCHP minus independently selected strict PCHP",
+  "bootstrap": {
+    "independent_unit": "complete battery dataset domain",
+    "repetitions": 100000,
+    "seed": 20260802,
+    "interval": "two-sided percentile 95%"
+  },
+  "retain_gates": {
+    "mean_difference_below_zero": true,
+    "ci95_upper_below_zero": true,
+    "minimum_improved_outer_domains": 8,
+    "minimum_outer_domains_selecting_positive_recovery": 3,
+    "all_deterministic_certificates": true,
+    "zero_recovery_exactly_recovers_v321": true,
+    "prefix_replay_difference": 0.0
+  },
+  "failure_action": "REJECT without grid, metric, aggregation, exclusion, or gate rescue on the same data",
+  "permitted_claim_if_retained": "bounded-recovery trajectory extension of the same PCHP output contract on retrospectively opened development domains",
+  "forbidden_claims": [
+    "new external confirmation",
+    "prospective experiment",
+    "electrochemical recovery-rate calibration",
+    "universal superiority over strict monotonicity"
+  ]
+}

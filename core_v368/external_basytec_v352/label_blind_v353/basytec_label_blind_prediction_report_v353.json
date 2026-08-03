@@ -1,0 +1,1147 @@
+{
+  "amendment_artifacts_sha256": {
+    "common": "93276A7A7ED418CDED94FC0130C9B79C163C016039E93B6F2AE437D4CA6F28E7",
+    "roster": "C84CB083E8BB927A4CFC955A433E46D03DB8373B8EF8CF7C07616C88ED93907B",
+    "wrapper": "13BD7747CF611A4B2834C0BB425B6AEE98F6FFAE88A600046018E0D3938AED07"
+  },
+  "anchor_cycles": 5,
+  "capacity_amendment": "Ah[Ah] recognized for later frozen scoring; no Ah[Ah] values selected into this prediction stage",
+  "capacity_column_values_accessed": false,
+  "capacity_header_name_seen_for_schema_only": true,
+  "cell_schema_and_structure_audit": [
+    {
+      "aging_member": "F0002/M0002_aging.txt",
+      "cell_id": "F0002",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "','",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0002.zip",
+      "zip_sha256": "6FBFA6575AFE0F7CAA4DDFE81E76A8891B19E65502C3C0362BCE503F4A702007"
+    },
+    {
+      "aging_member": "F0003/M0002_aging.txt",
+      "cell_id": "F0003",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "'\\\\s+'",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0003.zip",
+      "zip_sha256": "E97F980F5E154F6DA67F609308601D32574CE2B1BEEBF657897916676F47FEF2"
+    },
+    {
+      "aging_member": "F0004/M0002_aging.txt",
+      "cell_id": "F0004",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "','",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0004.zip",
+      "zip_sha256": "071C93AF8F9D5D47D62DB5205F5C43E4CFE9200921538876F1E3F1E79598B5D6"
+    },
+    {
+      "aging_member": "F0006/M0002_aging.txt",
+      "cell_id": "F0006",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "'\\\\s+'",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0006.zip",
+      "zip_sha256": "6C8A1C40EC9E78C2D1563FE21972967FEF70AC1B230C811BA35678B415335B4F"
+    },
+    {
+      "aging_member": "F0007/M0002_aging.txt",
+      "cell_id": "F0007",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "','",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0007.zip",
+      "zip_sha256": "FA55599290A9C44C8D1AF530B8499C2E3FBAD43C6470A14B957FC83C0905BFE9"
+    },
+    {
+      "aging_member": "F0008/M0002_aging.txt",
+      "cell_id": "F0008",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "','",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0008.zip",
+      "zip_sha256": "68C8ADAB53E6945AFD3C44ED988D3431D881C2673AD8708830BF019AE2335E77"
+    },
+    {
+      "aging_member": "F0009/M0002_aging.txt",
+      "cell_id": "F0009",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "','",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0009.zip",
+      "zip_sha256": "E0703ACB4701742069C9E62319A9A3182D2DD50BE1CEB72839FD81CECE48A0E9"
+    },
+    {
+      "aging_member": "F0010/M0002_aging.txt",
+      "cell_id": "F0010",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "'\\\\s+'",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0010.zip",
+      "zip_sha256": "EEDB4B9E67A1CDCBC7F98736D745187B1E5E33B5F62422FFB44613EBA7D8A453"
+    },
+    {
+      "aging_member": "F0011/M0002_aging.txt",
+      "cell_id": "F0011",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "insufficient_finite_charge_points": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "'\\\\s+'",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0011.zip",
+      "zip_sha256": "8BED0E83C3BC0FE96D24247300062347B25D15461D137FEB045D3B12B877DC08"
+    },
+    {
+      "aging_member": "F0012/M0002_aging.txt",
+      "cell_id": "F0012",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "','",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0012.zip",
+      "zip_sha256": "EACA78E704E65056977B727A1D6FCB9CB60FCC6DC6254535B9CC1F6E7B63FAF5"
+    },
+    {
+      "aging_member": "F0013/M0002_aging.txt",
+      "cell_id": "F0013",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "','",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0013.zip",
+      "zip_sha256": "A8CDD28F41E144E07F4A2E9780B0B369DF38474C3755CCD9580984284B739C42"
+    },
+    {
+      "aging_member": "F0014/M0002_aging.txt",
+      "cell_id": "F0014",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "','",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0014.zip",
+      "zip_sha256": "955611A9A5EC3EFC437AFEEA49A9657FCE271919298799D2DADDE43ADD085361"
+    },
+    {
+      "aging_member": "F0016/M0002_aging.txt",
+      "cell_id": "F0016",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "','",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0016.zip",
+      "zip_sha256": "51EBC9F79CDFB849AFE3F968420B31E5CD6B7E8608372E521753B88FFD3AB4C3"
+    },
+    {
+      "aging_member": "F0017/M0002_aging.txt",
+      "cell_id": "F0017",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "'\\\\s+'",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0017.zip",
+      "zip_sha256": "A8E9C62CD044A1A197CBC40E8D01C288621509A5BCB2826CBEDB94ECA64013BB"
+    },
+    {
+      "aging_member": "F0022/M0002_aging.txt",
+      "cell_id": "F0022",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "','",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0022.zip",
+      "zip_sha256": "B45E5246AF18FB06A0732F60DF9FB34908F3F1331D58B42782296948AEF666AD"
+    },
+    {
+      "aging_member": "F0026/M0002_aging.txt",
+      "cell_id": "F0026",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "','",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0026.zip",
+      "zip_sha256": "7F3D0D1AEDD5FE424FA775BBCAF03F6DDC24470C966E976598ACF74301526333"
+    },
+    {
+      "aging_member": "F0031/M0002_aging.txt",
+      "cell_id": "F0031",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "','",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0031.zip",
+      "zip_sha256": "40602BD3E9A0B706B2E3996B5353D2D79EF418CDC83A0F0078121E26851DADEF"
+    },
+    {
+      "aging_member": "F0036/M0002_aging.txt",
+      "cell_id": "F0036",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "'\\\\s+'",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0036.zip",
+      "zip_sha256": "7F1B5D03AB3401E7B573FBD7B638F4681F79A7D056F6A10D49DDC8E5029C884E"
+    },
+    {
+      "aging_member": "F0048/M0002_aging.txt",
+      "cell_id": "F0048",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "'\\\\s+'",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0048.zip",
+      "zip_sha256": "B71EBB36F566F3BEAA5EB334A132FCBF3EB6A2DD93A321457A11D0F5F4000C7E"
+    },
+    {
+      "aging_member": "F0052/M0002_aging.txt",
+      "cell_id": "F0052",
+      "post_anchor_prediction_cycles": 65,
+      "rejections": {
+        "charge_window_not_covered": 2
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "','",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 70,
+      "zip_name": "F0052.zip",
+      "zip_sha256": "DA4A7B04E651A10EA8873FEC6BF8C86197FE09FEBBAD358F5AAF0A0BF6FB684C"
+    },
+    {
+      "aging_member": "F0054/M0002_aging.txt",
+      "cell_id": "F0054",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "','",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0054.zip",
+      "zip_sha256": "16A49D9C5BFF74490DD671E303725161564463E0B84CEDCB0C19DC4F7C9AFFC6"
+    },
+    {
+      "aging_member": "F0056/M0002_aging.txt",
+      "cell_id": "F0056",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "','",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0056.zip",
+      "zip_sha256": "5C29F2440555FE2F2D8C8236ABFC4D6E5D1493A65B29DD1B2A66BD8C1C910B51"
+    },
+    {
+      "aging_member": "F0063/M0002_aging.txt",
+      "cell_id": "F0063",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "','",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0063.zip",
+      "zip_sha256": "2C0ABDD8C3BD84868AB8F8A5977CFEA152118CECEC61DE953D387ADF02B502D8"
+    },
+    {
+      "aging_member": "F0064/M0002_aging.txt",
+      "cell_id": "F0064",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "','",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0064.zip",
+      "zip_sha256": "77811BA2A5E07043AEE7BF3921308A8AE5E2BE26F350892D6D40A2FDD663F6B1"
+    },
+    {
+      "aging_member": "F0065/M0002_aging.txt",
+      "cell_id": "F0065",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "','",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0065.zip",
+      "zip_sha256": "00CBE5AAB8DD3A6516F3A433991EA2FCB4ED6C2BDD46EF0BCE3005D837EEB993"
+    },
+    {
+      "aging_member": "F0067/M0002_aging.txt",
+      "cell_id": "F0067",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "','",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0067.zip",
+      "zip_sha256": "FA56DE5E4611B0F4A4D2C6B6EC379995691DFE4A519308635F5838930D10EDC6"
+    },
+    {
+      "aging_member": "F0068/M0002_aging.txt",
+      "cell_id": "F0068",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "'\\\\s+'",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0068.zip",
+      "zip_sha256": "C35F4D9C9EDDB04CDDCF4515EDEE3379B494752B1A0259ABEEE03580D28D044D"
+    },
+    {
+      "aging_member": "F0069/M0002_aging.txt",
+      "cell_id": "F0069",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "','",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0069.zip",
+      "zip_sha256": "1356A181234909D3500F73C92D860611395F4F1D00CBE8675587BD6F483C4B11"
+    },
+    {
+      "aging_member": "F0108/M0002_aging.txt",
+      "cell_id": "F0108",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "'\\\\s+'",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0108.zip",
+      "zip_sha256": "72AFA3DAB8D7D1E72549761ED4728AE1FDD0226A53AED9A8CE981B5069BF45BA"
+    },
+    {
+      "aging_member": "F0126/M0002_aging.txt",
+      "cell_id": "F0126",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "'\\\\s+'",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0126.zip",
+      "zip_sha256": "BC13B77D735042E648295B117C6341639FA80E202D0B44573DF788B091A9A9BB"
+    },
+    {
+      "aging_member": "F0127/M0002_aging.txt",
+      "cell_id": "F0127",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "','",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0127.zip",
+      "zip_sha256": "7487E46816432A49E39B294918B86149FDBB730277A767DF00267573582B1B9F"
+    },
+    {
+      "aging_member": "F0129/M0002_aging.txt",
+      "cell_id": "F0129",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "','",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0129.zip",
+      "zip_sha256": "27BEF59AF0BA4B29AAECDF79384C6FB95C4CE5BF5AC402A4E444F9D90D6C1C44"
+    },
+    {
+      "aging_member": "F0132/M0002_aging.txt",
+      "cell_id": "F0132",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "'\\\\s+'",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0132.zip",
+      "zip_sha256": "7F97DD04962FD1A69AB78ED0E4CC321224B7857749DD86FDCE5D96B4923CB49F"
+    },
+    {
+      "aging_member": "F0133/M0002_aging.txt",
+      "cell_id": "F0133",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "','",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0133.zip",
+      "zip_sha256": "081C50520FDCCE1D054B9503ABA3E4AA6A346BE874EAB0A8BC1603233AEC7270"
+    },
+    {
+      "aging_member": "F0136/M0002_aging.txt",
+      "cell_id": "F0136",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "','",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0136.zip",
+      "zip_sha256": "7498F4A8EB478E0A10E9C0BE85C69801748115CF1088E3BBFBF1B116FAB361A2"
+    },
+    {
+      "aging_member": "F0138/M0002_aging.txt",
+      "cell_id": "F0138",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "','",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0138.zip",
+      "zip_sha256": "416D3A4BF999E4637DC2C0796CF517C31D2EE7578254320CC19B576051A40ADE"
+    },
+    {
+      "aging_member": "F0139/M0002_aging.txt",
+      "cell_id": "F0139",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "','",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0139.zip",
+      "zip_sha256": "C54BB6A548659072F9B7D35CCB8206674EDFC271F5F3AC23419FDDF50DA7F0E5"
+    },
+    {
+      "aging_member": "F0141/M0002_aging.txt",
+      "cell_id": "F0141",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "','",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0141.zip",
+      "zip_sha256": "6D76FB1B2D1EC91D644C92EE35E91D3B960455792FA30206A060C409A0B5E9B6"
+    },
+    {
+      "aging_member": "F0142/M0002_aging.txt",
+      "cell_id": "F0142",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "','",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0142.zip",
+      "zip_sha256": "2DF5EFA5F38573497EBD3CDD3F7394A850BFE82F595CCD20EFD76160809906FD"
+    },
+    {
+      "aging_member": "F0143/M0002_aging.txt",
+      "cell_id": "F0143",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "'\\\\s+'",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0143.zip",
+      "zip_sha256": "012995D0D0093F65EF53C8DB06EE978E6479071AA4C2D678B18F3139D520F6BF"
+    },
+    {
+      "aging_member": "F0144/M0002_aging.txt",
+      "cell_id": "F0144",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "'\\\\s+'",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0144.zip",
+      "zip_sha256": "B683B5AB6811065978B820BBA7791305A86C6B4FF4E2F8288985F709C4167C84"
+    },
+    {
+      "aging_member": "F0145/M0002_aging.txt",
+      "cell_id": "F0145",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "'\\\\s+'",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0145.zip",
+      "zip_sha256": "5CDF2FCC80788AB7A5B985B06A16A4DC275F8E1FC39EC0591C3E517DEF4CACBF"
+    },
+    {
+      "aging_member": "F0148/M0002_aging.txt",
+      "cell_id": "F0148",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "','",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0148.zip",
+      "zip_sha256": "AA5BAEF68D5DD9A458B54CCD56E45B56F73EC12C8EA9912F2EC67B2EDF2A17F4"
+    },
+    {
+      "aging_member": "F0150/M0002_aging.txt",
+      "cell_id": "F0150",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "','",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0150.zip",
+      "zip_sha256": "CBCCFBB4FF33DC1FE8B9AB409846C64D963769583D14A9DE7B552A9AA43FFFE1"
+    },
+    {
+      "aging_member": "F0152/M0002_aging.txt",
+      "cell_id": "F0152",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "'\\\\s+'",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0152.zip",
+      "zip_sha256": "4C9D2208D1439F498FB3D02DBAB6929E7932260EA6125EBBEEA9D8CE4B9D78D3"
+    },
+    {
+      "aging_member": "F0155/M0002_aging.txt",
+      "cell_id": "F0155",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "','",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0155.zip",
+      "zip_sha256": "C3BE889E391E57257C647D19910BCBAC7DE64D5F9E243D7620B0001F89EF6A18"
+    },
+    {
+      "aging_member": "F0156/M0002_aging.txt",
+      "cell_id": "F0156",
+      "post_anchor_prediction_cycles": 66,
+      "rejections": {
+        "charge_window_not_covered": 1
+      },
+      "schema": {
+        "current": "I[A]",
+        "cycle": "Cyc-Count",
+        "delimiter": "','",
+        "discharge_capacity_name_only": "Ah[Ah]",
+        "encoding": "utf-8-sig",
+        "header_row_zero_based": 12,
+        "temperature": null,
+        "time": "~Time[h]",
+        "voltage": "U[V]"
+      },
+      "source_cycles": 72,
+      "valid_fixed_window_charge_cycles": 71,
+      "zip_name": "F0156.zip",
+      "zip_sha256": "2628FDC17E4AFAAAA87BD004E392BE9F4492FF01EB523CD23AA228019F4DA89C"
+    }
+  ],
+  "cells_in_official_roster": 47,
+  "cells_with_structural_features": 47,
+  "certificate": {
+    "baseline_nonincreasing": true,
+    "label_blind_structural_certificate_passed": true,
+    "maximum_pchp_displacement": 0.010000000000000009,
+    "pchp_nonincreasing": true,
+    "prediction_range_valid": true,
+    "source_tuned_candidate_nonincreasing": true
+  },
+  "confirmation_cells": 47,
+  "development_cells_excluded": [
+    "F0001.zip"
+  ],
+  "external_outcome_values_accessed": [],
+  "feature_cycles": 3336,
+  "fixed_charge_window_seconds": 600.0,
+  "fixed_nominal_capacity_ah": 0.124,
+  "frozen_inputs": {
+    "alpha_report_sha256": "CBB9EBC235878B9C1E914F5AE136BDCA38064040D9957D0410DF82A1AE299AE9",
+    "download_receipt_sha256": "C84CB083E8BB927A4CFC955A433E46D03DB8373B8EF8CF7C07616C88ED93907B",
+    "model_bundle_sha256": "F492F4B87C1CE7F49C3718F5C2A7D7DADE79450A9E548B33540452B4DC4817FD",
+    "prediction_script_sha256": "8376E54519B89CB4CC492C9F5669F65A89A32D50CBDFF0F86FC26C00B8059F9A",
+    "projection_code_sha256": "CE7288A129C17114E1CA57432C6417BEBA7938D58DB2B1FD0A87171C479EB54C",
+    "source_tuned_comparator_report_sha256": "ED11518EA3E1EAA42148BF4421F0570D775074AE697260A8EDF9FBAC0798C252"
+  },
+  "frozen_outputs": {
+    "features": {
+      "path": "E:\\CCF\\interventional_battery_learning\\external_basytec_v352\\label_blind_v353\\basytec_label_blind_features_v344.parquet",
+      "sha256": "D3BB484E1ACECB47C497DC4F7CD6251ADC2985C7860249B551FA1469CA201084"
+    },
+    "predictions": {
+      "path": "E:\\CCF\\interventional_battery_learning\\external_basytec_v352\\label_blind_v353\\basytec_frozen_predictions_v344.parquet",
+      "sha256": "61F5EE6641347D2A1B3D21A972B9BE02DDC880F2F16B52975FEC1AFB4BB02C8D"
+    }
+  },
+  "generated_at_local": "2026-08-02T07:52:16.701385+08:00",
+  "harm_budget_soh_units": 0.01,
+  "header_only_inventory_sha256": "35C4FA46AD72F00F09A17282E0ED4A2C04EC03C33C852EA621FAFC746AB6A656",
+  "pchp_assimilation": 0.01,
+  "permitted_prediction_fields": [
+    "cycle identity",
+    "charge-side time",
+    "charge-side current",
+    "charge-side voltage",
+    "charge-side temperature when present"
+  ],
+  "prediction_cells": 47,
+  "prediction_cycles": 3101,
+  "protocol_version": "V352_HEADER_FAMILY_COMPLETE",
+  "runtime_seconds": 1359.2513707999897,
+  "source_tuned_candidate_assimilation": 0.05,
+  "status": "BASYTEC_LABEL_BLIND_PREDICTIONS_FROZEN_BEFORE_CAPACITY_ACCESS"
+}

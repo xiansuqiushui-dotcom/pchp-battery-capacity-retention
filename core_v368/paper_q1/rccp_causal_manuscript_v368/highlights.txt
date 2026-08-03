@@ -1,0 +1,5 @@
+PCHP admits cross-domain SOH updates before capacity labels are available.
+Exact projection bounds per-record harm and never rewrites issued SOH.
+Exact viability kernel joins harm budgets with irreversible SOH trajectories.
+Nested evaluation improves 11 of 12 domains under the harm budget.
+Outcome-blind external confirmation improves all 45 eligible cells.

@@ -1,0 +1,89 @@
+{
+  "status": "EXTERNAL_THRESHOLD_DECISION_AUDIT_COMPLETED",
+  "scope": "six-dataset frozen-prediction observed-horizon decision replay",
+  "thresholds": [
+    0.7,
+    0.8,
+    0.9
+  ],
+  "methods": [
+    "protected_state",
+    "fixed_shift",
+    "pchp_method"
+  ],
+  "definitions": {
+    "late_warning": "predicted first crossing occurs after the observed true first crossing or is absent within follow-up",
+    "premature_review": "predicted first crossing occurs before the observed true first crossing; in non-crossing cells, any predicted crossing is premature within follow-up",
+    "restricted_delay": "record-index delay with an absent predicted crossing censored to one record beyond the final observation",
+    "record_rates": "cell-level false-negative rate among degraded records and false-positive rate among non-degraded records, then averaged by cell and dataset"
+  },
+  "independent_top_level_unit": "dataset",
+  "nested_unit": "physical cell",
+  "primary_threshold_0p80": [
+    {
+      "threshold": 0.8,
+      "method": "fixed_shift",
+      "mean_restricted_signed_delay_records": 8.9172804233,
+      "mean_restricted_absolute_delay_records": 9.3172804233,
+      "p95_restricted_late_delay_records": 16.49,
+      "mean_observed_absolute_cycle_delay": 1206.3333333333,
+      "late_warning_cell_rate": 0.9142857143,
+      "premature_review_cell_rate_among_crossers": 0.0857142857,
+      "on_time_review_cell_rate": 0.0,
+      "premature_review_cell_rate_without_observed_truth_crossing": 0.1696969697,
+      "cell_macro_late_warning_record_rate": 0.9142857143,
+      "cell_macro_premature_review_record_rate": 0.1291666667
+    },
+    {
+      "threshold": 0.8,
+      "method": "pchp_method",
+      "mean_restricted_signed_delay_records": 8.9172804233,
+      "mean_restricted_absolute_delay_records": 9.3172804233,
+      "p95_restricted_late_delay_records": 16.49,
+      "mean_observed_absolute_cycle_delay": 1206.3333333333,
+      "late_warning_cell_rate": 0.9142857143,
+      "premature_review_cell_rate_among_crossers": 0.0857142857,
+      "on_time_review_cell_rate": 0.0,
+      "premature_review_cell_rate_without_observed_truth_crossing": 0.1696969697,
+      "cell_macro_late_warning_record_rate": 0.9142857143,
+      "cell_macro_premature_review_record_rate": 0.1291666667
+    },
+    {
+      "threshold": 0.8,
+      "method": "protected_state",
+      "mean_restricted_signed_delay_records": 8.9172804233,
+      "mean_restricted_absolute_delay_records": 9.3172804233,
+      "p95_restricted_late_delay_records": 16.49,
+      "mean_observed_absolute_cycle_delay": 1206.3333333333,
+      "late_warning_cell_rate": 0.9142857143,
+      "premature_review_cell_rate_among_crossers": 0.0857142857,
+      "on_time_review_cell_rate": 0.0,
+      "premature_review_cell_rate_without_observed_truth_crossing": 0.1696969697,
+      "cell_macro_late_warning_record_rate": 0.9142857143,
+      "cell_macro_premature_review_record_rate": 0.1291666667
+    }
+  ],
+  "interpretation_contract": [
+    "First-crossing metrics describe the observed follow-up window; they do not extrapolate unobserved end-of-life time.",
+    "At a threshold where two methods issue identical binary actions, their threshold-event metrics must also be identical even when continuous costs differ.",
+    "All thresholds and adverse directions are retained."
+  ],
+  "files": {
+    "cell_metrics": {
+      "path": "E:\\CCF\\interventional_battery_learning\\external_threshold_decisions_v383\\external_threshold_cell_metrics_v383.csv",
+      "sha256": "591569b17bcfad5632d9acc370bf592bbc3e8c353df56cc8998e1a692980bd9c"
+    },
+    "dataset_summary": {
+      "path": "E:\\CCF\\interventional_battery_learning\\external_threshold_decisions_v383\\external_threshold_dataset_summary_v383.csv",
+      "sha256": "cd9ca8fd97aad7cc8ccf5e6c6a584645bea52d0a278edcbb85a076486620ab90"
+    },
+    "dataset_equal_summary": {
+      "path": "E:\\CCF\\interventional_battery_learning\\external_threshold_decisions_v383\\external_threshold_dataset_equal_summary_v383.csv",
+      "sha256": "df427571293dbcf67191dc07f1db132f00837f65b989db24b86e0519df15089f"
+    },
+    "comparisons": {
+      "path": "E:\\CCF\\interventional_battery_learning\\external_threshold_decisions_v383\\external_threshold_comparisons_v383.csv",
+      "sha256": "ab0e783f09dd424265ad3a322bb87140dadd954217f4fe04bee01f420b25a0bc"
+    }
+  }
+}

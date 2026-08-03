@@ -1,0 +1,64 @@
+{
+  "protocol_version": "V386",
+  "classification": "NONBINDING",
+  "interpretation": "The upper guard is nonbinding on every compatible evidence surface over 1.1--1.5; 1.3 is retained as the pre-existing conservative engineering guard, not as an accuracy-tuned constant.",
+  "surface_reports": {
+    "development": {
+      "counts": {
+        "domains": 12,
+        "cells": 586,
+        "projection_records": 601932,
+        "scored_records": 601932
+      },
+      "cap_1.3_reproduction_maximum_error": {
+        "state": 0.0,
+        "method": 0.0
+      },
+      "compatible_target": true
+    },
+    "external": {
+      "counts": {
+        "domains": 6,
+        "cells": 659,
+        "projection_records": 9712,
+        "scored_records": 9712
+      },
+      "cap_1.3_reproduction_maximum_error": {
+        "state": 0.0,
+        "method": 0.0
+      },
+      "compatible_target": true
+    },
+    "basytec": {
+      "counts": {
+        "domains": 1,
+        "cells": 45,
+        "projection_records": 2969,
+        "scored_records": 2969
+      },
+      "cap_1.3_reproduction_maximum_error": {
+        "state": 0.0,
+        "method": 0.0
+      },
+      "compatible_target": true
+    },
+    "nasa": {
+      "counts": {
+        "domains": 1,
+        "cells": 34,
+        "projection_records": 2598,
+        "scored_records": 2556
+      },
+      "cap_1.3_reproduction_maximum_error": {
+        "state": 0.0,
+        "method": 0.0
+      },
+      "compatible_target": false
+    }
+  },
+  "nasa_boundary_note": "NASA normalized targets above the grid demonstrate target-scale incompatibility and do not select the deployment guard.",
+  "artifacts": {
+    "protocol_sha256": "aef0f74f7a4b2ac683214c0617021a02c4c0d8dd9a51e99856a716f6b080d0ba",
+    "operator_sha256": "ce7288a129c17114e1ca57432c6417beba7938d58db2b1fd0a87171c479eb54c"
+  }
+}

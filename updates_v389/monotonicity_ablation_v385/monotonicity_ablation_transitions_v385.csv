@@ -1,0 +1,4 @@
+method,positive_output_transitions,total_output_transitions,fraction_positive_transitions,affected_cells,fraction_affected_cells,maximum_output_increase,maximum_recovery_envelope_excess
+pointwise_tube,38580,601346,0.06415607653497321,483,0.8242320819112628,0.020000000000000018,
+strict_monotone,0,601346,0.0,0,0.0,0.0,
+bounded_recovery,57332,601346,0.09533945515560094,574,0.9795221843003413,0.0050000000000000044,4.336808689942018e-18

@@ -1,0 +1,793 @@
+{
+  "status": "SOURCE_ONLY_NESTED_ALPHA_SELECTIONS_FROZEN_BEFORE_OUTER_SCORING",
+  "outer_domains": 12,
+  "inner_domains_per_outer": 11,
+  "training_domains_per_inner_model": 10,
+  "alpha_grid": [
+    1.0,
+    0.5,
+    0.2,
+    0.1,
+    0.05,
+    0.03,
+    0.02,
+    0.015,
+    0.01,
+    0.005
+  ],
+  "selection_metric": "inner-domain-equal cell-macro MAE of the final causal method",
+  "tie_breaker": "largest alpha only within absolute tolerance 1e-12",
+  "outer_target_labels_used_for_selection": false,
+  "oxford_data_accessed": false,
+  "selections": [
+    {
+      "outer_target_domain": "CALB",
+      "selected_alpha": 0.01,
+      "selected_inner_domain_equal_method_mae": 0.0729681432,
+      "selected_inner_domain_equal_baseline_mae": 0.0770037684,
+      "inner_domains": 11,
+      "outer_target_labels_used_for_selection": false
+    },
+    {
+      "outer_target_domain": "CALCE",
+      "selected_alpha": 0.005,
+      "selected_inner_domain_equal_method_mae": 0.0721868163,
+      "selected_inner_domain_equal_baseline_mae": 0.07631919,
+      "inner_domains": 11,
+      "outer_target_labels_used_for_selection": false
+    },
+    {
+      "outer_target_domain": "HNEI",
+      "selected_alpha": 0.005,
+      "selected_inner_domain_equal_method_mae": 0.0752840341,
+      "selected_inner_domain_equal_baseline_mae": 0.0793487892,
+      "inner_domains": 11,
+      "outer_target_labels_used_for_selection": false
+    },
+    {
+      "outer_target_domain": "HUST",
+      "selected_alpha": 0.01,
+      "selected_inner_domain_equal_method_mae": 0.0711888194,
+      "selected_inner_domain_equal_baseline_mae": 0.0758321863,
+      "inner_domains": 11,
+      "outer_target_labels_used_for_selection": false
+    },
+    {
+      "outer_target_domain": "MATR",
+      "selected_alpha": 0.015,
+      "selected_inner_domain_equal_method_mae": 0.0718346384,
+      "selected_inner_domain_equal_baseline_mae": 0.0761067616,
+      "inner_domains": 11,
+      "outer_target_labels_used_for_selection": false
+    },
+    {
+      "outer_target_domain": "MICH",
+      "selected_alpha": 0.015,
+      "selected_inner_domain_equal_method_mae": 0.0655933885,
+      "selected_inner_domain_equal_baseline_mae": 0.0692532696,
+      "inner_domains": 11,
+      "outer_target_labels_used_for_selection": false
+    },
+    {
+      "outer_target_domain": "MICH_EXP",
+      "selected_alpha": 0.01,
+      "selected_inner_domain_equal_method_mae": 0.0675443633,
+      "selected_inner_domain_equal_baseline_mae": 0.0709850169,
+      "inner_domains": 11,
+      "outer_target_labels_used_for_selection": false
+    },
+    {
+      "outer_target_domain": "RWTH",
+      "selected_alpha": 0.01,
+      "selected_inner_domain_equal_method_mae": 0.0673280611,
+      "selected_inner_domain_equal_baseline_mae": 0.0721768788,
+      "inner_domains": 11,
+      "outer_target_labels_used_for_selection": false
+    },
+    {
+      "outer_target_domain": "SDU",
+      "selected_alpha": 0.01,
+      "selected_inner_domain_equal_method_mae": 0.081612564,
+      "selected_inner_domain_equal_baseline_mae": 0.0851894338,
+      "inner_domains": 11,
+      "outer_target_labels_used_for_selection": false
+    },
+    {
+      "outer_target_domain": "SNL",
+      "selected_alpha": 0.01,
+      "selected_inner_domain_equal_method_mae": 0.070057132,
+      "selected_inner_domain_equal_baseline_mae": 0.0753805985,
+      "inner_domains": 11,
+      "outer_target_labels_used_for_selection": false
+    },
+    {
+      "outer_target_domain": "UL_PUR",
+      "selected_alpha": 0.01,
+      "selected_inner_domain_equal_method_mae": 0.0719620239,
+      "selected_inner_domain_equal_baseline_mae": 0.0766588983,
+      "inner_domains": 11,
+      "outer_target_labels_used_for_selection": false
+    },
+    {
+      "outer_target_domain": "XJTU",
+      "selected_alpha": 0.01,
+      "selected_inner_domain_equal_method_mae": 0.0677011625,
+      "selected_inner_domain_equal_baseline_mae": 0.071631275,
+      "inner_domains": 11,
+      "outer_target_labels_used_for_selection": false
+    }
+  ],
+  "double_holdout_caches": [
+    {
+      "excluded_domains": [
+        "CALB",
+        "CALCE"
+      ],
+      "prediction_rows": 16862,
+      "physical_cells": 40,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__CALB__CALCE.parquet",
+      "sha256": "20343289b3bdb9863ed43336bbd4f0ff96b9d842c6311090704a1a8aa7703277"
+    },
+    {
+      "excluded_domains": [
+        "CALB",
+        "HNEI"
+      ],
+      "prediction_rows": 17714,
+      "physical_cells": 41,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__CALB__HNEI.parquet",
+      "sha256": "d17cbbea1b4880c8d59d172973c5613422d15652398d1ac9b223f5100edba253"
+    },
+    {
+      "excluded_domains": [
+        "CALB",
+        "HUST"
+      ],
+      "prediction_rows": 148364,
+      "physical_cells": 104,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__CALB__HUST.parquet",
+      "sha256": "7d366f1bc0b491831c90ce93fb5be00a728b5857730a721eb8b2759a52d8c18f"
+    },
+    {
+      "excluded_domains": [
+        "CALB",
+        "MATR"
+      ],
+      "prediction_rows": 141777,
+      "physical_cells": 196,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__CALB__MATR.parquet",
+      "sha256": "d15498696d309b922700d3ddc073ca7b2dabbc8af86005a40a388346a6672719"
+    },
+    {
+      "excluded_domains": [
+        "CALB",
+        "MICH"
+      ],
+      "prediction_rows": 22310,
+      "physical_cells": 67,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__CALB__MICH.parquet",
+      "sha256": "a202662169d433aa888961523dea260f1bc3502d7f69b4d6cf6f6abfc2f7f748"
+    },
+    {
+      "excluded_domains": [
+        "CALB",
+        "MICH_EXP"
+      ],
+      "prediction_rows": 9084,
+      "physical_cells": 45,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__CALB__MICH_EXP.parquet",
+      "sha256": "5ef13863aee91066b4811c5d2ac772ae94cd2a2bca4ab128db6d57a6580ecfe9"
+    },
+    {
+      "excluded_domains": [
+        "CALB",
+        "RWTH"
+      ],
+      "prediction_rows": 107769,
+      "physical_cells": 75,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__CALB__RWTH.parquet",
+      "sha256": "a8ba348d4d19209662b7447b40f690b6e61cc96eb6fce0c75e4498f74e906e42"
+    },
+    {
+      "excluded_domains": [
+        "CALB",
+        "SDU"
+      ],
+      "prediction_rows": 51345,
+      "physical_cells": 113,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__CALB__SDU.parquet",
+      "sha256": "3de64b6a9867cfe40e3f69524246a0e33e7b4dab49a72c19ca162dc377b86d24"
+    },
+    {
+      "excluded_domains": [
+        "CALB",
+        "SNL"
+      ],
+      "prediction_rows": 98721,
+      "physical_cells": 88,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__CALB__SNL.parquet",
+      "sha256": "3641c65745d65872f384edc2ad2b05d2016634146dd2e65cf4c2825943881c0f"
+    },
+    {
+      "excluded_domains": [
+        "CALB",
+        "UL_PUR"
+      ],
+      "prediction_rows": 4824,
+      "physical_cells": 37,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__CALB__UL_PUR.parquet",
+      "sha256": "03484459fee5e1fb6c5b71320bae58c02930c5860a4bc665dcf2b05eb0041988"
+    },
+    {
+      "excluded_domains": [
+        "CALB",
+        "XJTU"
+      ],
+      "prediction_rows": 9452,
+      "physical_cells": 50,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__CALB__XJTU.parquet",
+      "sha256": "5f4a91d05354f0b85560b05985088372ad1ceabc813b0c07a576b60105cd4f31"
+    },
+    {
+      "excluded_domains": [
+        "CALCE",
+        "HNEI"
+      ],
+      "prediction_rows": 29318,
+      "physical_cells": 27,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__CALCE__HNEI.parquet",
+      "sha256": "ab1b2aa1f01ecf42e941c20cf7d68b04c18e0eeae4e84be1e36590c48cbc7d04"
+    },
+    {
+      "excluded_domains": [
+        "CALCE",
+        "HUST"
+      ],
+      "prediction_rows": 159968,
+      "physical_cells": 90,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__CALCE__HUST.parquet",
+      "sha256": "5309ae3ac68a9a9683fd63972777e828399a9b474b4f53c46873afafdc7846c3"
+    },
+    {
+      "excluded_domains": [
+        "CALCE",
+        "MATR"
+      ],
+      "prediction_rows": 153381,
+      "physical_cells": 182,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__CALCE__MATR.parquet",
+      "sha256": "65d1198c9d353410f5c0620ca750896b9473c1063caa03ca80c8b30cfb025b2c"
+    },
+    {
+      "excluded_domains": [
+        "CALCE",
+        "MICH"
+      ],
+      "prediction_rows": 33914,
+      "physical_cells": 53,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__CALCE__MICH.parquet",
+      "sha256": "7465e14ca2ccb49833fcca11c15fbe64ffff96bba301a24d3c408a53ef88cdb1"
+    },
+    {
+      "excluded_domains": [
+        "CALCE",
+        "MICH_EXP"
+      ],
+      "prediction_rows": 20688,
+      "physical_cells": 31,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__CALCE__MICH_EXP.parquet",
+      "sha256": "963b0f020f9c1360882bdb1206097578197a4cf50cda01db1545b848f482df4c"
+    },
+    {
+      "excluded_domains": [
+        "CALCE",
+        "RWTH"
+      ],
+      "prediction_rows": 119373,
+      "physical_cells": 61,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__CALCE__RWTH.parquet",
+      "sha256": "772b22bfb347fe24fb8c55ad2569262de5efcf2b4ed4fb5d58a0be679bbdd0e1"
+    },
+    {
+      "excluded_domains": [
+        "CALCE",
+        "SDU"
+      ],
+      "prediction_rows": 62949,
+      "physical_cells": 99,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__CALCE__SDU.parquet",
+      "sha256": "e35a338d30dcc60d4381fd91dca957c56a039f4b9a2d9dfb9f01a27ab87a15b9"
+    },
+    {
+      "excluded_domains": [
+        "CALCE",
+        "SNL"
+      ],
+      "prediction_rows": 110325,
+      "physical_cells": 74,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__CALCE__SNL.parquet",
+      "sha256": "48ca471270459ab1de391f6644044c56349e8aab13d8df16b76f81f607634ac6"
+    },
+    {
+      "excluded_domains": [
+        "CALCE",
+        "UL_PUR"
+      ],
+      "prediction_rows": 16428,
+      "physical_cells": 23,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__CALCE__UL_PUR.parquet",
+      "sha256": "c6a46c6f943c0d07ddc2c8439ff5929b2c74715bc562fbe91330f9be01b97adf"
+    },
+    {
+      "excluded_domains": [
+        "CALCE",
+        "XJTU"
+      ],
+      "prediction_rows": 21056,
+      "physical_cells": 36,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__CALCE__XJTU.parquet",
+      "sha256": "d2a04798c53582187581564122c78748f976101a7430bfea7d09e1d6d96ade25"
+    },
+    {
+      "excluded_domains": [
+        "HNEI",
+        "HUST"
+      ],
+      "prediction_rows": 160820,
+      "physical_cells": 91,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__HNEI__HUST.parquet",
+      "sha256": "66da74fd3275ac95a3dae62954a637d138a46e4b588545bc2ee6d6f33c80467e"
+    },
+    {
+      "excluded_domains": [
+        "HNEI",
+        "MATR"
+      ],
+      "prediction_rows": 154233,
+      "physical_cells": 183,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__HNEI__MATR.parquet",
+      "sha256": "6743ca47d20c516add9fec7887e636d6a53bc8af7f885f3accb565f14956a46b"
+    },
+    {
+      "excluded_domains": [
+        "HNEI",
+        "MICH"
+      ],
+      "prediction_rows": 34766,
+      "physical_cells": 54,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__HNEI__MICH.parquet",
+      "sha256": "172ab5d89f9a6cff4c073290bb4dd843961788b914b95cd49e3131f34d9acf31"
+    },
+    {
+      "excluded_domains": [
+        "HNEI",
+        "MICH_EXP"
+      ],
+      "prediction_rows": 21540,
+      "physical_cells": 32,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__HNEI__MICH_EXP.parquet",
+      "sha256": "a96b72dc86b65c3ad41851e652b5cb8d0ed2a9f64e5266c5e64a75359d9636f2"
+    },
+    {
+      "excluded_domains": [
+        "HNEI",
+        "RWTH"
+      ],
+      "prediction_rows": 120225,
+      "physical_cells": 62,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__HNEI__RWTH.parquet",
+      "sha256": "e1cd75f090fdb288429cff4a0e6ec5709ab27f34da0aedb49b305bc1154cb52d"
+    },
+    {
+      "excluded_domains": [
+        "HNEI",
+        "SDU"
+      ],
+      "prediction_rows": 63801,
+      "physical_cells": 100,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__HNEI__SDU.parquet",
+      "sha256": "966d9ed998985475415c3f0961ca4bb1fd89c3045c5a18af6b756d20d2758dc8"
+    },
+    {
+      "excluded_domains": [
+        "HNEI",
+        "SNL"
+      ],
+      "prediction_rows": 111177,
+      "physical_cells": 75,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__HNEI__SNL.parquet",
+      "sha256": "feb041bed6b404bd19e301ba3b517b9fe5237c2c83e71587644c280e5791f8c9"
+    },
+    {
+      "excluded_domains": [
+        "HNEI",
+        "UL_PUR"
+      ],
+      "prediction_rows": 17280,
+      "physical_cells": 24,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__HNEI__UL_PUR.parquet",
+      "sha256": "33427f517d98450e930eb1e2562dcf8bde93622be2986a5165942231c89f61a6"
+    },
+    {
+      "excluded_domains": [
+        "HNEI",
+        "XJTU"
+      ],
+      "prediction_rows": 21908,
+      "physical_cells": 37,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__HNEI__XJTU.parquet",
+      "sha256": "526b777ce369d15b887d6dc906931ba338b7dbc811b994dcfcd766ba34a86903"
+    },
+    {
+      "excluded_domains": [
+        "HUST",
+        "MATR"
+      ],
+      "prediction_rows": 284883,
+      "physical_cells": 246,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__HUST__MATR.parquet",
+      "sha256": "5cf9db44eae30fc413f5b3b94c91d6f6fea9542f12ff65339ce8f05b0cb3facd"
+    },
+    {
+      "excluded_domains": [
+        "HUST",
+        "MICH"
+      ],
+      "prediction_rows": 165416,
+      "physical_cells": 117,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__HUST__MICH.parquet",
+      "sha256": "6dcd9ac280ee10a6f98c0b8c522d2530424b9b8041fa35e07981f233ed5bb612"
+    },
+    {
+      "excluded_domains": [
+        "HUST",
+        "MICH_EXP"
+      ],
+      "prediction_rows": 152190,
+      "physical_cells": 95,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__HUST__MICH_EXP.parquet",
+      "sha256": "8e55316c1e9d63a6f91fa20fc5c9d9faa12d615d1661869919485b3ac66ca487"
+    },
+    {
+      "excluded_domains": [
+        "HUST",
+        "RWTH"
+      ],
+      "prediction_rows": 250875,
+      "physical_cells": 125,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__HUST__RWTH.parquet",
+      "sha256": "6d39ee5c2ca5b589aa164d9c32065ce65841332a8f31f5b279884c033318c1de"
+    },
+    {
+      "excluded_domains": [
+        "HUST",
+        "SDU"
+      ],
+      "prediction_rows": 194451,
+      "physical_cells": 163,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__HUST__SDU.parquet",
+      "sha256": "fb25a28bb60fc1baccc5084491f42a7d72dde96b3c09287d671b899fe56edb98"
+    },
+    {
+      "excluded_domains": [
+        "HUST",
+        "SNL"
+      ],
+      "prediction_rows": 241827,
+      "physical_cells": 138,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__HUST__SNL.parquet",
+      "sha256": "f36a26fb2b15234a2866e90a94eae076121e312ae66e2e8a0cb29fe9b224ac27"
+    },
+    {
+      "excluded_domains": [
+        "HUST",
+        "UL_PUR"
+      ],
+      "prediction_rows": 147930,
+      "physical_cells": 87,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__HUST__UL_PUR.parquet",
+      "sha256": "d33ef9d6930608108a16e6eacaad729471bf65475a5156082d596f2301c49e5e"
+    },
+    {
+      "excluded_domains": [
+        "HUST",
+        "XJTU"
+      ],
+      "prediction_rows": 152558,
+      "physical_cells": 100,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__HUST__XJTU.parquet",
+      "sha256": "a6b86e94c9b061ee6ff47c53153267cc917ae05959cdd57a19f0b3b23f4f782f"
+    },
+    {
+      "excluded_domains": [
+        "MATR",
+        "MICH"
+      ],
+      "prediction_rows": 158829,
+      "physical_cells": 209,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__MATR__MICH.parquet",
+      "sha256": "0a933d27a355f13e15405afc86dad9de4023d18e040f07d87645eea46a74a770"
+    },
+    {
+      "excluded_domains": [
+        "MATR",
+        "MICH_EXP"
+      ],
+      "prediction_rows": 145603,
+      "physical_cells": 187,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__MATR__MICH_EXP.parquet",
+      "sha256": "648aed427abf230e621d901769e8665e8e7a9a34f9fa712f4883f985322becf4"
+    },
+    {
+      "excluded_domains": [
+        "MATR",
+        "RWTH"
+      ],
+      "prediction_rows": 244288,
+      "physical_cells": 217,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__MATR__RWTH.parquet",
+      "sha256": "cfb8497323d987a81109fd6b2b08830753e0f2b343e2890ca64cc2c09ecbe37c"
+    },
+    {
+      "excluded_domains": [
+        "MATR",
+        "SDU"
+      ],
+      "prediction_rows": 187864,
+      "physical_cells": 255,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__MATR__SDU.parquet",
+      "sha256": "85f47e0fd0887294d5f078e1adac1df2c2253da77cb0bd454bb89f2393813998"
+    },
+    {
+      "excluded_domains": [
+        "MATR",
+        "SNL"
+      ],
+      "prediction_rows": 235240,
+      "physical_cells": 230,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__MATR__SNL.parquet",
+      "sha256": "b6c816493da871f4570bf2791e25af1980419150e3ebc9f67633b7397ee7db7f"
+    },
+    {
+      "excluded_domains": [
+        "MATR",
+        "UL_PUR"
+      ],
+      "prediction_rows": 141343,
+      "physical_cells": 179,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__MATR__UL_PUR.parquet",
+      "sha256": "5fea26f2b53eda52324197393cdfb336b5169186f6dd7cc1cfac2dd98ca338e1"
+    },
+    {
+      "excluded_domains": [
+        "MATR",
+        "XJTU"
+      ],
+      "prediction_rows": 145971,
+      "physical_cells": 192,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__MATR__XJTU.parquet",
+      "sha256": "95da9eb0983af6f549df22808a946c622989294dd19440e744bc39c47d7068d3"
+    },
+    {
+      "excluded_domains": [
+        "MICH",
+        "MICH_EXP"
+      ],
+      "prediction_rows": 26136,
+      "physical_cells": 58,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__MICH__MICH_EXP.parquet",
+      "sha256": "56d3fe6094ba78f2a20ac6d51e3a781fdbec0610a634b94512acc7ebbe432c6e"
+    },
+    {
+      "excluded_domains": [
+        "MICH",
+        "RWTH"
+      ],
+      "prediction_rows": 124821,
+      "physical_cells": 88,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__MICH__RWTH.parquet",
+      "sha256": "806009a0349936e8100c3d3e28ce78cab16b1b5c21a90e0b63205c3b58fa5673"
+    },
+    {
+      "excluded_domains": [
+        "MICH",
+        "SDU"
+      ],
+      "prediction_rows": 68397,
+      "physical_cells": 126,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__MICH__SDU.parquet",
+      "sha256": "259586d6ed35a579bc6e1a0ecdbd9c230117ad3fda4f061792229fb29724022b"
+    },
+    {
+      "excluded_domains": [
+        "MICH",
+        "SNL"
+      ],
+      "prediction_rows": 115773,
+      "physical_cells": 101,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__MICH__SNL.parquet",
+      "sha256": "c52abd43b357528c4606e3512b6f18bcaed7ab532ead68a88e33db272536d4f3"
+    },
+    {
+      "excluded_domains": [
+        "MICH",
+        "UL_PUR"
+      ],
+      "prediction_rows": 21876,
+      "physical_cells": 50,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__MICH__UL_PUR.parquet",
+      "sha256": "e19690f550c2f5c986e5c3bcc13ff9c06d1448d4c12e669a3a27e41ac39184ec"
+    },
+    {
+      "excluded_domains": [
+        "MICH",
+        "XJTU"
+      ],
+      "prediction_rows": 26504,
+      "physical_cells": 63,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__MICH__XJTU.parquet",
+      "sha256": "884b2e18a6fbb7a35b1314e3270cc62cd105ef374b85b238f8185e3c9df9415a"
+    },
+    {
+      "excluded_domains": [
+        "MICH_EXP",
+        "RWTH"
+      ],
+      "prediction_rows": 111595,
+      "physical_cells": 66,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__MICH_EXP__RWTH.parquet",
+      "sha256": "bda234a0f76e065489e6987786db348df2d862a33148d715d8edd01ccb12693a"
+    },
+    {
+      "excluded_domains": [
+        "MICH_EXP",
+        "SDU"
+      ],
+      "prediction_rows": 55171,
+      "physical_cells": 104,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__MICH_EXP__SDU.parquet",
+      "sha256": "75d946d5868c447b35de7f6585f98748efc9d00106bf20da14319579a4c166e9"
+    },
+    {
+      "excluded_domains": [
+        "MICH_EXP",
+        "SNL"
+      ],
+      "prediction_rows": 102547,
+      "physical_cells": 79,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__MICH_EXP__SNL.parquet",
+      "sha256": "ae71f137a94f73cf3d96d293775c8e2a40aa08e313332e0c3cd99d7eb353e376"
+    },
+    {
+      "excluded_domains": [
+        "MICH_EXP",
+        "UL_PUR"
+      ],
+      "prediction_rows": 8650,
+      "physical_cells": 28,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__MICH_EXP__UL_PUR.parquet",
+      "sha256": "b092fa370298f78f4bdd6c3903ea24b3cc1bc97596372feea082302103e11339"
+    },
+    {
+      "excluded_domains": [
+        "MICH_EXP",
+        "XJTU"
+      ],
+      "prediction_rows": 13278,
+      "physical_cells": 41,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__MICH_EXP__XJTU.parquet",
+      "sha256": "fec580444513bb59c2d341b373b6d9c64109c9efc1b988f6141f71650b751a86"
+    },
+    {
+      "excluded_domains": [
+        "RWTH",
+        "SDU"
+      ],
+      "prediction_rows": 153856,
+      "physical_cells": 134,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__RWTH__SDU.parquet",
+      "sha256": "cab2fd33ccad83771bac3de425c4de9f41cfdd9f60460a7fdf0eca7f1ecc3f78"
+    },
+    {
+      "excluded_domains": [
+        "RWTH",
+        "SNL"
+      ],
+      "prediction_rows": 201232,
+      "physical_cells": 109,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__RWTH__SNL.parquet",
+      "sha256": "81bbf61b014885069f59eacfcf8685b77334152e283e7f8a3bf3bb3556200827"
+    },
+    {
+      "excluded_domains": [
+        "RWTH",
+        "UL_PUR"
+      ],
+      "prediction_rows": 107335,
+      "physical_cells": 58,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__RWTH__UL_PUR.parquet",
+      "sha256": "ab62f17de158607647ae8fc50d40422904afa677fb756aaf3cc88d8d1ec337ed"
+    },
+    {
+      "excluded_domains": [
+        "RWTH",
+        "XJTU"
+      ],
+      "prediction_rows": 111963,
+      "physical_cells": 71,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__RWTH__XJTU.parquet",
+      "sha256": "cb5694069e9da53cf6e114513adb7e968dea9d638666ccce015ba22ad77da4b8"
+    },
+    {
+      "excluded_domains": [
+        "SDU",
+        "SNL"
+      ],
+      "prediction_rows": 144808,
+      "physical_cells": 147,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__SDU__SNL.parquet",
+      "sha256": "4da7bf308b45630d769bedbf3bd3d19ccbf7b5a4e95b2e806e23fe5bab36865d"
+    },
+    {
+      "excluded_domains": [
+        "SDU",
+        "UL_PUR"
+      ],
+      "prediction_rows": 50911,
+      "physical_cells": 96,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__SDU__UL_PUR.parquet",
+      "sha256": "a507bf5b6705768af1ed4ab1ad0e6d0edfd414b0e2a55e9667ef736b4fa3cd82"
+    },
+    {
+      "excluded_domains": [
+        "SDU",
+        "XJTU"
+      ],
+      "prediction_rows": 55539,
+      "physical_cells": 109,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__SDU__XJTU.parquet",
+      "sha256": "6de0cdbd769b779ef48e759351bcea560933782cf43a1fb89a9302c00f868ecc"
+    },
+    {
+      "excluded_domains": [
+        "SNL",
+        "UL_PUR"
+      ],
+      "prediction_rows": 98287,
+      "physical_cells": 71,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__SNL__UL_PUR.parquet",
+      "sha256": "880a6a21a21fabd16df503fa0d4d29513d72489825558d737972b678134fa509"
+    },
+    {
+      "excluded_domains": [
+        "SNL",
+        "XJTU"
+      ],
+      "prediction_rows": 102915,
+      "physical_cells": 84,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__SNL__XJTU.parquet",
+      "sha256": "d7c1685ae8979fd7e3cd404e93dd89193a6b85ffbdbb0639fc463bccf12f268a"
+    },
+    {
+      "excluded_domains": [
+        "UL_PUR",
+        "XJTU"
+      ],
+      "prediction_rows": 9018,
+      "physical_cells": 33,
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\double_holdout_prediction_cache\\exclude__UL_PUR__XJTU.parquet",
+      "sha256": "1dcce146b0e73ca29529da416c99745de6c9b1ae2322fd38abc81fa0fa0086af"
+    }
+  ],
+  "runtime_seconds": 1342.7234451999975,
+  "files": {
+    "inner_metrics": {
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\nested_alpha_inner_metrics_v326.csv",
+      "sha256": "8fbe00643f89307233f8596c6597195c26b4102dd71b822e8af14819d71a23e7"
+    },
+    "selections": {
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\nested_alpha_selections_v326.csv",
+      "sha256": "7440327383458225bd8b92f2998620eec4d8d924b8e31cfab05428faaca81eab"
+    }
+  }
+}

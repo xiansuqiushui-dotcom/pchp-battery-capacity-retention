@@ -1,0 +1,5 @@
+PCHP controls each battery-health update before capacity labels arrive.
+Prefix-causal projection prevents future data from rewriting issued records.
+Nested evaluation improves 11 of 12 domains within a 0.01 harm budget.
+Six-dataset confirmation outperforms a matched constant offset on 659 cells.
+Decision-weighted cost falls 7.54% while the 80% review decision is stable.

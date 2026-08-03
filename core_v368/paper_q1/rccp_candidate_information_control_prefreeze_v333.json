@@ -1,0 +1,42 @@
+{
+  "status": "FROZEN_BEFORE_CANDIDATE_INFORMATION_CONTROL_EXECUTION",
+  "frozen_at_local": "2026-08-01T23:36:00+08:00",
+  "alternative_explanation": "The observed benefit may be reproducible by a candidate-free constant bias correction inside the same harm budget, so the learned candidate may contribute no information beyond the protected causal baseline.",
+  "control_family": {
+    "name": "source-selected constant safe shift",
+    "candidate_features_used": false,
+    "alpha_grid": [1.0, 0.5, 0.2, 0.1, 0.05, 0.03, 0.02, 0.015, 0.01, 0.005],
+    "offset_grid": [-0.01, -0.009, -0.008, -0.007, -0.006, -0.005, -0.004, -0.003, -0.002, -0.001, 0.0, 0.001, 0.002, 0.003, 0.004, 0.005, 0.006, 0.007, 0.008, 0.009, 0.01],
+    "same_harm_budget_soh_units": 0.01,
+    "joint_selection_metric": "inner-domain-equal cell-macro MAE",
+    "selection_data": "the eleven source domains for each outer target domain",
+    "outer_target_labels_used_for_selection": false,
+    "tie_breaker": "within 1e-12 prefer smaller absolute offset, then larger alpha, then larger signed offset"
+  },
+  "evaluation": {
+    "outer_domains": 12,
+    "independent_unit": "dataset domain",
+    "primary_difference": "domain-equal cell-macro MAE of nested PCHP minus candidate-free control",
+    "bootstrap_unit": "dataset domain",
+    "bootstrap_replicates": 100000,
+    "bootstrap_seed": 20260801
+  },
+  "pass_gate": "mean PCHP-minus-control difference below zero and upper endpoint of the 95% domain-cluster percentile bootstrap interval below zero",
+  "failure_interpretation": "Do not claim candidate-specific information is necessary. Retain only the bounded causal projection contribution and redesign the candidate mechanism on a new validation surface.",
+  "nasa_artifacts_permitted": false,
+  "frozen_artifacts": {
+    "script": {
+      "path": "evaluate_candidate_information_control_v333.py",
+      "sha256": "0F6523700082CFF38AA26CD05385D3CF3252D436CCDBC22821355E7029861873"
+    },
+    "v322_predictions": {
+      "path": "prefix_causal_rccp_v322/prefix_causal_predictions_v322.parquet",
+      "sha256": "0182DAEF40D779A57A5FB9DA2D1E076F24A1C569FE5068D34960A1CA6CB8B9F8"
+    },
+    "v327_predictions": {
+      "path": "nested_prefix_causal_outer_v327/nested_outer_predictions_v327.parquet",
+      "sha256": "D7A9A8C06923841260D98526DFF665562CA27624357A4D514F6BC75563C69534"
+    }
+  },
+  "implementation_equivalence_test": "Numba recurrence matched prefix_causal_cellwise_projection at absolute tolerance 1e-15 for four alpha values on shuffled multi-cell synthetic trajectories."
+}

@@ -1,0 +1,41 @@
+{
+  "version": "v385",
+  "frozen_at": "2026-08-03",
+  "classification": "post-hoc retrospective development ablation; all development outcomes were historically opened",
+  "question": "What accuracy and trajectory-consistency trade-off is created by the strict non-increasing output contract?",
+  "input": {
+    "v374_predictions": "bounded_recovery_pchp_v374/bounded_recovery_outer_predictions_v374.parquet",
+    "sha256": "c7c0045abfa8fdaa862604a273fe1da8f4409e0741148a74c6220f2212c11bdb",
+    "expected_domains": 12,
+    "expected_cells": 586,
+    "expected_records": 601932
+  },
+  "arms": {
+    "pointwise_tube": "same strict protected state, same raw candidate and same 0.01 harm tube as current PCHP, but no previous-output cap",
+    "strict_monotone": "current strict PCHP using the V374 strict state and output",
+    "bounded_recovery": "V374 source-only-selected recovery-envelope contract; both protected state and output may increase by at most the selected per-record recovery allowance"
+  },
+  "primary_mechanistic_comparison": {
+    "difference": "domain-equal cell-macro MAE(strict_monotone) - MAE(pointwise_tube)",
+    "interpretation": "positive values quantify accuracy sacrificed by the strict output monotonicity constraint while holding protected state, candidate and harm budget fixed",
+    "independent_unit": "complete held-out development dataset domain",
+    "uncertainty": "100000 paired complete-domain bootstrap replicates",
+    "exact_sensitivity": "two-sided sign-flip enumeration over all 2^12 domain-level assignments"
+  },
+  "secondary_comparisons": [
+    "bounded_recovery minus strict_monotone",
+    "bounded_recovery minus pointwise_tube"
+  ],
+  "required_reports": [
+    "domain-equal cell-macro MAE",
+    "worst-domain cell-macro MAE",
+    "paired domain effects and uncertainty",
+    "positive output-transition count and affected-cell fraction",
+    "maximum positive output transition",
+    "maximum pointwise displacement from the arm-specific protected state",
+    "maximum observed absolute-loss increase relative to the arm-specific protected state",
+    "prediction-range compliance",
+    "exact reproduction of the current strict V327 ledger"
+  ],
+  "interpretation_rule": "Report the measured trade-off; do not select a new production contract from this opened retrospective ablation. Retain strict PCHP unless a separately justified deployment requirement authorizes recovery."
+}

@@ -1,0 +1,18 @@
+{
+  "version": "V363",
+  "input_hash_checks": {
+    "budget_path_candidate_control_v361/budget_path_summary_v361.csv": true,
+    "budget_path_candidate_control_v361/budget_path_domain_auc_v361.csv": true,
+    "budget_path_anchor_audit_v362/budget_path_anchor_audit_v362_report.json": true
+  },
+  "v362_anchor_audit_required_and_passed": true,
+  "deterministic_png_outputs": {
+    "fig4_candidate_control.png": "a22bf8c29698829ef14ee5b3e73f72bf1eae7c1373e80c12d87950cbeb377bf8",
+    "fig4_candidate_control_zh.png": "a1bb2024b1fc2ab4cb97cae981f9997d1d27a5a7be78afd2711275c6c40bf9c8"
+  },
+  "pdf_outputs_generated_but_not_byte_hash_pinned": [
+    "fig4_candidate_control.pdf",
+    "fig4_candidate_control_zh.pdf"
+  ],
+  "reporting_boundary": "The integrated AUC is primary for the protocol-locked retrospective budget-path analysis; per-budget intervals are descriptive."
+}

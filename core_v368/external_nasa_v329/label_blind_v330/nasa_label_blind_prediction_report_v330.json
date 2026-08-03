@@ -1,0 +1,530 @@
+{
+  "status": "NASA_LABEL_BLIND_PREDICTIONS_FROZEN_BEFORE_OUTCOME_ACCESS",
+  "generated_at_local": "2026-08-01T23:35:20.113971+08:00",
+  "external_outcome_fields_accessed": [],
+  "permitted_cycle_fields_accessed": {
+    "all_cycle_records": [
+      "type",
+      "time"
+    ],
+    "charge_records_only": [
+      "data.Time",
+      "data.Current_measured",
+      "data.Voltage_measured",
+      "data.Temperature_measured"
+    ]
+  },
+  "archive": {
+    "path": "E:\\CCF\\interventional_battery_learning\\external_nasa_v329\\5_Battery_Data_Set.zip",
+    "sha256": "82302A7DB4FC1B34E0B6676326610438D43B816BDF11A69D1D012A464EF2F92E"
+  },
+  "mat_files": 38,
+  "discovered_physical_cells": 34,
+  "structurally_valid_feature_cells": 34,
+  "structurally_valid_feature_rows": 2768,
+  "prediction_cells": 34,
+  "prediction_rows": 2598,
+  "nominal_capacity_ah": 2.0,
+  "fixed_charge_window_seconds": 600.0,
+  "initial_charge_feature_anchor_records": 5,
+  "current_convention": "absolute measured charge-current magnitude",
+  "charge_throughput_convention": "trapezoidal integral of absolute measured charge current",
+  "selected_source_only_assimilation": 0.01,
+  "harm_budget_soh_units": 0.01,
+  "certificate": {
+    "maximum_absolute_displacement": 0.010000000000000009,
+    "baseline_trajectories_nonincreasing": true,
+    "method_trajectories_nonincreasing": true,
+    "label_free_structural_certificate_passed": true
+  },
+  "inventory": [
+    {
+      "source_member": "5. Battery Data Set/1. BatteryAgingARC-FY08Q4/B0005.mat",
+      "sha256": "0EAE4585BAF3F200C09FE24C5AB884F1889679FC75206CA1AA19DA704104F0B0",
+      "top_level_cycle_variables": 1,
+      "cycles_found": 616
+    },
+    {
+      "source_member": "5. Battery Data Set/1. BatteryAgingARC-FY08Q4/B0006.mat",
+      "sha256": "FA818AB4DB5DB8AB21E910B6DD6C3E20D3761BB9672089E1A4DE8F96074616C5",
+      "top_level_cycle_variables": 1,
+      "cycles_found": 616
+    },
+    {
+      "source_member": "5. Battery Data Set/1. BatteryAgingARC-FY08Q4/B0007.mat",
+      "sha256": "D022AFA086EFAF54AB5B63F05220F5BE178C8027E2FA8D68589DB0E85A441A3B",
+      "top_level_cycle_variables": 1,
+      "cycles_found": 616
+    },
+    {
+      "source_member": "5. Battery Data Set/1. BatteryAgingARC-FY08Q4/B0018.mat",
+      "sha256": "D1E6C923A43EA1C9666B3A90BBB521757A067FD60B4D17DBFAA49C50B179DA69",
+      "top_level_cycle_variables": 1,
+      "cycles_found": 319
+    },
+    {
+      "source_member": "5. Battery Data Set/2. BatteryAgingARC_25_26_27_28_P1/B0025.mat",
+      "sha256": "38894747A9C79D719E95A2E6C42BE18017E29C522B760056B680A65105D1A15F",
+      "top_level_cycle_variables": 1,
+      "cycles_found": 80
+    },
+    {
+      "source_member": "5. Battery Data Set/2. BatteryAgingARC_25_26_27_28_P1/B0026.mat",
+      "sha256": "CA5EEE0B33D8070E3A6C254696444A0C65A12F40587FCFC8DB858640B2E6E36C",
+      "top_level_cycle_variables": 1,
+      "cycles_found": 80
+    },
+    {
+      "source_member": "5. Battery Data Set/2. BatteryAgingARC_25_26_27_28_P1/B0027.mat",
+      "sha256": "DE2B4045EF20A6900885E169F3540664BB637F5F94B41FB4333C31D759237209",
+      "top_level_cycle_variables": 1,
+      "cycles_found": 80
+    },
+    {
+      "source_member": "5. Battery Data Set/2. BatteryAgingARC_25_26_27_28_P1/B0028.mat",
+      "sha256": "050C377E85A2C41165F2E2E0D22BF9575385DD8C835A713C27EDB65AF6BB25E8",
+      "top_level_cycle_variables": 1,
+      "cycles_found": 80
+    },
+    {
+      "source_member": "5. Battery Data Set/3. BatteryAgingARC_25-44/B0025.mat",
+      "sha256": "38894747A9C79D719E95A2E6C42BE18017E29C522B760056B680A65105D1A15F",
+      "top_level_cycle_variables": 1,
+      "cycles_found": 80
+    },
+    {
+      "source_member": "5. Battery Data Set/3. BatteryAgingARC_25-44/B0026.mat",
+      "sha256": "CA5EEE0B33D8070E3A6C254696444A0C65A12F40587FCFC8DB858640B2E6E36C",
+      "top_level_cycle_variables": 1,
+      "cycles_found": 80
+    },
+    {
+      "source_member": "5. Battery Data Set/3. BatteryAgingARC_25-44/B0027.mat",
+      "sha256": "DE2B4045EF20A6900885E169F3540664BB637F5F94B41FB4333C31D759237209",
+      "top_level_cycle_variables": 1,
+      "cycles_found": 80
+    },
+    {
+      "source_member": "5. Battery Data Set/3. BatteryAgingARC_25-44/B0028.mat",
+      "sha256": "050C377E85A2C41165F2E2E0D22BF9575385DD8C835A713C27EDB65AF6BB25E8",
+      "top_level_cycle_variables": 1,
+      "cycles_found": 80
+    },
+    {
+      "source_member": "5. Battery Data Set/3. BatteryAgingARC_25-44/B0029.mat",
+      "sha256": "DA9C63AC7B8A10D2354FF53FEC9BE23F4194352E667DE5C503B069F7D267EBB2",
+      "top_level_cycle_variables": 1,
+      "cycles_found": 97
+    },
+    {
+      "source_member": "5. Battery Data Set/3. BatteryAgingARC_25-44/B0030.mat",
+      "sha256": "C29A910256812449AA6090031471A57440E2E7BC827BD2C822B0D3135485CC99",
+      "top_level_cycle_variables": 1,
+      "cycles_found": 97
+    },
+    {
+      "source_member": "5. Battery Data Set/3. BatteryAgingARC_25-44/B0031.mat",
+      "sha256": "C47CB3A5EF47EF4DE26FCC80C2173FEC24A139F6C305852FCCEE603CD6C4BCEC",
+      "top_level_cycle_variables": 1,
+      "cycles_found": 97
+    },
+    {
+      "source_member": "5. Battery Data Set/3. BatteryAgingARC_25-44/B0032.mat",
+      "sha256": "BD146CAD3A18F9E8D42D05014C90E7BCDE7ABC7CCC89BDD46E5655604C61BC0F",
+      "top_level_cycle_variables": 1,
+      "cycles_found": 97
+    },
+    {
+      "source_member": "5. Battery Data Set/3. BatteryAgingARC_25-44/B0033.mat",
+      "sha256": "3F6B44D7E123B9E9E4A26C3651ACD0B9F38CA4D21AAC3930BD9197CCF8B04426",
+      "top_level_cycle_variables": 1,
+      "cycles_found": 486
+    },
+    {
+      "source_member": "5. Battery Data Set/3. BatteryAgingARC_25-44/B0034.mat",
+      "sha256": "D8CD5FAFF49F0D5672736327C5CD16913E0A0F08FB2817F672F52A67184CB885",
+      "top_level_cycle_variables": 1,
+      "cycles_found": 486
+    },
+    {
+      "source_member": "5. Battery Data Set/3. BatteryAgingARC_25-44/B0036.mat",
+      "sha256": "40511CCCF0262D61B8345FDFE6C4E0A67CCC42E7F5E869EC32C7F33619E7DC15",
+      "top_level_cycle_variables": 1,
+      "cycles_found": 486
+    },
+    {
+      "source_member": "5. Battery Data Set/3. BatteryAgingARC_25-44/B0038.mat",
+      "sha256": "41D4A6977E3F3A46623F80AD8F6E5BA6AD83A2746403F71966C88A4722FFD409",
+      "top_level_cycle_variables": 1,
+      "cycles_found": 122
+    },
+    {
+      "source_member": "5. Battery Data Set/3. BatteryAgingARC_25-44/B0039.mat",
+      "sha256": "0EA0A44622B61F13306CFC9C7080C7A6A8EB187DA38607BFDC776974FCB5F000",
+      "top_level_cycle_variables": 1,
+      "cycles_found": 122
+    },
+    {
+      "source_member": "5. Battery Data Set/3. BatteryAgingARC_25-44/B0040.mat",
+      "sha256": "1D7EB3DBF82BDA46837831756999D911211B9ED0CC892C7E2E8D7F9059A5E013",
+      "top_level_cycle_variables": 1,
+      "cycles_found": 122
+    },
+    {
+      "source_member": "5. Battery Data Set/3. BatteryAgingARC_25-44/B0041.mat",
+      "sha256": "A5440BFB8A141A123ED255DDCCAEC736B7E04028BCE266F04DA44C99D53C1EAF",
+      "top_level_cycle_variables": 1,
+      "cycles_found": 163
+    },
+    {
+      "source_member": "5. Battery Data Set/3. BatteryAgingARC_25-44/B0042.mat",
+      "sha256": "4C39701508278C7A4F14E8AF299F2510403DCA30F2627FCF30C0AD7DC9F33675",
+      "top_level_cycle_variables": 1,
+      "cycles_found": 275
+    },
+    {
+      "source_member": "5. Battery Data Set/3. BatteryAgingARC_25-44/B0043.mat",
+      "sha256": "3E937018342628667A0B1CF30CE804AEBED9A1D79577DE372D5232AD4BF96034",
+      "top_level_cycle_variables": 1,
+      "cycles_found": 275
+    },
+    {
+      "source_member": "5. Battery Data Set/3. BatteryAgingARC_25-44/B0044.mat",
+      "sha256": "E66D3620DE32F134619EAF9692A41D2AB70FA3F8C49211C2B303261504974F30",
+      "top_level_cycle_variables": 1,
+      "cycles_found": 275
+    },
+    {
+      "source_member": "5. Battery Data Set/4. BatteryAgingARC_45_46_47_48/B0045.mat",
+      "sha256": "DC8E4CC149FE87F4FF855F30F0D31155ADA6F467D06F5365550BAB9370670FE3",
+      "top_level_cycle_variables": 1,
+      "cycles_found": 184
+    },
+    {
+      "source_member": "5. Battery Data Set/4. BatteryAgingARC_45_46_47_48/B0046.mat",
+      "sha256": "FE62DFFC7079F6131E591415C740F6863364B23E728FE2AA7286A9C749DCDEBC",
+      "top_level_cycle_variables": 1,
+      "cycles_found": 184
+    },
+    {
+      "source_member": "5. Battery Data Set/4. BatteryAgingARC_45_46_47_48/B0047.mat",
+      "sha256": "8089A9180CF353704642C457C844D83DD2E83AA2FC43FE4F7C05322F86FD0648",
+      "top_level_cycle_variables": 1,
+      "cycles_found": 184
+    },
+    {
+      "source_member": "5. Battery Data Set/4. BatteryAgingARC_45_46_47_48/B0048.mat",
+      "sha256": "341219D38D8531E0A89ECAA18736B79E1547D22EDEA4A1D45357BB5BFEB7757D",
+      "top_level_cycle_variables": 1,
+      "cycles_found": 184
+    },
+    {
+      "source_member": "5. Battery Data Set/5. BatteryAgingARC_49_50_51_52/B0049.mat",
+      "sha256": "BF56A4362287C8489DBEDA27B823432F1E587473A7BF7096DEEC057C5A44D895",
+      "top_level_cycle_variables": 1,
+      "cycles_found": 62
+    },
+    {
+      "source_member": "5. Battery Data Set/5. BatteryAgingARC_49_50_51_52/B0050.mat",
+      "sha256": "4DCB2475A8E689D54AC231832B40BE0BF081805F28F69524E1C46F4C1D153D4E",
+      "top_level_cycle_variables": 1,
+      "cycles_found": 62
+    },
+    {
+      "source_member": "5. Battery Data Set/5. BatteryAgingARC_49_50_51_52/B0051.mat",
+      "sha256": "37C247607DC7E5384FAE4EF595D8B2F9072A2107CE1112FE0A460B4F48C8894B",
+      "top_level_cycle_variables": 1,
+      "cycles_found": 62
+    },
+    {
+      "source_member": "5. Battery Data Set/5. BatteryAgingARC_49_50_51_52/B0052.mat",
+      "sha256": "640D86AC187B223C2EDF83715B0F95BA5FAEAAF5402A51DC81FC5F6275D4EDD8",
+      "top_level_cycle_variables": 1,
+      "cycles_found": 62
+    },
+    {
+      "source_member": "5. Battery Data Set/6. BatteryAgingARC_53_54_55_56/B0053.mat",
+      "sha256": "5AE945704D75F9865608C1BF585C80B62BA8E6A98C555840735C1F64FA5513F9",
+      "top_level_cycle_variables": 1,
+      "cycles_found": 137
+    },
+    {
+      "source_member": "5. Battery Data Set/6. BatteryAgingARC_53_54_55_56/B0054.mat",
+      "sha256": "02ECECA6EDF2AB1FEBDFA31DACCAAFF59B090E627B9403A59060157C9488712A",
+      "top_level_cycle_variables": 1,
+      "cycles_found": 253
+    },
+    {
+      "source_member": "5. Battery Data Set/6. BatteryAgingARC_53_54_55_56/B0055.mat",
+      "sha256": "8405C13378CED0894019A74F343057B0151F58C417FED45A5E068C4E372EA039",
+      "top_level_cycle_variables": 1,
+      "cycles_found": 252
+    },
+    {
+      "source_member": "5. Battery Data Set/6. BatteryAgingARC_53_54_55_56/B0056.mat",
+      "sha256": "E894D92938C6FB09B6455BCC49330902C0E3EA8EE65129F664F1718A4843E709",
+      "top_level_cycle_variables": 1,
+      "cycles_found": 252
+    }
+  ],
+  "structural_audit": {
+    "rejection_counts": {},
+    "cell_structural_audit": [
+      {
+        "cell_id": "B0005",
+        "cycle_records": 616,
+        "structural_charge_discharge_pairs": 167,
+        "valid_fixed_window_charge_records": 167,
+        "post_anchor_prediction_records": 162
+      },
+      {
+        "cell_id": "B0006",
+        "cycle_records": 616,
+        "structural_charge_discharge_pairs": 167,
+        "valid_fixed_window_charge_records": 167,
+        "post_anchor_prediction_records": 162
+      },
+      {
+        "cell_id": "B0007",
+        "cycle_records": 616,
+        "structural_charge_discharge_pairs": 167,
+        "valid_fixed_window_charge_records": 167,
+        "post_anchor_prediction_records": 162
+      },
+      {
+        "cell_id": "B0018",
+        "cycle_records": 319,
+        "structural_charge_discharge_pairs": 132,
+        "valid_fixed_window_charge_records": 132,
+        "post_anchor_prediction_records": 127
+      },
+      {
+        "cell_id": "B0025",
+        "cycle_records": 160,
+        "structural_charge_discharge_pairs": 28,
+        "valid_fixed_window_charge_records": 28,
+        "post_anchor_prediction_records": 23
+      },
+      {
+        "cell_id": "B0026",
+        "cycle_records": 160,
+        "structural_charge_discharge_pairs": 28,
+        "valid_fixed_window_charge_records": 28,
+        "post_anchor_prediction_records": 23
+      },
+      {
+        "cell_id": "B0027",
+        "cycle_records": 160,
+        "structural_charge_discharge_pairs": 28,
+        "valid_fixed_window_charge_records": 28,
+        "post_anchor_prediction_records": 23
+      },
+      {
+        "cell_id": "B0028",
+        "cycle_records": 160,
+        "structural_charge_discharge_pairs": 28,
+        "valid_fixed_window_charge_records": 28,
+        "post_anchor_prediction_records": 23
+      },
+      {
+        "cell_id": "B0029",
+        "cycle_records": 97,
+        "structural_charge_discharge_pairs": 39,
+        "valid_fixed_window_charge_records": 39,
+        "post_anchor_prediction_records": 34
+      },
+      {
+        "cell_id": "B0030",
+        "cycle_records": 97,
+        "structural_charge_discharge_pairs": 39,
+        "valid_fixed_window_charge_records": 39,
+        "post_anchor_prediction_records": 34
+      },
+      {
+        "cell_id": "B0031",
+        "cycle_records": 97,
+        "structural_charge_discharge_pairs": 39,
+        "valid_fixed_window_charge_records": 39,
+        "post_anchor_prediction_records": 34
+      },
+      {
+        "cell_id": "B0032",
+        "cycle_records": 97,
+        "structural_charge_discharge_pairs": 39,
+        "valid_fixed_window_charge_records": 39,
+        "post_anchor_prediction_records": 34
+      },
+      {
+        "cell_id": "B0033",
+        "cycle_records": 486,
+        "structural_charge_discharge_pairs": 196,
+        "valid_fixed_window_charge_records": 196,
+        "post_anchor_prediction_records": 191
+      },
+      {
+        "cell_id": "B0034",
+        "cycle_records": 486,
+        "structural_charge_discharge_pairs": 196,
+        "valid_fixed_window_charge_records": 196,
+        "post_anchor_prediction_records": 191
+      },
+      {
+        "cell_id": "B0036",
+        "cycle_records": 486,
+        "structural_charge_discharge_pairs": 196,
+        "valid_fixed_window_charge_records": 196,
+        "post_anchor_prediction_records": 191
+      },
+      {
+        "cell_id": "B0038",
+        "cycle_records": 122,
+        "structural_charge_discharge_pairs": 46,
+        "valid_fixed_window_charge_records": 46,
+        "post_anchor_prediction_records": 41
+      },
+      {
+        "cell_id": "B0039",
+        "cycle_records": 122,
+        "structural_charge_discharge_pairs": 46,
+        "valid_fixed_window_charge_records": 46,
+        "post_anchor_prediction_records": 41
+      },
+      {
+        "cell_id": "B0040",
+        "cycle_records": 122,
+        "structural_charge_discharge_pairs": 46,
+        "valid_fixed_window_charge_records": 46,
+        "post_anchor_prediction_records": 41
+      },
+      {
+        "cell_id": "B0041",
+        "cycle_records": 163,
+        "structural_charge_discharge_pairs": 66,
+        "valid_fixed_window_charge_records": 66,
+        "post_anchor_prediction_records": 61
+      },
+      {
+        "cell_id": "B0042",
+        "cycle_records": 275,
+        "structural_charge_discharge_pairs": 112,
+        "valid_fixed_window_charge_records": 112,
+        "post_anchor_prediction_records": 107
+      },
+      {
+        "cell_id": "B0043",
+        "cycle_records": 275,
+        "structural_charge_discharge_pairs": 112,
+        "valid_fixed_window_charge_records": 112,
+        "post_anchor_prediction_records": 107
+      },
+      {
+        "cell_id": "B0044",
+        "cycle_records": 275,
+        "structural_charge_discharge_pairs": 112,
+        "valid_fixed_window_charge_records": 112,
+        "post_anchor_prediction_records": 107
+      },
+      {
+        "cell_id": "B0045",
+        "cycle_records": 184,
+        "structural_charge_discharge_pairs": 71,
+        "valid_fixed_window_charge_records": 71,
+        "post_anchor_prediction_records": 66
+      },
+      {
+        "cell_id": "B0046",
+        "cycle_records": 184,
+        "structural_charge_discharge_pairs": 71,
+        "valid_fixed_window_charge_records": 71,
+        "post_anchor_prediction_records": 66
+      },
+      {
+        "cell_id": "B0047",
+        "cycle_records": 184,
+        "structural_charge_discharge_pairs": 71,
+        "valid_fixed_window_charge_records": 71,
+        "post_anchor_prediction_records": 66
+      },
+      {
+        "cell_id": "B0048",
+        "cycle_records": 184,
+        "structural_charge_discharge_pairs": 71,
+        "valid_fixed_window_charge_records": 71,
+        "post_anchor_prediction_records": 66
+      },
+      {
+        "cell_id": "B0049",
+        "cycle_records": 62,
+        "structural_charge_discharge_pairs": 24,
+        "valid_fixed_window_charge_records": 24,
+        "post_anchor_prediction_records": 19
+      },
+      {
+        "cell_id": "B0050",
+        "cycle_records": 62,
+        "structural_charge_discharge_pairs": 24,
+        "valid_fixed_window_charge_records": 24,
+        "post_anchor_prediction_records": 19
+      },
+      {
+        "cell_id": "B0051",
+        "cycle_records": 62,
+        "structural_charge_discharge_pairs": 24,
+        "valid_fixed_window_charge_records": 24,
+        "post_anchor_prediction_records": 19
+      },
+      {
+        "cell_id": "B0052",
+        "cycle_records": 62,
+        "structural_charge_discharge_pairs": 24,
+        "valid_fixed_window_charge_records": 24,
+        "post_anchor_prediction_records": 19
+      },
+      {
+        "cell_id": "B0053",
+        "cycle_records": 137,
+        "structural_charge_discharge_pairs": 55,
+        "valid_fixed_window_charge_records": 55,
+        "post_anchor_prediction_records": 50
+      },
+      {
+        "cell_id": "B0054",
+        "cycle_records": 253,
+        "structural_charge_discharge_pairs": 102,
+        "valid_fixed_window_charge_records": 102,
+        "post_anchor_prediction_records": 97
+      },
+      {
+        "cell_id": "B0055",
+        "cycle_records": 252,
+        "structural_charge_discharge_pairs": 101,
+        "valid_fixed_window_charge_records": 101,
+        "post_anchor_prediction_records": 96
+      },
+      {
+        "cell_id": "B0056",
+        "cycle_records": 252,
+        "structural_charge_discharge_pairs": 101,
+        "valid_fixed_window_charge_records": 101,
+        "post_anchor_prediction_records": 96
+      }
+    ]
+  },
+  "frozen_outputs": {
+    "features": {
+      "path": "E:\\CCF\\interventional_battery_learning\\external_nasa_v329\\label_blind_v330\\nasa_label_blind_features_v330.parquet",
+      "sha256": "CB89A91E8245FC2338C07995CEC272103358B1AD86B1E7539BD54648EF290C91"
+    },
+    "predictions": {
+      "path": "E:\\CCF\\interventional_battery_learning\\external_nasa_v329\\label_blind_v330\\nasa_frozen_predictions_v330.parquet",
+      "sha256": "4D8264D94E224BE12A5574CC403047E10276C78652D80A4841086F4E409CEAA9"
+    }
+  },
+  "frozen_inputs": {
+    "model_bundle_sha256": "F492F4B87C1CE7F49C3718F5C2A7D7DADE79450A9E548B33540452B4DC4817FD",
+    "alpha_freeze_report_sha256": "CBB9EBC235878B9C1E914F5AE136BDCA38064040D9957D0410DF82A1AE299AE9",
+    "projection_code_sha256": "9E2903909E9D6A8C80C29BBA0404C94C11C1A3452721BD105F9D4991069CCB23",
+    "prediction_script_sha256": "305D623F711758AD1B4BE0B518F302D468B6D4BAE17F5642EA09F4CE00D11B5C"
+  },
+  "runtime_seconds": 5.566255599995202
+}

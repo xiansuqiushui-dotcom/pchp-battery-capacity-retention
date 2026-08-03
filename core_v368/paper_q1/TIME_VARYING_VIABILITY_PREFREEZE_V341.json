@@ -1,0 +1,36 @@
+{
+  "version": "v341",
+  "status": "PREFROZEN_BEFORE_IMPLEMENTATION",
+  "date": "2026-08-02",
+  "hypothesis": "For a non-increasing protected baseline and time-varying positive asymmetric costs with non-negative budgets, candidate-universal recursive feasibility holds if and only if the clipped lower harm-tube endpoint is non-increasing. Given the previous published output, the exact minimum feasible current budget is c_under_t*max(b_t-p_previous,0).",
+  "definitions": {
+    "lower_radius": "rho_minus_t=eta_t/c_under_t",
+    "upper_radius": "rho_plus_t=eta_t/c_over_t",
+    "standalone_lower": "L_t=max(y_min,b_t-rho_minus_t)",
+    "standalone_upper": "U_t=min(y_max,b_t+rho_plus_t)",
+    "recursive_interval": "[L_t,min(U_t,p_previous)]"
+  },
+  "claimed_results": {
+    "realized_prefix_feasibility": "I_t is nonempty iff L_t<=p_previous",
+    "candidate_universal_feasibility": "All candidate sequences remain feasible iff L_t<=L_(t-1) for every t>=2",
+    "constructive_failure": "If L_t>L_(t-1), choose the preceding candidate at or below L_(t-1), yielding p_(t-1)=L_(t-1) and an empty next interval",
+    "minimum_current_budget": "eta_min_t=c_under_t*max(b_t-p_previous,0)"
+  },
+  "information_boundary": "The current schedule values may be declared in advance or supplied prefix-causally without accessing outcome y. A full-horizon certificate requires a predeclared schedule; otherwise the implementation checks realized feasibility online and fails closed.",
+  "falsification": {
+    "seed": 20260802,
+    "gates": [
+      "Exhaustive small-grid schedules agree with the candidate-universal lower-bound condition.",
+      "Random schedules with non-increasing lower endpoints remain feasible for all tested candidate trajectories and satisfy every online property and pointwise asymmetric harm budget.",
+      "Every tested upward lower-endpoint violation admits the frozen constructive candidate counterexample.",
+      "The realized-prefix condition exactly matches interval nonemptiness.",
+      "The minimum-budget formula is feasible at equality and infeasible immediately below whenever b_t exceeds the previous output.",
+      "Changing only the upper cost schedule does not change the feasibility verdict while the directional harm certificate remains valid.",
+      "Constant schedules recover the V340 asymmetric and original symmetric APIs exactly.",
+      "Non-positive or non-finite costs, negative or non-finite budgets, increasing baselines, and shape mismatches fail closed."
+    ],
+    "pass_rule": "All gates pass at tolerance 1e-12 and the full existing unit-test suite remains green.",
+    "failure_rule": "Any failed gate yields REJECT; do not add the time-varying extension to the manuscript.",
+    "decision_options": ["RETAIN", "NARROW", "REJECT"]
+  }
+}

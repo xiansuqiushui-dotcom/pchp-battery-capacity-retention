@@ -1,0 +1,65 @@
+"""Create the deterministic V389 release manifest."""
+
+from __future__ import annotations
+
+import hashlib
+import json
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parent
+OUTPUT = ROOT / "manifest_v389.json"
+EXCLUDED_NAMES = {OUTPUT.name, "verification_receipt_v389.json"}
+EXCLUDED_PARTS = {".git", ".venv", "__pycache__"}
+
+
+def sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for block in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+def tracked_files() -> list[Path]:
+    files: list[Path] = []
+    for path in ROOT.rglob("*"):
+        if not path.is_file() or path.name in EXCLUDED_NAMES:
+            continue
+        if any(part in EXCLUDED_PARTS for part in path.relative_to(ROOT).parts):
+            continue
+        if path.suffix in {".pyc", ".pyo"}:
+            continue
+        files.append(path)
+    return sorted(files, key=lambda p: p.relative_to(ROOT).as_posix())
+
+
+def main() -> None:
+    records = [
+        {
+            "path": path.relative_to(ROOT).as_posix(),
+            "bytes": path.stat().st_size,
+            "sha256": sha256(path),
+        }
+        for path in tracked_files()
+    ]
+    manifest = {
+        "version": "v389",
+        "release_date": "2026-08-03",
+        "title": "Prefix-Causal Harm-Budget Projection for Cross-Domain Lithium-Ion Battery Capacity-Retention Estimation",
+        "license_for_author_created_software": "MIT",
+        "raw_third_party_archives_included": False,
+        "contains_final_bilingual_manuscript": True,
+        "contains_final_external_mechanism_confirmation": True,
+        "contains_final_statistics_and_reviewer_risk_audits": True,
+        "tracked_files": len(records),
+        "total_bytes": sum(item["bytes"] for item in records),
+        "files": records,
+    }
+    OUTPUT.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    print(f"Wrote {OUTPUT.name}: {len(records)} files, {manifest['total_bytes']} bytes")
+
+
+if __name__ == "__main__":
+    main()
+

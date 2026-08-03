@@ -1,0 +1,1446 @@
+{
+  "version": "v375",
+  "status": "PCHP_BACKBONE_PORTABILITY_RETAINED",
+  "decision": "RETAIN",
+  "scope": "protocol-locked retrospective secondary development audit",
+  "prefreeze": {
+    "path": "E:\\CCF\\interventional_battery_learning\\PCHP_BACKBONE_PORTABILITY_PREFREEZE_V375.json",
+    "sha256": "ed6c7b6d119d4a3bb9111e27cae198c73f9c8590b3bb09756548ef06a95993e9"
+  },
+  "information_boundary": {
+    "outer_domains": 12,
+    "physical_cells": 586,
+    "post_reference_rows_per_backbone": 601932,
+    "independent_unit": "complete battery dataset domain",
+    "historically_opened_development_data": true,
+    "outer_target_labels_used_for_training_or_selection": false,
+    "external_confirmation": false
+  },
+  "model_contract": {
+    "source_rows_per_cell_cap": 80,
+    "seed": 20260801,
+    "baseline_features": "raw early-charge features plus cycle number",
+    "candidate_features": "baseline features plus commissioning-referenced absolute changes",
+    "baseline_weighting": "ordinary pooled source rows",
+    "candidate_weighting": "equal total weight per source domain",
+    "secondary_hyperparameter_tuning": false
+  },
+  "alpha_schedule": {
+    "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\nested_alpha_selections_v326.csv",
+    "sha256": "7440327383458225bd8b92f2998620eec4d8d924b8e31cfab05428faaca81eab",
+    "selected_alpha_by_outer_domain": {
+      "CALB": 0.01,
+      "CALCE": 0.005,
+      "HNEI": 0.005,
+      "HUST": 0.01,
+      "MATR": 0.015,
+      "MICH": 0.015,
+      "MICH_EXP": 0.01,
+      "RWTH": 0.01,
+      "SDU": 0.01,
+      "SNL": 0.01,
+      "UL_PUR": 0.01,
+      "XJTU": 0.01
+    },
+    "secondary_backbone_specific_tuning": false
+  },
+  "summary": [
+    {
+      "backbone": "hist_gradient_boosting",
+      "method": "raw_candidate",
+      "domain_equal_cell_macro_mae": 0.0558625717,
+      "worst_domain_cell_macro_mae": 0.1459811267
+    },
+    {
+      "backbone": "hist_gradient_boosting",
+      "method": "pchp_method",
+      "domain_equal_cell_macro_mae": 0.0724904994,
+      "worst_domain_cell_macro_mae": 0.1392515438
+    },
+    {
+      "backbone": "hist_gradient_boosting",
+      "method": "protected_state",
+      "domain_equal_cell_macro_mae": 0.0767393614,
+      "worst_domain_cell_macro_mae": 0.1473391024
+    },
+    {
+      "backbone": "lightgbm",
+      "method": "raw_candidate",
+      "domain_equal_cell_macro_mae": 0.0566146639,
+      "worst_domain_cell_macro_mae": 0.1521168887
+    },
+    {
+      "backbone": "lightgbm",
+      "method": "pchp_method",
+      "domain_equal_cell_macro_mae": 0.0725157493,
+      "worst_domain_cell_macro_mae": 0.1402431687
+    },
+    {
+      "backbone": "lightgbm",
+      "method": "protected_state",
+      "domain_equal_cell_macro_mae": 0.0767395442,
+      "worst_domain_cell_macro_mae": 0.1399554165
+    },
+    {
+      "backbone": "ridge",
+      "method": "raw_candidate",
+      "domain_equal_cell_macro_mae": 0.080830764,
+      "worst_domain_cell_macro_mae": 0.1526701918
+    },
+    {
+      "backbone": "ridge",
+      "method": "pchp_method",
+      "domain_equal_cell_macro_mae": 0.1077308913,
+      "worst_domain_cell_macro_mae": 0.3321883636
+    },
+    {
+      "backbone": "ridge",
+      "method": "protected_state",
+      "domain_equal_cell_macro_mae": 0.1119221101,
+      "worst_domain_cell_macro_mae": 0.3404103758
+    }
+  ],
+  "comparisons": [
+    {
+      "backbone": "ridge",
+      "difference_direction": "negative favors PCHP",
+      "domain_equal_mean_difference": -0.004191218720992354,
+      "bonferroni_adjusted_interval": [
+        -0.0067680242904123505,
+        -0.0013149896641267958
+      ],
+      "domain_wins_ties_losses": [
+        10,
+        0,
+        2
+      ],
+      "per_domain": [
+        {
+          "domain": "CALB",
+          "cell_macro_mae_method": 0.0561439224,
+          "cell_macro_mae_baseline": 0.0617430799,
+          "difference": -0.0055991574
+        },
+        {
+          "domain": "CALCE",
+          "cell_macro_mae_method": 0.0800462534,
+          "cell_macro_mae_baseline": 0.082676486,
+          "difference": -0.0026302326
+        },
+        {
+          "domain": "HNEI",
+          "cell_macro_mae_method": 0.0827499396,
+          "cell_macro_mae_baseline": 0.09082324,
+          "difference": -0.0080733004
+        },
+        {
+          "domain": "HUST",
+          "cell_macro_mae_method": 0.0580231493,
+          "cell_macro_mae_baseline": 0.0561980907,
+          "difference": 0.0018250586
+        },
+        {
+          "domain": "MATR",
+          "cell_macro_mae_method": 0.3321883636,
+          "cell_macro_mae_baseline": 0.3404103758,
+          "difference": -0.0082220122
+        },
+        {
+          "domain": "MICH",
+          "cell_macro_mae_method": 0.117354128,
+          "cell_macro_mae_baseline": 0.1243899493,
+          "difference": -0.0070358213
+        },
+        {
+          "domain": "MICH_EXP",
+          "cell_macro_mae_method": 0.1245060165,
+          "cell_macro_mae_baseline": 0.1310651353,
+          "difference": -0.0065591189
+        },
+        {
+          "domain": "RWTH",
+          "cell_macro_mae_method": 0.1538041861,
+          "cell_macro_mae_baseline": 0.1544060706,
+          "difference": -0.0006018845
+        },
+        {
+          "domain": "SDU",
+          "cell_macro_mae_method": 0.0545110103,
+          "cell_macro_mae_baseline": 0.0553036136,
+          "difference": -0.0007926033
+        },
+        {
+          "domain": "SNL",
+          "cell_macro_mae_method": 0.0852250918,
+          "cell_macro_mae_baseline": 0.0919527745,
+          "difference": -0.0067276827
+        },
+        {
+          "domain": "UL_PUR",
+          "cell_macro_mae_method": 0.091411207,
+          "cell_macro_mae_baseline": 0.1004074505,
+          "difference": -0.0089962435
+        },
+        {
+          "domain": "XJTU",
+          "cell_macro_mae_method": 0.0568074279,
+          "cell_macro_mae_baseline": 0.0536890544,
+          "difference": 0.0031183735
+        }
+      ]
+    },
+    {
+      "backbone": "hist_gradient_boosting",
+      "difference_direction": "negative favors PCHP",
+      "domain_equal_mean_difference": -0.0042488620568214355,
+      "bonferroni_adjusted_interval": [
+        -0.006326712802297383,
+        -0.0020315309141240297
+      ],
+      "domain_wins_ties_losses": [
+        11,
+        0,
+        1
+      ],
+      "per_domain": [
+        {
+          "domain": "CALB",
+          "cell_macro_mae_method": 0.0147183868,
+          "cell_macro_mae_baseline": 0.012952479,
+          "difference": 0.0017659078
+        },
+        {
+          "domain": "CALCE",
+          "cell_macro_mae_method": 0.0616707327,
+          "cell_macro_mae_baseline": 0.0668262687,
+          "difference": -0.005155536
+        },
+        {
+          "domain": "HNEI",
+          "cell_macro_mae_method": 0.0809745033,
+          "cell_macro_mae_baseline": 0.0891811878,
+          "difference": -0.0082066845
+        },
+        {
+          "domain": "HUST",
+          "cell_macro_mae_method": 0.0248785951,
+          "cell_macro_mae_baseline": 0.0261575432,
+          "difference": -0.0012789481
+        },
+        {
+          "domain": "MATR",
+          "cell_macro_mae_method": 0.0596754642,
+          "cell_macro_mae_baseline": 0.0662986415,
+          "difference": -0.0066231773
+        },
+        {
+          "domain": "MICH",
+          "cell_macro_mae_method": 0.0866228388,
+          "cell_macro_mae_baseline": 0.0944413706,
+          "difference": -0.0078185318
+        },
+        {
+          "domain": "MICH_EXP",
+          "cell_macro_mae_method": 0.1392515438,
+          "cell_macro_mae_baseline": 0.1473391024,
+          "difference": -0.0080875585
+        },
+        {
+          "domain": "RWTH",
+          "cell_macro_mae_method": 0.1277141667,
+          "cell_macro_mae_baseline": 0.1286515506,
+          "difference": -0.0009373839
+        },
+        {
+          "domain": "SDU",
+          "cell_macro_mae_method": 0.0679360532,
+          "cell_macro_mae_baseline": 0.0699004369,
+          "difference": -0.0019643836
+        },
+        {
+          "domain": "SNL",
+          "cell_macro_mae_method": 0.074781842,
+          "cell_macro_mae_baseline": 0.080956086,
+          "difference": -0.006174244
+        },
+        {
+          "domain": "UL_PUR",
+          "cell_macro_mae_method": 0.0384046804,
+          "cell_macro_mae_baseline": 0.0408976238,
+          "difference": -0.0024929433
+        },
+        {
+          "domain": "XJTU",
+          "cell_macro_mae_method": 0.0932571852,
+          "cell_macro_mae_baseline": 0.0972700465,
+          "difference": -0.0040128613
+        }
+      ]
+    },
+    {
+      "backbone": "lightgbm",
+      "difference_direction": "negative favors PCHP",
+      "domain_equal_mean_difference": -0.004223794976549093,
+      "bonferroni_adjusted_interval": [
+        -0.006205225710777002,
+        -0.002305126160587263
+      ],
+      "domain_wins_ties_losses": [
+        11,
+        0,
+        1
+      ],
+      "per_domain": [
+        {
+          "domain": "CALB",
+          "cell_macro_mae_method": 0.0136371959,
+          "cell_macro_mae_baseline": 0.0167206817,
+          "difference": -0.0030834859
+        },
+        {
+          "domain": "CALCE",
+          "cell_macro_mae_method": 0.0544680579,
+          "cell_macro_mae_baseline": 0.0582901222,
+          "difference": -0.0038220644
+        },
+        {
+          "domain": "HNEI",
+          "cell_macro_mae_method": 0.092008394,
+          "cell_macro_mae_baseline": 0.1003050447,
+          "difference": -0.0082966507
+        },
+        {
+          "domain": "HUST",
+          "cell_macro_mae_method": 0.023113762,
+          "cell_macro_mae_baseline": 0.0247991573,
+          "difference": -0.0016853953
+        },
+        {
+          "domain": "MATR",
+          "cell_macro_mae_method": 0.0704278832,
+          "cell_macro_mae_baseline": 0.0781324059,
+          "difference": -0.0077045228
+        },
+        {
+          "domain": "MICH",
+          "cell_macro_mae_method": 0.0902136108,
+          "cell_macro_mae_baseline": 0.0983164627,
+          "difference": -0.0081028519
+        },
+        {
+          "domain": "MICH_EXP",
+          "cell_macro_mae_method": 0.127143537,
+          "cell_macro_mae_baseline": 0.134422289,
+          "difference": -0.007278752
+        },
+        {
+          "domain": "RWTH",
+          "cell_macro_mae_method": 0.1402431687,
+          "cell_macro_mae_baseline": 0.1399554165,
+          "difference": 0.0002877522
+        },
+        {
+          "domain": "SDU",
+          "cell_macro_mae_method": 0.0602275553,
+          "cell_macro_mae_baseline": 0.0619322579,
+          "difference": -0.0017047026
+        },
+        {
+          "domain": "SNL",
+          "cell_macro_mae_method": 0.0754796885,
+          "cell_macro_mae_baseline": 0.0805268452,
+          "difference": -0.0050471567
+        },
+        {
+          "domain": "UL_PUR",
+          "cell_macro_mae_method": 0.0351651396,
+          "cell_macro_mae_baseline": 0.0376339491,
+          "difference": -0.0024688095
+        },
+        {
+          "domain": "XJTU",
+          "cell_macro_mae_method": 0.0880609983,
+          "cell_macro_mae_baseline": 0.0898398984,
+          "difference": -0.0017789001
+        }
+      ]
+    }
+  ],
+  "deterministic_certificate_by_backbone": {
+    "ridge": {
+      "maximum_absolute_displacement": 0.010000000000000009,
+      "maximum_observed_absolute_loss_regret": 0.010000000000000064,
+      "maximum_protected_state_increase": 0.0,
+      "maximum_pchp_output_increase": 0.0,
+      "minimum_protected_state": 0.00020484608968964962,
+      "maximum_protected_state": 1.3,
+      "minimum_pchp_output": 0.0,
+      "maximum_pchp_output": 1.3,
+      "maximum_prefix_replay_difference": 0.0
+    },
+    "hist_gradient_boosting": {
+      "maximum_absolute_displacement": 0.010000000000000009,
+      "maximum_observed_absolute_loss_regret": 0.010000000000000009,
+      "maximum_protected_state_increase": 0.0,
+      "maximum_pchp_output_increase": 0.0,
+      "minimum_protected_state": 0.15404017379255872,
+      "maximum_protected_state": 1.0281416592126114,
+      "minimum_pchp_output": 0.1440401737925587,
+      "maximum_pchp_output": 1.0181416592126113,
+      "maximum_prefix_replay_difference": 0.0
+    },
+    "lightgbm": {
+      "maximum_absolute_displacement": 0.010000000000000009,
+      "maximum_observed_absolute_loss_regret": 0.010000000000000037,
+      "maximum_protected_state_increase": 0.0,
+      "maximum_pchp_output_increase": 0.0,
+      "minimum_protected_state": 0.15684523931883362,
+      "maximum_protected_state": 1.0119539028187539,
+      "minimum_pchp_output": 0.1474342925801689,
+      "maximum_pchp_output": 1.0077840576329231,
+      "maximum_prefix_replay_difference": 0.0
+    }
+  },
+  "gates": {
+    "ridge": {
+      "mean_difference_below_zero": true,
+      "adjusted_interval_upper_below_zero": true,
+      "minimum_improved_outer_domains": true,
+      "absolute_displacement_budget": true,
+      "observed_absolute_loss_regret": true,
+      "protected_state_nonincreasing": true,
+      "pchp_output_nonincreasing": true,
+      "physical_range": true,
+      "prefix_replay_exact": true,
+      "outer_target_information_isolated": true
+    },
+    "hist_gradient_boosting": {
+      "mean_difference_below_zero": true,
+      "adjusted_interval_upper_below_zero": true,
+      "minimum_improved_outer_domains": true,
+      "absolute_displacement_budget": true,
+      "observed_absolute_loss_regret": true,
+      "protected_state_nonincreasing": true,
+      "pchp_output_nonincreasing": true,
+      "physical_range": true,
+      "prefix_replay_exact": true,
+      "outer_target_information_isolated": true
+    },
+    "lightgbm": {
+      "mean_difference_below_zero": true,
+      "adjusted_interval_upper_below_zero": true,
+      "minimum_improved_outer_domains": true,
+      "absolute_displacement_budget": true,
+      "observed_absolute_loss_regret": true,
+      "protected_state_nonincreasing": true,
+      "pchp_output_nonincreasing": true,
+      "physical_range": true,
+      "prefix_replay_exact": true,
+      "outer_target_information_isolated": true
+    }
+  },
+  "conjunction_gate_passed": true,
+  "folds": [
+    {
+      "backbone": "ridge",
+      "target_domain": "CALB",
+      "source_domains": [
+        "CALCE",
+        "HNEI",
+        "HUST",
+        "MATR",
+        "MICH",
+        "MICH_EXP",
+        "RWTH",
+        "SDU",
+        "SNL",
+        "UL_PUR",
+        "XJTU"
+      ],
+      "source_fit_rows": 44642,
+      "target_rows": 2629,
+      "target_cells": 27,
+      "outer_target_labels_used_for_training_or_alpha_selection": false,
+      "cache_retrained_this_run": true,
+      "cache": {
+        "path": "E:\\CCF\\interventional_battery_learning\\pchp_backbone_portability_v375\\raw_prediction_cache\\ridge__CALB.parquet",
+        "bytes": 80448,
+        "sha256": "c6f9c0fa0c07f0b5dd4dd5b59190be832c170c0f453c636bdeb94b3ff40c5d09"
+      }
+    },
+    {
+      "backbone": "ridge",
+      "target_domain": "CALCE",
+      "source_domains": [
+        "CALB",
+        "HNEI",
+        "HUST",
+        "MATR",
+        "MICH",
+        "MICH_EXP",
+        "RWTH",
+        "SDU",
+        "SNL",
+        "UL_PUR",
+        "XJTU"
+      ],
+      "source_fit_rows": 45762,
+      "target_rows": 14233,
+      "target_cells": 13,
+      "outer_target_labels_used_for_training_or_alpha_selection": false,
+      "cache_retrained_this_run": true,
+      "cache": {
+        "path": "E:\\CCF\\interventional_battery_learning\\pchp_backbone_portability_v375\\raw_prediction_cache\\ridge__CALCE.parquet",
+        "bytes": 446129,
+        "sha256": "3f370c35b8efdaa354dcd290e9fc7030dae7afc72c9fe44e78358910d415f3e2"
+      }
+    },
+    {
+      "backbone": "ridge",
+      "target_domain": "HNEI",
+      "source_domains": [
+        "CALB",
+        "CALCE",
+        "HUST",
+        "MATR",
+        "MICH",
+        "MICH_EXP",
+        "RWTH",
+        "SDU",
+        "SNL",
+        "UL_PUR",
+        "XJTU"
+      ],
+      "source_fit_rows": 45682,
+      "target_rows": 15085,
+      "target_cells": 14,
+      "outer_target_labels_used_for_training_or_alpha_selection": false,
+      "cache_retrained_this_run": true,
+      "cache": {
+        "path": "E:\\CCF\\interventional_battery_learning\\pchp_backbone_portability_v375\\raw_prediction_cache\\ridge__HNEI.parquet",
+        "bytes": 398063,
+        "sha256": "d9b655b0ca1af0647e2da8b38b81fe0e2651998648313d2aabb3ac6a9edf6e25"
+      }
+    },
+    {
+      "backbone": "ridge",
+      "target_domain": "HUST",
+      "source_domains": [
+        "CALB",
+        "CALCE",
+        "HNEI",
+        "MATR",
+        "MICH",
+        "MICH_EXP",
+        "RWTH",
+        "SDU",
+        "SNL",
+        "UL_PUR",
+        "XJTU"
+      ],
+      "source_fit_rows": 40642,
+      "target_rows": 145735,
+      "target_cells": 77,
+      "outer_target_labels_used_for_training_or_alpha_selection": false,
+      "cache_retrained_this_run": true,
+      "cache": {
+        "path": "E:\\CCF\\interventional_battery_learning\\pchp_backbone_portability_v375\\raw_prediction_cache\\ridge__HUST.parquet",
+        "bytes": 4434438,
+        "sha256": "13ac697d28796cce4b470befcd1a7c05b406894e4037750f19dc17e7be4d52bf"
+      }
+    },
+    {
+      "backbone": "ridge",
+      "target_domain": "MATR",
+      "source_domains": [
+        "CALB",
+        "CALCE",
+        "HNEI",
+        "HUST",
+        "MICH",
+        "MICH_EXP",
+        "RWTH",
+        "SDU",
+        "SNL",
+        "UL_PUR",
+        "XJTU"
+      ],
+      "source_fit_rows": 33282,
+      "target_rows": 139148,
+      "target_cells": 169,
+      "outer_target_labels_used_for_training_or_alpha_selection": false,
+      "cache_retrained_this_run": true,
+      "cache": {
+        "path": "E:\\CCF\\interventional_battery_learning\\pchp_backbone_portability_v375\\raw_prediction_cache\\ridge__MATR.parquet",
+        "bytes": 3916572,
+        "sha256": "d6172367ad605bacbabd0e89ffcfb3d01aadc71356a3ad06fd5d6d2233551b09"
+      }
+    },
+    {
+      "backbone": "ridge",
+      "target_domain": "MICH",
+      "source_domains": [
+        "CALB",
+        "CALCE",
+        "HNEI",
+        "HUST",
+        "MATR",
+        "MICH_EXP",
+        "RWTH",
+        "SDU",
+        "SNL",
+        "UL_PUR",
+        "XJTU"
+      ],
+      "source_fit_rows": 43602,
+      "target_rows": 19681,
+      "target_cells": 40,
+      "outer_target_labels_used_for_training_or_alpha_selection": false,
+      "cache_retrained_this_run": true,
+      "cache": {
+        "path": "E:\\CCF\\interventional_battery_learning\\pchp_backbone_portability_v375\\raw_prediction_cache\\ridge__MICH.parquet",
+        "bytes": 517382,
+        "sha256": "1ae0509a0637a59e1105117c359a8749aee2dd15d851337a686f0a01ac05ba67"
+      }
+    },
+    {
+      "backbone": "ridge",
+      "target_domain": "MICH_EXP",
+      "source_domains": [
+        "CALB",
+        "CALCE",
+        "HNEI",
+        "HUST",
+        "MATR",
+        "MICH",
+        "RWTH",
+        "SDU",
+        "SNL",
+        "UL_PUR",
+        "XJTU"
+      ],
+      "source_fit_rows": 45362,
+      "target_rows": 6455,
+      "target_cells": 18,
+      "outer_target_labels_used_for_training_or_alpha_selection": false,
+      "cache_retrained_this_run": true,
+      "cache": {
+        "path": "E:\\CCF\\interventional_battery_learning\\pchp_backbone_portability_v375\\raw_prediction_cache\\ridge__MICH_EXP.parquet",
+        "bytes": 162339,
+        "sha256": "b29f6ff2c6cd02275483fdb1536226e415d01fcdf6a1e06fe308d7a362820925"
+      }
+    },
+    {
+      "backbone": "ridge",
+      "target_domain": "RWTH",
+      "source_domains": [
+        "CALB",
+        "CALCE",
+        "HNEI",
+        "HUST",
+        "MATR",
+        "MICH",
+        "MICH_EXP",
+        "SDU",
+        "SNL",
+        "UL_PUR",
+        "XJTU"
+      ],
+      "source_fit_rows": 42962,
+      "target_rows": 105140,
+      "target_cells": 48,
+      "outer_target_labels_used_for_training_or_alpha_selection": false,
+      "cache_retrained_this_run": true,
+      "cache": {
+        "path": "E:\\CCF\\interventional_battery_learning\\pchp_backbone_portability_v375\\raw_prediction_cache\\ridge__RWTH.parquet",
+        "bytes": 3281740,
+        "sha256": "30bb4cdb136f7f4b97aa0ce0f00088bf05b2b8644f4fe6251c6c68ce6dcee086"
+      }
+    },
+    {
+      "backbone": "ridge",
+      "target_domain": "SDU",
+      "source_domains": [
+        "CALB",
+        "CALCE",
+        "HNEI",
+        "HUST",
+        "MATR",
+        "MICH",
+        "MICH_EXP",
+        "RWTH",
+        "SNL",
+        "UL_PUR",
+        "XJTU"
+      ],
+      "source_fit_rows": 40000,
+      "target_rows": 48716,
+      "target_cells": 86,
+      "outer_target_labels_used_for_training_or_alpha_selection": false,
+      "cache_retrained_this_run": true,
+      "cache": {
+        "path": "E:\\CCF\\interventional_battery_learning\\pchp_backbone_portability_v375\\raw_prediction_cache\\ridge__SDU.parquet",
+        "bytes": 1439519,
+        "sha256": "237a907f28548f4bc5f5413f6c5a305fce8300fe185bd843fefbb6719069300f"
+      }
+    },
+    {
+      "backbone": "ridge",
+      "target_domain": "SNL",
+      "source_domains": [
+        "CALB",
+        "CALCE",
+        "HNEI",
+        "HUST",
+        "MATR",
+        "MICH",
+        "MICH_EXP",
+        "RWTH",
+        "SDU",
+        "UL_PUR",
+        "XJTU"
+      ],
+      "source_fit_rows": 41922,
+      "target_rows": 96092,
+      "target_cells": 61,
+      "outer_target_labels_used_for_training_or_alpha_selection": false,
+      "cache_retrained_this_run": true,
+      "cache": {
+        "path": "E:\\CCF\\interventional_battery_learning\\pchp_backbone_portability_v375\\raw_prediction_cache\\ridge__SNL.parquet",
+        "bytes": 2333019,
+        "sha256": "271a47c7e2e2a2a43d46cedb9dfba01a7fb241f7d3d5c56a570d55e743e27ef6"
+      }
+    },
+    {
+      "backbone": "ridge",
+      "target_domain": "UL_PUR",
+      "source_domains": [
+        "CALB",
+        "CALCE",
+        "HNEI",
+        "HUST",
+        "MATR",
+        "MICH",
+        "MICH_EXP",
+        "RWTH",
+        "SDU",
+        "SNL",
+        "XJTU"
+      ],
+      "source_fit_rows": 46002,
+      "target_rows": 2195,
+      "target_cells": 10,
+      "outer_target_labels_used_for_training_or_alpha_selection": false,
+      "cache_retrained_this_run": true,
+      "cache": {
+        "path": "E:\\CCF\\interventional_battery_learning\\pchp_backbone_portability_v375\\raw_prediction_cache\\ridge__UL_PUR.parquet",
+        "bytes": 61652,
+        "sha256": "3e4e5cf8f6aeeb3cc4f3c90881d3d655b913377b9652980aa7fcf0557897c0ae"
+      }
+    },
+    {
+      "backbone": "ridge",
+      "target_domain": "XJTU",
+      "source_domains": [
+        "CALB",
+        "CALCE",
+        "HNEI",
+        "HUST",
+        "MATR",
+        "MICH",
+        "MICH_EXP",
+        "RWTH",
+        "SDU",
+        "SNL",
+        "UL_PUR"
+      ],
+      "source_fit_rows": 44962,
+      "target_rows": 6823,
+      "target_cells": 23,
+      "outer_target_labels_used_for_training_or_alpha_selection": false,
+      "cache_retrained_this_run": true,
+      "cache": {
+        "path": "E:\\CCF\\interventional_battery_learning\\pchp_backbone_portability_v375\\raw_prediction_cache\\ridge__XJTU.parquet",
+        "bytes": 183434,
+        "sha256": "016b6994b3e16b25bfcabae0b8c0598d530e2a619d23f98cfbe072c012b5ce72"
+      }
+    },
+    {
+      "backbone": "hist_gradient_boosting",
+      "target_domain": "CALB",
+      "source_domains": [
+        "CALCE",
+        "HNEI",
+        "HUST",
+        "MATR",
+        "MICH",
+        "MICH_EXP",
+        "RWTH",
+        "SDU",
+        "SNL",
+        "UL_PUR",
+        "XJTU"
+      ],
+      "source_fit_rows": 44642,
+      "target_rows": 2629,
+      "target_cells": 27,
+      "outer_target_labels_used_for_training_or_alpha_selection": false,
+      "cache_retrained_this_run": true,
+      "cache": {
+        "path": "E:\\CCF\\interventional_battery_learning\\pchp_backbone_portability_v375\\raw_prediction_cache\\hist_gradient_boosting__CALB.parquet",
+        "bytes": 59063,
+        "sha256": "8ba63d4687ab381d9cae9842cbe64d622446c61b3549bcd2c700ea66be95870d"
+      }
+    },
+    {
+      "backbone": "hist_gradient_boosting",
+      "target_domain": "CALCE",
+      "source_domains": [
+        "CALB",
+        "HNEI",
+        "HUST",
+        "MATR",
+        "MICH",
+        "MICH_EXP",
+        "RWTH",
+        "SDU",
+        "SNL",
+        "UL_PUR",
+        "XJTU"
+      ],
+      "source_fit_rows": 45762,
+      "target_rows": 14233,
+      "target_cells": 13,
+      "outer_target_labels_used_for_training_or_alpha_selection": false,
+      "cache_retrained_this_run": true,
+      "cache": {
+        "path": "E:\\CCF\\interventional_battery_learning\\pchp_backbone_portability_v375\\raw_prediction_cache\\hist_gradient_boosting__CALCE.parquet",
+        "bytes": 380633,
+        "sha256": "690b883d1c389841a6f005d3a7ba61cb6e97b176d5f2794c656f1ad51a5027c5"
+      }
+    },
+    {
+      "backbone": "hist_gradient_boosting",
+      "target_domain": "HNEI",
+      "source_domains": [
+        "CALB",
+        "CALCE",
+        "HUST",
+        "MATR",
+        "MICH",
+        "MICH_EXP",
+        "RWTH",
+        "SDU",
+        "SNL",
+        "UL_PUR",
+        "XJTU"
+      ],
+      "source_fit_rows": 45682,
+      "target_rows": 15085,
+      "target_cells": 14,
+      "outer_target_labels_used_for_training_or_alpha_selection": false,
+      "cache_retrained_this_run": true,
+      "cache": {
+        "path": "E:\\CCF\\interventional_battery_learning\\pchp_backbone_portability_v375\\raw_prediction_cache\\hist_gradient_boosting__HNEI.parquet",
+        "bytes": 260658,
+        "sha256": "9d5959d438f0661d1a3c01ecd0fed5e1dbf4f5a6f297e648a1fcc6d176c93ce1"
+      }
+    },
+    {
+      "backbone": "hist_gradient_boosting",
+      "target_domain": "HUST",
+      "source_domains": [
+        "CALB",
+        "CALCE",
+        "HNEI",
+        "MATR",
+        "MICH",
+        "MICH_EXP",
+        "RWTH",
+        "SDU",
+        "SNL",
+        "UL_PUR",
+        "XJTU"
+      ],
+      "source_fit_rows": 40642,
+      "target_rows": 145735,
+      "target_cells": 77,
+      "outer_target_labels_used_for_training_or_alpha_selection": false,
+      "cache_retrained_this_run": true,
+      "cache": {
+        "path": "E:\\CCF\\interventional_battery_learning\\pchp_backbone_portability_v375\\raw_prediction_cache\\hist_gradient_boosting__HUST.parquet",
+        "bytes": 2858481,
+        "sha256": "07312172b8dbd1a10935eacc3da3ec1978ac5fe741a8b9d8c2af2bc0f28367d8"
+      }
+    },
+    {
+      "backbone": "hist_gradient_boosting",
+      "target_domain": "MATR",
+      "source_domains": [
+        "CALB",
+        "CALCE",
+        "HNEI",
+        "HUST",
+        "MICH",
+        "MICH_EXP",
+        "RWTH",
+        "SDU",
+        "SNL",
+        "UL_PUR",
+        "XJTU"
+      ],
+      "source_fit_rows": 33282,
+      "target_rows": 139148,
+      "target_cells": 169,
+      "outer_target_labels_used_for_training_or_alpha_selection": false,
+      "cache_retrained_this_run": true,
+      "cache": {
+        "path": "E:\\CCF\\interventional_battery_learning\\pchp_backbone_portability_v375\\raw_prediction_cache\\hist_gradient_boosting__MATR.parquet",
+        "bytes": 3673277,
+        "sha256": "34bd3a13546fb5705eff6f2093c015f7c5721b4b48f21463facced0ff26d8fc4"
+      }
+    },
+    {
+      "backbone": "hist_gradient_boosting",
+      "target_domain": "MICH",
+      "source_domains": [
+        "CALB",
+        "CALCE",
+        "HNEI",
+        "HUST",
+        "MATR",
+        "MICH_EXP",
+        "RWTH",
+        "SDU",
+        "SNL",
+        "UL_PUR",
+        "XJTU"
+      ],
+      "source_fit_rows": 43602,
+      "target_rows": 19681,
+      "target_cells": 40,
+      "outer_target_labels_used_for_training_or_alpha_selection": false,
+      "cache_retrained_this_run": true,
+      "cache": {
+        "path": "E:\\CCF\\interventional_battery_learning\\pchp_backbone_portability_v375\\raw_prediction_cache\\hist_gradient_boosting__MICH.parquet",
+        "bytes": 422418,
+        "sha256": "8b7380695fded98bfec293be2bf8d6604b09c8fccbabd153c1789ef3faccd791"
+      }
+    },
+    {
+      "backbone": "hist_gradient_boosting",
+      "target_domain": "MICH_EXP",
+      "source_domains": [
+        "CALB",
+        "CALCE",
+        "HNEI",
+        "HUST",
+        "MATR",
+        "MICH",
+        "RWTH",
+        "SDU",
+        "SNL",
+        "UL_PUR",
+        "XJTU"
+      ],
+      "source_fit_rows": 45362,
+      "target_rows": 6455,
+      "target_cells": 18,
+      "outer_target_labels_used_for_training_or_alpha_selection": false,
+      "cache_retrained_this_run": true,
+      "cache": {
+        "path": "E:\\CCF\\interventional_battery_learning\\pchp_backbone_portability_v375\\raw_prediction_cache\\hist_gradient_boosting__MICH_EXP.parquet",
+        "bytes": 106078,
+        "sha256": "b0ac0cf1ce506221b91b130ce8d60232db64e385df95122be61e1a4a40e0c781"
+      }
+    },
+    {
+      "backbone": "hist_gradient_boosting",
+      "target_domain": "RWTH",
+      "source_domains": [
+        "CALB",
+        "CALCE",
+        "HNEI",
+        "HUST",
+        "MATR",
+        "MICH",
+        "MICH_EXP",
+        "SDU",
+        "SNL",
+        "UL_PUR",
+        "XJTU"
+      ],
+      "source_fit_rows": 42962,
+      "target_rows": 105140,
+      "target_cells": 48,
+      "outer_target_labels_used_for_training_or_alpha_selection": false,
+      "cache_retrained_this_run": true,
+      "cache": {
+        "path": "E:\\CCF\\interventional_battery_learning\\pchp_backbone_portability_v375\\raw_prediction_cache\\hist_gradient_boosting__RWTH.parquet",
+        "bytes": 1818361,
+        "sha256": "dc62e3f23650466add1af7fbb6ab20479343d246198c2f7d56ab566dc1d5b8a8"
+      }
+    },
+    {
+      "backbone": "hist_gradient_boosting",
+      "target_domain": "SDU",
+      "source_domains": [
+        "CALB",
+        "CALCE",
+        "HNEI",
+        "HUST",
+        "MATR",
+        "MICH",
+        "MICH_EXP",
+        "RWTH",
+        "SNL",
+        "UL_PUR",
+        "XJTU"
+      ],
+      "source_fit_rows": 40000,
+      "target_rows": 48716,
+      "target_cells": 86,
+      "outer_target_labels_used_for_training_or_alpha_selection": false,
+      "cache_retrained_this_run": true,
+      "cache": {
+        "path": "E:\\CCF\\interventional_battery_learning\\pchp_backbone_portability_v375\\raw_prediction_cache\\hist_gradient_boosting__SDU.parquet",
+        "bytes": 1109129,
+        "sha256": "69df7f733f4f38fff98be6ecb8ae5e5aa82224c0d040d38152369e21237aa497"
+      }
+    },
+    {
+      "backbone": "hist_gradient_boosting",
+      "target_domain": "SNL",
+      "source_domains": [
+        "CALB",
+        "CALCE",
+        "HNEI",
+        "HUST",
+        "MATR",
+        "MICH",
+        "MICH_EXP",
+        "RWTH",
+        "SDU",
+        "UL_PUR",
+        "XJTU"
+      ],
+      "source_fit_rows": 41922,
+      "target_rows": 96092,
+      "target_cells": 61,
+      "outer_target_labels_used_for_training_or_alpha_selection": false,
+      "cache_retrained_this_run": true,
+      "cache": {
+        "path": "E:\\CCF\\interventional_battery_learning\\pchp_backbone_portability_v375\\raw_prediction_cache\\hist_gradient_boosting__SNL.parquet",
+        "bytes": 1206848,
+        "sha256": "b01955cb070dfc8192c4c3ae8f7bf5ab3c62e2610ed594ff5141be2b56a54c8b"
+      }
+    },
+    {
+      "backbone": "hist_gradient_boosting",
+      "target_domain": "UL_PUR",
+      "source_domains": [
+        "CALB",
+        "CALCE",
+        "HNEI",
+        "HUST",
+        "MATR",
+        "MICH",
+        "MICH_EXP",
+        "RWTH",
+        "SDU",
+        "SNL",
+        "XJTU"
+      ],
+      "source_fit_rows": 46002,
+      "target_rows": 2195,
+      "target_cells": 10,
+      "outer_target_labels_used_for_training_or_alpha_selection": false,
+      "cache_retrained_this_run": true,
+      "cache": {
+        "path": "E:\\CCF\\interventional_battery_learning\\pchp_backbone_portability_v375\\raw_prediction_cache\\hist_gradient_boosting__UL_PUR.parquet",
+        "bytes": 52323,
+        "sha256": "7e9626304f527d8d79be60d80e92bb30c69b8ec6ddd007390a78d4aedb25a89d"
+      }
+    },
+    {
+      "backbone": "hist_gradient_boosting",
+      "target_domain": "XJTU",
+      "source_domains": [
+        "CALB",
+        "CALCE",
+        "HNEI",
+        "HUST",
+        "MATR",
+        "MICH",
+        "MICH_EXP",
+        "RWTH",
+        "SDU",
+        "SNL",
+        "UL_PUR"
+      ],
+      "source_fit_rows": 44962,
+      "target_rows": 6823,
+      "target_cells": 23,
+      "outer_target_labels_used_for_training_or_alpha_selection": false,
+      "cache_retrained_this_run": true,
+      "cache": {
+        "path": "E:\\CCF\\interventional_battery_learning\\pchp_backbone_portability_v375\\raw_prediction_cache\\hist_gradient_boosting__XJTU.parquet",
+        "bytes": 145045,
+        "sha256": "91f11e49c79dda57c8faf9421e668dc3eb727797d603fac4e6f105f13a7e1c0e"
+      }
+    },
+    {
+      "backbone": "lightgbm",
+      "target_domain": "CALB",
+      "source_domains": [
+        "CALCE",
+        "HNEI",
+        "HUST",
+        "MATR",
+        "MICH",
+        "MICH_EXP",
+        "RWTH",
+        "SDU",
+        "SNL",
+        "UL_PUR",
+        "XJTU"
+      ],
+      "source_fit_rows": 44642,
+      "target_rows": 2629,
+      "target_cells": 27,
+      "outer_target_labels_used_for_training_or_alpha_selection": false,
+      "cache_retrained_this_run": true,
+      "cache": {
+        "path": "E:\\CCF\\interventional_battery_learning\\pchp_backbone_portability_v375\\raw_prediction_cache\\lightgbm__CALB.parquet",
+        "bytes": 62697,
+        "sha256": "9e91f39dbc67dcf9dcde0a76380794fc8d65bc9dc9e507ba57f1969469303c9e"
+      }
+    },
+    {
+      "backbone": "lightgbm",
+      "target_domain": "CALCE",
+      "source_domains": [
+        "CALB",
+        "HNEI",
+        "HUST",
+        "MATR",
+        "MICH",
+        "MICH_EXP",
+        "RWTH",
+        "SDU",
+        "SNL",
+        "UL_PUR",
+        "XJTU"
+      ],
+      "source_fit_rows": 45762,
+      "target_rows": 14233,
+      "target_cells": 13,
+      "outer_target_labels_used_for_training_or_alpha_selection": false,
+      "cache_retrained_this_run": true,
+      "cache": {
+        "path": "E:\\CCF\\interventional_battery_learning\\pchp_backbone_portability_v375\\raw_prediction_cache\\lightgbm__CALCE.parquet",
+        "bytes": 375978,
+        "sha256": "622bdecc3062f62655547a19016704810d445eb06c7ffc882cd75c80aa455bb2"
+      }
+    },
+    {
+      "backbone": "lightgbm",
+      "target_domain": "HNEI",
+      "source_domains": [
+        "CALB",
+        "CALCE",
+        "HUST",
+        "MATR",
+        "MICH",
+        "MICH_EXP",
+        "RWTH",
+        "SDU",
+        "SNL",
+        "UL_PUR",
+        "XJTU"
+      ],
+      "source_fit_rows": 45682,
+      "target_rows": 15085,
+      "target_cells": 14,
+      "outer_target_labels_used_for_training_or_alpha_selection": false,
+      "cache_retrained_this_run": true,
+      "cache": {
+        "path": "E:\\CCF\\interventional_battery_learning\\pchp_backbone_portability_v375\\raw_prediction_cache\\lightgbm__HNEI.parquet",
+        "bytes": 268874,
+        "sha256": "af896bb279c65109de22090e8d90d86ebf87b7553ca50d221cb92ed0bd6301c9"
+      }
+    },
+    {
+      "backbone": "lightgbm",
+      "target_domain": "HUST",
+      "source_domains": [
+        "CALB",
+        "CALCE",
+        "HNEI",
+        "MATR",
+        "MICH",
+        "MICH_EXP",
+        "RWTH",
+        "SDU",
+        "SNL",
+        "UL_PUR",
+        "XJTU"
+      ],
+      "source_fit_rows": 40642,
+      "target_rows": 145735,
+      "target_cells": 77,
+      "outer_target_labels_used_for_training_or_alpha_selection": false,
+      "cache_retrained_this_run": true,
+      "cache": {
+        "path": "E:\\CCF\\interventional_battery_learning\\pchp_backbone_portability_v375\\raw_prediction_cache\\lightgbm__HUST.parquet",
+        "bytes": 3107917,
+        "sha256": "a5f6c89a355118ddc2aa21cad53624308a0ca5a8ba007ac86f6a1c068449c10e"
+      }
+    },
+    {
+      "backbone": "lightgbm",
+      "target_domain": "MATR",
+      "source_domains": [
+        "CALB",
+        "CALCE",
+        "HNEI",
+        "HUST",
+        "MICH",
+        "MICH_EXP",
+        "RWTH",
+        "SDU",
+        "SNL",
+        "UL_PUR",
+        "XJTU"
+      ],
+      "source_fit_rows": 33282,
+      "target_rows": 139148,
+      "target_cells": 169,
+      "outer_target_labels_used_for_training_or_alpha_selection": false,
+      "cache_retrained_this_run": true,
+      "cache": {
+        "path": "E:\\CCF\\interventional_battery_learning\\pchp_backbone_portability_v375\\raw_prediction_cache\\lightgbm__MATR.parquet",
+        "bytes": 3774043,
+        "sha256": "ddb8ba446c00b32848229bcab8244c2ee3174db55a2ebc3fbeb1309e839ff2cd"
+      }
+    },
+    {
+      "backbone": "lightgbm",
+      "target_domain": "MICH",
+      "source_domains": [
+        "CALB",
+        "CALCE",
+        "HNEI",
+        "HUST",
+        "MATR",
+        "MICH_EXP",
+        "RWTH",
+        "SDU",
+        "SNL",
+        "UL_PUR",
+        "XJTU"
+      ],
+      "source_fit_rows": 43602,
+      "target_rows": 19681,
+      "target_cells": 40,
+      "outer_target_labels_used_for_training_or_alpha_selection": false,
+      "cache_retrained_this_run": true,
+      "cache": {
+        "path": "E:\\CCF\\interventional_battery_learning\\pchp_backbone_portability_v375\\raw_prediction_cache\\lightgbm__MICH.parquet",
+        "bytes": 432504,
+        "sha256": "edc31ff0fbfa1d8c563003a8d6601eb0f2adf18bf90beabe5d9b5387f371dd30"
+      }
+    },
+    {
+      "backbone": "lightgbm",
+      "target_domain": "MICH_EXP",
+      "source_domains": [
+        "CALB",
+        "CALCE",
+        "HNEI",
+        "HUST",
+        "MATR",
+        "MICH",
+        "RWTH",
+        "SDU",
+        "SNL",
+        "UL_PUR",
+        "XJTU"
+      ],
+      "source_fit_rows": 45362,
+      "target_rows": 6455,
+      "target_cells": 18,
+      "outer_target_labels_used_for_training_or_alpha_selection": false,
+      "cache_retrained_this_run": true,
+      "cache": {
+        "path": "E:\\CCF\\interventional_battery_learning\\pchp_backbone_portability_v375\\raw_prediction_cache\\lightgbm__MICH_EXP.parquet",
+        "bytes": 110161,
+        "sha256": "d3f59969c58bbbc0f8c8ce1490ab089446c0152ab7b87c89ee28abd1d9031219"
+      }
+    },
+    {
+      "backbone": "lightgbm",
+      "target_domain": "RWTH",
+      "source_domains": [
+        "CALB",
+        "CALCE",
+        "HNEI",
+        "HUST",
+        "MATR",
+        "MICH",
+        "MICH_EXP",
+        "SDU",
+        "SNL",
+        "UL_PUR",
+        "XJTU"
+      ],
+      "source_fit_rows": 42962,
+      "target_rows": 105140,
+      "target_cells": 48,
+      "outer_target_labels_used_for_training_or_alpha_selection": false,
+      "cache_retrained_this_run": true,
+      "cache": {
+        "path": "E:\\CCF\\interventional_battery_learning\\pchp_backbone_portability_v375\\raw_prediction_cache\\lightgbm__RWTH.parquet",
+        "bytes": 1983832,
+        "sha256": "2138f29caac697308ea19b031cf0bf5ba8f9bc3f4fcbcd3272ce01c451f71dc9"
+      }
+    },
+    {
+      "backbone": "lightgbm",
+      "target_domain": "SDU",
+      "source_domains": [
+        "CALB",
+        "CALCE",
+        "HNEI",
+        "HUST",
+        "MATR",
+        "MICH",
+        "MICH_EXP",
+        "RWTH",
+        "SNL",
+        "UL_PUR",
+        "XJTU"
+      ],
+      "source_fit_rows": 40000,
+      "target_rows": 48716,
+      "target_cells": 86,
+      "outer_target_labels_used_for_training_or_alpha_selection": false,
+      "cache_retrained_this_run": true,
+      "cache": {
+        "path": "E:\\CCF\\interventional_battery_learning\\pchp_backbone_portability_v375\\raw_prediction_cache\\lightgbm__SDU.parquet",
+        "bytes": 1080788,
+        "sha256": "2d42e41cef387bdba0cd89dad172dde7cc48c82c8dfd92f84b4be1b4b59ebb1b"
+      }
+    },
+    {
+      "backbone": "lightgbm",
+      "target_domain": "SNL",
+      "source_domains": [
+        "CALB",
+        "CALCE",
+        "HNEI",
+        "HUST",
+        "MATR",
+        "MICH",
+        "MICH_EXP",
+        "RWTH",
+        "SDU",
+        "UL_PUR",
+        "XJTU"
+      ],
+      "source_fit_rows": 41922,
+      "target_rows": 96092,
+      "target_cells": 61,
+      "outer_target_labels_used_for_training_or_alpha_selection": false,
+      "cache_retrained_this_run": true,
+      "cache": {
+        "path": "E:\\CCF\\interventional_battery_learning\\pchp_backbone_portability_v375\\raw_prediction_cache\\lightgbm__SNL.parquet",
+        "bytes": 1239169,
+        "sha256": "29419bf8caf57baa7b5aafcd60f2964651b0011c4e6228ab98973784a6db0eb9"
+      }
+    },
+    {
+      "backbone": "lightgbm",
+      "target_domain": "UL_PUR",
+      "source_domains": [
+        "CALB",
+        "CALCE",
+        "HNEI",
+        "HUST",
+        "MATR",
+        "MICH",
+        "MICH_EXP",
+        "RWTH",
+        "SDU",
+        "SNL",
+        "XJTU"
+      ],
+      "source_fit_rows": 46002,
+      "target_rows": 2195,
+      "target_cells": 10,
+      "outer_target_labels_used_for_training_or_alpha_selection": false,
+      "cache_retrained_this_run": true,
+      "cache": {
+        "path": "E:\\CCF\\interventional_battery_learning\\pchp_backbone_portability_v375\\raw_prediction_cache\\lightgbm__UL_PUR.parquet",
+        "bytes": 52569,
+        "sha256": "c96fb83d43c516ba6f96e9475202c0bb37022276a19ad67058659e911524231b"
+      }
+    },
+    {
+      "backbone": "lightgbm",
+      "target_domain": "XJTU",
+      "source_domains": [
+        "CALB",
+        "CALCE",
+        "HNEI",
+        "HUST",
+        "MATR",
+        "MICH",
+        "MICH_EXP",
+        "RWTH",
+        "SDU",
+        "SNL",
+        "UL_PUR"
+      ],
+      "source_fit_rows": 44962,
+      "target_rows": 6823,
+      "target_cells": 23,
+      "outer_target_labels_used_for_training_or_alpha_selection": false,
+      "cache_retrained_this_run": true,
+      "cache": {
+        "path": "E:\\CCF\\interventional_battery_learning\\pchp_backbone_portability_v375\\raw_prediction_cache\\lightgbm__XJTU.parquet",
+        "bytes": 150426,
+        "sha256": "f6cf6bf0123f3d8f460e0f1417d178879ac04f21c181abe44806afd1acdb7404"
+      }
+    }
+  ],
+  "limitations": [
+    "All twelve domains were historically opened; this is retrospective development robustness evidence.",
+    "Secondary hyperparameters and the alpha schedule were not tuned for the secondary backbones.",
+    "The audit covers one linear and two tree-boosting families, not neural sequence models or every candidate class.",
+    "No external result or V368 primary estimand is changed by this audit."
+  ],
+  "runtime_seconds": 221.60194949999277,
+  "files": {
+    "summary": {
+      "path": "E:\\CCF\\interventional_battery_learning\\pchp_backbone_portability_v375\\pchp_backbone_portability_summary_v375.csv",
+      "bytes": 677,
+      "sha256": "24f4fdf3405e3bb7609b7cc2d8d232c9145e4dd2fe0b39df898dbb5f0b78e055"
+    },
+    "domain_metrics": {
+      "path": "E:\\CCF\\interventional_battery_learning\\pchp_backbone_portability_v375\\pchp_backbone_portability_domain_metrics_v375.csv",
+      "bytes": 6123,
+      "sha256": "3b97bfc34b65689e498b183c17f01f28720055dc81d0e50d4ff685bffeda8143"
+    },
+    "cell_metrics": {
+      "path": "E:\\CCF\\interventional_battery_learning\\pchp_backbone_portability_v375\\pchp_backbone_portability_cell_metrics_v375.csv",
+      "bytes": 398598,
+      "sha256": "6e48ac3dadec394beb4284bf931cf589d54269f2d9a6cdc462ae652776bcf5e3"
+    },
+    "predictions": {
+      "path": "E:\\CCF\\interventional_battery_learning\\pchp_backbone_portability_v375\\pchp_backbone_portability_predictions_v375.parquet",
+      "bytes": 66127937,
+      "sha256": "b8d96f3747885091a241dbfe10b324a5632a5ea5957d284dd91f934e96711c31"
+    }
+  }
+}

@@ -1,0 +1,5 @@
+method,domain_equal_cell_macro_mae,worst_domain_cell_macro_mae,domain_equal_trajectory_increase_fraction
+selected_causal_method,0.07037751214694384,0.1453074741276922,0.0
+offline_harm_capped,0.0723232147224122,0.15328445499754423,0.0
+selected_causal_baseline,0.07523980647076693,0.14421515618330924,0.0
+offline_baseline,0.07758542829146167,0.16263186635252222,0.0

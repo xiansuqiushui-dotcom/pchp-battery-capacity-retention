@@ -1,0 +1,5 @@
+method,domain_equal_cell_macro_mae,worst_domain_cell_macro_mae
+pchp_change_domain_equal,0.07037751214694384,0.1453074741276922
+pchp_change_pooled,0.07058725416337797,0.1453074741276922
+pchp_raw_domain_equal,0.07587554576681961,0.14351235688835803
+pchp_raw_pooled,0.07624616269939594,0.1439998269396013

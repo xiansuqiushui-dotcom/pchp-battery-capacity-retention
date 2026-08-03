@@ -1,0 +1,122 @@
+{
+  "version": "v380",
+  "date": "2026-08-03",
+  "status": "PREFROZEN_BEFORE_V380_SCORING",
+  "title": "Frozen out-of-design mechanism confirmation and decision-cost audit for PCHP",
+  "scope": "protocol-locked external mechanism confirmation and operational decision analysis",
+  "chronology": {
+    "external_surfaces_historically_opened_in_other_method_branches": true,
+    "external_surfaces_used_in_pchp_development_or_parameter_selection": false,
+    "v380_pchp_predictions_seen_before_this_freeze": false,
+    "v380_fixed_shift_comparisons_seen_before_this_freeze": false,
+    "classification": "frozen out-of-design confirmation; not prospectively blinded acquisition"
+  },
+  "hypothesis": "Across six heterogeneous external battery surfaces, record-specific PCHP updates improve cell-macro capacity-retention error over the exact development-selected constant shift allowed by the same harm budget, demonstrating value beyond uniform bias correction.",
+  "information_boundary": {
+    "development_domains": 12,
+    "external_surfaces": 6,
+    "external_cells": 659,
+    "external_post_reference_records": 9712,
+    "target_labels_used_for_external_model_fitting": false,
+    "target_labels_used_for_alpha_budget_or_control_selection": false,
+    "independent_top_level_unit": "external battery surface",
+    "nested_unit": "physical cell"
+  },
+  "model_contract": {
+    "backbone": "ExtraTreesRegressor",
+    "trees": 80,
+    "minimum_samples_leaf": 20,
+    "maximum_feature_fraction": 0.8,
+    "seed": 20260801,
+    "source_rows_per_cell_cap": 80,
+    "protected_features": "log1p target cycle number plus frozen early-charge features",
+    "candidate_features": "protected features plus signed raw-scale changes from each cell's first-five-record commissioning median",
+    "protected_weighting": "ordinary pooled development-source rows",
+    "candidate_weighting": "equal total weight per development domain and physical cell",
+    "imputation": "development-source median with missingness indicators",
+    "prediction_range": [0.0, 1.3],
+    "external_refitting_or_finetuning": false
+  },
+  "pchp_contract": {
+    "assimilation_alpha": 0.01,
+    "alpha_origin": "frozen canonical value and modal nested-development selection used by the existing external contract",
+    "absolute_harm_budget_delta": 0.01,
+    "trajectory": "prefix-causal non-increasing",
+    "range": [0.0, 1.3]
+  },
+  "fixed_shift_control": {
+    "purpose": "separate record-specific candidate value from a uniform safe bias correction",
+    "same_protected_raw_predictor": true,
+    "same_assimilation_alpha": 0.01,
+    "same_absolute_harm_budget_delta": 0.01,
+    "selection_data": "twelve-domain cross-fitted V322 development predictions only",
+    "selection_objective": "domain-equal cell-macro absolute error",
+    "selection_rule": "compute the domain-equal cell-weighted median of truth minus protected state, choose the first value whose cumulative normalized weight is at least 0.5, then clip to [-0.01, 0.01]",
+    "external_outcomes_used_for_shift": false,
+    "execution": "add the single selected shift to every external protected state and clip to [0, 1.3]"
+  },
+  "primary_estimand": {
+    "name": "surface-equal mean PCHP-minus-fixed-shift cell-macro MAE",
+    "direction": "negative favors PCHP",
+    "aggregation": "mean record error within cell, mean cells within surface, mean surfaces",
+    "interval": "two-stage percentile bootstrap resampling surfaces and then cells within sampled surfaces",
+    "bootstrap_repetitions": 100000,
+    "bootstrap_seed": 20260803,
+    "confidence_level": 0.95
+  },
+  "primary_retain_gates": {
+    "mean_difference_below_zero": true,
+    "bootstrap_interval_upper_below_zero": true,
+    "minimum_improved_external_surfaces": 4,
+    "maximum_absolute_displacement": 0.01,
+    "maximum_observed_absolute_loss_regret": 0.01,
+    "protected_state_nonincreasing": true,
+    "pchp_output_nonincreasing": true,
+    "physical_range": [0.0, 1.3],
+    "prefix_replay_exact": true
+  },
+  "decision_cost_audit": {
+    "scenario": "at each fleet diagnostic checkpoint, continue routine operation or schedule a full diagnostic/maintenance review",
+    "primary_capacity_retention_threshold": 0.8,
+    "sensitivity_thresholds": [0.7, 0.9],
+    "miss_to_early_cost_ratios": [1.0, 2.0, 5.0, 10.0],
+    "primary_cost_ratio": 5.0,
+    "action_rule": "schedule review when predicted capacity retention is at or below the threshold",
+    "normalized_binary_cost": "one unit for a premature review plus r units for a missed degraded state",
+    "continuous_asymmetric_cost": "(truth-prediction)_+ + r*(prediction-truth)_+",
+    "aggregation": "cell-equal within surface and surface-equal across surfaces",
+    "primary_decision_claim_gate": "at threshold 0.8 and ratio 5, PCHP must have lower point cost than both protected state and fixed shift, and its two-stage 95% interval versus fixed shift must end below zero",
+    "secondary_grid_role": "prespecified sensitivity analysis; no multiplicity-adjusted efficacy claim"
+  },
+  "decision_rule": {
+    "retain": "all primary mechanism gates pass; decision benefit is claimed only if the separate primary decision-cost gate passes",
+    "narrow": "if the mechanism gate fails, report the frozen result and do not claim external candidate-specific superiority; if only the decision gate fails, retain mechanism evidence but restrict decision discussion to the exact cost mapping and observed trade-off",
+    "reject": "any deterministic harm, causality, monotonicity, range, or replay certificate fails",
+    "no_post_result_changes": "do not alter surfaces, alpha, delta, control selection, thresholds, cost ratios, estimands, intervals, or gates after scoring"
+  },
+  "inputs": {
+    "batterylife_early_charge_soh_v109.parquet": "89ce9711f91b0ba7d4a14db7766055a76cce1223a553baff270abac08fed6c8e",
+    "batterylife_external_hust_rwth_v124.parquet": "2765e6ee85b7ed4000140b55396e40d271cfc9ecf464663d391a607964cdd9d8",
+    "batterylife_sdu_early_charge_soh_v145.parquet": "8db4f121dad4afb151327e85facfd6da1346f2b56409a9b487e7aaa345e33613",
+    "batterylife_matr_early_charge_soh_v151.parquet": "00395c408410efa6d72c7e5936964993388739ec52ced6693fc4f3ff4b544542",
+    "prefix_causal_rccp_v322/prefix_causal_predictions_v322.parquet": "0182daef40d779a57a5fb9da2d1e076f24a1c569fe5068d34960a1ca6cb8b9f8",
+    "external_confirmation_v237/ampere_a123_lfp_early_charge_soh_v243.parquet": "d62209ac2b744e00ba7f0cd31c84fd8c962951505a94e8df612fdb79bca05fec",
+    "external_confirmation_v237/imperial_m50t_early_charge_soh_v249.parquet": "430a3278a6ba91a0f49a68615a36fd223f1f736ba2df79d296c071ce5274bb9b",
+    "external_luh_v255/luh_nmc_sio_early_charge_soh_v256.parquet": "31a0ead10ae8486ac75c9e7c047821f63b11139a1aeeabeaac0e5737b825f482",
+    "external_isu_ilcc_v270/isu_ilcc_early_charge_soh_v271.parquet": "65972be419fdf84a252e3d8250466fef1baed83e7f3d95ce0d629d199d7c3a9e",
+    "external_stanford_calendar_v280/stanford_calendar_early_charge_soh_v281.parquet": "07a0592365113ed49784c824a1ed97b3311bd4ee42eee1f9b637c883fe152c5a",
+    "external_multistage_50e_v290/multistage_50e_early_charge_soh_v291.parquet": "636b6977d8bf19a2a4dd903b354a6cc0292656c281c4c7c11d8ffac5b701910e",
+    "develop_anchor_invariant_soh_v306.py": "e84fe83f4dc71389bf3d6081aaa903a5ca22c0fdb1b4bbf5c7c6e6b6acab5109",
+    "develop_context_change_soh_v310.py": "45a3c45ef7bf3c157de565a59f099bc09aa34c06185cc6d618f16cdf7313f88a",
+    "analyze_method_ablation_v315.py": "60bef7d6449c4b668e63e8dbac1b4f8fe828e3c5b6161138a784eafda46f3f5d",
+    "prefix_causal_harm_projection_v321.py": "ce7288a129c17114e1ca57432c6417beba7938d58db2b1fd0a87171c479eb54c"
+  },
+  "external_surface_roster": [
+    {"surface": "AMPERE_A123_LFP", "cells": 20, "post_reference_records": 743},
+    {"surface": "IMPERIAL_M50T", "cells": 40, "post_reference_records": 269},
+    {"surface": "LUH_NMC_SIO", "cells": 180, "post_reference_records": 2377},
+    {"surface": "ISU_ILCC_NMC", "cells": 244, "post_reference_records": 4211},
+    {"surface": "STANFORD_CALENDAR", "cells": 30, "post_reference_records": 765},
+    {"surface": "MULTISTAGE_50E", "cells": 145, "post_reference_records": 1347}
+  ]
+}

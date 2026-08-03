@@ -1,0 +1,29 @@
+{
+  "version": "v340",
+  "status": "PREFROZEN_BEFORE_IMPLEMENTATION",
+  "date": "2026-08-02",
+  "hypothesis": "For positive constant underestimation and overestimation costs, the outcome-uniform asymmetric absolute-loss harm set is an exact direction-dependent interval, and projecting into its recursively feasible intersection preserves all PCHP online properties.",
+  "loss": "ell(p,y)=c_under*max(y-p,0)+c_over*max(p-y,0)",
+  "claimed_exact_supremum": "c_over*(p-b) if p>=b; c_under*(b-p) if p<b",
+  "claimed_exact_harm_set": "[b-eta/c_under, b+eta/c_over]",
+  "information_boundary": "Protected baseline and candidate are prefix-causal; outcome y is never used; eta and both costs are positive constants within a trajectory.",
+  "implementation_scope": "One generalized trajectory operator plus an analytic worst-case-loss-increase function; the original equal-cost PCHP API must remain numerically identical.",
+  "falsification": {
+    "seed": 20260802,
+    "gates": [
+      "Analytic supremum equals direct evaluation over all piecewise-linear breakpoint regions for randomized scalar tuples.",
+      "Every point inside the claimed interval satisfies the declared loss budget and points immediately outside violate it for a constructive outcome.",
+      "Setting both costs to one reproduces the existing symmetric PCHP output exactly across randomized trajectories.",
+      "Generalized outputs are prefix-invariant, non-increasing, within the physical range, and satisfy the asymmetric pointwise budget.",
+      "A zero budget returns the protected baseline exactly.",
+      "A larger overestimation cost tightens only the upward side of the feasible tube; a larger underestimation cost tightens only the downward side.",
+      "Non-positive or non-finite costs, negative or non-finite budgets, increasing baselines, and shape mismatches fail closed."
+    ],
+    "pass_rule": "All gates pass with tolerance 1e-12 and the existing symmetric test suite remains green.",
+    "failure_rule": "Any failed gate yields REJECT; do not add the extension to the manuscript.",
+    "decision_options": [
+      "RETAIN",
+      "REJECT"
+    ]
+  }
+}

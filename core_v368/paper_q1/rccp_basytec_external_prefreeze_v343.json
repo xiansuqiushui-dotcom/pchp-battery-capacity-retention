@@ -1,0 +1,137 @@
+{
+  "version": "v343",
+  "status": "FROZEN_BEFORE_ZENODO_15755725_DATA_DOWNLOAD",
+  "frozen_at_local": "2026-08-02T06:57:27.2877840+08:00",
+  "question": "Can the already frozen PCHP deployment operator preserve its exact harm contract and improve its protected causal baseline on a new BaSyTec cell-aging domain, while a matched source-tuned unprotected candidate exposes the safety-accuracy boundary?",
+  "external_identity": {
+    "title": "Degradation path indicators for lithium-ion batteries",
+    "zenodo_record": 15755725,
+    "doi": "10.5281/zenodo.15755725",
+    "version": "1",
+    "publication_date": "2025-06-27",
+    "license": "CC BY 4.0",
+    "paper_doi": "10.1016/j.est.2025.119113",
+    "physical_cells": 48,
+    "aging_conditions": 24,
+    "aging_cycles_per_cell": 70,
+    "cell": "Varta CP1654 graphite/NMC commercial cell",
+    "fixed_nominal_capacity_ah": 0.124,
+    "raw_files": "all 48 official Fxxxx.zip archives, each containing exactly one M0002_aging.txt"
+  },
+  "chronology": {
+    "workspace_search_before_freeze": "NO_SPECIFIC_MATCH for 15755725, dataset title, M0002_aging, or extracted_degradation_metrics; unrelated author and hash substrings were not counted",
+    "dataset_files_downloaded_before_freeze": false,
+    "outcome_values_accessed_before_freeze": false,
+    "team_level_prior_exposure_attestation": "PENDING_AUTHOR_CONFIRMATION",
+    "admissible_label_if_team_attests_no_prior_outcome_access": "prospective external computational confirmation",
+    "fallback_label_if_prior_team_access_exists": "retrospective external validation",
+    "inadmissible_claim": "prospective laboratory experiment"
+  },
+  "information_isolation": {
+    "stage_1": "The prediction program may read cycle identity and charge-side time, current, voltage, and temperature only. It may see the discharge-capacity column name solely to verify the frozen schema, but it must not read any value from that column.",
+    "stage_1_output": "All feature rows, raw predictions, causal baseline, PCHP output, and source-tuned unprotected candidate are written and SHA-256 frozen.",
+    "stage_2": "Only after the stage-1 report exists may the scoring program read cycle identity, current sign, and the frozen discharge-capacity column. It cannot rebuild features, models, parameters, or predictions.",
+    "post_outcome_changes_permitted": false
+  },
+  "structural_contract": {
+    "roster": "all 48 official Fxxxx.zip archives; no outcome-based file or cell selection",
+    "schema": "BaSyTec text header must uniquely expose cycle, time, current, voltage, and Ah-Cyc-Discharge capacity fields using the frozen alias resolver",
+    "charge_definition": "for each cycle, take the first contiguous positive-current block that passes the already frozen 600-second early-charge feature contract",
+    "charge_current_threshold_a": 0.00001,
+    "charge_window_seconds": 600,
+    "anchor_cycles": 5,
+    "prediction_cycles": "all structurally valid cycles after the first five structurally valid charge cycles",
+    "minimum_scorable_post_anchor_cycles_per_cell": 10,
+    "minimum_confirmatory_cells": 36,
+    "schema_failure_rule": "fail the affected cell closed and report it; do not add aliases after data access"
+  },
+  "target_contract": {
+    "cycle_capacity": "maximum absolute finite positive Ah-Cyc-Discharge value on negative-current rows of the same frozen cycle identity",
+    "reference_capacity": "median capacity of the first five structurally valid feature cycles",
+    "reference_capacity_range_ah": [0.08, 0.16],
+    "target": "cycle capacity divided by the initial-five median capacity",
+    "invalid_anchor_rule": "exclude the complete cell; never replace the first five with later cycles",
+    "invalid_post_anchor_rule": "exclude only the unscorable record and count it; predictions remain frozen"
+  },
+  "frozen_methods": {
+    "source_model_bundle": "rccp_source_model_freeze_v316/rccp_source_models_v316.joblib",
+    "pchp_assimilation": 0.01,
+    "harm_budget_soh_units": 0.01,
+    "prediction_range": [0.0, 1.3],
+    "source_tuned_unprotected_candidate_assimilation": 0.05,
+    "unprotected_candidate_role": "secondary matched boundary control; its result must be reported but is not a PCHP success gate"
+  },
+  "statistics": {
+    "independent_unit": "physical_cell",
+    "nested_unit": "aging_cycle_within_physical_cell",
+    "within_cell_metric": "mean absolute error over all scorable post-anchor cycles",
+    "primary_estimand": "cell-equal mean of paired within-cell PCHP-minus-protected-baseline MAE",
+    "bootstrap": {
+      "unit": "physical_cell",
+      "replicates": 100000,
+      "seed": 20260808,
+      "interval": "95% percentile"
+    },
+    "sign_test": "two-sided exact, ties removed, descriptive"
+  },
+  "decision_gates": {
+    "execution": "at least 36 eligible physical cells",
+    "retain_if_all": [
+      "cell-equal mean PCHP-minus-baseline MAE is below zero",
+      "at least two thirds of non-tied eligible cells improve",
+      "the physical-cell bootstrap interval upper endpoint is below zero",
+      "maximum record displacement, observed absolute-loss regret, and cell-macro MAE harm are each at most 0.01 within 1e-12"
+    ],
+    "inconclusive": "fewer than 36 eligible cells",
+    "reject": "execution passes but any retain gate fails",
+    "stop_rule": "Do not change the parser aliases, nominal capacity, window, anchor, roster, model, alpha values, delta, aggregation, uncertainty unit, or gates after outcome access."
+  },
+  "frozen_artifacts": [
+    {
+      "path": "paper_q1/RCCP_BASYTEC_EXTERNAL_PREFREEZE_V343_ZH.md",
+      "sha256": "D8DC788352049812C094DAD3EB23385F448E8B46845ACD1FEACAA963DF308202"
+    },
+    {
+      "path": "basytec_external_v343_common.py",
+      "sha256": "01EC40172587E8A246A8A19C5A268319CDD584A1ECDAC442A756DABC696D7BE9"
+    },
+    {
+      "path": "download_basytec_external_v343.py",
+      "sha256": "B171265E98C05D74EE6D4B4AB1D92662A0F75DA9B204689AA3F8F24ABC0A8183"
+    },
+    {
+      "path": "build_basytec_label_blind_predictions_v344.py",
+      "sha256": "8376E54519B89CB4CC492C9F5669F65A89A32D50CBDFF0F86FC26C00B8059F9A"
+    },
+    {
+      "path": "score_basytec_frozen_confirmation_v345.py",
+      "sha256": "E6096F69B0CD533AF7C7206E4B913217A8809C874AD98244D12BD65584FB41D2"
+    },
+    {
+      "path": "test_basytec_external_workflow_v346.py",
+      "sha256": "CB1927FBDB61B7C13762481297B3B085AF30411AC38854C1239C1943B41AA6F8"
+    },
+    {
+      "path": "rccp_source_model_freeze_v316/rccp_source_models_v316.joblib",
+      "sha256": "F492F4B87C1CE7F49C3718F5C2A7D7DADE79450A9E548B33540452B4DC4817FD"
+    },
+    {
+      "path": "external_causal_source_freeze_v328/external_source_alpha_freeze_v328_report.json",
+      "sha256": "CBB9EBC235878B9C1E914F5AE136BDCA38064040D9957D0410DF82A1AE299AE9"
+    },
+    {
+      "path": "source_tuned_causal_candidate_v342/source_tuned_causal_candidate_v342_report.json",
+      "sha256": "ED11518EA3E1EAA42148BF4421F0570D775074AE697260A8EDF9FBAC0798C252"
+    },
+    {
+      "path": "prefix_causal_harm_projection_v321.py",
+      "sha256": "CE7288A129C17114E1CA57432C6417BEBA7938D58DB2B1FD0A87171C479EB54C"
+    }
+  ],
+  "pre_download_tests": {
+    "synthetic_tests_passed": 3,
+    "prediction_role_succeeded_with_unparseable_capacity_sentinels": true,
+    "independent_capacity_unseal_recovered_all_synthetic_cycles": true,
+    "python_compilation_passed": true
+  }
+}

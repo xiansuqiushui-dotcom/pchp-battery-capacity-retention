@@ -1,0 +1,125 @@
+{
+  "version": "v384",
+  "status": "EXTERNAL_ROBUSTNESS_QUALIFIED",
+  "classification": "retrospective robustness audit of frozen external predictions; no refitting or external target-aware selection",
+  "information_boundary": {
+    "top_level_independent_unit": "complete external battery dataset surface",
+    "nested_units": [
+      "physical cell",
+      "post-reference record"
+    ],
+    "datasets": 6,
+    "cells": 659,
+    "records": 9712,
+    "model_refitting": false,
+    "external_target_aware_selection": false
+  },
+  "multiplicity": {
+    "confirmatory_test_family": "one primary exact test: PCHP versus fixed shift",
+    "protected_state_test_role": "secondary descriptive sensitivity",
+    "adjustment": "not applicable to the single primary test; no confirmatory interpretation assigned to secondary p-value"
+  },
+  "primary_interpretation": "QUALIFIED",
+  "comparisons": {
+    "fixed_shift": {
+      "method": "pchp_method",
+      "comparator": "fixed_shift",
+      "difference_direction": "negative favors PCHP",
+      "estimands": {
+        "dataset_equal_cell_macro_mean_difference": -0.00689716916991253,
+        "cell_equal_mean_difference": -0.007366644734458851,
+        "record_equal_mean_difference": -0.008864035300076557,
+        "median_dataset_difference": -0.007142748490251613,
+        "median_cell_difference": -0.004225836913612724
+      },
+      "exact_dataset_sign_flip": {
+        "assignments": 64,
+        "observed_mean": -0.00689716916991253,
+        "two_sided_p": 0.0625,
+        "minimum_attainable_two_sided_p": 0.03125
+      },
+      "dataset_wins_ties_losses": [
+        5,
+        0,
+        1
+      ],
+      "leave_one_dataset_out": {
+        "minimum_mean_difference": -0.008653064600180492,
+        "maximum_mean_difference": -0.0047983813841775795,
+        "all_negative": true
+      },
+      "largest_dataset_sensitivity": {
+        "largest_by_cells": "ISU_ILCC_NMC",
+        "difference_without_largest_by_cells": -0.0065667393832067825,
+        "largest_by_records": "ISU_ILCC_NMC",
+        "difference_without_largest_by_records": -0.0065667393832067825
+      }
+    },
+    "protected_state": {
+      "method": "pchp_method",
+      "comparator": "protected_state",
+      "difference_direction": "negative favors PCHP",
+      "estimands": {
+        "dataset_equal_cell_macro_mean_difference": -0.004243089193614851,
+        "cell_equal_mean_difference": -0.001943289491728774,
+        "record_equal_mean_difference": -0.0025073998615082467,
+        "median_dataset_difference": -0.005912467664373616,
+        "median_cell_difference": -0.0033730477052449775
+      },
+      "exact_dataset_sign_flip": {
+        "assignments": 64,
+        "observed_mean": -0.004243089193614851,
+        "two_sided_p": 0.125,
+        "minimum_attainable_two_sided_p": 0.03125
+      },
+      "dataset_wins_ties_losses": [
+        4,
+        0,
+        2
+      ],
+      "leave_one_dataset_out": {
+        "minimum_mean_difference": -0.005516951956497932,
+        "maximum_mean_difference": -0.0034110457775835185,
+        "all_negative": true
+      },
+      "largest_dataset_sensitivity": {
+        "largest_by_cells": "ISU_ILCC_NMC",
+        "difference_without_largest_by_cells": -0.005207057990349007,
+        "largest_by_records": "ISU_ILCC_NMC",
+        "difference_without_largest_by_records": -0.005207057990349007
+      }
+    }
+  },
+  "artifacts": {
+    "protocol": {
+      "path": "E:\\CCF\\interventional_battery_learning\\EXTERNAL_ROBUSTNESS_PROTOCOL_V384.json",
+      "sha256": "0d10e30f6497be482b074a89cd3bb3e8c8d6f3b2864fa9453ea9bf7e0b73c517",
+      "bytes": 2587
+    },
+    "implementation": {
+      "path": "E:\\CCF\\interventional_battery_learning\\audit_external_robustness_v384.py",
+      "sha256": "e80ed65a64b68d137da436aebcaa606d2e7263270843d3c98ab6dfd931e0c54d",
+      "bytes": 11103
+    },
+    "input": {
+      "path": "E:\\CCF\\interventional_battery_learning\\external_mechanism_decision_v380\\external_mechanism_predictions_v380.parquet",
+      "sha256": "474d01b7473ed30aaa79f117ab1a9237e5028201ecab74dbce37932d3ac9f5e3",
+      "bytes": 556316
+    },
+    "domain_metrics": {
+      "path": "E:\\CCF\\interventional_battery_learning\\external_robustness_v384\\external_robustness_domain_metrics_v384.csv",
+      "sha256": "544021fc5719de14e3ed3243a6de8e5a8e4a0c36eb1422d955de9679c0d0fd9e",
+      "bytes": 1276
+    },
+    "cell_metrics": {
+      "path": "E:\\CCF\\interventional_battery_learning\\external_robustness_v384\\external_robustness_cell_metrics_v384.csv",
+      "sha256": "98b440d8f38a2a0f0ced693cab0d51bf3ce33b6cb19273d452e90ebe2252e62e",
+      "bytes": 66489
+    },
+    "leave_one_out": {
+      "path": "E:\\CCF\\interventional_battery_learning\\external_robustness_v384\\external_robustness_leave_one_out_v384.csv",
+      "sha256": "76ea0de7e60bc378e80d974927ee9481765b33c18979bd7ae9ad428d4e730c01",
+      "bytes": 722
+    }
+  }
+}

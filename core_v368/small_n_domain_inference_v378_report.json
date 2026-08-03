@@ -1,0 +1,99 @@
+{
+  "comparisons": {
+    "budget_path_auc_pchp_minus_shift": {
+      "exact_two_sided_sign_flip_p_descriptive": 0.0078125,
+      "exact_two_sided_sign_p_descriptive": 0.00634765625,
+      "exact_two_sided_wilcoxon_p_descriptive": 0.0068359375,
+      "mean": -0.006942230452631,
+      "median": -0.0067544303905011,
+      "n_complete_domains": 12,
+      "sign_flip_assignments": 4096,
+      "student_t_interval_95": [
+        -0.011718195737617107,
+        -0.002166265167644894
+      ],
+      "wins_ties_losses_for_pchp": [
+        11,
+        0,
+        1
+      ]
+    },
+    "pchp_minus_candidate_free_shift": {
+      "exact_two_sided_sign_flip_p_descriptive": 0.0166015625,
+      "exact_two_sided_sign_p_descriptive": 0.14599609375,
+      "exact_two_sided_wilcoxon_p_descriptive": 0.02099609375,
+      "mean": -0.004773128528170692,
+      "median": -0.00454152851194445,
+      "n_complete_domains": 12,
+      "sign_flip_assignments": 4096,
+      "student_t_interval_95": [
+        -0.008580801554957513,
+        -0.0009654555013838707
+      ],
+      "wins_ties_losses_for_pchp": [
+        9,
+        0,
+        3
+      ]
+    },
+    "primary_pchp_minus_protected_baseline": {
+      "exact_two_sided_sign_flip_p_descriptive": 0.0009765625,
+      "exact_two_sided_sign_p_descriptive": 0.00634765625,
+      "exact_two_sided_wilcoxon_p_descriptive": 0.0009765625,
+      "mean": -0.0048622943238230696,
+      "median": -0.003990104064050551,
+      "n_complete_domains": 12,
+      "sign_flip_assignments": 4096,
+      "student_t_interval_95": [
+        -0.00703275661951655,
+        -0.0026918320281295893
+      ],
+      "wins_ties_losses_for_pchp": [
+        11,
+        0,
+        1
+      ]
+    }
+  },
+  "design": {
+    "chronology": "posthoc_sensitivity_on_opened_development_domains",
+    "estimand": "domain_equal_mean_paired_difference",
+    "independent_unit": "complete_dataset_domain",
+    "n": 12,
+    "nested_measurements": "records_within_cells_within_domains",
+    "primary_analysis_unchanged": true
+  },
+  "gates": {
+    "budget_path_exact_sign_flip_below_0_01": true,
+    "budget_path_mean_negative": true,
+    "budget_path_t_interval_upper_below_zero": true,
+    "control_exact_sign_flip_below_0_05": true,
+    "control_mean_negative": true,
+    "control_t_interval_upper_below_zero": true,
+    "primary_exact_sign_flip_below_0_01": true,
+    "primary_mean_negative": true,
+    "primary_t_interval_upper_below_zero": true
+  },
+  "inputs": [
+    {
+      "path": "nested_prefix_causal_outer_v327/nested_outer_domain_metrics_v327.csv",
+      "sha256": "724c65d212bea87b4c35e99d6fdf1a72708c9991d51dc51ec1777592ab29a7c3"
+    },
+    {
+      "path": "candidate_information_control_v333/candidate_information_domain_metrics_v333.csv",
+      "sha256": "d9c48cf22f5602029a7cd06d6b0e884eb667b2a10c6ea9c6aedffa54655fef70"
+    },
+    {
+      "path": "budget_path_candidate_control_v361/budget_path_domain_auc_v361.csv",
+      "sha256": "f3c1275be42e9de2d38a4d516c3518a3777bad5a0341f4d07a2852d28693c416"
+    }
+  ],
+  "interpretation": {
+    "candidate_control_boundary": "The candidate-free comparison has nine wins and three losses; its pure direction sign test is not below 0.05. The supported estimand is the domain-equal mean effect, not universal or majority-probability dominance.",
+    "not_supported": "These post-hoc checks do not create confirmatory population coverage, repair dependence between data sources, or establish universal transfer.",
+    "supported": "The negative domain-equal mean directions are not artifacts of the reported percentile-bootstrap calculation alone."
+  },
+  "role": "posthoc_small_sample_sensitivity_not_new_confirmation",
+  "status": "SMALL_N_DOMAIN_INFERENCE_SENSITIVITY_PASSED",
+  "version": "v378"
+}

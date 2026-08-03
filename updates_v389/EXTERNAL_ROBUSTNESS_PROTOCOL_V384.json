@@ -1,0 +1,48 @@
+{
+  "version": "v384",
+  "frozen_at": "2026-08-03",
+  "classification": "retrospective robustness audit of frozen external predictions; no refitting or external target-aware selection",
+  "question": "Does the external PCHP advantage over the matched constant-offset comparator depend on one dataset or on a particular aggregation rule?",
+  "input": {
+    "predictions": "external_mechanism_decision_v380/external_mechanism_predictions_v380.parquet",
+    "sha256": "474d01b7473ed30aaa79f117ab1a9237e5028201ecab74dbce37932d3ac9f5e3",
+    "expected_datasets": 6,
+    "expected_cells": 659,
+    "expected_records": 9712
+  },
+  "independent_unit": "complete external battery dataset surface",
+  "nested_units": [
+    "physical cell",
+    "post-reference record"
+  ],
+  "record_identity_note": "target_cycle_number is not a unique record key: MULTISTAGE_50E contains two distinct diagnostic records at one nominal target cycle; the frozen table row is retained as the record unit",
+  "primary_comparison": {
+    "method": "pchp_method",
+    "comparator": "fixed_shift",
+    "estimand": "mean across datasets of within-dataset cell-equal MAE differences",
+    "difference": "MAE(pchp_method) - MAE(fixed_shift); negative favors PCHP",
+    "test": "two-sided exact sign-flip test over all 2^6 dataset-level sign assignments",
+    "null": "dataset-level paired effects are sign-symmetric around zero",
+    "alpha": 0.05
+  },
+  "secondary_comparator": {
+    "comparator": "protected_state",
+    "role": "descriptive sensitivity; exact p-value reported without multiplicity-adjusted confirmatory interpretation"
+  },
+  "sensitivity_estimands": [
+    "dataset-equal cell-macro mean difference",
+    "cell-equal mean difference",
+    "record-equal mean difference",
+    "median dataset-level difference",
+    "median cell-level difference",
+    "leave-one-dataset-out dataset-equal mean difference",
+    "dataset-equal mean after removing the dataset largest by cell count",
+    "dataset-equal mean after removing the dataset largest by record count"
+  ],
+  "interpretation_rule": {
+    "ROBUST": "primary mean is negative, exact two-sided p <= 0.05, every leave-one-dataset-out primary estimate is negative, and both largest-dataset removals are negative",
+    "QUALIFIED": "primary mean is negative but at least one robustness condition fails",
+    "CONTRADICTED": "primary dataset-equal mean is non-negative"
+  },
+  "stop_rule": "Retain all six frozen datasets and both comparators. Do not retrain, tune, remove additional datasets, or change the primary aggregation after outcome inspection."
+}

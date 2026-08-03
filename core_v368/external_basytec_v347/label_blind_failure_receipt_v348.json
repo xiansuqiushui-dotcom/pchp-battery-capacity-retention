@@ -1,0 +1,14 @@
+{
+  "status": "INCONCLUSIVE_HETEROGENEOUS_HEADER_FAMILY_BEFORE_OUTCOME_ACCESS",
+  "recorded_at_local": "2026-08-02T07:36:00+08:00",
+  "protocol": "V347",
+  "failed_stage": "47-cell label-blind prediction build",
+  "cells_with_charge_only_fields_parsed": ["F0002.zip"],
+  "first_incompatible_cell": "F0003.zip",
+  "incompatibility": "F0003 uses a whitespace-delimited header whereas the V347 resolver froze tab, semicolon, or comma delimiters",
+  "confirmation_capacity_values_accessed": false,
+  "prediction_output_written": false,
+  "scores_computed": false,
+  "scientific_interpretation": "The V347 run is inconclusive and provides no evidence for or against the method.",
+  "next_allowed_step": "Inventory header lines only across all 47 confirmation files, freeze the complete structural family, and preserve all capacity values as unseen."
+}

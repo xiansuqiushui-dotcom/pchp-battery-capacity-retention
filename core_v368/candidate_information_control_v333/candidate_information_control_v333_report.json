@@ -1,0 +1,101 @@
+{
+  "status": "CANDIDATE_INFORMATION_CONTROL_GATE_PASSED",
+  "generated_at_local": "2026-08-02T00:08:02.249210+08:00",
+  "question": "Does the learned candidate add domain-level accuracy beyond a candidate-free source-selected constant offset inside the same harm tube?",
+  "control": {
+    "alpha_grid": [
+      1.0,
+      0.5,
+      0.2,
+      0.1,
+      0.05,
+      0.03,
+      0.02,
+      0.015,
+      0.01,
+      0.005
+    ],
+    "offset_grid": [
+      -0.01,
+      -0.009000000000000001,
+      -0.008,
+      -0.007,
+      -0.006,
+      -0.005,
+      -0.004,
+      -0.003,
+      -0.002,
+      -0.0009999999999999992,
+      0.0,
+      0.0009999999999999992,
+      0.002,
+      0.003000000000000001,
+      0.004,
+      0.004999999999999999,
+      0.006,
+      0.007000000000000001,
+      0.008000000000000002,
+      0.009,
+      0.01
+    ],
+    "selection": "jointly minimize inner-domain-equal cell-macro MAE using only the eleven source domains for each outer target",
+    "outer_target_labels_used_for_selection": false
+  },
+  "comparison": {
+    "domain_equal_pchp_cell_macro_mae": 0.07037751214694384,
+    "domain_equal_candidate_free_control_cell_macro_mae": 0.07515064067511455,
+    "domain_equal_pchp_minus_control": -0.004773128528170714,
+    "domain_cluster_percentile_bootstrap_ci95": [
+      -0.008077615945933841,
+      -0.0015850779362254804
+    ],
+    "domain_wins": 9,
+    "domain_ties": 0,
+    "domain_losses": 3,
+    "maximum_domain_harm_vs_control": 0.004237761750423084,
+    "candidate_information_gate_passed": true
+  },
+  "interpretation_if_failed": "Do not claim that candidate-specific information is necessary; retain only the bounded causal projection contribution and redesign the candidate mechanism on a new validation surface.",
+  "nasa_artifacts_accessed": false,
+  "frozen_inputs": {
+    "prefreeze": {
+      "path": "E:\\CCF\\interventional_battery_learning\\paper_q1\\rccp_candidate_information_control_prefreeze_v333.json",
+      "sha256": "944BB61EE6EEF99F93ECFB781395210741B62B6659C34952CD20B7977A3BC941"
+    },
+    "v322_predictions": {
+      "path": "E:\\CCF\\interventional_battery_learning\\prefix_causal_rccp_v322\\prefix_causal_predictions_v322.parquet",
+      "sha256": "0182DAEF40D779A57A5FB9DA2D1E076F24A1C569FE5068D34960A1CA6CB8B9F8"
+    },
+    "v327_predictions": {
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_outer_v327\\nested_outer_predictions_v327.parquet",
+      "sha256": "D7A9A8C06923841260D98526DFF665562CA27624357A4D514F6BC75563C69534"
+    },
+    "script": {
+      "path": "E:\\CCF\\interventional_battery_learning\\evaluate_candidate_information_control_v333.py",
+      "sha256": "0F6523700082CFF38AA26CD05385D3CF3252D436CCDBC22821355E7029861873"
+    }
+  },
+  "runtime_seconds": 1374.1688059000007,
+  "outputs": {
+    "inner": {
+      "path": "E:\\CCF\\interventional_battery_learning\\candidate_information_control_v333\\candidate_free_inner_metrics_v333.csv",
+      "sha256": "DE6D9A9106AB999839F9229B562465CD9C870B1B42FBDE669EBECA1D2C33CB54"
+    },
+    "selections": {
+      "path": "E:\\CCF\\interventional_battery_learning\\candidate_information_control_v333\\candidate_free_selections_v333.csv",
+      "sha256": "96583528921546D007A477A3ACA4BDC7592D97C054ED1521DF2261EC828B76FE"
+    },
+    "predictions": {
+      "path": "E:\\CCF\\interventional_battery_learning\\candidate_information_control_v333\\candidate_information_outer_predictions_v333.parquet",
+      "sha256": "019AD89171DA589AF3AAC589230F1E62AAE216E8C51468498D91A31D6AA3DD04"
+    },
+    "cells": {
+      "path": "E:\\CCF\\interventional_battery_learning\\candidate_information_control_v333\\candidate_information_cell_metrics_v333.csv",
+      "sha256": "68AA025C5DFB013B148339BD2D031C36BCACE685F7DB21446C6E2F69BE79DF1D"
+    },
+    "domains": {
+      "path": "E:\\CCF\\interventional_battery_learning\\candidate_information_control_v333\\candidate_information_domain_metrics_v333.csv",
+      "sha256": "D9C48CF22F5602029A7CD06D6B0E884EB667B2A10C6EA9C6AEDFFA54655FEF70"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+evidence_group,surface,source_cells,source_record_candidates,feature_cells,feature_records,feature_reference_cells,post_reference_prediction_records,target_reference_cells,final_scored_cells,final_scored_records,reported_cell_exclusions,reported_record_exclusions,raw_record_total_status,exclusion_reasons
+development,CALB,27,2764.0,27,2764.0,27,2629,27,27,2629,0,0,REPORTED,five commissioning-reference records per cell withheld from scoring
+development,CALCE,13,14298.0,13,14298.0,13,14233,13,13,14233,0,0,REPORTED,five commissioning-reference records per cell withheld from scoring
+development,HNEI,14,15164.0,14,15155.0,14,15085,14,14,15085,0,9,REPORTED,9 structurally invalid cycle records; five commissioning-reference records per cell withheld from scoring
+development,MICH,40,19895.0,40,19881.0,40,19681,40,40,19681,0,14,REPORTED,14 structurally invalid cycle records; five commissioning-reference records per cell withheld from scoring
+development,MICH_EXP,18,6545.0,18,6545.0,18,6455,18,18,6455,0,0,REPORTED,five commissioning-reference records per cell withheld from scoring
+development,SNL,61,96492.0,61,96397.0,61,96092,61,61,96092,0,95,REPORTED,95 structurally invalid cycle records; five commissioning-reference records per cell withheld from scoring
+development,UL_PUR,10,2245.0,10,2245.0,10,2195,10,10,2195,0,0,REPORTED,five commissioning-reference records per cell withheld from scoring
+development,XJTU,23,6938.0,23,6938.0,23,6823,23,23,6823,0,0,REPORTED,five commissioning-reference records per cell withheld from scoring
+development,HUST,77,146120.0,77,146120.0,77,145735,77,77,145735,0,0,REPORTED,five commissioning-reference records per cell withheld from scoring
+development,RWTH,48,105397.0,48,105380.0,48,105140,48,48,105140,0,17,REPORTED,17 structurally invalid cycle records; five commissioning-reference records per cell withheld from scoring
+development,SDU,86,49146.0,86,49146.0,86,48716,86,86,48716,0,0,REPORTED,five commissioning-reference records per cell withheld from scoring
+development,MATR,169,140001.0,169,139993.0,169,139148,169,169,139148,0,8,REPORTED,8 structurally invalid cycle records; five commissioning-reference records per cell withheld from scoring
+six_external,AMPERE_A123_LFP,20,847.0,20,843.0,20,743,20,20,743,0,4,REPORTED,4 characterization members had fewer than three Step-13 rows; first five reference records per cell withheld
+six_external,IMPERIAL_M50T,40,511.0,40,469.0,40,269,40,40,269,0,42,REPORTED,42 summary rows lacked a matched charge member; first five reference records per cell withheld
+six_external,LUH_NMC_SIO,228,3463.0,228,3457.0,180,2377,180,180,2377,48,6,REPORTED,48 cells had fewer than six valid capacity checkups; 1 checkup lacked charge EOC and 5 lacked valid discharge capacity
+six_external,ISU_ILCC_NMC,251,,251,,244,4211,244,244,4211,7,0,NOT_RETAINED,7 cells had fewer than six valid capacities; upstream report did not retain a comparable raw record total
+six_external,STANFORD_CALENDAR,259,,259,,30,765,30,30,765,229,9060,NOT_RETAINED,"229 cells lacked six valid diagnostics; 9,060 diagnostic exclusions from window gaps, incomplete coverage, or too few cycles; raw diagnostic total not retained"
+six_external,MULTISTAGE_50E,147,2085.0,147,2082.0,145,1347,145,145,1347,2,3,REPORTED,"2 cells lacked six valid RPTs; 3 RPTs missed capacity, charge, or discharge fields"
+boundary,BASYTEC,48,,47,3336.0,47,3101,45,45,2969,3,132,NOT_RETAINED,F0001 reserved for parser development; F0009 and F0048 outside the frozen reference-capacity range; upstream raw row total not retained
+boundary,NASA,34,7885.0,34,2768.0,34,2598,33,33,2556,1,5159,REPORTED,"5,117 cycle records lacked a valid fixed charge window; 170 commissioning-reference records withheld; one predicted cell lacked a valid discharge-based initial-five reference, leaving 42 unmatched prediction records"

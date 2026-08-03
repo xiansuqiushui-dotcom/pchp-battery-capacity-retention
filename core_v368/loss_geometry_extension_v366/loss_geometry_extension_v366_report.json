@@ -1,0 +1,86 @@
+{
+  "bounded_squared_loss": {
+    "active_lower_boundaries": 88987,
+    "active_lower_boundary_max_absolute_error": 8.881784197001252e-16,
+    "active_upper_boundaries": 89088,
+    "active_upper_boundary_max_absolute_error": 1.5543122344752192e-15,
+    "supremum_formula_max_absolute_error": 1.3322676295501878e-15,
+    "testable_lower_exterior_points": 88987,
+    "testable_upper_exterior_points": 89088
+  },
+  "checks": [
+    "symbolic squared-loss affine identity",
+    "symbolic lower-endpoint branch identity",
+    "symbolic upper-endpoint branch identity",
+    "scalar metric identity",
+    "Euclidean metric identity",
+    "bounded squared-loss supremum formula",
+    "squared feasible lower contains baseline",
+    "squared feasible upper contains baseline",
+    "squared feasible intervals nonempty",
+    "lower boundary respects squared budget",
+    "upper boundary respects squared budget",
+    "active lower boundary is exact",
+    "active upper boundary is exact",
+    "squared feasible interval interior respects budget",
+    "every testable lower exterior point violates budget",
+    "every testable upper exterior point violates budget",
+    "all recursive squared intervals nonempty",
+    "all recursive squared outputs in physical range",
+    "all recursive squared outputs non-increasing",
+    "all recursive squared outputs respect budget",
+    "all recursive squared budgets pass",
+    "all recursive squared widths pass",
+    "all recursive squared monotonicity checks pass",
+    "unbounded squared harm diverges for upward update",
+    "unbounded squared harm diverges for downward update",
+    "upward unbounded counterexample exceeds finite budget",
+    "downward unbounded counterexample exceeds finite budget"
+  ],
+  "interpretation_boundary": "The tests validate the frozen formulas and recursion only. They do not prove literature priority, empirical utility under squared loss, deployment cost calibration, or electrochemical safety.",
+  "metric_identity": {
+    "euclidean_max_absolute_error": 0.0,
+    "scalar_max_absolute_error": 8.881784197001252e-16
+  },
+  "named_checks_passed": 27,
+  "prefreeze_path": "paper_q1/LOSS_GEOMETRY_EXTENSION_PREFREEZE_V366_ZH.md",
+  "prefreeze_sha256": "3e9b0494c23d10500889a27811fe8b9c29de74e60712271467e4d0c28ad0d1d0",
+  "recursive_squared_projection": {
+    "maximum_budget_excess": 7.771561172376096e-16,
+    "maximum_output_increase": 0.0,
+    "minimum_interval_width": 0.0,
+    "records_per_trajectory": 128,
+    "trajectories": 2000
+  },
+  "seed": 20260802,
+  "status": "RETAIN_FOR_V366",
+  "symbolic": {
+    "negative_branch": "(upper-p)^2-(upper-b)^2",
+    "positive_branch": "(p-lower)^2-(b-lower)^2",
+    "squared_difference": "-(-b + p)*(-b - p + 2*y)"
+  },
+  "tolerance": 1e-12,
+  "unbounded_squared_loss": {
+    "downward_update_harm": [
+      1.3199999999999996,
+      12.11999999999999,
+      120.12000000000262,
+      1200.1199999999953,
+      12000.120000004768
+    ],
+    "magnitudes": [
+      1.0,
+      10.0,
+      100.0,
+      1000.0,
+      10000.0
+    ],
+    "upward_update_harm": [
+      1.4499999999999997,
+      10.449999999999989,
+      100.44999999999891,
+      1000.4500000000698,
+      10000.449999988079
+    ]
+  }
+}

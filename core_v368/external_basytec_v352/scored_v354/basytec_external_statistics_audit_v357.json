@@ -1,0 +1,128 @@
+{
+  "confirmatory_cell_level": {
+    "ci_reproduction_max_error": 3.8163916471489756e-17,
+    "comparison": {
+      "bootstrap_ci95": [
+        -0.009999999999999978,
+        -0.009592648597701325
+      ],
+      "exact_two_sided_sign_p": 5.684341886080802e-14,
+      "leave_one_unit_out_mean_range": [
+        -0.009974186490226784,
+        -0.009852525700504067
+      ],
+      "mean": -0.009855802907159532,
+      "wins_ties_losses": [
+        45,
+        0,
+        0
+      ]
+    },
+    "independent_unit": "physical cell",
+    "mean_reproduction_error": 3.2959746043559335e-17,
+    "reported_bootstrap_ci95": [
+      -0.010000000000000007,
+      -0.009592648597701363
+    ],
+    "reported_mean_difference": -0.009855802907159565
+  },
+  "exclusions": {
+    "confirmation_roster_cells": 47,
+    "eligible_cells": 45,
+    "excluded_cells": [
+      "F0009",
+      "F0048"
+    ],
+    "frozen_reason": "reference capacity outside 0.08-0.16 Ah"
+  },
+  "frozen_decision": "RETAIN",
+  "posthoc_condition_cluster_sensitivity": {
+    "bootstrap_replicates": 100000,
+    "bootstrap_seed": 20260809,
+    "comparisons": {
+      "pchp_minus_baseline": {
+        "bootstrap_ci95": [
+          -0.00999999999999998,
+          -0.00957681287970737
+        ],
+        "exact_two_sided_sign_p": 2.384185791015625e-07,
+        "leave_one_unit_out_mean_range": [
+          -0.009999999999999969,
+          -0.009852525700504065
+        ],
+        "mean": -0.009858937626569106,
+        "wins_ties_losses": [
+          23,
+          0,
+          0
+        ]
+      },
+      "pchp_minus_source_tuned_candidate": {
+        "bootstrap_ci95": [
+          0.08408456031570753,
+          0.1288937201951667
+        ],
+        "exact_two_sided_sign_p": 2.384185791015625e-07,
+        "leave_one_unit_out_mean_range": [
+          0.1000227538240299,
+          0.10833693455764619
+        ],
+        "mean": 0.10556339029529427,
+        "wins_ties_losses": [
+          0,
+          0,
+          23
+        ]
+      },
+      "source_tuned_candidate_minus_baseline": {
+        "bootstrap_ci95": [
+          -0.1388064186162127,
+          -0.09389259547958977
+        ],
+        "exact_two_sided_sign_p": 2.384185791015625e-07,
+        "leave_one_unit_out_mean_range": [
+          -0.11818946025815032,
+          -0.10987527952453403
+        ],
+        "mean": -0.11542232792186344,
+        "wins_ties_losses": [
+          23,
+          0,
+          0
+        ]
+      }
+    },
+    "condition_cell_counts": {
+      "1": 1,
+      "2": 22
+    },
+    "conditions": 23,
+    "status": "POSTHOC_NOT_A_REPLACEMENT_FOR_THE_FROZEN_PRIMARY_ANALYSIS"
+  },
+  "reconstruction": {
+    "all_reconstructed_within_1e-12": true,
+    "eligible_cells": 45,
+    "maximum_absolute_errors": {
+      "baseline_mae": 8.326672684688674e-17,
+      "maximum_pchp_displacement": 8.673617379884035e-18,
+      "maximum_pchp_loss_regret": 8.803721640582296e-17,
+      "maximum_source_tuned_candidate_displacement": 9.71445146547012e-17,
+      "pchp_mae": 9.71445146547012e-17,
+      "records": 0.0,
+      "source_tuned_causal_candidate_mae": 9.71445146547012e-17
+    },
+    "scored_records": 2969
+  },
+  "reviewer_risk_diagnostics": {
+    "cell_equal_constant_safe_up_gain_over_baseline": 0.00999999999999996,
+    "cell_equal_constant_safe_up_mae": 0.16495645823561905,
+    "cell_equal_pchp_minus_constant_safe_up": 0.00014419709284038776,
+    "fraction_baseline_predictions_below_truth": 1.0,
+    "fraction_pchp_at_full_positive_budget": 0.9905692152239811,
+    "fraction_pchp_moves_upward": 0.9922532839339845,
+    "interpretation": "The external domain tests the frozen safety-and-utility contract, but it may not distinguish adaptive PCHP behavior from a constant upward budget shift when baseline underprediction is nearly universal.",
+    "max_abs_pchp_minus_constant_safe_up": 0.020000000000000018,
+    "source_tuned_candidate_fraction_below_truth": 1.0
+  },
+  "status": "BASYTEC_V354_INDEPENDENT_STATISTICAL_AUDIT_COMPLETE"
+}

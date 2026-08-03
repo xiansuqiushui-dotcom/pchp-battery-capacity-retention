@@ -1,0 +1,83 @@
+{
+  "status": "SOURCE_ONLY_EXTERNAL_DEPLOYMENT_ALPHA_FROZEN",
+  "generated_at_local": "2026-08-01T23:12:40.433160+08:00",
+  "external_data_accessed": false,
+  "selection_population": "12 already-opened development domains",
+  "selection_predictions": "leave-one-dataset-domain-out raw predictions",
+  "independent_selection_unit": "dataset domain",
+  "aggregation": "cell-macro MAE within domain, then equal mean across domains",
+  "selection_rule": "minimum domain-equal final-method cell-macro MAE; largest alpha only for numerical ties within 1e-12",
+  "alpha_grid": [
+    1.0,
+    0.5,
+    0.2,
+    0.1,
+    0.05,
+    0.03,
+    0.02,
+    0.015,
+    0.01,
+    0.005
+  ],
+  "selected_alpha": 0.01,
+  "selected_metrics": {
+    "alpha": 0.01,
+    "domain_equal_method_cell_macro_mae": 0.06784235709288229,
+    "domain_equal_baseline_cell_macro_mae": 0.0720503420519562,
+    "domain_equal_method_minus_baseline": -0.004207984959073911,
+    "domain_wins": 11,
+    "domain_ties": 0,
+    "domain_losses": 1,
+    "maximum_domain_harm": 0.00109231794438297,
+    "maximum_absolute_displacement": 0.010000000000000009,
+    "maximum_observed_absolute_loss_regret": 0.010000000000000009,
+    "baseline_trajectories_nonincreasing": true,
+    "method_trajectories_nonincreasing": true,
+    "deterministic_certificate_numerically_verified": true
+  },
+  "budget_soh_units": 0.01,
+  "prediction_bounds": [
+    0.0,
+    1.3
+  ],
+  "development_domains": [
+    "CALB",
+    "CALCE",
+    "HNEI",
+    "HUST",
+    "MATR",
+    "MICH",
+    "MICH_EXP",
+    "RWTH",
+    "SDU",
+    "SNL",
+    "UL_PUR",
+    "XJTU"
+  ],
+  "development_physical_cells": 586,
+  "development_prediction_rows": 601932,
+  "all_grid_certificates_verified": true,
+  "frozen_inputs": {
+    "prefreeze": {
+      "path": "E:\\CCF\\interventional_battery_learning\\paper_q1\\rccp_external_source_alpha_prefreeze_v328.json",
+      "sha256": "074B6ACEFDE345E34B2F53091D7A2F232E675D17F5010736E75587926D980E0F"
+    },
+    "development_lodo_predictions": {
+      "path": "E:\\CCF\\interventional_battery_learning\\prefix_causal_rccp_v322\\prefix_causal_predictions_v322.parquet",
+      "sha256": "0182DAEF40D779A57A5FB9DA2D1E076F24A1C569FE5068D34960A1CA6CB8B9F8"
+    },
+    "all_source_model_bundle": {
+      "path": "E:\\CCF\\interventional_battery_learning\\rccp_source_model_freeze_v316\\rccp_source_models_v316.joblib",
+      "sha256": "F492F4B87C1CE7F49C3718F5C2A7D7DADE79450A9E548B33540452B4DC4817FD"
+    },
+    "projection_implementation": {
+      "path": "E:\\CCF\\interventional_battery_learning\\prefix_causal_harm_projection_v321.py",
+      "sha256": "9E2903909E9D6A8C80C29BBA0404C94C11C1A3452721BD105F9D4991069CCB23"
+    },
+    "selection_script": {
+      "path": "E:\\CCF\\interventional_battery_learning\\freeze_external_causal_source_spec_v328.py",
+      "sha256": "06A9FD58BEB23F3A4481962B65A09AC57A0BDA0D7D9EBE529E29805FFEE49806"
+    }
+  },
+  "runtime_seconds": 92.69209119999869
+}

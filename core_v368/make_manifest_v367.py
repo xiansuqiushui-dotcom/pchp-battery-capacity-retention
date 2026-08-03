@@ -1,0 +1,69 @@
+"""Generate the deterministic V367 Applied Energy review-lite manifest."""
+
+from __future__ import annotations
+
+import hashlib
+import json
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parent
+MANIFEST = ROOT / "manifest_v367.json"
+EXCLUDED_NAMES = {MANIFEST.name, "verification_receipt_v367.json"}
+
+
+def sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for block in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+def tracked(path: Path) -> bool:
+    relative = path.relative_to(ROOT)
+    if not path.is_file() or path.name in EXCLUDED_NAMES:
+        return False
+    if "__pycache__" in relative.parts or "figures" in relative.parts:
+        return False
+    return True
+
+
+def main() -> None:
+    files = [
+        {
+            "path": path.relative_to(ROOT).as_posix(),
+            "bytes": path.stat().st_size,
+            "sha256": sha256_file(path),
+        }
+        for path in sorted(ROOT.rglob("*"))
+        if tracked(path)
+    ]
+    payload = {
+        "package": "PCHP reproducibility review-lite",
+        "version": "v367",
+        "scientific_evidence_inherited_from_v366": True,
+        "contains_applied_energy_submission_assets": True,
+        "contains_v367_venue_and_concurrent_work_audit": True,
+        "contains_v367_bilingual_manuscript": True,
+        "contains_v367_graphical_abstract": True,
+        "contains_v367_ai_use_declaration": True,
+        "contains_claim_source_and_novelty_audit": True,
+        "contains_loss_geometry_extension": True,
+        "contains_theory_implementation_contract": True,
+        "squared_loss_full_real_line_scope_only": True,
+        "raw_third_party_archives_included": False,
+        "contains_outcome_isolated_basytec_aggregate_evidence": True,
+        "contains_protocol_locked_retrospective_budget_path": True,
+        "retains_original_v361_narrow_record": True,
+        "tracked_files": len(files),
+        "files": files,
+    }
+    MANIFEST.write_text(
+        json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
+    print(json.dumps({"manifest": str(MANIFEST), "tracked_files": len(files)}))
+
+
+if __name__ == "__main__":
+    main()

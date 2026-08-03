@@ -1,0 +1,45 @@
+{
+  "status": "ASYMMETRIC_HARM_EXTENSION_RETAINED",
+  "decision": "RETAIN",
+  "seed": 20260802,
+  "random_scalar_tuples": 10000,
+  "random_trajectory_trials": 100,
+  "maximum_direct_supremum_error": 3.552713678800501e-15,
+  "checks": {
+    "unit_cost_api_recovers_absolute_displacement": true,
+    "exact_supremum_piecewise_replay": true,
+    "inside_exact_tube_satisfies_budget": true,
+    "outside_exact_tube_constructively_violates_budget": true,
+    "equal_cost_exact_legacy_recovery": true,
+    "generalized_online_properties": true,
+    "generalized_prefix_invariance": true,
+    "directional_cost_radii": true,
+    "zero_budget_identity": true,
+    "invalid_cost_contracts_fail_closed": true
+  },
+  "exact_result": {
+    "loss": "c_under*max(y-p,0)+c_over*max(p-y,0)",
+    "supremum": "c_over*(p-b) for p>=b; c_under*(b-p) for p<b",
+    "harm_set": "[b-eta/c_under, b+eta/c_over]",
+    "equal_cost_recovery": "c_under=c_over=1 recovers absolute-loss PCHP"
+  },
+  "scope": "Costs and budget are positive constants within a trajectory; the extension does not claim empirical deployment cost calibration.",
+  "artifacts": [
+    {
+      "path": "paper_q1/ASYMMETRIC_HARM_EXTENSION_PREFREEZE_V340.json",
+      "sha256": "4BEA581E4B3E86B9DD35CAD054823E9204EA879CB410F551D0542896BCCC89A3"
+    },
+    {
+      "path": "prefix_causal_harm_projection_v321.py",
+      "sha256": "CE7288A129C17114E1CA57432C6417BEBA7938D58DB2B1FD0A87171C479EB54C"
+    },
+    {
+      "path": "test_prefix_causal_harm_projection_v321.py",
+      "sha256": "7D21846C6F23670CFEB4DDBA9CC4035B3F7B85E13914F148F239794CB75DF1EA"
+    },
+    {
+      "path": "validate_asymmetric_harm_extension_v340.py",
+      "sha256": "D1D944449D167CBF04B0D22111E1F413D2F5DD67424EA449905C92994DD3F397"
+    }
+  ]
+}

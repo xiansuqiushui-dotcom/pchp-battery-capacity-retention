@@ -1,0 +1,4 @@
+method,domain_equal_cell_macro_mae,worst_domain_cell_macro_mae
+bounded_recovery,0.06958390255195183,0.14973796261426345
+pointwise_tube,0.07011798541228416,0.1453074741276922
+strict_monotone,0.07037751214694384,0.1453074741276922

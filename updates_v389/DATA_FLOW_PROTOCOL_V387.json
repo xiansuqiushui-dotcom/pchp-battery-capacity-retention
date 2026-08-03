@@ -1,0 +1,21 @@
+{
+  "protocol_version": "V387",
+  "frozen_at": "2026-08-03",
+  "question": "Can every reported analysis roster be reconstructed from count-bearing upstream reports and authoritative prediction ledgers without treating unavailable raw-record counts as final counts?",
+  "stages": [
+    "source cells and source record candidates where retained upstream",
+    "contract-admissible feature cells and records",
+    "feature-reference-eligible cells",
+    "post-reference prediction records",
+    "target-reference-eligible cells",
+    "final scored cells and records"
+  ],
+  "missing_count_rule": "Use null/NR when an upstream report did not retain a comparable raw-record total; never substitute the final scored count.",
+  "expected_final_rosters": {
+    "development": {"surfaces": 12, "source_cells": 586, "final_cells": 586, "final_records": 601932},
+    "six_external": {"surfaces": 6, "source_cells": 945, "final_cells": 659, "final_records": 9712},
+    "basytec": {"source_cells": 48, "final_cells": 45, "final_records": 2969},
+    "nasa": {"source_cells": 34, "final_cells": 33, "final_records": 2556}
+  },
+  "interpretation": "Counts describe evidence flow, not independent sample size. Repeated records remain nested within physical cells and cells within datasets."
+}

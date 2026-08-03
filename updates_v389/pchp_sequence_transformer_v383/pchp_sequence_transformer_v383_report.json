@@ -1,0 +1,448 @@
+{
+  "status": "PCHP_SEQUENCE_TRANSFORMER_PORTABILITY_AUDIT_COMPLETED",
+  "evidence_tier": "post-hoc source-only battery-sequence backbone portability audit",
+  "retain_regardless_of_direction": true,
+  "target_labels_used_for_training_calibration_or_selection": false,
+  "architecture": {
+    "family": "compact pre-normalized Transformer encoder",
+    "channels": [
+      "voltage",
+      "current_C_rate",
+      "charge_increment_per_nominal"
+    ],
+    "time_grid_seconds": "0:10:600",
+    "model_dimension": 64,
+    "attention_heads": 4,
+    "encoder_layers": 2,
+    "feedforward_dimension": 128,
+    "trainable_parameters": 73377
+  },
+  "training": {
+    "device": "cuda",
+    "source_domains": [
+      "CALB",
+      "CALCE",
+      "HNEI",
+      "MICH",
+      "MICH_EXP",
+      "SNL",
+      "UL_PUR",
+      "XJTU"
+    ],
+    "source_cells": 206,
+    "balanced_source_rows": 20425,
+    "epochs": 15,
+    "seeds": [
+      20260760,
+      20260761,
+      20260762
+    ],
+    "cache": {
+      "archive_sha256": {
+        "CALB": "153dc6230d445d23b4928ce4dc993f37b331651de8473497f8df01ed9bafe7a3",
+        "CALCE": "a1654306ffe9b317db101ebd0338e850fa36d2530830c42c0d14d3f3c59389c5",
+        "HNEI": "622e80d1530ce8979ee629586ea477eb205da82d5ec643dccc2977c5ffcff11f",
+        "MICH": "cc1108acd1ffa6a1a5da5916ceb216da16cdcc0c01d19ff79dfbd932e539fdee",
+        "MICH_EXP": "0d378e17b613ee1ecab5ed128ad1e774e89c5a27d1d360da94d6e4477d75991b",
+        "SNL": "1ce27dc94d5d3a9a10ed875805a880c9c0701833915f1b78b09a759c72cfd57a",
+        "UL_PUR": "a954620f9453942fa3a335bbf35c1e28bacc345d773acf547210abbaf9b63046",
+        "XJTU": "6a9f84b0ad9878d04fc4c40839cf70dbc3540ad32fc234fc4439e3fa623fabb6"
+      },
+      "array_sha256": "116d12c01ae8cc43b1cb76cc6d6872b1a0a4a174a228eb2a66bd8f01fd23e0bc",
+      "channels": [
+        "voltage_in_V",
+        "current_C_rate",
+        "charge_increment_per_nominal"
+      ],
+      "grid_seconds": [
+        0,
+        10,
+        20,
+        30,
+        40,
+        50,
+        60,
+        70,
+        80,
+        90,
+        100,
+        110,
+        120,
+        130,
+        140,
+        150,
+        160,
+        170,
+        180,
+        190,
+        200,
+        210,
+        220,
+        230,
+        240,
+        250,
+        260,
+        270,
+        280,
+        290,
+        300,
+        310,
+        320,
+        330,
+        340,
+        350,
+        360,
+        370,
+        380,
+        390,
+        400,
+        410,
+        420,
+        430,
+        440,
+        450,
+        460,
+        470,
+        480,
+        490,
+        500,
+        510,
+        520,
+        530,
+        540,
+        550,
+        560,
+        570,
+        580,
+        590,
+        600
+      ],
+      "protocol_sha256": "109db1727ba5101b3e6a5e729bd5f5d846a8265a86fc9a3c5cfce5290ee6f501",
+      "rows": 163193,
+      "shape": [
+        163193,
+        3,
+        61
+      ],
+      "table_sha256": "89ce9711f91b0ba7d4a14db7766055a76cce1223a553baff270abac08fed6c8e"
+    }
+  },
+  "target_caches": {
+    "SDU": {
+      "archive_sha256": {
+        "SDU": "48a391390e2dfbac6d1b5e917d9c64b917790759b2c0ec5cba325994329b8b92"
+      },
+      "array_sha256": "22ef1d42b1ac15b258ee53e14331d96ba3d3d014d8a8ad232f09e847a08af3c7",
+      "channels": [
+        "voltage_in_V",
+        "current_C_rate",
+        "charge_increment_per_nominal"
+      ],
+      "grid_seconds": [
+        0,
+        10,
+        20,
+        30,
+        40,
+        50,
+        60,
+        70,
+        80,
+        90,
+        100,
+        110,
+        120,
+        130,
+        140,
+        150,
+        160,
+        170,
+        180,
+        190,
+        200,
+        210,
+        220,
+        230,
+        240,
+        250,
+        260,
+        270,
+        280,
+        290,
+        300,
+        310,
+        320,
+        330,
+        340,
+        350,
+        360,
+        370,
+        380,
+        390,
+        400,
+        410,
+        420,
+        430,
+        440,
+        450,
+        460,
+        470,
+        480,
+        490,
+        500,
+        510,
+        520,
+        530,
+        540,
+        550,
+        560,
+        570,
+        580,
+        590,
+        600
+      ],
+      "protocol_sha256": "109db1727ba5101b3e6a5e729bd5f5d846a8265a86fc9a3c5cfce5290ee6f501",
+      "rows": 48716,
+      "shape": [
+        48716,
+        3,
+        61
+      ],
+      "table_sha256": "8db4f121dad4afb151327e85facfd6da1346f2b56409a9b487e7aaa345e33613"
+    },
+    "MATR": {
+      "archive_sha256": {
+        "MATR": "2b7403134c05bef02fd5b4ee20badf00ea9db6e7fd1445b9630e56cf69e95091"
+      },
+      "array_sha256": "a43c3fa0c94f972ed595083d513065c7afbbc741bbcff6f20aa3c0fbb73aaae4",
+      "channels": [
+        "voltage_in_V",
+        "current_C_rate",
+        "charge_increment_per_nominal"
+      ],
+      "grid_seconds": [
+        0,
+        10,
+        20,
+        30,
+        40,
+        50,
+        60,
+        70,
+        80,
+        90,
+        100,
+        110,
+        120,
+        130,
+        140,
+        150,
+        160,
+        170,
+        180,
+        190,
+        200,
+        210,
+        220,
+        230,
+        240,
+        250,
+        260,
+        270,
+        280,
+        290,
+        300,
+        310,
+        320,
+        330,
+        340,
+        350,
+        360,
+        370,
+        380,
+        390,
+        400,
+        410,
+        420,
+        430,
+        440,
+        450,
+        460,
+        470,
+        480,
+        490,
+        500,
+        510,
+        520,
+        530,
+        540,
+        550,
+        560,
+        570,
+        580,
+        590,
+        600
+      ],
+      "protocol_sha256": "109db1727ba5101b3e6a5e729bd5f5d846a8265a86fc9a3c5cfce5290ee6f501",
+      "rows": 139148,
+      "shape": [
+        139148,
+        3,
+        61
+      ],
+      "table_sha256": "00395c408410efa6d72c7e5936964993388739ec52ced6693fc4f3ff4b544542"
+    }
+  },
+  "summary": [
+    {
+      "domain": "MATR",
+      "method": "pchp_sequence_transformer",
+      "cells": 169,
+      "records": 139148,
+      "cell_macro_mae": 0.0520787486,
+      "cell_macro_rmse": 0.0599267813
+    },
+    {
+      "domain": "MATR",
+      "method": "selected_causal_baseline",
+      "cells": 169,
+      "records": 139148,
+      "cell_macro_mae": 0.0507870307,
+      "cell_macro_rmse": 0.0581865024
+    },
+    {
+      "domain": "MATR",
+      "method": "selected_causal_method",
+      "cells": 169,
+      "records": 139148,
+      "cell_macro_mae": 0.0494696776,
+      "cell_macro_rmse": 0.0566440176
+    },
+    {
+      "domain": "MATR",
+      "method": "sequence_transformer_candidate",
+      "cells": 169,
+      "records": 139148,
+      "cell_macro_mae": 0.0531125226,
+      "cell_macro_rmse": 0.0709481984
+    },
+    {
+      "domain": "SDU",
+      "method": "pchp_sequence_transformer",
+      "cells": 86,
+      "records": 48716,
+      "cell_macro_mae": 0.0738098645,
+      "cell_macro_rmse": 0.0812201407
+    },
+    {
+      "domain": "SDU",
+      "method": "selected_causal_baseline",
+      "cells": 86,
+      "records": 48716,
+      "cell_macro_mae": 0.0679263096,
+      "cell_macro_rmse": 0.0759485674
+    },
+    {
+      "domain": "SDU",
+      "method": "selected_causal_method",
+      "cells": 86,
+      "records": 48716,
+      "cell_macro_mae": 0.0652870446,
+      "cell_macro_rmse": 0.0728733297
+    },
+    {
+      "domain": "SDU",
+      "method": "sequence_transformer_candidate",
+      "cells": 86,
+      "records": 48716,
+      "cell_macro_mae": 0.1467070502,
+      "cell_macro_rmse": 0.1527658313
+    }
+  ],
+  "comparisons": {
+    "pchp_sequence_transformer_vs_selected_causal_baseline": {
+      "dataset_equal_mean_difference": 0.0035876364020586402,
+      "per_domain": {
+        "MATR": {
+          "cells": 169,
+          "mean_cell_mae_difference": 0.0012917179005030477,
+          "ci95_cell_bootstrap": [
+            0.00038781362566051806,
+            0.0021948244880447853
+          ],
+          "cell_wins_ties_losses": [
+            71,
+            0,
+            98
+          ]
+        },
+        "SDU": {
+          "cells": 86,
+          "mean_cell_mae_difference": 0.005883554903614233,
+          "ci95_cell_bootstrap": [
+            0.004841362866524045,
+            0.006883795490856631
+          ],
+          "cell_wins_ties_losses": [
+            23,
+            0,
+            63
+          ]
+        }
+      }
+    },
+    "pchp_sequence_transformer_vs_selected_causal_method": {
+      "dataset_equal_mean_difference": 0.005565945420748916,
+      "per_domain": {
+        "MATR": {
+          "cells": 169,
+          "mean_cell_mae_difference": 0.002609070996922932,
+          "ci95_cell_bootstrap": [
+            0.0017500782147513924,
+            0.0034758718885134674
+          ],
+          "cell_wins_ties_losses": [
+            65,
+            6,
+            98
+          ]
+        },
+        "SDU": {
+          "cells": 86,
+          "mean_cell_mae_difference": 0.0085228198445749,
+          "ci95_cell_bootstrap": [
+            0.00732355762849522,
+            0.009737979608927949
+          ],
+          "cell_wins_ties_losses": [
+            1,
+            0,
+            85
+          ]
+        }
+      }
+    }
+  },
+  "deterministic_certificate": {
+    "maximum_absolute_displacement": 0.010000000000000009,
+    "maximum_realized_absolute_loss_increase": 0.010000000000000064,
+    "budget_violations": 0,
+    "range_violations": 0,
+    "monotonicity_violations": 0
+  },
+  "runtime_seconds": 73.77174080000259,
+  "files": {
+    "predictions": {
+      "path": "E:\\CCF\\interventional_battery_learning\\pchp_sequence_transformer_v383\\pchp_sequence_transformer_predictions_v383.parquet",
+      "sha256": "ac2ed2a66dc5c057ca26f9fa666590bef87d9f7b0c6b2896f40f2a61bc7aa2ed"
+    },
+    "cell_metrics": {
+      "path": "E:\\CCF\\interventional_battery_learning\\pchp_sequence_transformer_v383\\pchp_sequence_transformer_cell_metrics_v383.csv",
+      "sha256": "5efec4939e5c328ec77ff2581ea97583ca360e71c00176bdb3603fd725694459"
+    },
+    "summary": {
+      "path": "E:\\CCF\\interventional_battery_learning\\pchp_sequence_transformer_v383\\pchp_sequence_transformer_summary_v383.csv",
+      "sha256": "ee8317a9bcc969396710bf7ddd300b1be15dc00a9d8335fc674a1d909bf773b3"
+    }
+  }
+}

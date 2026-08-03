@@ -1,0 +1,114 @@
+{
+  "excluded_cell_details": [
+    {
+      "cell_id": "F0009",
+      "comparator_minus_baseline": -0.12853387163572447,
+      "pchp_minus_baseline": -0.009999999999999953,
+      "records": 66,
+      "reference_capacity_ah": 0.0686173326391525
+    },
+    {
+      "cell_id": "F0048",
+      "comparator_minus_baseline": -0.1213711270323819,
+      "pchp_minus_baseline": -0.010000000000000064,
+      "records": 66,
+      "reference_capacity_ah": 0.06935012806734289
+    }
+  ],
+  "full_47_cell_analysis": {
+    "comparator_minus_baseline": {
+      "bootstrap_ci95": [
+        -0.1292483784893538,
+        -0.09914191555183006
+      ],
+      "exact_two_sided_sign_p": 1.4210854715202004e-14,
+      "mean": -0.11373374297513092,
+      "wins_ties_losses": [
+        47,
+        0,
+        0
+      ]
+    },
+    "conditions": 24,
+    "maximum_cell_macro_pchp_harm": -0.004646925252200576,
+    "maximum_observed_pchp_loss_regret": 0.010000000000000009,
+    "maximum_pchp_displacement": 0.010000000000000009,
+    "pchp_minus_baseline": {
+      "bootstrap_ci95": [
+        -0.010000000000000007,
+        -0.009609982699926835
+      ],
+      "exact_two_sided_sign_p": 1.4210854715202004e-14,
+      "mean": -0.009861938953663416,
+      "wins_ties_losses": [
+        47,
+        0,
+        0
+      ]
+    },
+    "pchp_minus_comparator": {
+      "bootstrap_ci95": [
+        0.08931711072432688,
+        0.11933067382999805
+      ],
+      "exact_two_sided_sign_p": 1.4210854715202004e-14,
+      "mean": 0.10387180402146748,
+      "wins_ties_losses": [
+        0,
+        0,
+        47
+      ]
+    },
+    "physical_cells": 47,
+    "scored_records": 3101
+  },
+  "included_previously_excluded_condition": "0 C, 1.5C",
+  "posthoc_24_condition_equal_analysis": {
+    "cells_per_condition": {
+      "1": 1,
+      "2": 23
+    },
+    "comparator_minus_baseline": {
+      "bootstrap_ci95": [
+        -0.13827906818244035,
+        -0.09518341245823582
+      ],
+      "exact_two_sided_sign_p": 1.1920928955078125e-07,
+      "mean": -0.11581941839737137,
+      "wins_ties_losses": [
+        24,
+        0,
+        0
+      ]
+    },
+    "conditions": 24,
+    "pchp_minus_baseline": {
+      "bootstrap_ci95": [
+        -0.010000000000000007,
+        -0.009594445676386268
+      ],
+      "exact_two_sided_sign_p": 1.1920928955078125e-07,
+      "mean": -0.009864815225462092,
+      "wins_ties_losses": [
+        24,
+        0,
+        0
+      ]
+    },
+    "pchp_minus_comparator": {
+      "bootstrap_ci95": [
+        0.08538947853422482,
+        0.12836914103837485
+      ],
+      "exact_two_sided_sign_p": 1.1920928955078125e-07,
+      "mean": 0.10595460317190926,
+      "wins_ties_losses": [
+        0,
+        0,
+        24
+      ]
+    }
+  },
+  "status": "POSTHOC_FULL_47_CELL_SENSITIVITY_COMPLETE",
+  "warning": "Outcome-informed sensitivity; does not replace the frozen 45-cell confirmatory analysis."
+}

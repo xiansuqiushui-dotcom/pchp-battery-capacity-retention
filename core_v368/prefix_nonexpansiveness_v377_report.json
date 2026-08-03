@@ -1,0 +1,13 @@
+{
+  "schema": "pchp_prefix_nonexpansiveness_v377",
+  "seed": 20260802,
+  "absolute_tolerance": 2e-12,
+  "exhaustive_local_protected_checks": 3888,
+  "exhaustive_local_projection_checks": 21168,
+  "proximal_equivalence_checks": 108,
+  "random_trajectory_pairs": 30000,
+  "maximum_baseline_excess": 1.1102230246251565e-16,
+  "maximum_output_excess": 3.2817788119247067e-16,
+  "tightness_attained": 0.030000000000000027,
+  "status": "PCHP_PREFIX_NONEXPANSIVENESS_V377_PASSED"
+}

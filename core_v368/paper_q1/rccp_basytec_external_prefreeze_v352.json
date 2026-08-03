@@ -1,0 +1,73 @@
+{
+  "status": "FROZEN_AFTER_HEADER_ONLY_AUDIT_BEFORE_CONFIRMATION_OUTCOMES",
+  "frozen_at_local": "2026-08-02T07:28:27+08:00",
+  "dataset": {
+    "title": "Degradation path indicators for lithium-ion batteries",
+    "doi": "10.5281/zenodo.15755725",
+    "schema_development_cell": "F0001.zip",
+    "confirmation_cells": 47,
+    "confirmation_roster_sha256": "C84CB083E8BB927A4CFC955A433E46D03DB8373B8EF8CF7C07616C88ED93907B"
+  },
+  "chronology": {
+    "v343": "INCONCLUSIVE because a per-cycle capacity field was absent; no outcome accessed",
+    "v347": "INCONCLUSIVE because one development cell did not cover the whitespace-delimited header family; F0002 charge-only fields were parsed, no capacity accessed, no prediction output written",
+    "v347_failure_receipt_sha256": "3F2E06284D907AB8769BEC223AEA57740410A6D78E7034AC57FAB4F5B55E3BCA",
+    "header_inventory_sha256": "35C4FA46AD72F00F09A17282E0ED4A2C04EC03C33C852EA621FAFC746AB6A656",
+    "header_inventory_scope": "47 confirmation archives, header line only, zero data rows",
+    "confirmation_capacity_values_accessed_before_this_freeze": false
+  },
+  "complete_header_family": {
+    "delimiter_counts": {"comma": 32, "whitespace": 15},
+    "structural_signatures": 4,
+    "core_fields": ["~Time[h]", "U[V]", "I[A]", "Ah[Ah]", "Cyc-Count"],
+    "optional_control_fields_do_not_enter_model": true
+  },
+  "schema_and_target": {
+    "time_conversion": "multiply numeric ~Time[h] by 3600",
+    "cycle_discharge_capacity_rule": "within each cycle, sum max(Ah[j-1]-Ah[j],0) over consecutive finite rows j with I[j] below -1e-5 A",
+    "target": "cycle discharge capacity divided by the median capacity of the first five structurally eligible cycles",
+    "reference_capacity_range_ah": [0.08, 0.16],
+    "minimum_post_anchor_cycles_per_cell": 10
+  },
+  "prediction_contract": {
+    "capacity_values_permitted_before_prediction_freeze": false,
+    "permitted_fields": ["cycle identity", "charge-side time", "charge-side current", "charge-side voltage"],
+    "charge_definition": "first contiguous positive-current block within cycle that covers 600 seconds",
+    "nominal_capacity_ah": 0.124,
+    "window_seconds": 600.0,
+    "anchor_cycles": 5,
+    "model_bundle_sha256": "F492F4B87C1CE7F49C3718F5C2A7D7DADE79450A9E548B33540452B4DC4817FD",
+    "pchp_assimilation": 0.01,
+    "source_tuned_candidate_assimilation": 0.05,
+    "harm_budget_soh_units": 0.01,
+    "prediction_range": [0.0, 1.3]
+  },
+  "confirmatory_statistics": {
+    "independent_unit": "physical cell",
+    "primary_metric": "cell-equal mean of within-cell MAE(PCHP)-MAE(protected baseline)",
+    "minimum_eligible_cells": 36,
+    "bootstrap_replicates": 100000,
+    "bootstrap_seed": 20260808,
+    "bootstrap_unit": "physical cell",
+    "interval": "95% percentile"
+  },
+  "decision_gates": {
+    "execution": "at least 36 eligible cells; otherwise INCONCLUSIVE",
+    "mean_effect": "cell-equal mean PCHP-minus-baseline MAE below zero",
+    "win_fraction": "at least two thirds of non-tied cells improve",
+    "uncertainty": "95% cell-bootstrap upper endpoint below zero",
+    "harm_contract": "maximum pointwise displacement, observed absolute-loss regret, and cell-macro harm each at most 0.01 plus 1e-12",
+    "decision": "RETAIN only when execution and every scientific gate pass; otherwise REJECT"
+  },
+  "frozen_artifacts_sha256": {
+    "basytec_external_v352_common.py": "93276A7A7ED418CDED94FC0130C9B79C163C016039E93B6F2AE437D4CA6F28E7",
+    "build_basytec_label_blind_predictions_v353.py": "13BD7747CF611A4B2834C0BB425B6AEE98F6FFAE88A600046018E0D3938AED07",
+    "score_basytec_frozen_confirmation_v354.py": "2BEC2CD58D09C163FA95A34B03267D24E13B5325FBFE07FEA1DFD2A968D02D84",
+    "test_basytec_header_family_v355.py": "C79860F82BA924BBDA021A5505E4AD204FB29A88B504FEA51BF623CFD9265EB1",
+    "inventory_basytec_headers_v351.py": "5B3F8CBD10FA735D6FF7692DD5DBB6A7CA11FA7C212A8DBFBCA85A4FAE831EA0",
+    "external_causal_source_freeze_v328_report.json": "CBB9EBC235878B9C1E914F5AE136BDCA38064040D9957D0410DF82A1AE299AE9",
+    "source_tuned_causal_candidate_v342_report.json": "ED11518EA3E1EAA42148BF4421F0570D775074AE697260A8EDF9FBAC0798C252",
+    "prefix_causal_harm_projection_v321.py": "CE7288A129C17114E1CA57432C6417BEBA7938D58DB2B1FD0A87171C479EB54C"
+  },
+  "stop_rule": "No outcome-responsive changes to the 47-cell roster, complete header family, time conversion, capacity recovery rule, source model, window, anchor, alphas, harm budget, aggregation, uncertainty unit, or gates."
+}

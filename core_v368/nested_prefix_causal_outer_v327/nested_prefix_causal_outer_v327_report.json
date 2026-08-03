@@ -1,0 +1,170 @@
+{
+  "status": "NESTED_PREFIX_CAUSAL_OUTER_GATE_PASSED",
+  "selection_report": {
+    "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_selection_v326\\nested_source_only_alpha_selection_v326_report.json",
+    "sha256": "0197b5c8f2b2f42168d88ea4fa0625ca100a5c852a6af5df451f15dbfba02e8f"
+  },
+  "outer_predictions_input": {
+    "path": "E:\\CCF\\interventional_battery_learning\\prefix_causal_rccp_v322\\prefix_causal_predictions_v322.parquet",
+    "sha256": "0182daef40d779a57a5fb9da2d1e076f24a1c569fe5068d34960a1ca6cb8b9f8"
+  },
+  "independent_unit": "complete battery dataset domain",
+  "domains": 12,
+  "physical_cells": 586,
+  "post_reference_rows": 601932,
+  "budget_soh_units": 0.01,
+  "outer_target_labels_used_for_alpha_selection": false,
+  "selected_alpha_by_domain": {
+    "CALB": 0.01,
+    "CALCE": 0.005,
+    "HNEI": 0.005,
+    "HUST": 0.01,
+    "MATR": 0.015,
+    "MICH": 0.015,
+    "MICH_EXP": 0.01,
+    "RWTH": 0.01,
+    "SDU": 0.01,
+    "SNL": 0.01,
+    "UL_PUR": 0.01,
+    "XJTU": 0.01
+  },
+  "selected_alpha_counts": {
+    "0.005": 2,
+    "0.01": 8,
+    "0.015": 2
+  },
+  "summary": [
+    {
+      "method": "selected_causal_method",
+      "domain_equal_cell_macro_mae": 0.0703775121,
+      "worst_domain_cell_macro_mae": 0.1453074741,
+      "domain_equal_trajectory_increase_fraction": 0.0
+    },
+    {
+      "method": "offline_harm_capped",
+      "domain_equal_cell_macro_mae": 0.0723232147,
+      "worst_domain_cell_macro_mae": 0.153284455,
+      "domain_equal_trajectory_increase_fraction": 0.0
+    },
+    {
+      "method": "selected_causal_baseline",
+      "domain_equal_cell_macro_mae": 0.0752398065,
+      "worst_domain_cell_macro_mae": 0.1442151562,
+      "domain_equal_trajectory_increase_fraction": 0.0
+    },
+    {
+      "method": "offline_baseline",
+      "domain_equal_cell_macro_mae": 0.0775854283,
+      "worst_domain_cell_macro_mae": 0.1626318664,
+      "domain_equal_trajectory_increase_fraction": 0.0
+    }
+  ],
+  "primary_comparison": {
+    "method": "selected_causal_method",
+    "baseline": "selected_causal_baseline",
+    "domain_equal_mean_difference": -0.004862294323823087,
+    "ci95_lower": -0.006712460875870819,
+    "ci95_upper": -0.003010164120042386,
+    "domain_wins": 11,
+    "domain_ties": 0,
+    "domain_losses": 1,
+    "maximum_domain_harm": 0.00109231794438297,
+    "per_domain_difference": {
+      "CALB": -0.009867991304289662,
+      "CALCE": -0.0044952075302844355,
+      "HNEI": -0.008296299460359174,
+      "HUST": -0.003091090141986566,
+      "MATR": -0.0013173530964198793,
+      "MICH": -0.007743612078430898,
+      "MICH_EXP": -0.005862689620982631,
+      "RWTH": 0.00109231794438297,
+      "SDU": -0.002639264940960659,
+      "SNL": -0.003485000597816701,
+      "UL_PUR": -0.0031723652158794774,
+      "XJTU": -0.009468975842849933
+    }
+  },
+  "comparison_with_retrospective_method": {
+    "method": "selected_causal_method",
+    "baseline": "offline_harm_capped",
+    "domain_equal_mean_difference": -0.0019457025754683495,
+    "ci95_lower": -0.010729216358065475,
+    "ci95_upper": 0.006063678306425841,
+    "domain_wins": 7,
+    "domain_ties": 0,
+    "domain_losses": 5,
+    "maximum_domain_harm": 0.021902899124638768,
+    "per_domain_difference": {
+      "CALB": -0.012623343280239202,
+      "CALCE": 0.011225683621147203,
+      "HNEI": 0.021902899124638768,
+      "HUST": -0.00029368896805802985,
+      "MATR": -0.0008444834813755159,
+      "MICH": 0.013770386039247365,
+      "MICH_EXP": -0.007113861696566304,
+      "RWTH": -0.007976980869852018,
+      "SDU": -0.014773301607395206,
+      "SNL": 0.007919027746329015,
+      "UL_PUR": 0.0020946430039501737,
+      "XJTU": -0.03663541053744644
+    }
+  },
+  "causal_baseline_comparison_with_retrospective_baseline": {
+    "method": "selected_causal_baseline",
+    "baseline": "offline_baseline",
+    "domain_equal_mean_difference": -0.002345621820694749,
+    "ci95_lower": -0.01162515295030065,
+    "ci95_upper": 0.006383636071138186,
+    "domain_wins": 7,
+    "domain_ties": 0,
+    "domain_losses": 5,
+    "maximum_domain_harm": 0.025164273888677417,
+    "per_domain_difference": {
+      "CALB": -0.012751684942579548,
+      "CALCE": 0.011522403860435224,
+      "HNEI": 0.025164273888677417,
+      "HUST": -0.0011403262869373598,
+      "MATR": -0.005120691065843293,
+      "MICH": 0.012982476422389769,
+      "MICH_EXP": -0.008245326377779943,
+      "RWTH": -0.008375582394656689,
+      "SDU": -0.019361651190575715,
+      "SNL": 0.008444211507143251,
+      "UL_PUR": 0.0056841610509206775,
+      "XJTU": -0.03694972631953078
+    }
+  },
+  "deterministic_certificate": {
+    "maximum_absolute_displacement": 0.010000000000000009,
+    "maximum_observed_absolute_loss_regret": 0.010000000000000009,
+    "baseline_trajectories_nonincreasing": true,
+    "method_trajectories_nonincreasing": true,
+    "passed": true
+  },
+  "causal_method_not_worse_than_retrospective_method": true,
+  "decision": "RETAIN",
+  "limitations": [
+    "All twelve outer domains were historically opened; the nested design prevents current target-label tuning but is development evidence.",
+    "The selected causal method requires a new frozen external domain before replacing the V318-confirmed retrospective method.",
+    "Strict non-increase remains inappropriate when local capacity regeneration is a target phenomenon rather than measurement noise."
+  ],
+  "runtime_seconds": 9.851530799998727,
+  "files": {
+    "summary": {
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_outer_v327\\nested_outer_summary_v327.csv",
+      "sha256": "79323655efb23e523ff05d1187ef6d8038e0b295a9e58ca5545fda266a7ad8a3"
+    },
+    "domain_metrics": {
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_outer_v327\\nested_outer_domain_metrics_v327.csv",
+      "sha256": "724c65d212bea87b4c35e99d6fdf1a72708c9991d51dc51ec1777592ab29a7c3"
+    },
+    "cell_metrics": {
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_outer_v327\\nested_outer_cell_metrics_v327.csv",
+      "sha256": "38aef5f9aaad2a35c0df9c9863417c48783c70e2a31a82938f5f52385630d736"
+    },
+    "predictions": {
+      "path": "E:\\CCF\\interventional_battery_learning\\nested_prefix_causal_outer_v327\\nested_outer_predictions_v327.parquet",
+      "sha256": "d7a9a8c06923841260d98526dff665562ca27624357a4d514f6bc75563c69534"
+    }
+  }
+}

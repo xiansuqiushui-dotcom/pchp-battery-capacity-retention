@@ -1,0 +1,95 @@
+{
+  "status": "NASA_ONE_SHOT_EXTERNAL_GATE_PASSED",
+  "decision": "RETAIN",
+  "generated_at_local": "2026-08-01T23:36:17.373968+08:00",
+  "external_outcomes_accessed_in_this_stage": true,
+  "independent_unit": "physical battery",
+  "nested_measurements": "post-anchor charge-discharge records within battery",
+  "primary_estimand": "cell-equal mean of paired within-cell MAE difference: prefix-causal harm-capped method minus its causal protected baseline",
+  "independent_cells": 33,
+  "scored_prediction_rows": 2556,
+  "minimum_scorable_post_anchor_records_per_cell": 10,
+  "cell_equal_baseline_mae": 0.7337924543685,
+  "cell_equal_method_mae": 0.7279076657579981,
+  "cell_equal_method_minus_baseline": -0.005884788610501796,
+  "cell_wins_ties_losses": [
+    27,
+    0,
+    6
+  ],
+  "cell_improvement_fraction": 0.8181818181818182,
+  "maximum_cell_macro_harm": 0.008488694205356778,
+  "cell_cluster_percentile_bootstrap": {
+    "replicates": 100000,
+    "seed": 20260801,
+    "ci95": [
+      -0.007842973364114453,
+      -0.003730486283067842
+    ],
+    "confirmatory_gate": false
+  },
+  "exact_two_sided_sign_test": {
+    "p_value": 0.0003240634687244892,
+    "ties_excluded": 0,
+    "confirmatory_gate": false
+  },
+  "primary_gates": {
+    "minimum_four_independent_cells": true,
+    "cell_equal_mean_method_minus_baseline_below_zero": true,
+    "at_least_75_percent_cells_improve": true,
+    "maximum_cell_macro_harm_at_most_budget": true,
+    "deterministic_certificate_verified": true
+  },
+  "certificate": {
+    "maximum_absolute_displacement": 0.010000000000000009,
+    "maximum_observed_absolute_loss_regret": 0.010000000000000009,
+    "baseline_trajectories_nonincreasing": true,
+    "method_trajectories_nonincreasing": true,
+    "deterministic_certificate_numerically_verified": true
+  },
+  "label_audit": {
+    "capacity_rejection_counts": {
+      "discharge_capacity_not_one_positive_scalar": 44
+    },
+    "cells_with_valid_initial5_reference": 33,
+    "mat_files_loaded_for_label_release": 34
+  },
+  "no_post_outcome_rescue_permitted": true,
+  "frozen_inputs": {
+    "prefreeze": {
+      "path": "E:\\CCF\\interventional_battery_learning\\paper_q1\\rccp_nasa_prefreeze_v329.json",
+      "sha256": "37507D16ED8F13BD4AA378F3DA3480DAD691ADDF383C31B00AD613BB7397ADEA"
+    },
+    "prediction_report": {
+      "path": "E:\\CCF\\interventional_battery_learning\\external_nasa_v329\\label_blind_v330\\nasa_label_blind_prediction_report_v330.json",
+      "sha256": "3D961418C8AAB4E4E71AFA2E723B3AFF0832AA62AC9BF517829DB8F64B3999C8"
+    },
+    "features": {
+      "path": "E:\\CCF\\interventional_battery_learning\\external_nasa_v329\\label_blind_v330\\nasa_label_blind_features_v330.parquet",
+      "sha256": "CB89A91E8245FC2338C07995CEC272103358B1AD86B1E7539BD54648EF290C91"
+    },
+    "predictions": {
+      "path": "E:\\CCF\\interventional_battery_learning\\external_nasa_v329\\label_blind_v330\\nasa_frozen_predictions_v330.parquet",
+      "sha256": "4D8264D94E224BE12A5574CC403047E10276C78652D80A4841086F4E409CEAA9"
+    },
+    "scoring_script": {
+      "path": "E:\\CCF\\interventional_battery_learning\\score_nasa_frozen_confirmation_v331.py",
+      "sha256": "9894C1CBECAE80E8A0712B812257AB474974EE3A3EA8DF418E6306F94BDF40BA"
+    }
+  },
+  "outputs": {
+    "released_labels": {
+      "path": "E:\\CCF\\interventional_battery_learning\\external_nasa_v329\\scored_v331\\nasa_released_labels_v331.parquet",
+      "sha256": "E2B521D03A300FEFFAF8D3893DA408D538414A2415A5CC60D47A60A3E656CD0C"
+    },
+    "scored_predictions": {
+      "path": "E:\\CCF\\interventional_battery_learning\\external_nasa_v329\\scored_v331\\nasa_scored_predictions_v331.parquet",
+      "sha256": "3442C89AC647EC25DD6B166E96B870D22848C7533D096F413EBAB3B7025867CF"
+    },
+    "cell_metrics": {
+      "path": "E:\\CCF\\interventional_battery_learning\\external_nasa_v329\\scored_v331\\nasa_cell_metrics_v331.csv",
+      "sha256": "9055B1273AF3AB0FE03F2E4D330C0FF854516672425F5E622C99792E65469984"
+    }
+  },
+  "runtime_seconds": 2.3380822999970405
+}

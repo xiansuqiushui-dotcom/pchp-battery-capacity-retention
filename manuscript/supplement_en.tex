@@ -1,0 +1,783 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,top=22mm,bottom=24mm,left=23mm,right=23mm,headsep=7mm,footskip=12mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{pdflscape}
+\usepackage{graphicx}
+\usepackage{seqsplit}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\captionsetup{font=small,labelfont=bf,labelsep=period,justification=justified,singlelinecheck=false}
+\setlength{\parskip}{0.20em}
+\setlength{\parindent}{1.5em}
+\setlength{\emergencystretch}{3em}
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+\raggedbottom
+\frenchspacing
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Supplementary Material}
+\fancyhead[R]{Y. Wu and A. Jiang}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\setlength{\headheight}{14pt}
+
+\title{Supplementary Material\\
+\large Prefix-Causal Harm-Budget Projection for Cross-Domain Lithium-Ion Battery Capacity-Retention Estimation}
+\author{Yuyang Wu\textsuperscript{1} \quad Aiping Jiang\textsuperscript{1,*}\\[0.35em]
+\small\textsuperscript{1}SILC Business School, Shanghai University, Shanghai 201899, China\\
+\small\textsuperscript{*}Corresponding author: \href{mailto:ap724@shu.edu.cn}{ap724@shu.edu.cn}}
+\date{}
+
+\begin{document}
+\maketitle
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+
+\section{Battery datasets and engineering heterogeneity}
+
+Tables~\ref{tab:development_engineering} and~\ref{tab:external_engineering} report the engineering attributes encoded in the frozen processed tables rather than inferring missing values from model behavior. Temperature is the range available in the scored artifact (measured early-charge temperature or ambient set point, as indicated by the source); NR means that the field was not available in that artifact. The development metadata originate from the BatteryLife processing contract and its archived snapshot \cite{tan2025batterylife,batterylife2026processed}. The external rows were checked against the six cited primary dataset records \cite{wheeler2025lfp,kirkaldy2024comprehensive,luh2024dataset,li2024varyingusage,lam2025calendar,stroebl2024multistage}. Rates and state-of-charge windows describe the protocol metadata represented in the scored records; they are not universal specifications for every experiment in the source archive.
+
+\begin{landscape}
+\begin{table}[H]
+\centering
+\caption{Engineering characteristics of the twelve development domains. Counts refer to the post-reference scoring roster.}
+\label{tab:development_engineering}
+\scriptsize
+\setlength{\tabcolsep}{3.2pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabularx}{\linewidth}{@{}lrrp{3.0cm}p{1.25cm}p{1.45cm}p{4.3cm}X@{}}
+\toprule
+Domain & Cells & Records & Chemistry; form factor & $Q_n$ (Ah) & Temp. ($^\circ$C) & Charge/discharge rate; cycling SOC & Principal held-out shift represented \\
+\midrule
+CALB & 27 & 2,629 & NMC/graphite; prismatic & 58 & 0--45 & 1--5C / 1--15C; 0--100\% & Large-format cells; rate and temperature variation \\
+CALCE & 13 & 14,233 & LCO/graphite; prismatic & 1.10--1.35 & NR & 0.5C / 0.5--1C; 0--100\% & LCO chemistry and low-capacity prismatic format \\
+HNEI & 14 & 15,085 & LCO--NMC blend/graphite; 18650 & 2.8 & NR & 2C / 1C; 0--100\% & Blended cathode chemistry and batch variability \\
+HUST & 77 & 145,735 & LFP/graphite; 18650 & 1.1 & NR & 5C / 2--5C; 0--100\% & High-rate LFP cycling \\
+MATR & 169 & 139,148 & LFP/graphite; 18650 & 1.1 & 24.9--42.2 & 1--8C / 4C; 0--100\% & Diverse fast-charging policies \\
+MICH & 40 & 19,681 & NMC111/graphite; pouch & 2.36 & NR & 1C / 1C; 0--100\% & Pouch format and NMC111 chemistry \\
+MICH\_EXP & 18 & 6,455 & NMC111/graphite; pouch & 5.0 & NR & 0.2--2C / 0.2--2C; 0--100 or 50--100\% & Capacity scale, rate, and partial-SOC protocols \\
+RWTH & 48 & 105,140 & NMC/graphite; 18650 & 1.85 & NR & 2C / 2C; 20--80\% & Partial-SOC apparent-capacity target \\
+SDU & 86 & 48,716 & NMC532/graphite; cylindrical & 2.4 & 24.4--32.2 & Rate NR; 0--100\% & NMC532 source with unavailable rate metadata \\
+SNL & 61 & 96,092 & LFP/NCA/NMC; 18650 & 1.1--3.2 & 14.3--46.3$^{a}$ & 0.5C / 0.5--3C; 0--100 or 20--80\% & Multi-chemistry, temperature, rate, and SOC mixture \\
+UL\_PUR & 10 & 2,195 & NCA/graphite; 18650 & 3.4 & 19.7--33.2 & 2C / 1C; 0--100\% & NCA chemistry and high charge rate \\
+XJTU & 23 & 6,823 & NMC523/graphite; 18650 & 2.0 & NR & 2--3C / 1C; 0--100\% & NMC523 chemistry and mixed charge rate \\
+\bottomrule
+\end{tabularx}
+\vspace{2pt}
+\parbox{0.97\linewidth}{\scriptsize $^{a}$Temperature is available only for the scored SNL records carrying that channel. Chemistry abbreviations follow source metadata: LCO, lithium cobalt oxide; LFP, lithium iron phosphate; NCA, nickel cobalt aluminum oxide; NMC, nickel manganese cobalt oxide.}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Engineering characteristics of the six protocol-frozen external datasets. Counts refer to the evaluated post-reference records.}
+\label{tab:external_engineering}
+\scriptsize
+\setlength{\tabcolsep}{3.2pt}
+\renewcommand{\arraystretch}{1.06}
+\begin{tabularx}{\linewidth}{@{}lrrp{3.1cm}p{1.2cm}p{1.4cm}p{4.4cm}X@{}}
+\toprule
+Dataset & Cells & Records & Chemistry; form factor & $Q_n$ (Ah) & Temp. ($^\circ$C) & Characterization/aging metadata & Principal shift from development \\
+\midrule
+AMPERE A123 LFP & 20 & 743 & LFP/graphite; 18650 & 1.1 & NR & $\tfrac{1}{3}$C charge/discharge; 0--100\% SOC & Independent LFP archive and characterization workflow \\
+Imperial M50T & 40 & 269 & NMC811/graphite--SiO$_x$; 21700 & 5.0 & 10--40 ambient & 0.3C / 0.1C RPT; multiple SOC windows & Large 21700 cells, SiO$_x$ anode, temperature and SOC shift \\
+Luh NMC--SiO$_x$ & 180 & 2,377 & NMC/graphite--SiO$_x$; 18650 & 3.0 & 0--40 ambient & 0--1.67C / 0--1C; multiple SOC windows & Broad calendar/cycling conditions and SiO$_x$ anode \\
+ILCC varying usage & 244 & 4,211 & NMC/graphite; polymer pouch & 0.25 & 30 ambient & 0.5--3C / 0.5--2.475C; varied depth of discharge & Small pouch cells and high protocol diversity \\
+Stanford calendar aging & 30 & 765 & LCO/LFP/NCA; 18650 and pouch & 0.24--3.50$^{b}$ & 24--60 ambient & 0.2C RPT; calendar storage at multiple SOCs & Mixed chemistry, form factor, and calendar-aging conditions \\
+Multistage 50E & 145 & 1,347 & NCA/graphite; 21700 & 4.9 & 23--45 ambient & 0.2--1C / 0.2--2C; varied partial-SOC windows & Multi-stage designed aging on large-format cells \\
+\bottomrule
+\end{tabularx}
+\vspace{2pt}
+\parbox{0.97\linewidth}{\scriptsize $^{b}$Nominal capacity was reconstructed by the frozen Stanford ingestion contract from the reported $0.2C$ characterization current; the range is therefore marked as derived rather than a single manufacturer specification. Zero-rate entries in the Luh metadata denote non-cycling/calendar conditions.}
+\end{table}
+\end{landscape}
+
+\section{Evidence and sample-flow audit}
+
+Tables~\ref{tab:development_flow} and~\ref{tab:external_flow} reconstruct cohort flow directly from the frozen ingestion reports and final prediction ledgers. ``Candidate records'' denotes records presented to the corresponding frozen structural parser, not a universal count of every row or measurement in the source repository. NR means that the upstream report did not retain a comparable raw-record total. Such values were not inferred from downstream counts. Feature-reference eligibility requires sufficient valid charge-side history to form the first-five commissioning reference; target-reference eligibility additionally requires a valid first-five discharge-capacity reference. No cell or record was removed because of prediction error or the direction of a method comparison.
+
+\begin{landscape}
+\begin{table}[H]
+\centering
+\caption{Development-domain record flow. Every source cell remained in the final roster.}
+\label{tab:development_flow}
+\scriptsize
+\setlength{\tabcolsep}{5.2pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular}{@{}lrrrrrr@{}}
+\toprule
+Domain & Source cells & Candidate records & Structural rejects & Feature records & First-five records withheld & Scored records \\
+\midrule
+CALB & 27 & 2,764 & 0 & 2,764 & 135 & 2,629 \\
+CALCE & 13 & 14,298 & 0 & 14,298 & 65 & 14,233 \\
+HNEI & 14 & 15,164 & 9 & 15,155 & 70 & 15,085 \\
+HUST & 77 & 146,120 & 0 & 146,120 & 385 & 145,735 \\
+MATR & 169 & 140,001 & 8 & 139,993 & 845 & 139,148 \\
+MICH & 40 & 19,895 & 14 & 19,881 & 200 & 19,681 \\
+MICH\_EXP & 18 & 6,545 & 0 & 6,545 & 90 & 6,455 \\
+RWTH & 48 & 105,397 & 17 & 105,380 & 240 & 105,140 \\
+SDU & 86 & 49,146 & 0 & 49,146 & 430 & 48,716 \\
+SNL & 61 & 96,492 & 95 & 96,397 & 305 & 96,092 \\
+UL\_PUR & 10 & 2,245 & 0 & 2,245 & 50 & 2,195 \\
+XJTU & 23 & 6,938 & 0 & 6,938 & 115 & 6,823 \\
+\midrule
+Total & 586 & 605,005 & 143 & 604,862 & 2,930 & 601,932 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{External and boundary-program sample flow. Post-reference feature cells have sufficient charge-side history; target-eligible cells additionally have a valid outcome reference.}
+\label{tab:external_flow}
+\scriptsize
+\setlength{\tabcolsep}{3.7pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular}{@{}lrrrrrrrr@{}}
+\toprule
+Dataset/program & Source cells & Candidate records & Feature cells & Feature records & Post-reference cells & Post-reference records & Target-eligible cells & Scored records \\
+\midrule
+AMPERE A123 LFP & 20 & 847 & 20 & 843 & 20 & 743 & 20 & 743 \\
+Imperial M50T & 40 & 511 & 40 & 469 & 40 & 269 & 40 & 269 \\
+Luh NMC--SiO$_x$ & 228 & 3,463 & 228 & 3,457 & 180 & 2,377 & 180 & 2,377 \\
+ILCC varying usage & 251 & NR & 251 & NR & 244 & 4,211 & 244 & 4,211 \\
+Stanford calendar aging & 259 & NR & 259 & NR & 30 & 765 & 30 & 765 \\
+Multistage 50E & 147 & 2,085 & 147 & 2,082 & 145 & 1,347 & 145 & 1,347 \\
+BaSyTec & 48 & NR & 47 & 3,336 & 47 & 3,101 & 45 & 2,969 \\
+NASA & 34 & 7,885 & 34 & 2,768 & 34 & 2,598 & 33 & 2,556 \\
+\bottomrule
+\end{tabular}
+\end{table}
+\end{landscape}
+
+For AMPERE, four characterization members had fewer than three required Step-13 rows; Imperial excluded $42$ summary rows without a matched charge member. Luh excluded six invalid checkups and $48$ cells with fewer than six valid paired checkups. ILCC excluded seven cells with fewer than six valid capacities. Stanford retained $30$ of $259$ source cells after requiring six valid diagnostics; the ingestion report records $9{,}060$ diagnostic exclusions due to charge-window gaps, incomplete window coverage, or fewer than seven cycles, but not a comparable raw diagnostic denominator. Multistage excluded three RPT members missing capacity, charge, or discharge fields and two cells with fewer than six valid RPTs. In BaSyTec, F0001 was reserved before outcome access for parser development; F0009 and F0048 fell outside the frozen first-five reference-capacity support interval. For NASA, $5{,}117$ cycle records lacked a valid fixed charge window and $170$ commissioning records were withheld. The independent label audit rejected $44$ invalid discharge-capacity records; one predicted battery consequently lacked a valid first-five target reference, leaving its $42$ prediction records unscored.
+
+\section{Feature-by-weighting attribution audit}
+
+The post-freeze $2\times2$ audit crossed raw versus commissioning-reference-change features with pooled versus domain-equal source weighting. The four candidates used identical strict leave-one-domain-out folds, ExtraTrees settings, source-row caps, imputers, and random seed. Each candidate was then passed through the current PCHP operator using the raw/pooled predictor as the protected state and the frozen V326 outer-domain $\alpha$ schedule. The selected change/domain-equal arm reproduced the V327 prediction ledger with maximum absolute error $0$.
+
+\begin{table}[H]
+\centering
+\caption{Four-arm feature-by-weighting audit. MAE is averaged equally across cells and then across the $12$ complete held-out domains.}
+\label{tab:factorial_arms}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}Xrrr}
+\toprule
+Features & Source weighting & Candidate MAE & PCHP MAE & Worst-domain PCHP MAE \\
+\midrule
+Raw & Pooled & $0.07790$ & $0.07625$ & $0.14400$ \\
+Raw & Domain-equal & $0.08169$ & $0.07588$ & $0.14351$ \\
+Reference-change & Pooled & $0.05685$ & $0.07059$ & $0.14531$ \\
+Reference-change & Domain-equal & $0.05694$ & $0.07038$ & $0.14531$ \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Before projection, the change-feature effect was $-0.02105$ under pooled weighting and $-0.02474$ under domain-equal weighting. Table~\ref{tab:factorial_effects} reports paired effects after PCHP, where negative values favor the named intervention. Intervals use $100{,}000$ bootstrap resamples of complete domains; $p$ values use all $2^{12}=4{,}096$ paired sign assignments. The feature effect was consistent under both weighting schemes, whereas neither weighting main effect nor the feature-by-weighting interaction was resolved from zero.
+
+\begin{table}[H]
+\centering
+\caption{Paired PCHP-layer effects in the $2\times2$ audit.}
+\label{tab:factorial_effects}
+\scriptsize
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}Xrrrr}
+\toprule
+Contrast & Mean MAE difference & $95\%$ interval & Exact $p$ & W/T/L \\
+\midrule
+Change vs raw, pooled weighting & $-0.00566$ & $[-0.00941,-0.00235]$ & $0.0078$ & $11/0/1$ \\
+Change vs raw, domain-equal weighting & $-0.00550$ & $[-0.00970,-0.00184]$ & $0.0103$ & $10/0/2$ \\
+Domain-equal vs pooled, raw features & $-0.00037$ & $[-0.00166,0.00064]$ & $0.6357$ & $7/0/5$ \\
+Domain-equal vs pooled, change features & $-0.00021$ & $[-0.00058,0.00015]$ & $0.3027$ & $7/1/4$ \\
+Feature-by-weighting interaction & $0.00016$ & $[-0.00093,0.00133]$ & --- & --- \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{SHA-256 identifiers for the V383 $2\times2$ attribution audit.}
+\label{tab:factorial_hashes}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+Artifact & SHA-256 \\
+\midrule
+Audit program & {\scriptsize\ttfamily\seqsplit{8f674bd9b452c71af7d6080f5058d0d94047e2c90f00ad34799630a21e831518}} \\
+Result report & {\scriptsize\ttfamily\seqsplit{2fa763c923b552bb87d218269f4a2266ce7ec309972e43db7fda1f14e041ab60}} \\
+Candidate prediction ledger & {\scriptsize\ttfamily\seqsplit{96073dfe964f3cd119bfa5cff5622f6aec87481a84df7f3da1ec59beb5a2957a}} \\
+Projected prediction ledger & {\scriptsize\ttfamily\seqsplit{09e172a62f840d4afb0d7ed45188c892e01c21503e39e5af463090d55c892098}} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Frozen artifact chain}
+
+Table~\ref{tab:hashes} records selected SHA-256 identifiers that bind the prefix-causal implementation, nested development evaluation, sample-flow audit, unprotected comparator, protocol-locked BaSyTec external validation, and NASA workflow to the reported results. Original datasets remain governed by their respective repositories and licenses.
+
+\begin{table}[H]
+\centering
+\caption{Selected SHA-256 identifiers for the causal method, evidence-flow audit, and protocol-frozen external workflows.}
+\label{tab:hashes}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+Artifact & SHA-256 \\
+\midrule
+Prefix-causal projection implementation & {\scriptsize\ttfamily\seqsplit{ce7288a129c17114e1ca57432c6417beba7938d58db2b1fd0a87171c479eb54c}} \\
+Nested development predictions & {\scriptsize\ttfamily\seqsplit{d7a9a8c06923841260d98526dff665562ca27624357a4d514f6bc75563c69534}} \\
+Candidate-control implementation & {\scriptsize\ttfamily\seqsplit{0f6523700082cff38aa26cd05385d3cf3252d436ccdbc22821355e7029861873}} \\
+Source-tuned unprotected comparator report & {\scriptsize\ttfamily\seqsplit{ed11518ea3e1eaa42148bf4421f0570d775074ae697260a8edf9fbac0798c252}} \\
+Sample-flow protocol & {\scriptsize\ttfamily\seqsplit{94975fc1371f28591bf69e6c82d5e3d6d2bb1677e4bfa6af4e5d97ddac25f981}} \\
+Sample-flow audit program & {\scriptsize\ttfamily\seqsplit{2131b21b91991b7a73d260b7799264aea43ad296e1ddb21c8143a74d22fff3c1}} \\
+Surface-level sample-flow ledger & {\scriptsize\ttfamily\seqsplit{6417dca163da4e9fe872b480f9072a6985def149008f5aea57c23fe306ce47c7}} \\
+Sample-flow audit report & {\scriptsize\ttfamily\seqsplit{48c2f0f62c1a08b1939bf3808bb4a4a3e99489d3510042c94aadb7373cdf7cfe}} \\
+BaSyTec final pre-freeze protocol & {\scriptsize\ttfamily\seqsplit{2e7c34cc3e56cbd5901d18b3989d18754d08e66e7448205197e5b6aa9658643a}} \\
+BaSyTec header-only inventory & {\scriptsize\ttfamily\seqsplit{35c4fa46ad72f00f09a17282e0ed4a2c04ec03c33c852ea621fafc746ab6a656}} \\
+Frozen BaSyTec predictions & {\scriptsize\ttfamily\seqsplit{2e27780968f909b0d1d1a05b2b90370e2735e99f3a8e8926b781150751b6f8f6}} \\
+BaSyTec single-run result report & {\scriptsize\ttfamily\seqsplit{eb6bf718810577fe6e91228301e7352236a991d9899b3002fc2ee2d5753ec2b0}} \\
+BaSyTec independent statistical audit & {\scriptsize\ttfamily\seqsplit{7726061409e3a897fa2677c519a7a1af8e3ca1771fac384d8f0feed2c0682fc7}} \\
+NASA pre-freeze protocol & {\scriptsize\ttfamily\seqsplit{37507d16ed8f13bd4aa378f3da3480dad691addf383c31b00ad613bb7397adea}} \\
+Official NASA archive & {\scriptsize\ttfamily\seqsplit{82302a7db4fc1b34e0b6676326610438d43b816bdf11a69d1d012a464ef2f92e}} \\
+Frozen NASA predictions & {\scriptsize\ttfamily\seqsplit{4d8264d94e224be12a5574cc403047e10276c78652d80a4841086f4e409ceaa9}} \\
+Independent NASA scoring program & {\scriptsize\ttfamily\seqsplit{9894c1cbecae80e8a0712b812257ab474974ee3a3ea8df418e6306f94bdf40ba}} \\
+NASA single-run result report & {\scriptsize\ttfamily\seqsplit{d92be40ab5c34b6324667af549cfde34b15857d02e8c0c654579111854de48b1}} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Guarantee and workflow verification}
+
+Thirty historical V321 unit tests cover causal-state monotonicity, unit assimilation, prefix invariance, nearest-current-feasible projection, range and harm-budget-interval membership, the exact harm identity and harm-region equivalence, zero-budget impossibility, recursive feasibility and exact viability-kernel membership, asymmetric-loss constraints, time-varying feasibility and minimum viable budgets, invalid settings, non-finite and shape-mismatched inputs, and cellwise order restoration. Four separate V377 unit tests cover the exact local proximal representation, protected-state and complete-operator prefix nonexpansiveness, and tightness of the unit Lipschitz constant, giving $34$ focused PCHP tests without modifying the historical V321 file. Four synthetic NASA workflow tests, five BaSyTec header-family tests, and one synthetic MATLAB integration test verify field isolation and two-stage execution. The development, BaSyTec, and NASA reports additionally check maximum displacement, observed absolute-loss increase, trajectory monotonicity, independent-unit counts, frozen file identities, and aggregate reconstruction.
+
+\section{Retrospective budget-path audit}
+
+The budget-path analysis was protocol-locked before its computation but after all development-domain outcomes had been opened. Its single primary empirical estimand is the domain-equal mean of the budget-normalized integrated PCHP-minus-exact-budget-feasible-offset MAE difference. Per-budget intervals are descriptive. The original V361 validator recorded \texttt{NARROW} because one historical anchor compared the high-precision V327 value with a report JSON rounded to ten decimal places under a $10^{-12}$ tolerance. V361 was not modified or rerun. A separately frozen V362 audit verified the authoritative aggregate CSV, all twelve domain rows, the V326 source-only selection roster, and all non-anchor scientific checks. It classified the anchor failure as a serialization-precision false negative while retaining the retrospective label and the original V361 decision record.
+
+\begin{table}[H]
+\centering
+\caption{SHA-256 identifiers for the budget-path analysis and independent anchor audit.}
+\label{tab:budget_hashes}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+Artifact & SHA-256 \\
+\midrule
+V361 analysis pre-freeze & {\scriptsize\ttfamily\seqsplit{7bc32a42d2c20e61471357126f6281e3a11ac976979d56056b68b243f6a6c4d6}} \\
+V361 analysis program & {\scriptsize\ttfamily\seqsplit{bdd0a1aeaf715d25fe574feb52b1679551a608999ab49848a3ff8c6dfd701f79}} \\
+V361 result report & {\scriptsize\ttfamily\seqsplit{6e8d09554f73f1df7cdf6cf8affdaaf1c13eec80b6778b5e58616038ec02781b}} \\
+V361 domain AUC table & {\scriptsize\ttfamily\seqsplit{f3c1275be42e9de2d38a4d516c3518a3777bad5a0341f4d07a2852d28693c416}} \\
+V362 audit pre-freeze & {\scriptsize\ttfamily\seqsplit{49b986a77346f28c80c3d024bae6caff58de469124c422db726945c72400ea56}} \\
+V362 audit program & {\scriptsize\ttfamily\seqsplit{ca3e2be80c1e995daeaa90741ab6d6e07af94424a294d6b80e09f050b32640b5}} \\
+V362 audit report & {\scriptsize\ttfamily\seqsplit{8e02eca68f7016d0ec08100195689e0129cccc90fc8add7b6ecc4a275b323608}} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Finite-sample domain sensitivity audit}
+
+Because the development estimands have only $12$ independent complete-domain effects, V378 recomputed three paired comparisons using complementary small-sample procedures. For each comparison it enumerated all $2^{12}=4{,}096$ sign assignments for the domain-equal mean, computed a Student-$t$ interval, and reported exact paired Wilcoxon and direction-only sign tests. This audit was performed after the development outcomes had been opened. It is a sensitivity analysis, not a new confirmatory test, and it leaves the frozen estimands and percentile-bootstrap reports unchanged.
+
+\begin{table}[H]
+\centering
+\caption{Post-hoc finite-sample sensitivity over complete domains. Negative means favor PCHP. All test values are two-sided and descriptive.}
+\label{tab:small_n_sensitivity}
+\scriptsize
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}Xrrrrl}
+\toprule
+Comparison & Mean & Student-$t$ $95\%$ interval & Sign-flip value & Sign-test value & W/T/L \\
+\midrule
+PCHP vs protected baseline & $-0.004862$ & $[-0.007033,-0.002692]$ & $0.000977$ & $0.006348$ & $11/0/1$ \\
+PCHP vs matched constant-offset control & $-0.004773$ & $[-0.008581,-0.000965]$ & $0.016602$ & $0.145996$ & $9/0/3$ \\
+Integrated budget-path AUC & $-0.006942$ & $[-0.011718,-0.002166]$ & $0.007812$ & $0.006348$ & $11/0/1$ \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The magnitude-sensitive calculations preserve all three negative domain-equal mean directions. The direction-only sign test for the matched constant-offset comparison does not fall below $0.05$, so that result supports an average utility contribution with heterogeneous domain effects, not universal dominance or a claim that improvement is more likely than not in a randomly drawn new domain.
+
+\begin{table}[H]
+\centering
+\caption{SHA-256 identifiers for the V378 finite-sample audit.}
+\label{tab:small_n_hashes}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+Artifact & SHA-256 \\
+\midrule
+V378 audit program & {\scriptsize\ttfamily\seqsplit{50426e90264f15e1632d0fa8403be7b16c7ef09c9076a34be05897f1a0b0b578}} \\
+V378 audit report & {\scriptsize\ttfamily\seqsplit{411007452ed8c095258f3949af959e2518dc1c63e648583e5ffe9dde3b265ae9}} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Untuned secondary-backbone portability audit}
+
+This protocol-locked retrospective audit replaced both primary ExtraTrees regressors with Ridge, HistGradientBoosting, or LightGBM while preserving the data, feature contract, weighting, outer-domain exclusions, harm budget, PCHP operator, and exact V326 outer-domain $\alpha$ schedule. No secondary-backbone hyperparameter or $\alpha$ tuning was permitted. Each backbone produced $601{,}932$ post-reference predictions over the same $586$ cells and $12$ complete domains. The independent verifier recomputed the domain effects and all deterministic certificates from the saved record-level predictions and passed $196$ named checks.
+
+\begin{table}[H]
+\centering
+\caption{Zero-additional-tuning portability results. Differences are PCHP minus the corresponding protected-state MAE; negative values favor PCHP. Intervals are Bonferroni-adjusted two-sided $98.33\%$ percentile intervals from complete-domain bootstrap resampling.}
+\label{tab:backbone_portability}
+\scriptsize
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}Xrrrrl}
+\toprule
+Backbone & Protected MAE & PCHP MAE & Difference & Adjusted interval & W/T/L \\
+\midrule
+Ridge & $0.11192$ & $0.10773$ & $-0.00419$ & $[-0.00677,-0.00131]$ & $10/0/2$ \\
+HistGradientBoosting & $0.07674$ & $0.07249$ & $-0.00425$ & $[-0.00633,-0.00203]$ & $11/0/1$ \\
+LightGBM & $0.07674$ & $0.07252$ & $-0.00422$ & $[-0.00621,-0.00231]$ & $11/0/1$ \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+All three pre-frozen conjunction gates passed. Maximum displacement and observed absolute-loss increase remained within the $0.01$ budget, maximum protected-state and output increases were zero, outputs remained in $[0,1.3]$, and exact prefix replay had maximum difference zero. Because all development outcomes had already been opened, this result excludes an ExtraTrees-specific explanation within the three audited families but does not establish external confirmation, universal model independence, deep-model portability, or best-backbone superiority.
+
+\begin{table}[H]
+\centering
+\caption{SHA-256 identifiers for the V375 portability audit.}
+\label{tab:backbone_hashes}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+Artifact & SHA-256 \\
+\midrule
+V375 pre-freeze JSON & {\scriptsize\ttfamily\seqsplit{ed6c7b6d119d4a3bb9111e27cae198c73f9c8590b3bb09756548ef06a95993e9}} \\
+V375 audit program & {\scriptsize\ttfamily\seqsplit{d1924aa47c516e4f3474942e87044df7d5bec746531b8f3816244f610e92d5eb}} \\
+V375 result report & {\scriptsize\ttfamily\seqsplit{862482438df32b59a19cfe8c4d15f413a11ee0baa2fd8e4451c9066e4d76562d}} \\
+V375 independent verification receipt & {\scriptsize\ttfamily\seqsplit{26e81d0a73374a954e518dcda7e37bdd61ba04e88b407f8de55c82476a889376}} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Battery-sequence Transformer stress test}
+
+A compact pre-normalized Transformer ($73{,}377$ parameters; two encoder layers; four attention heads; model dimension $64$) received voltage, C-rate, and normalized charge increment at $10\,\mathrm{s}$ intervals over the first $600\,\mathrm{s}$. Three fixed source-only ensemble members were trained for $15$ epochs on eight sequence-available development domains ($206$ cells; $20{,}425$ balanced training rows) and evaluated without target-domain fine-tuning on complete SDU and MATR trajectories ($255$ cells; $187{,}864$ records). The sequence proposals were projected using the authoritative V327 protected states, outer-domain $\alpha$ values, and $\delta=0.01$. Target labels entered only the final scoring step.
+
+\begin{table}[H]
+\centering
+\caption{Zero-shot battery-sequence Transformer audit. The interval is a physical-cell bootstrap interval for PCHP minus the protected state.}
+\label{tab:transformer_audit}
+\scriptsize
+\begin{tabular}{lrrrrl}
+\toprule
+Dataset & Transformer & Transformer+PCHP & Protected & Primary PCHP & PCHP--protected $95\%$ interval \\
+\midrule
+MATR & $0.05311$ & $0.05208$ & $0.05079$ & $0.04947$ & $[0.00039,0.00219]$ \\
+SDU  & $0.14671$ & $0.07381$ & $0.06793$ & $0.06529$ & $[0.00484,0.00688]$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The Transformer candidate did not transfer as well as the protected tabular state. PCHP nevertheless reduced the larger proposal errors while enforcing the declared operating contract: maximum displacement and maximum realized absolute-loss increase were $0.01$ within floating-point tolerance, and the audit recorded no budget, range, or monotonicity violation. This is evidence of architecture compatibility and harm control, not a claim that the tested Transformer improves prediction utility.
+
+\begin{table}[H]
+\centering
+\caption{SHA-256 identifiers for the V383 battery-sequence Transformer audit.}
+\label{tab:transformer_hashes}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+Artifact & SHA-256 \\
+\midrule
+Audit program & {\scriptsize\ttfamily\seqsplit{86476e41f23f6769d052db052a8d0ee1e5a56f80a31d7dab3bb0ecf23fb36b68}} \\
+Result report & {\scriptsize\ttfamily\seqsplit{1acf00ad2191fe5b361f56c59ac4614b3138daca0d7e2706ddc7f5da4aafb247}} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Retrospective monotonicity-contract ablation}
+
+The V385 audit reused the $601{,}932$ frozen development predictions from $12$ held-out domains and $586$ physical cells.  The pointwise-tube arm removed only the previous-output cap: it projected the unchanged candidate independently into the same $[b_{it}-0.01,b_{it}+0.01]$ tube around the current strict protected state.  It therefore isolates output monotonicity while holding the protected state, candidate, range, and harm budget fixed.  The strict arm exactly reproduced the authoritative V327 predictions with maximum error zero.  The bounded-recovery arm reused the V374 source-only-selected alternative contract, which allows both protected state and output to rise by at most $0.005$ per emitted record; it is consequently an alternative state-and-output contract rather than a single-component deletion.
+
+\begin{table}[H]
+\centering
+\caption{Monotonicity-contract ablation. MAE is first averaged within physical cells and then equally across complete held-out domains. A positive transition is an output increase greater than $10^{-12}$ between consecutive records from one cell.}
+\label{tab:monotonicity_ablation}
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lrrrrr}
+\toprule
+Contract & Domain MAE & Worst MAE & Rising steps & Cells & Max rise \\
+\midrule
+Pointwise harm tube & $0.070118$ & $0.145307$ & $38{,}580$ & $483/586$ & $0.020$ \\
+Strict non-increasing PCHP & $0.070378$ & $0.145307$ & $0$ & $0/586$ & $0$ \\
+Bounded recovery & $0.069584$ & $0.149738$ & $57{,}332$ & $574/586$ & $0.005$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Relative to the pointwise tube, strict monotonicity changed domain-equal MAE by $+0.000260$; the paired complete-domain bootstrap $95\%$ interval was $[-0.000538,0.001095]$, the exact $2^{12}$ sign-flip value was $0.5654$, and domain wins/ties/losses for the strict arm were $3/1/8$.  Thus the strict trajectory contract eliminated $38{,}580$ upward revisions affecting $82.4\%$ of cells without a clearly separated mean accuracy penalty.  Bounded recovery changed MAE by $-0.000794$ relative to strict PCHP, but its interval $[-0.002708,0.001041]$ and exact value $0.4492$ did not separate the arms; its worst-domain MAE was $0.00443$ higher.  All three arms remained inside $[0,1.3]$ and satisfied their arm-specific $0.01$ displacement and observed absolute-loss certificates.  The bounded-recovery maximum envelope excess was $4.34\times10^{-18}$.  We therefore retain strict PCHP for the stated immutable, non-increasing record contract; this retrospective ablation does not select a new deployment contract.
+
+\begin{table}[H]
+\centering
+\caption{SHA-256 identifiers for the V385 monotonicity-contract ablation.}
+\label{tab:monotonicity_hashes}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+Artifact & SHA-256 \\
+\midrule
+Frozen protocol & {\scriptsize\ttfamily\seqsplit{5ca2c74dc88fe6bdf18a797696eafdefad99b1c5156833b6a5a5510347c58b69}} \\
+Audit program & {\scriptsize\ttfamily\seqsplit{802e29ad84f599f958ac690f009b89d0aff22eb4ff6382b0935a8afdc89828d3}} \\
+Verification tests & {\scriptsize\ttfamily\seqsplit{d307adb08ce5165f72afa900942ca7c57bf06e3d6df3d58d8e7c7dd58254cc57}} \\
+Result report & {\scriptsize\ttfamily\seqsplit{ef6026f091166183cde16cdacb87e746b76c66e5f3267187aec9123bc8af4ab5}} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Retrospective numerical-output-bound sensitivity}
+
+The V386 audit asked whether the declared numerical output range, rather than the learned candidate and trajectory contract, determined the reported results. It replayed the unchanged V321 projection operator on saved pre-projection predictions with upper bounds $1.1$, $1.2$, $1.3$, and $1.5$, while retaining the lower bound $0$, source-selected assimilation rates, $\delta=0.01$, cell order, and every scoring unit. No model was refitted and no bound was selected from accuracy. Development, the six external datasets, and BaSyTec were treated as target-compatible evidence surfaces. NASA was retained as a target-scale incompatibility stress test and was prohibited from selecting the bound.
+
+For NASA, projection was replayed on all $2{,}598$ label-blind prediction records from $34$ cells before joining the $2{,}556$ released labels from $33$ scoreable cells. This preserves the original causal trajectory even where a record lacks a matched discharge label. At the reference upper bound $1.3$, all four replays reproduced their saved protected states and PCHP outputs with maximum error zero.
+
+\begin{table}[H]
+\centering
+\caption{Numerical-output-bound sensitivity. The displayed MAE is domain-equal cell-macro MAE for development and the six external datasets, and cell-macro MAE for each single boundary surface. ``Changed'' counts outputs that differed from the $1.3$ replay at any tested upper bound.}
+\label{tab:output_bound_sensitivity}
+\small
+\setlength{\tabcolsep}{4.5pt}
+\begin{tabular}{lrrrrrr}
+\toprule
+Surface & Truth max & Candidate max & Output max & MAE & Changed & Truth $>1.3$ \\
+\midrule
+Development & 1.059406 & 1.021457 & 1.014274 & 0.070378 & 0 & 0 \\
+Six external datasets & 0.998467 & 0.981420 & 0.985900 & 0.126365 & 0 & 0 \\
+BaSyTec & 1.004612 & 0.974823 & 0.907277 & 0.165101 & 0 & 0 \\
+NASA stress test & 21.770609 & 0.932633 & 0.937209 & 0.727908 & 0 & 144/2,556 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Every saved raw baseline and raw candidate on all four surfaces was below $1.1$. Consequently, every replay produced exactly the same protected state, PCHP output, cell/domain MAE, and worst-domain MAE over the full $1.1$--$1.5$ grid. All range, non-increasing-trajectory, $0.01$ displacement, and observed absolute-loss checks passed. The compatible evidence therefore classifies the upper bound as \texttt{NONBINDING}. The retained value $1.3$ is the pre-existing conservative computational bound, not a value tuned to improve the reported estimates. NASA's $95$th-percentile target of $1.4401$ and maximum of $21.77$ instead expose an incompatible normalization scale; enlarging an output bound on the basis of those labels would change the task definition rather than repair the model.
+
+\begin{table}[H]
+\centering
+\caption{SHA-256 identifiers for the V386 numerical-output-bound audit.}
+\label{tab:output_bound_hashes}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+Artifact & SHA-256 \\
+\midrule
+Frozen protocol & {\scriptsize\ttfamily\seqsplit{aef0f74f7a4b2ac683214c0617021a02c4c0d8dd9a51e99856a716f6b080d0ba}} \\
+Audit program & {\scriptsize\ttfamily\seqsplit{1e33f1249033a05564498a0e909982fd06f9ac90674b6f34193ba0e139ac73a2}} \\
+Verification tests & {\scriptsize\ttfamily\seqsplit{c31f55285b35bc0be942caba2b4416216f5e6a8348f283d6942ff6146810a228}} \\
+Result report & {\scriptsize\ttfamily\seqsplit{a44ae0e520f20197726cc1bf714a4035fe1b78a0204d8d92672d4e0e9588e424}} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Protocol-frozen NASA target-compatibility stress test}
+
+NASA PCoE Battery Data Set~5 was selected from official metadata and frozen before archive download \cite{saha2007nasa}. The protocol fixed the official archive identity, recursive inclusion of MATLAB files, charge--discharge pairing, the \(600\,\mathrm{s}\) charge window, first-five reference, feature fields, \(\alpha=0.01\), \(\delta=0.01\), minimum cell size, estimand, decision gates, and hashes of the prediction and scoring programs. After duplicate identities were reconciled, \(38\) files represented \(34\) physical batteries.
+
+The label-blind stage accessed cycle type and time plus voltage, current, temperature, and time arrays from charge records. It created and hashed \(2{,}598\) post-anchor predictions for all \(34\) batteries without reading discharge capacity. The independent scoring stage then read the frozen discharge locators and scalar \texttt{Capacity} field, formed the first-five-normalized target, and scored the prediction artifact once. The prespecified label audit rejected \(44\) non-scalar, non-finite, or non-positive discharge-capacity records. One predicted battery consequently lacked a valid first-five target reference, leaving \(33\) batteries and \(2{,}556\) scored records. No roster, reference, model, parameter, or endpoint changed after outcome access.
+
+Across the \(33\) eligible batteries, battery-equal MAE was \(0.73379\) for the protected causal state and \(0.72791\) for PCHP. The paired difference was \(-0.00588\) with a paired-battery bootstrap \(95\%\) interval of \([-0.00784,-0.00373]\); \(27\) batteries improved and \(6\) worsened. Maximum battery-level harm was \(0.00849\). Every point satisfied \(|p_{it}-b_{it}|\leq0.01\), the maximum observed absolute-loss increase was \(0.01\) within floating-point tolerance, and all protected and released trajectories were non-increasing.
+
+The absolute target was not compatible with a high-accuracy capacity-retention claim. Battery B0041 had a first-five reference capacity of \(0.05584\,\mathrm{Ah}\) and a maximum normalized value of \(21.77\); B0039 had a reference of \(0.47114\,\mathrm{Ah}\) and a maximum normalized value of \(3.76\). Across all scored labels, the \(95\)th percentile was \(1.4401\) and the maximum was \(21.77\), whereas the maximum saved candidate was \(0.9326\). The experiment therefore supports only a relative within-record harm-control result under severe target shift. It is not evidence of high-accuracy absolute SOH estimation, an independent-laboratory replication, or prospectively collected validation.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/fig5_nasa_stress.pdf}
+\caption{Protocol-frozen NASA target-compatibility stress test. \textbf{A}, paired PCHP-minus-protected-state MAE for all \(33\) eligible physical batteries; negative values favor PCHP, and the diamond with interval denotes the battery-equal mean and \(95\%\) paired-battery bootstrap interval from \(100{,}000\) resamples. \textbf{B}, released normalized-capacity labels by battery on a logarithmic axis, with the frozen model range \([0,1.3]\) indicated. The \(2{,}556\) records are repeated measurements nested within batteries.}
+\label{fig:supp_nasa}
+\end{figure}
+
+\section{Protocol-frozen external mechanism and decision-cost confirmation}
+
+The V380 protocol froze six external battery datasets, $659$ cells, $9{,}712$ post-reference records, the complete-development ExtraTrees fit, $\alpha=0.01$, $\delta=0.01$, the exact development-selected $+0.01$ constant budget-feasible offset, the dataset-equal estimand, a two-stage dataset--cell bootstrap with $100{,}000$ replicates and seed $20{,}260{,}803$, deterministic certificate criteria, and the decision-cost grid. The archives had historical exposure in separate exploratory branches, but no external outcome or summary influenced PCHP, the comparator, estimand, cost protocol, or decision criteria. The appropriate classification is therefore protocol-frozen external mechanism confirmation on datasets that did not influence the tested design, not prospectively blinded data collection.
+
+PCHP reduced dataset-equal MAE from $0.13326$ for the constant offset to $0.12636$. The full-precision primary result was
+\[
+\begin{aligned}
+\Delta_{\mathrm{ext}}&=-0.0068971692,\\
+\text{two-stage }95\%\text{ interval}&=[-0.0119216689,-0.0021174927].
+\end{aligned}
+\]
+Five of six datasets improved, and the protected-state MAE was $0.1306078750$. Maximum displacement and observed regret were $0.01$ within floating-point tolerance; protected and projected trajectories had zero maximum increase; and independent prefix replay had zero maximum difference. The verifier passed all $49$ named checks and classified mechanism inference and deterministic certification as \texttt{PASS}.
+
+A post-hoc robustness audit then reused the unchanged V380 prediction ledger without fitting, tuning, threshold selection, or dataset removal.  The complete external dataset remained the top-level unit; cells and records were treated as nested observations.  Table~\ref{tab:external_robustness} separates changes in the target population induced by weighting from evidence about the frozen dataset-equal estimand.  Negative values favor PCHP.
+
+\begin{table}[H]
+\centering
+\caption{External aggregation sensitivity. Each entry is PCHP MAE minus comparator MAE. The exact $p$ value enumerates all $2^6=64$ sign assignments of the six dataset-level cell-macro effects. Only the constant-offset comparison is the primary exact test; the protected-state result is descriptive.}
+\label{tab:external_robustness}
+\scriptsize
+\begin{tabular}{lrrrrrr}
+\toprule
+Comparator & Dataset mean & Cell mean & Record mean & Dataset median & Cell median & Exact $p$ \\
+\midrule
+Constant offset & $-0.006897$ & $-0.007367$ & $-0.008864$ & $-0.007143$ & $-0.004226$ & $0.0625$ \\
+Protected state & $-0.004243$ & $-0.001943$ & $-0.002507$ & $-0.005912$ & $-0.003373$ & $0.1250$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The direction did not depend on one external dataset.  For PCHP versus the constant offset, all six leave-one-dataset-out means were negative, ranging from $-0.008653$ to $-0.004798$; after removing ISU--ILCC, the largest dataset by both cell and record count, the mean remained $-0.006567$.  The corresponding protected-state range was $[-0.005517,-0.003411]$, with a largest-dataset-removed effect of $-0.005207$.  Thus the external advantage is stable to the declared aggregation and omission checks.  With only six top-level units and one dataset-level loss, however, the two-sided exact sign-flip value for the primary comparison is $0.0625$; this sensitivity is reported as effect-direction evidence rather than a separate $0.05$-level confirmation claim.
+
+\begin{table}[H]
+\centering
+\caption{Dataset-equal continuous asymmetric decision cost. The missed-degradation term receives weight $r$ relative to unnecessary review.}
+\label{tab:external_decision_cost}
+\begin{tabular}{rrrr}
+\toprule
+$r$ & Protected state & Constant offset & PCHP \\
+\midrule
+$1$  & $0.13061$ & $0.13326$ & $0.12636$ \\
+$2$  & $0.21527$ & $0.22425$ & $0.20970$ \\
+$5$  & $0.46925$ & $0.49721$ & $0.45970$ \\
+$10$ & $0.89254$ & $0.95214$ & $0.87636$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+At the primary $\tau=0.80$ and $r=5$, binary review cost was identical across methods because no PCHP update crossed the action threshold. The verifier therefore retained the prespecified \texttt{PASS\_NON\_CLAIM} status for binary decision benefit. The supported decision result is the $7.54\%$ continuous-cost reduction from the constant offset to PCHP.
+
+The observed-horizon event audit defined late warning as a predicted first crossing after the observed crossing or no predicted crossing within follow-up. Premature review was a predicted crossing before the observed crossing; for cells without an observed crossing, any predicted crossing within follow-up was premature. An absent predicted crossing was censored to one record beyond the final observation for restricted-delay calculation. Table~\ref{tab:threshold_events} reports the primary $80\%$ capacity-retention threshold. Metrics are dataset-equal; rates are calculated within physical cells before aggregation.
+
+\begin{table}[H]
+\centering
+\caption{Observed-horizon first-crossing metrics at $\tau=0.80$. All three methods issued identical threshold actions.}
+\label{tab:threshold_events}
+\scriptsize
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X*{5}{>{\centering\arraybackslash}X}}
+\toprule
+Method & Restricted absolute delay & $95$th-percentile late delay & Absolute cycle delay & Late-warning cell rate & Premature-review rate$^{c}$ \\
+\midrule
+Protected state & $9.32$ & $16.49$ & $1206.33$ & $0.914$ & $0.086$ \\
+Constant offset & $9.32$ & $16.49$ & $1206.33$ & $0.914$ & $0.086$ \\
+PCHP & $9.32$ & $16.49$ & $1206.33$ & $0.914$ & $0.086$ \\
+\bottomrule
+\end{tabularx}
+
+\vspace{2pt}
+\parbox{0.96\linewidth}{\scriptsize $^{c}$Among cells with an observed true crossing. Delays are in record-index units except ``absolute cycle delay,'' which uses the source cycle-number coordinate.}
+\end{table}
+
+Sensitivity thresholds led to the same operational conclusion. At $\tau=0.70$, PCHP and the constant offset had identical first-crossing delays and cell-level late/premature rates; PCHP increased the dataset-equal premature-review record rate by $0.00489$. At $\tau=0.90$, PCHP reduced restricted absolute delay by only $0.00357$ records and the cell-macro late-warning record rate by $0.00071$, without changing the dataset-equal late-warning or premature-crossing cell rates. The current budget therefore changes continuous error severity but not threshold timing at a practically material scale.
+
+\begin{table}[H]
+\centering
+\caption{SHA-256 identifiers for the V383 threshold-event audit.}
+\label{tab:threshold_hashes}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+Artifact & SHA-256 \\
+\midrule
+Audit program & {\scriptsize\ttfamily\seqsplit{92d28a2e5f5a8c3826d95a99165e616c285fc5872d45d7d0c9bc521bd00c3264}} \\
+Result report & {\scriptsize\ttfamily\seqsplit{19122af913409a4c2f0254e7604ccb288926253a22653e1ef61fb18336275830}} \\
+Cell-metric table & {\scriptsize\ttfamily\seqsplit{591569b17bcfad5632d9acc370bf592bbc3e8c353df56cc8998e1a692980bd9c}} \\
+Dataset-equal summary & {\scriptsize\ttfamily\seqsplit{df427571293dbcf67191dc07f1db132f00837f65b989db24b86e0519df15089f}} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{SHA-256 identifiers for the V380 mechanism confirmation and V384 external robustness audit.}
+\label{tab:external_v380_hashes}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+Artifact & SHA-256 \\
+\midrule
+V380 pre-freeze protocol & {\scriptsize\ttfamily\seqsplit{128fa29a2b21ad8022adf3afecc6351e8b480e770c4c8833a032c7097575b5cc}} \\
+V380 execution program & {\scriptsize\ttfamily\seqsplit{9a4e819a20f1053dc2ae447a396800fa4b88af49a101de1692503f18d4d0deb1}} \\
+V380 independent verifier & {\scriptsize\ttfamily\seqsplit{479533c75f362bd64f9d00c44582612ab39e994ba08d16d04bdb886990831830}} \\
+Frozen predictions & {\scriptsize\ttfamily\seqsplit{474d01b7473ed30aaa79f117ab1a9237e5028201ecab74dbce37932d3ac9f5e3}} \\
+Dataset metrics & {\scriptsize\ttfamily\seqsplit{482b6f3717f656c6fcd74ee932aae172c8a5029feebdff5ba21757478ded27b2}} \\
+Decision-cost summary & {\scriptsize\ttfamily\seqsplit{4fa9c0716b2fc9c4b56e0c03699207e3cad16aa7fff1e57747d603cf3e2c2d74}} \\
+V380 result report & {\scriptsize\ttfamily\seqsplit{e46f1157791f8da33e401833327dc2dba791a43df496a2d7204a932cf25c4655}} \\
+Independent verification receipt & {\scriptsize\ttfamily\seqsplit{798406ec12cbd8ce0c89a12779cdb7b389bd06f52f76d04cb6876d08964b45c3}} \\
+V384 robustness protocol & {\scriptsize\ttfamily\seqsplit{0d10e30f6497be482b074a89cd3bb3e8c8d6f3b2864fa9453ea9bf7e0b73c517}} \\
+V384 audit program & {\scriptsize\ttfamily\seqsplit{e80ed65a64b68d137da436aebcaa606d2e7263270843d3c98ab6dfd931e0c54d}} \\
+V384 verification tests & {\scriptsize\ttfamily\seqsplit{d0611d66c8281c5d9943579d0f0603c4feafab14c4ad1545ce9d7ffa2810084e}} \\
+V384 result report & {\scriptsize\ttfamily\seqsplit{60a8dc4d1dfa440c2815cfc05ae523c113dfc3f3cf759b1c28e698ee0c5a5832}} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Analytical proofs and loss-contract extensions}
+
+\subsection{Protected-state and projection proofs}
+
+The protected-state update is prefix invariant because \(b_{i1}\) uses only \(r_{i1}\), and every subsequent \(b_{it}\) is a deterministic function of \((b_{i,t-1},r_{it})\). Induction therefore proves that extending a trajectory after record \(t\) cannot alter its first \(t\) states. For \(t>1\), the same update has the exact proximal form
+\begin{equation}
+ b_{it}=\underset{q\in\mathcal Y,\ q\leq b_{i,t-1}}{\arg\min}
+ \left\{\frac{\alpha}{2}(q-r_{it})^2+
+ \frac{1-\alpha}{2}(q-b_{i,t-1})^2\right\}.
+ \label{eq:supp_protected_proximal}
+\end{equation}
+The unconstrained minimizer is \((1-\alpha)b_{i,t-1}+\alpha r_{it}\); projection onto the one-sided feasible set replaces \(r_{it}\) by \(\min\{r_{it},b_{i,t-1}\}\), followed by clipping to \(\mathcal Y\), which is exactly the protected recursion.
+
+\paragraph{Recursive feasibility and trajectory contract.}
+At the first post-reference record, \(p_{i0}=1.3\) and \(b_{i1}\in[0,1.3]\), so the lower endpoint \(\max\{0,b_{i1}-\delta\}\) cannot exceed any term defining the upper endpoint. Suppose the interval was feasible at \(t-1\). Since \(b_{it}\leq b_{i,t-1}\) and \(p_{i,t-1}\geq\max\{0,b_{i,t-1}-\delta\}\),
+\[
+ p_{i,t-1}\geq\max\{0,b_{it}-\delta\}.
+\]
+The current interval is therefore nonempty. Projection gives range membership and \(|p_{it}-b_{it}|\leq\delta\); the previous-output cap gives \(p_{it}\leq p_{i,t-1}\); and prefix measurability of every input gives prefix causality.
+
+\paragraph{Prefix nonexpansiveness.}
+Write
+\[
+ F_\alpha(x,z)=\Pi_{\mathcal Y}\!\left((1-\alpha)x+\alpha\min\{x,z\}\right).
+\]
+Minimum is jointly one-Lipschitz in the sup norm, and convex combination plus scalar clipping preserves this constant. Initialization and induction yield
+\[
+ \max_{s\leq t}|b_{is}-\widetilde b_{is}|
+ \leq\max_{s\leq t}|r_{is}-\widetilde r_{is}|.
+\]
+Define \(L(b)=\max\{0,b-\delta\}\) and \(U(b,u)=\min\{1.3,b+\delta,u\}\). The released value is
+\[
+ p_{it}=\operatorname{med}\{L(b_{it}),c_{it},U(b_{it},p_{i,t-1})\}.
+\]
+Minimum, maximum, and median are jointly one-Lipschitz in the sup norm. Thus
+\[
+ |p_{it}-\widetilde p_{it}|
+ \leq\max\{|b_{it}-\widetilde b_{it}|,
+ |c_{it}-\widetilde c_{it}|,
+ |p_{i,t-1}-\widetilde p_{i,t-1}|\},
+\]
+and induction proves the prefix-level bound in the main text. Two interior candidates separated by \(\varepsilon>0\), with all other inputs equal, produce outputs separated by exactly \(\varepsilon\); the constant one is therefore tight.
+
+\paragraph{Exact absolute-loss region, viability, and closest-candidate optimality.}
+The triangle inequality gives
+\[
+ |p-y|-|b-y|\leq|p-b|
+\]
+for every \(y\), and equality is attained at \(y=b\). Consequently the outcome-uniform absolute-loss region is exactly \([b-\delta,b+\delta]\), and intersecting it with the numerical range and previous-output half-line gives the main-text interval \(I_{it}\). At \(\delta=0\), any \(p\neq b\) incurs additional loss \(|p-b|>0\) at \(y=b\), proving the zero-budget limit.
+
+For any \(q\in I_{it}\) and any future non-increasing protected-state path, let \(L_{is}=\max\{0,b_{is}-\delta\}\). This lower-endpoint path is non-increasing, remains within the range and harm budget, and begins no higher than \(q\); it is therefore a feasible continuation. A point outside \(I_{it}\) already violates a current constraint and cannot be extendable. Finally, over the exact feasible set \(I_{it}\), the strictly convex objective \(\tfrac12(p-c_{it})^2\) has the unique minimizer \(\Pi_{I_{it}}(c_{it})\).
+
+\subsection{Extensions to other loss contracts}
+
+\paragraph{Metric loss.}
+For any metric space \((\mathcal M,d)\),
+\begin{equation}
+ \sup_{y\in\mathcal M}[d(p,y)-d(b,y)]=d(p,b).
+ \label{eq:supp_metric_identity}
+\end{equation}
+The upper bound is the triangle inequality and equality follows at \(y=b\). Hence the exact harm region is the closed metric ball of radius \(\delta\) around \(b\). This is an established metric consequence; its role here is to expose the geometry underlying the deployment contract.
+
+\paragraph{Squared loss and the declared outcome set.}
+For \(L<U\), \(b,p\in[L,U]\), and \(\ell_2(q,y)=(q-y)^2\),
+\begin{equation}
+ \sup_{y\in[L,U]}[(p-y)^2-(b-y)^2]
+ =
+ \begin{cases}
+ (p-b)(p+b-2L), & p\geq b,\\
+ (b-p)(2U-p-b), & p<b.
+ \end{cases}
+ \label{eq:supp_squared_identity}
+\end{equation}
+The difference expands to \((p-b)(p+b-2y)\), an affine function of \(y\); the maximizing endpoint therefore switches with the sign of \(p-b\). Solving the two budget inequalities gives the exact region
+\begin{equation}
+ \mathcal H^{(2)}_\delta(b;[L,U])
+ =
+ \left[
+ \max\!\left\{L,U-\sqrt{(U-b)^2+\delta}\right\},
+ \min\!\left\{U,L+\sqrt{(b-L)^2+\delta}\right\}
+ \right].
+ \label{eq:supp_squared_region}
+\end{equation}
+If the outcome set is instead \(\mathbb R\), every \(p\neq b\) has infinite worst-case additional squared loss: for \(p>b\) the difference diverges as \(y\to-\infty\), and for \(p<b\) it diverges as \(y\to+\infty\).
+
+Let the two endpoints in Eq.~\eqref{eq:supp_squared_region} be \(\underline q^{(2)}_\delta(b)\) and \(\overline q^{(2)}_\delta(b)\). The lower endpoint is nondecreasing in \(b\). Therefore, for a non-increasing protected state,
+\[
+ I^{(2)}_{it}=
+ [\underline q^{(2)}_\delta(b_{it}),
+ \min\{\overline q^{(2)}_\delta(b_{it}),p_{i,t-1}\}]
+\]
+is nonempty by the same induction as the absolute-loss interval and certifies squared-loss increase no greater than \(\delta\) for every \(y\in[L,U]\). This extension is valid only when \([L,U]\) is a credible outcome contract.
+
+\paragraph{Directionally weighted absolute loss.}
+For positive costs \(c_{\mathrm{under}}\) and \(c_{\mathrm{over}}\), define
+\[
+ \ell_{\mathrm{asym}}(p,y)
+ =c_{\mathrm{under}}(y-p)_+
+ +c_{\mathrm{over}}(p-y)_+.
+\]
+Direct case analysis gives
+\begin{equation}
+ \sup_{y\in\mathbb R}
+ [\ell_{\mathrm{asym}}(p,y)-\ell_{\mathrm{asym}}(b,y)]
+ =
+ \begin{cases}
+ c_{\mathrm{over}}(p-b), & p\geq b,\\
+ c_{\mathrm{under}}(b-p), & p<b.
+ \end{cases}
+ \label{eq:supp_asymmetric_identity}
+\end{equation}
+Thus a decision-loss budget \(\eta\) yields the exact directional interval
+\[
+ \left[b-\frac{\eta}{c_{\mathrm{under}}},
+ b+\frac{\eta}{c_{\mathrm{over}}}\right].
+\]
+Intersecting this interval with \([0,1.3]\) and the previous-output cap preserves recursive feasibility when costs and budget are constant along a trajectory. Equal costs and \(\eta=\delta\) recover the experimental PCHP contract.
+
+If costs and budget vary with \(t\), define
+\[
+ L_{it}=\max\!\left\{0,b_{it}-\frac{\eta_{it}}{c_{\mathrm{under},it}}\right\},
+ \qquad
+ U_{it}=\min\!\left\{1.3,b_{it}+\frac{\eta_{it}}{c_{\mathrm{over},it}}\right\}.
+\]
+The realized interval \([L_{it},\min\{U_{it},p_{i,t-1}\}]\) is nonempty exactly when \(L_{it}\leq p_{i,t-1}\). It is feasible for every candidate sequence exactly when \(L_{it}\leq L_{i,t-1}\) for all \(t\geq2\). Given the already issued output, the least viable current budget is
+\begin{equation}
+ \eta^{\min}_{it}
+ =c_{\mathrm{under},it}(b_{it}-p_{i,t-1})_+.
+ \label{eq:supp_minimum_viable_budget}
+\end{equation}
+A smaller declared budget must trigger an explicit failure rather than silent budget enlargement.
+
+\paragraph{Aggregation.}
+For nonnegative weights \(w_k\), record-level guarantees imply
+\[
+ \sum_k w_k(|p_k-y_k|-|b_k-y_k|)
+ \leq\sum_k w_k\delta_k.
+\]
+No independence assumption is required for this deterministic inheritance. Statistical uncertainty in empirical utility remains governed by the domain--cell--record sampling hierarchy.
+
+\section{Loss-geometry verification record}
+
+The V366 extension was frozen before numerical execution. Its deterministic validator read no battery outcome and used seed $20{,}260{,}802$ with tolerance $10^{-12}$. It verified the metric identity, the exact bounded squared-loss supremum and feasible interval, active-boundary equality, adjacent exterior-point violation, recursive feasibility, and the full-real-line squared-loss divergence construction. All $27$ aggregate checks passed. Across $200{,}000$ random bounded configurations, the maximum formula discrepancy was $1.3323\times10^{-15}$. Across $2{,}000$ non-increasing trajectories of length $128$, the maximum budget excess was $7.7716\times10^{-16}$ and the maximum output increase was zero. These tests target transcription and implementation errors; the analytical proofs remain the scientific basis of the claims.
+
+\begin{table}[H]
+\centering
+\caption{SHA-256 identifiers for the pre-frozen V366 loss-geometry extension.}
+\label{tab:loss_geometry_hashes}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+Artifact & SHA-256 \\
+\midrule
+V366 loss-geometry pre-freeze & {\scriptsize\ttfamily\seqsplit{3e9b0494c23d10500889a27811fe8b9c29de74e60712271467e4d0c28ad0d1d0}} \\
+V366 deterministic validator & {\scriptsize\ttfamily\seqsplit{6961dcf3d141397b07e6890d952d52e60689209a7386395d3f51e54e2557a344}} \\
+V366 validation report & {\scriptsize\ttfamily\seqsplit{72cbb80861c9fc456a2aa7ba857757a33f3eb3585b7b9121366f70894476c8b0}} \\
+V366 claim-source audit & {\scriptsize\ttfamily\seqsplit{4c430aca07747dc4651173c4458a69fc664d4fae4d684071fe0f97fe5dc2308a}} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Prefix nonexpansiveness verification record}
+
+The V377 operator-stability protocol was frozen before numerical execution. The validator read no battery outcomes and used seed $20{,}260{,}802$ with absolute tolerance $2\times10^{-12}$. It completed $3{,}888$ exhaustive local protected-state checks, $21{,}168$ exhaustive local projection checks, $108$ proximal-equivalence checks, and $30{,}000$ independently generated trajectory-pair checks. The maximum protected-state inequality excess was $1.1102\times10^{-16}$; the maximum complete-output inequality excess was $3.2818\times10^{-16}$; and the explicit witness attained the input separation $0.03$ exactly up to floating-point representation. The report recorded a pass. These checks target implementation and proof-transcription failures; the theorem remains supported by the analytical proof above.
+
+\begin{table}[H]
+\centering
+\caption{SHA-256 identifiers for the V377 operator-stability verification.}
+\label{tab:stability_hashes}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+Artifact & SHA-256 \\
+\midrule
+V377 deterministic validator & {\scriptsize\ttfamily\seqsplit{9abe330253305b02250bba00da337ec8003fe5c9aa99b535a4af2cb842e38b35}} \\
+V377 validation report & {\scriptsize\ttfamily\seqsplit{2421dd474feb23a349b3be01354de240baf7b945ce5bbcdc95d5c7edbbd683f8}} \\
+V377 four-test extension & {\scriptsize\ttfamily\seqsplit{66f2fc349826e6e9c1fa22529a99546e5a30405dbbc7ee11b4dc8f2c1c76f14e}} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}

@@ -1,0 +1,87 @@
+{
+  "status": "FROZEN_PROTOCOL_LOCKED_RETROSPECTIVE_BUDGET_PATH_BEFORE_EXECUTION",
+  "version": "v361",
+  "frozen_at_local": "2026-08-02T09:15:11.8796806+08:00",
+  "evidence_role": "protocol_locked_retrospective_mechanism_sensitivity",
+  "outcome_exposure": {
+    "development_outcomes_previously_open": true,
+    "confirmatory_or_pristine_claim_permitted": false,
+    "outer_target_labels_permitted_for_selection": false,
+    "statement": "The development surfaces were already open before V361. This protocol freezes one retrospective mechanism sensitivity before its execution; it cannot create a new confirmatory claim."
+  },
+  "question": "Across a frozen harm-budget path, does record-specific candidate information improve over an exact source-selected constant safe shift?",
+  "budget_grid": [
+    0.0,
+    0.0025,
+    0.005,
+    0.0075,
+    0.01,
+    0.015,
+    0.02,
+    0.03
+  ],
+  "alpha_grid": [
+    1.0,
+    0.5,
+    0.2,
+    0.1,
+    0.05,
+    0.03,
+    0.02,
+    0.015,
+    0.01,
+    0.005
+  ],
+  "design": {
+    "outer_domains": 12,
+    "inner_source_domains_per_outer": 11,
+    "independent_unit": "complete battery dataset domain",
+    "nested_units": "records within physical cells within domains",
+    "primary_metric": "cell-macro mean absolute error, then equal weighting of complete domains",
+    "pchp_selection": "For every outer domain and budget, select alpha by minimum inner-domain-equal PCHP cell-macro MAE using only the other eleven domains; ties within 1e-12 choose the largest alpha.",
+    "control": "For every candidate alpha, compute the exact weighted-median constant offset for inner-domain-equal cell-macro MAE, constrain it to [-delta, delta], then select alpha on the same eleven source domains. The control uses no raw candidate feature.",
+    "outer_target_labels_used_for_selection": false,
+    "bootstrap_replicates": 100000,
+    "bootstrap_seed": 20260811
+  },
+  "primary_estimand": "Domain-equal mean of the budget-normalized trapezoidal integral of PCHP-minus-exact-safe-shift cell-macro MAE over delta in [0, 0.03]. Negative values favor PCHP.",
+  "primary_gates": {
+    "primary_auc_mean_below_zero": true,
+    "primary_auc_bootstrap_upper_below_zero": true,
+    "majority_positive_budgets_favor_pchp": "At least four of the seven positive grid budgets have negative domain-equal PCHP-minus-control MAE.",
+    "all_anchor_checks": "At delta=0.01, the selected-alpha roster, PCHP MAE, and PCHP-minus-baseline effect reproduce V326/V327 within 1e-12.",
+    "all_structural_checks": "Zero-budget identity, displacement and observed-regret bounds, non-increasing trajectories, and no range clipping that would invalidate the exact weighted-median shift derivation."
+  },
+  "decision_rule": {
+    "RETAIN": "All primary gates pass. The manuscript may report across-budget candidate-information value as a protocol-locked retrospective mechanism sensitivity.",
+    "NARROW": "Any primary gate fails. Do not claim across-budget candidate-information value; retain only the already frozen delta=0.01 candidate-control conclusion."
+  },
+  "interpretation_if_not_passed": "The learned candidate is not distinguished from an exact source-selected constant safe shift across the declared budget path. Retain the projection theorem and the frozen delta=0.01 result, but prohibit a broader adaptive-mechanism claim.",
+  "stop_rule": "Execute this frozen script once. Code or gate changes after scientific output access require a new version and the V361 result remains in the evidence ledger.",
+  "frozen_artifacts": {
+    "script": {
+      "path": "analyze_budget_path_candidate_control_v361.py",
+      "sha256": "bdd0a1aeaf715d25fe574feb52b1679551a608999ab49848a3ff8c6dfd701f79"
+    },
+    "v322_predictions": {
+      "path": "prefix_causal_rccp_v322/prefix_causal_predictions_v322.parquet",
+      "sha256": "0182daef40d779a57a5fb9da2d1e076f24a1c569fe5068d34960a1ca6cb8b9f8"
+    },
+    "v326_selection_report": {
+      "path": "nested_prefix_causal_selection_v326/nested_source_only_alpha_selection_v326_report.json",
+      "sha256": "0197b5c8f2b2f42168d88ea4fa0625ca100a5c852a6af5df451f15dbfba02e8f"
+    },
+    "v327_outer_report": {
+      "path": "nested_prefix_causal_outer_v327/nested_prefix_causal_outer_v327_report.json",
+      "sha256": "32b855617954088371fad07620cdc9c90d93cca541b952a2ec1b96f6444f668b"
+    },
+    "v333_control_report": {
+      "path": "candidate_information_control_v333/candidate_information_control_v333_report.json",
+      "sha256": "e81e3540e9fa0c291db1d4110dfd0672be78f67d04c70cd27f662a51bca99e73"
+    },
+    "projection_implementation": {
+      "path": "prefix_causal_harm_projection_v321.py",
+      "sha256": "ce7288a129c17114e1ca57432c6417beba7938d58db2b1fd0a87171c479eb54c"
+    }
+  }
+}

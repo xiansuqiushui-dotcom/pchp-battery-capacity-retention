@@ -1,0 +1,668 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs,tabularx,array,multirow}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{placeins}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{natbib}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage{seqsplit}
+
+\definecolor{navy}{HTML}{17365D}
+\definecolor{teal}{HTML}{00897B}
+\definecolor{orange}{HTML}{E76F51}
+\hypersetup{colorlinks=true,linkcolor=navy,citecolor=teal,urlcolor=navy}
+\graphicspath{{figures/}}
+\captionsetup{font=small,labelfont=bf}
+\setlist{nosep,leftmargin=1.5em}
+\setlength{\parskip}{0.35em}
+\setlength{\parindent}{1.5em}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Prefix-Causal Harm-Budget Battery SOH Estimation}
+\fancyhead[R]{Yuyang Wu}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\setlength{\headheight}{14pt}
+
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newcommand{\R}{\mathbb{R}}
+
+\title{\textbf{Risk-Controlled Cross-Domain Battery State-of-Health Estimation via Prefix-Causal Harm-Budget Projection}}
+\author{Yuyang Wu}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Cross-domain battery state-of-health (SOH) models often predict before a new fleet provides capacity labels. A source-learned update can then degrade an unknown domain, while retrospective monotone smoothing can revise earlier estimates after future measurements arrive. We introduce prefix-causal harm-budget projection (PCHP), an online output-space operator that separates a protected source predictor from a learned candidate. At each record, PCHP forms a one-sided causal baseline state and projects the candidate into the intersection of its declared harm tube, the physical range, and the recursively feasible non-increasing set. For every possible outcome, the increase in absolute loss relative to the protected state is at most the budget $\delta$, without distributional or independence assumptions. The absolute-loss tube is exact, zero budget forbids every nontrivial outcome-unknown update, and PCHP uniquely minimizes candidate distortion under the complete online constraints. A loss-geometry extension shows that metric losses yield exact metric balls; squared loss on a bounded interval has an exact baseline-dependent tube, whereas over the full real line every nontrivial finite-budget update is impossible. In nested leave-one-domain-out evaluation across $12$ public domains, $586$ cells, and $601{,}932$ records, PCHP reduced domain-equal cell-macro MAE from $0.07524$ to $0.07038$; the paired difference was $-0.00486$ with a domain-cluster $95\%$ interval of $[-0.00671,-0.00301]$ and improvements in $11$ of $12$ domains. It outperformed a source-selected candidate-free safe shift by $0.00477$ at $\delta=0.01$; a protocol-locked retrospective budget path gave a budget-normalized integrated difference of $-0.00694$ with interval $[-0.01108,-0.00296]$. A stronger source-tuned but unprotected causal comparator reached MAE $0.05470$ while violating the $\delta=0.01$ tube in every domain, exposing the safety--accuracy opportunity cost. In an outcome-isolated Bayreuth public-data confirmation, PCHP changed cell-equal MAE from $0.17496$ to $0.16510$ across $45$ eligible cells; the paired difference was $-0.00986$ with a cell-bootstrap interval of $[-0.01000,-0.00959]$, and all $45$ cells improved. A post-hoc fixed $+0.01$ shift was marginally more accurate in that systematically underpredicted domain, so the external result validates the frozen harm-and-utility contract rather than adaptive superiority. A separate NASA stress test retained the deterministic certificates but exposed an incompatible absolute target regime. PCHP therefore provides an auditable risk-bounded update contract, not a certificate of baseline accuracy or universal deployment safety.
+\end{abstract}
+
+\noindent\textbf{Keywords:} lithium-ion battery; state of health; cross-domain learning; prefix causality; deterministic harm bound; monotone prediction; external confirmation
+
+\section{Introduction}
+
+Consider a battery-swapping operator that introduces cells from a new supplier. During the first months of service, the battery-management system receives a sequence of partial charging records, while accurate capacity labels remain unavailable because a full reference discharge would interrupt operation. A source-trained model can estimate SOH immediately. A second model can exploit how the cell's charge response has changed since commissioning. Yet neither the direction nor the magnitude of that update can be validated on the new fleet before outcomes arrive. Worse, if non-increasing SOH is imposed retrospectively, a downward anomaly observed next month can revise the estimate that was reported today. Such a system is unsuitable for an online maintenance record even when its final reconstructed trajectory is smooth.
+
+SOH estimation is central to maintenance and warranty decisions, and data-driven models can exploit voltage, current, charge, temperature, and cycle history without identifying every degradation pathway \citep{ng2020mlbattery,roman2021pipeline}. Short charge segments can support SOH estimation, while early-life records can support lifetime prediction before full lifetime characterization \citep{roman2021pipeline,severson2019cyclelife}. Cross-domain learning further reduces reliance on labelled ageing experiments through representation alignment, source selection, personalized transfer, ensembles, and test-time adaptation \citep{li2020sstca,ma2022personalized,lu2023without,duan2025wasserstein,feng2024batteryttt}. These advances address how to generate a useful update. They do not, by themselves, answer two deployment questions: whether the update can be bounded relative to a protected predictor for every hidden outcome, and whether a trajectory constraint can be executed without future access.
+
+We address this capability gap by separating \emph{utility generation}, \emph{causal state construction}, and \emph{harm control}. A protected model uses raw early-charge features; a learned candidate additionally uses raw-scale changes from the first five characterization records. The protected raw predictions are converted into a prefix-causal non-increasing state that ignores upward innovations and incorporates a fraction $\alpha$ of downward innovations. At each record, PCHP projects the current candidate into a recursively feasible interval around that state. The construction requires no target outcome, never revises an emitted prefix, and limits the worst possible increase in absolute loss relative to the protected state. Figure~\ref{fig:workflow} summarizes the operational setting and evidence chain.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\textwidth]{fig1_method_workflow.pdf}
+  \caption{Operational problem, prefix-causal method, and headline evidence. \textbf{A}, a deployed SOH record must not change when future charge measurements arrive. \textbf{B}, a protected raw prediction is converted into a one-sided causal non-increasing state, while a commissioning-referenced model proposes a candidate update. \textbf{C}, PCHP projects the candidate into the intersection of the harm tube and the recursively feasible non-increasing set. \textbf{D}, frozen paired effects from nested development, the candidate-free control, and the protocol-frozen NASA stress test; intervals resample the stated independent units.}
+  \label{fig:workflow}
+\end{figure}
+
+The single core contribution is a recursively feasible projection that joins three properties usually treated separately: prefix-only execution, non-increasing output, and a pointwise harm budget around a protected prediction. Its theory characterizes the harm tube as the necessary-and-sufficient, largest feasible output set for the declared absolute-loss budget, proves that unconditional zero-harm updating is impossible unless the update leaves the protected prediction unchanged, and identifies PCHP as the unique closest-candidate solution under the complete online constraint set. It further exposes a loss-dependent feasibility boundary: metric losses induce exact metric balls; squared loss on a bounded SOH range induces an exact baseline-dependent asymmetric interval; and squared loss over the full real line makes every nontrivial finite-budget update impossible. A directionally weighted corollary converts unequal under- and overestimation costs into an exact asymmetric tube; for time-varying costs and budgets, the same analysis gives an exact recursive-feasibility condition and a tight minimum current budget. These results remain one output-contract contribution. The commissioning-referenced candidate is its utility mechanism, not a second architectural contribution. We support the method through five linked evidence layers: a future-extension falsification showing that PCHP never revises the past; nested twelve-domain evaluation with source-only $\alpha$ selection and a candidate-free safe-shift control; a source-tuned unprotected comparator that exposes the utility sacrificed by the declared budget; an outcome-isolated Bayreuth confirmation with predictions frozen before capacity access; and a protocol-frozen NASA stress test that retains its scientific failure boundary when discharge protocols make the absolute target incomparable.
+
+The guarantee is intentionally relative. PCHP does not certify that the protected baseline is accurate, that the candidate improves every domain, that monotone SOH captures short-term capacity recovery, or that $\delta=0.01$ is appropriate for every operational decision. It certifies that an emitted update is prefix causal, non-increasing, and cannot increase absolute loss by more than the declared budget relative to its protected causal state.
+
+\section{Related work and novelty boundary}
+
+\subsection{Cross-domain battery health estimation}
+
+Battery SOH estimation has progressed from handcrafted health indicators and shallow regressors toward sequence models, physics-informed learning, and cross-domain transfer \citep{ng2020mlbattery,roman2021pipeline,wang2024pinn}. Semi-supervised transfer component analysis aligns source and target representations with limited labelled data \citep{li2020sstca}; deep transfer learning personalizes health prediction under unseen discharge protocols \citep{ma2022personalized}; and domain-adaptive ensembles estimate SOH without additional target degradation experiments \citep{lu2023without}. Recent work chooses a source domain using Wasserstein distance before fine-tuning a temporal model \citep{duan2025wasserstein}, while BatteryTTT adapts continually using arriving unlabelled target inputs \citep{feng2024batteryttt}. Concurrent methods extend this direction through domain-adversarial cell-to-pack transfer with limited target supervision \citep{shu2026celltopack}, probabilistic transfer under sparse target labels \citep{shao2026probabilistic}, and physics-guided expert routing with a global monotonicity penalty \citep{jiang2026phasemoe}. Reliability-oriented extensions combine domain alignment with conformal prediction intervals \citep{filgueira2026conformalized} or select a monotone post-hoc calibrator through labelled field holdout error \citep{nyachionjeka2026safecalibrated}. These methods improve adaptation, uncertainty quantification, or physical consistency, but they do not supply the guarantee studied here. Our target domain contributes neither outcomes nor parameter updates: two source-only predictors are frozen, only their output trajectories are constrained, and the guarantee concerns a pointwise loss increase rather than interval coverage, target-supervised improvement, or a training penalty.
+
+Adjacent prognostics and health-management studies sharpen this distinction. Compound-domain-shift prognostics aligns both inter-domain distributions and degradation-period distributions within machinery trajectories \citep{ding2023compound}. Source-only open-set domain generalization learns fault classifiers for unknown working conditions when target-domain data are absent during training \citep{song2026regroupment}. Interactive battery prognostics recursively couples neural capacity estimates with a switching state-space process to update remaining useful life \citep{duan2025interactive}. Their reported objectives are, respectively, representation-shift reduction, source-only open-set classification, and recursive life prediction. PCHP targets a different object: an outcome-agnostic, pointwise harm budget around a protected prefix-causal state while learned predictors remain frozen.
+
+The BatteryML and BatteryLife projects standardize heterogeneous public ageing data and make broad cross-dataset evaluation more reproducible \citep{zhang2024batteryml,tan2025batterylife}. Such breadth creates a statistical responsibility: cycles are nested within cells and cells are nested within datasets. We therefore treat a complete battery dataset domain, not a cycle, as the independent unit for the development cross-domain effect.
+
+\subsection{Negative transfer and safe regression}
+
+Negative transfer includes cases in which transferred data or knowledge reduce target performance, and proposed remedies include domain-similarity estimation, safe transfer, and explicit mitigation \citep{zhang2023negative}. In safe semi-supervised regression, SAFER geometrically projects a supervised prediction onto a convex set of semi-supervised regressors and obtains a no-worse squared-loss result when the complete truth vector lies in that set \citep{li2017safer}. SAFEW extends maximin safe weak supervision to several convex classification and regression losses, again under a condition linking the complete truth vector to the base-learner hull \citep{li2021safeweak}. Prediction with expert evaluators permits proper mixable losses that vary across experts and time, but guarantees cumulative regret after outcomes arrive \citep{chernov2009evaluators}; online probabilistic recalibration likewise pursues calibration together with vanishing or low cumulative regret relative to baseline forecasters \citep{marx2025calibrated,deshpande2025calibrated}. Weighted conformal transport uses unlabelled target covariates to recover marginal coverage under a covariate-shift model \citep{tuwani2023transport}, and battery-specific conformal transfer combines representation alignment with calibrated prediction intervals \citep{filgueira2026conformalized}. Protected Online Entropy Matching detects classification-entropy shifts and adapts model parameters so that accuracy and calibration are retained empirically when no shift is present \citep{bar2024protected}. Labelled battery field data have also been used to choose a monotone post-hoc calibrator only when held-out error improves \citep{nyachionjeka2026safecalibrated}. These are substantive protection mechanisms, but their protected objects are conditional vector risk, cumulative regret, marginal coverage, empirical holdout error, or an adaptive training process---not the loss of each emitted point under every hidden outcome.
+
+Our result differs in guarantee object and execution contract. We do not claim that the final prediction is always no worse. Instead, for every real-valued truth and without a truth-in-set condition, we place an exact upper bound on the largest possible increase in absolute loss at each emitted record. The guarantee is checked before that truth is observed, both predictors remain frozen, and the same projection must preserve every previously emitted non-increasing prefix. Table~\ref{tab:novelty_audit} compares these information and guarantee boundaries directly.
+
+\begin{table}[t]
+  \centering
+  \caption{Closest-method audit by guarantee object and information boundary. Conditional records the principal condition under which the cited protection is stated; it is not a judgment of method quality.}
+  \label{tab:novelty_audit}
+  \small
+  \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.17\textwidth}>{\raggedright\arraybackslash}p{0.20\textwidth}>{\raggedright\arraybackslash}p{0.25\textwidth}>{\raggedright\arraybackslash}X@{}}
+    \toprule
+    Approach & Protected object & Information or condition & Distinction from PCHP \\
+    \midrule
+    SAFER / SAFEW \citep{li2017safer,li2021safeweak} & Full-vector loss relative to a supervised baseline & Conditional on the truth vector lying in the base-regressor hull & Offline vector or maximin prediction; no per-record outcome-uniform budget or trajectory recursion \\
+    Expert advice / online recalibration \citep{chernov2009evaluators,marx2025calibrated,deshpande2025calibrated} & Calibration and cumulative loss regret & Outcomes arrive sequentially to update the learner or recalibrator & Cumulative guarantee rather than a pre-outcome pointwise harm region \\
+    Conformal transport \citep{tuwani2023transport,filgueira2026conformalized} & Marginal prediction-set coverage & Unlabelled target covariates plus the stated conformal shift assumptions & Protects coverage of a set, not baseline-relative loss of the emitted point \\
+    Protected adaptation \citep{bar2024protected} & Accuracy and calibration in no-shift streams & Target entropy stream updates model parameters & Empirical retention around a training process, not a frozen-model deterministic pointwise certificate \\
+    Battery safe calibration \citep{nyachionjeka2026safecalibrated} & Held-out target error and monotone scaling & Labelled target holdout selects the calibrator & Target-supervised post-hoc mapping; no outcome-uniform pre-label certificate \\
+    PCHP (this work) & Per-record absolute-loss increase from a protected causal state & No target labels, outcome distribution, or independence assumption & Exact budgeted tube joined to prefix causality and recursive non-increasing feasibility \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+\FloatBarrier
+
+The novelty is therefore not scalar clipping, geometric projection, or the discovery of negative transfer. The audited distinction is the battery-deployment conjunction of a learned source-only candidate, a prefix-causal protected state, a recursively feasible monotone output, and an exact pointwise absolute-loss harm tube. Within the literature examined, we did not identify this conjunction; this scoped distinction does not establish universal priority.
+
+The loss-geometry extension is bounded in the same way. The metric identity follows from established metric properties and is not claimed as a new mathematical primitive. The narrower distinction is the exact outcome-range feasibility boundary for squared loss and its integration into the same prefix-causal recursive contract; safe weak-supervision methods condition vector-level guarantees on a truth set, while expert-advice and recalibration methods protect cumulative loss after outcomes arrive.
+
+Recursive feasibility is a longstanding constrained-control concept; its strong form requires feasibility under every feasible input sequence \citep{lofberg2012oops}. Time-varying and history-coupled constraints have also been studied in predictive control and online optimization \citep{li2021information,garber2024projectionfree,knaup2026recursively}. Those works concern dynamical states, cumulative constraint violation, dynamic regret, or chance constraints. They do not establish the outcome-uniform pointwise loss region studied here. We therefore make no priority claim for recursive feasibility or time-varying constraints; our narrower result is the exact condition induced by the scalar PCHP harm-tube recursion.
+
+\subsection{Monotone degradation trends}
+
+Long-term capacity fade motivates non-increasing trend constraints, but measured capacity can exhibit local recovery after rest and other fluctuations \citep{ma2021regeneration}. Online isotonic regression predicts sequentially and is analyzed against the best isotonic function in hindsight, including extensions beyond squared loss \citep{kotlowski2016online}; its objective is adversarial online regret rather than protection around a battery-specific baseline. Battery studies also use the term ``online SOH estimation'' for inference from a short charge or discharge segment \citep{liu2020online}, but online feature availability does not by itself prevent a later trajectory smoother from revising past outputs. PCHP addresses that narrower operational gap. Its monotone state estimates a latent long-term trend and may suppress real short-term capacity recovery, so raw measurements and the protected trend should remain separately auditable.
+
+\section{Problem formulation}
+
+Let $i$ index a physical cell and $t$ its ordered characterization records. The capacity-based target is
+\begin{equation}
+  y_{it}=\frac{Q_{it}}{\operatorname{median}(Q_{i1},\ldots,Q_{i5})},
+  \label{eq:soh}
+\end{equation}
+where the first five valid characterization capacities define a cell-specific outcome reference. During prediction, neither $Q_{it}$ nor $y_{it}$ is available. Predictions begin after the first five charge records, whose measurements---but not their discharge capacities---also define the commissioning feature reference. A dataset domain groups cells from one experimental source, instrument family, chemistry, or protocol. In each development fold, the complete target domain is excluded from fitting and hyperparameter selection.
+
+Let $\mathcal F_{it}$ contain the frozen source models, the first-five charge reference, and charge measurements observed for cell $i$ through record $t$. An online prediction is prefix causal if it is measurable with respect to $\mathcal F_{it}$ and is unchanged by any extension after $t$. Let $r_{it}$ be the protected model's raw prediction and $c_{it}$ the learned candidate, both $\mathcal F_{it}$-measurable. The desired output $p_{it}$ must satisfy four requirements: prefix causality, a non-increasing trajectory, a physical range $\mathcal Y=[0,1.3]$, and an absolute-loss harm budget $\delta$ relative to a protected causal state $b_{it}$.
+
+The protected state is a contract, not an assertion of optimality. Its accuracy determines the neighborhood in which PCHP can operate; the theorem cannot turn a poor baseline or an incompatible target into an accurate estimator.
+
+\section{Method}
+
+\subsection{Early-charge and commissioning-referenced features}
+
+Each record is summarized from the first $600\,\mathrm{s}$ of charge. The $24$ raw channels include normalized accumulated charge, voltage mean and standard deviation, voltage slope, current statistics, temperature availability and statistics, voltages at $60\,\mathrm{s}$ intervals, and currents at $0$, $300$, and $600\,\mathrm{s}$. The log-transformed cycle number is appended. Missing values are median-imputed from the source training fold, with missingness indicators added by the imputer.
+
+For raw channel $j$, the commissioning reference for cell $i$ is
+\begin{equation}
+  a_{ij}=\operatorname{median}_{1\leq s\leq5}x_{ijs},
+\end{equation}
+and the signed raw-scale change feature is
+\begin{equation}
+  d_{ijt}=x_{ijt}-a_{ij}.
+  \label{eq:change}
+\end{equation}
+The protected model receives the raw features and cycle number. The candidate receives the same inputs plus all $d_{ijt}$. Normalized relative changes were considered during development but removed before external access because they increased domain-equal error and amplified small-denominator noise. This removal is a development ablation, not an externally confirmed discovery.
+
+Both primary predictors are ExtraTrees regressors with $80$ trees, minimum leaf size $20$, feature subsampling $0.8$, and fixed seed $20{,}260{,}801$. Source sampling is capped at $80$ temporally spaced records per physical cell. The baseline uses ordinary pooled weights; the candidate assigns each source domain equal total weight so that large archives cannot dominate merely by contributing more cycles. No target-domain outcome, fine-tuning, or source selection occurs at inference.
+
+\subsection{Prefix-causal protected state}
+
+Let $\Pi_{\mathcal Y}$ denote scalar clipping to $\mathcal Y$. For one physical cell, PCHP initializes and updates the protected state as
+\begin{align}
+  b_{i1}&=\Pi_{\mathcal Y}(r_{i1}),\\
+  b_{it}&=\Pi_{\mathcal Y}\!\left[b_{i,t-1}
+  +\alpha\min\{r_{it}-b_{i,t-1},0\}\right],\qquad t>1,
+  \label{eq:causal_state}
+\end{align}
+where $\alpha\in(0,1]$ is selected using source domains only. Upward innovations are ignored; a downward innovation is assimilated at rate $\alpha$. Thus $b_{it}\leq b_{i,t-1}$, while an isolated negative shock is attenuated when $\alpha<1$.
+
+\begin{lemma}[Prefix invariance of the protected state]
+\label{lem:prefix}
+For any $k\leq T$, computing Eq.~\eqref{eq:causal_state} on $(r_{i1},\ldots,r_{ik})$ gives the same first $k$ states as computing it on any extension $(r_{i1},\ldots,r_{iT})$.
+\end{lemma}
+\begin{proof}
+The initialization uses only $r_{i1}$, and each subsequent state is a deterministic function of $(b_{i,t-1},r_{it})$. Induction over $t$ proves both prefix invariance and $\mathcal F_{it}$-measurability.
+\end{proof}
+
+\subsection{Recursively feasible harm-budget projection}
+
+Set $p_{i0}=1.3$. At record $t$, define
+\begin{equation}
+  I_{it}=\left[
+  \max\{0,b_{it}-\delta\},
+  \min\{1.3,b_{it}+\delta,p_{i,t-1}\}
+  \right]
+  \label{eq:feasible_interval}
+\end{equation}
+The output is
+\begin{equation}
+  p_{it}=\Pi_{I_{it}}(c_{it}).
+  \label{eq:method}
+\end{equation}
+The upper endpoint enforces the previously emitted prediction, whereas the tube around $b_{it}$ limits displacement from the protected state. The projection is the closest currently feasible value to the learned candidate.
+
+\begin{theorem}[Recursive feasibility, prefix causality, and monotonicity]
+\label{thm:pchp}
+If $b_{it}$ follows Eq.~\eqref{eq:causal_state} and $\delta\geq0$ is constant, then $I_{it}$ is nonempty for every $t$. The output in Eq.~\eqref{eq:method} is prefix causal, lies in $\mathcal Y$, is non-increasing in $t$, and satisfies $|p_{it}-b_{it}|\leq\delta$.
+\end{theorem}
+\begin{proof}
+At $t=1$, $p_{i0}=1.3$ and $b_{i1}\in\mathcal Y$, so the interval is nonempty. Suppose it was feasible at $t-1$. Because $b_{it}\leq b_{i,t-1}$ and $p_{i,t-1}\geq\max\{0,b_{i,t-1}-\delta\}$, we have $p_{i,t-1}\geq\max\{0,b_{it}-\delta\}$; hence the new lower endpoint does not exceed any term defining the upper endpoint. Projection into $I_{it}$ gives the range and displacement properties, and $p_{it}\leq p_{i,t-1}$ gives monotonicity. Every quantity uses only the observed prefix, so the output is prefix causal.
+\end{proof}
+
+\subsection{Exact loss-dependent harm geometry}
+
+For a prediction space $\mathcal P$, outcome set $\mathcal Z$, loss $\ell$, protected prediction $b$, and budget $\delta\geq0$, define the outcome-uniform harm region
+\begin{equation}
+  \mathcal H^{\ell}_{\delta}(b;\mathcal Z)
+  =\left\{p\in\mathcal P:
+  \sup_{y\in\mathcal Z}\bigl[\ell(p,y)-\ell(b,y)\bigr]\leq\delta
+  \right\}.
+  \label{eq:generic_harm_region}
+\end{equation}
+The outcome set is part of the contract: changing it can change whether any nontrivial update is certifiable.
+
+\begin{theorem}[Exact metric-loss geometry]
+\label{thm:metric_harm}
+Let $(\mathcal M,d)$ be any metric space and set $\ell(q,y)=d(q,y)$ for $q,y\in\mathcal M$. For arbitrary $b,p\in\mathcal M$,
+\begin{equation}
+  \sup_{y\in\mathcal M}\left[d(p,y)-d(b,y)\right]=d(p,b),
+  \label{eq:metric_identity}
+\end{equation}
+and therefore
+\begin{equation}
+  \mathcal H^{d}_{\delta}(b;\mathcal M)
+  =\{p\in\mathcal M:d(p,b)\leq\delta\}.
+  \label{eq:metric_ball}
+\end{equation}
+\end{theorem}
+\begin{proof}
+The triangle inequality gives $d(p,y)-d(b,y)\leq d(p,b)$ for every $y$. Equality is attained at $y=b$. Solving the resulting inequality gives Eq.~\eqref{eq:metric_ball}.
+\end{proof}
+
+Theorem~\ref{thm:metric_harm} is a metric-space consequence of the triangle inequality, not a priority claim for that mathematical primitive. Its role is to show that exact outcome-uniform harm is a geometry, not an absolute-loss coincidence. Scalar absolute loss is the special case $\mathcal M=\R$ and $d(p,y)=|p-y|$.
+
+\begin{theorem}[Exact harm region and zero-budget impossibility]
+\label{thm:harm_region}
+For fixed $b\in\R$ and $\delta\geq0$, define
+\begin{equation}
+  \mathcal H_\delta(b)=\left\{p\in\R:
+  \sup_{y\in\R}\bigl(|p-y|-|b-y|\bigr)\leq\delta\right\}.
+  \label{eq:harm_region}
+\end{equation}
+Then $\mathcal H_\delta(b)=[b-\delta,b+\delta]$. Consequently,
+\begin{equation}
+  I_{it}=\mathcal H_\delta(b_{it})\cap\mathcal Y
+  \cap(-\infty,p_{i,t-1}],
+  \label{eq:maximal_interval}
+\end{equation}
+so $I_{it}$ is exactly the largest current-record output set that simultaneously satisfies the physical range, the previously emitted non-increase constraint, and the declared worst-case absolute-loss budget. In particular, $\mathcal H_0(b)=\{b\}$: any nontrivial outcome-free update $p\neq b$ worsens absolute loss for some possible outcome by exactly $|p-b|$.
+\end{theorem}
+\begin{proof}
+Theorem~\ref{thm:metric_harm} makes the defining inequality in Eq.~\eqref{eq:harm_region} equivalent to $|p-b|\leq\delta$, proving the interval identity. Intersecting this exact harm region with $\mathcal Y=[0,1.3]$ and $p\leq p_{i,t-1}$ gives Eq.~\eqref{eq:maximal_interval}. Setting $\delta=0$ leaves only $p=b$; for $p\neq b$, Eq.~\eqref{eq:metric_identity} supplies an outcome attaining harm $|p-b|>0$.
+\end{proof}
+
+Thus the tube is not a heuristic sufficient condition: it is the exact feasible region for the stated pointwise claim. Combining Theorem~\ref{thm:harm_region} with Theorem~\ref{thm:pchp} yields, record by record,
+\begin{equation}
+  |p_{it}-y_{it}|-|b_{it}-y_{it}|
+  \leq |p_{it}-b_{it}|\leq\delta.
+  \label{eq:pointwise_harm}
+\end{equation}
+The recursive monotonicity constraint can make $I_{it}$ narrower than the standalone harm tube.
+
+\begin{theorem}[Squared-loss outcome-range dichotomy]
+\label{thm:squared_geometry}
+Let $L<U$, let $b,p\in[L,U]$, and define $\ell_2(q,y)=(q-y)^2$. If the declared outcome set is $[L,U]$, then
+\begin{equation}
+  \sup_{y\in[L,U]}\left[(p-y)^2-(b-y)^2\right]
+  =
+  \begin{cases}
+    (p-b)(p+b-2L), & p\geq b,\\
+    (b-p)(2U-p-b), & p<b.
+  \end{cases}
+  \label{eq:squared_identity}
+\end{equation}
+Consequently, the exact finite-budget region is
+\begin{equation}
+  \mathcal H^{(2)}_{\delta}(b;[L,U])
+  =\left[
+  \max\!\left\{L,U-\sqrt{(U-b)^2+\delta}\right\},
+  \min\!\left\{U,L+\sqrt{(b-L)^2+\delta}\right\}
+  \right].
+  \label{eq:squared_region}
+\end{equation}
+If the declared outcome set is instead $\R$, then for every $p\neq b$,
+\begin{equation}
+  \sup_{y\in\R}\left[(p-y)^2-(b-y)^2\right]=+\infty.
+  \label{eq:squared_unbounded}
+\end{equation}
+Thus, when the outcome set is the full real line, no nontrivial update has a finite outcome-uniform squared-loss budget.
+\end{theorem}
+\begin{proof}
+Expanding the loss difference gives $(p-b)(p+b-2y)$. When $p\geq b$, this affine function is maximized at $y=L$; when $p<b$, it is maximized at $y=U$, proving Eq.~\eqref{eq:squared_identity}. On the upper side of $b$, the budget inequality is $(p-L)^2-(b-L)^2\leq\delta$; on the lower side it is $(U-p)^2-(U-b)^2\leq\delta$. Solving these inequalities and intersecting with $[L,U]$ gives Eq.~\eqref{eq:squared_region}. If $p>b$, the expanded difference diverges as $y\to-\infty$; if $p<b$, it diverges as $y\to+\infty$, proving Eq.~\eqref{eq:squared_unbounded}.
+\end{proof}
+
+\begin{corollary}[Recursive feasibility under bounded squared loss]
+\label{cor:squared_recursive}
+For fixed $\delta\geq0$, define
+\begin{align}
+  \underline q^{(2)}_{\delta}(b)
+  &=\max\!\left\{L,U-\sqrt{(U-b)^2+\delta}\right\},\\
+  \overline q^{(2)}_{\delta}(b)
+  &=\min\!\left\{U,L+\sqrt{(b-L)^2+\delta}\right\}.
+  \label{eq:squared_bounds}
+\end{align}
+If $b_{it}\in[L,U]$ is prefix causal and non-increasing, set $p_{i0}=U$ and
+\begin{equation}
+  I^{(2)}_{it}
+  =\left[
+  \underline q^{(2)}_{\delta}(b_{it}),
+  \min\!\left\{\overline q^{(2)}_{\delta}(b_{it}),p_{i,t-1}\right\}
+  \right].
+  \label{eq:squared_interval}
+\end{equation}
+Then $I^{(2)}_{it}$ is nonempty for every record and every candidate sequence. Projecting $c_{it}$ into this interval is prefix causal, remains in $[L,U]$, is non-increasing, and satisfies
+\begin{equation}
+  (p_{it}-y)^2-(b_{it}-y)^2\leq\delta
+  \qquad\text{for every }y\in[L,U].
+  \label{eq:squared_pointwise_harm}
+\end{equation}
+\end{corollary}
+\begin{proof}
+The lower endpoint $\underline q^{(2)}_{\delta}(b)$ is nondecreasing in $b$. Hence $b_{it}\leq b_{i,t-1}$ implies $\underline q^{(2)}_{\delta}(b_{it})\leq\underline q^{(2)}_{\delta}(b_{i,t-1})\leq p_{i,t-1}$. The standalone region in Eq.~\eqref{eq:squared_region} contains $b_{it}$, so its lower endpoint also does not exceed its upper endpoint. The recursive interval is therefore nonempty. Projection gives the range and non-increase properties, prefix measurability gives causality, and Theorem~\ref{thm:squared_geometry} gives Eq.~\eqref{eq:squared_pointwise_harm}.
+\end{proof}
+
+This dichotomy explains the experimental loss choice rather than claiming that squared loss is empirically inferior. Absolute loss gives a finite exact certificate without bounding the hidden truth. The bounded-interval squared-loss construction is valid when $[L,U]$ is a credible outcome contract; Theorem~\ref{thm:squared_geometry} separately establishes impossibility over $\R$. Deterministic symbolic, boundary, exterior-point, and random-trajectory falsification tests of Eqs.~\eqref{eq:squared_identity}--\eqref{eq:squared_interval} are reported in the supplement.
+
+\begin{corollary}[Exact asymmetric decision-loss extension]
+\label{cor:asymmetric}
+Let $c_{\mathrm{under}},c_{\mathrm{over}}>0$ and define the directionally weighted absolute loss
+\begin{equation}
+  \ell_{\mathrm{asym}}(p,y)
+  =c_{\mathrm{under}}(y-p)_{+}
+  +c_{\mathrm{over}}(p-y)_{+},
+  \label{eq:asymmetric_loss}
+\end{equation}
+where $(z)_{+}=\max\{z,0\}$. For any $b,p\in\R$,
+\begin{equation}
+  \sup_{y\in\R}\!\left[
+  \ell_{\mathrm{asym}}(p,y)-\ell_{\mathrm{asym}}(b,y)
+  \right]
+  =
+  \begin{cases}
+    c_{\mathrm{over}}(p-b), & p\geq b,\\
+    c_{\mathrm{under}}(b-p), & p<b.
+  \end{cases}
+  \label{eq:asymmetric_identity}
+\end{equation}
+Hence, for a decision-loss budget $\eta\geq0$, the exact necessary-and-sufficient harm region is
+\begin{equation}
+  \mathcal H^{\mathrm{asym}}_{\eta}(b)
+  =\left[b-\frac{\eta}{c_{\mathrm{under}}},
+          b+\frac{\eta}{c_{\mathrm{over}}}\right].
+  \label{eq:asymmetric_region}
+\end{equation}
+Replacing $I_{it}$ by
+\begin{equation}
+  I^{\mathrm{asym}}_{it}
+  =\left[
+  \max\!\left\{0,b_{it}-\frac{\eta}{c_{\mathrm{under}}}\right\},
+  \min\!\left\{1.3,b_{it}+\frac{\eta}{c_{\mathrm{over}}},p_{i,t-1}\right\}
+  \right]
+  \label{eq:asymmetric_interval}
+\end{equation}
+preserves recursive nonemptiness, prefix causality, and non-increase when the costs and budget are constant within a trajectory. Setting $c_{\mathrm{under}}=c_{\mathrm{over}}=1$ and $\eta=\delta$ recovers PCHP exactly.
+\end{corollary}
+\begin{proof}
+If $p\geq b$, the loss difference is bounded above by $c_{\mathrm{over}}(p-b)$ and attains that value for any $y\leq b$; if $p<b$, it is bounded above by $c_{\mathrm{under}}(b-p)$ and attains that value for any $y\geq b$. Solving the resulting two directional inequalities gives Eq.~\eqref{eq:asymmetric_region}. Its lower endpoint is non-increasing with $b_{it}$, so the induction used in Theorem~\ref{thm:pchp} applies unchanged to Eq.~\eqref{eq:asymmetric_interval}.
+\end{proof}
+
+Directionally weighted absolute loss is an established forecasting primitive related to quantile loss \citep{koenker1978regression}; the contribution of Corollary~\ref{cor:asymmetric} is not the loss itself, but its exact outcome-agnostic harm geometry and recursively feasible integration into the same online contract.
+
+\begin{corollary}[Exact viability under time-varying asymmetric contracts]
+\label{cor:timevarying}
+Let the budget $\eta_{it}\geq0$ and costs $c_{\mathrm{under},it},c_{\mathrm{over},it}>0$ vary with $t$, and define
+\begin{align}
+  L_{it}&=\max\!\left\{0,b_{it}-\frac{\eta_{it}}{c_{\mathrm{under},it}}\right\},
+  &
+  U_{it}&=\min\!\left\{1.3,b_{it}+\frac{\eta_{it}}{c_{\mathrm{over},it}}\right\},
+  \label{eq:timevarying_bounds}\\
+  I^{\mathrm{tv}}_{it}&=[L_{it},\min\{U_{it},p_{i,t-1}\}].
+  \label{eq:timevarying_interval}
+\end{align}
+For a non-increasing protected state $b_{it}$:
+\begin{enumerate}[label=(\roman*),leftmargin=*]
+  \item given the realized prefix, $I^{\mathrm{tv}}_{it}$ is nonempty if and only if $L_{it}\leq p_{i,t-1}$;
+  \item the recursion is feasible for every candidate sequence if and only if $L_{it}\leq L_{i,t-1}$ for every $t\geq2$;
+  \item given $p_{i,t-1}$, the exact minimum current budget is
+  \begin{equation}
+    \eta^{\min}_{it}
+    =c_{\mathrm{under},it}(b_{it}-p_{i,t-1})_{+}.
+    \label{eq:minimum_viable_budget}
+  \end{equation}
+\end{enumerate}
+The upper-cost schedule affects the upper tube radius and projected output, but not whether the recursive interval is empty.
+\end{corollary}
+\begin{proof}
+Because $b_{it}\in[0,1.3]$, the standalone tube contains $b_{it}$ and hence $L_{it}\leq U_{it}$. Therefore Eq.~\eqref{eq:timevarying_interval} is nonempty exactly when its lower endpoint does not exceed $p_{i,t-1}$, proving (i). If $L_{it}\leq L_{i,t-1}$, every feasible preceding projection satisfies $p_{i,t-1}\geq L_{i,t-1}\geq L_{it}$, so induction proves sufficiency in (ii). Conversely, let $t^{\star}$ be the first index with $L_{i,t^{\star}}>L_{i,t^{\star}-1}$ and choose candidates at or below the lower endpoint through $t^{\star}-1$. The projection then emits $p_{i,t^{\star}-1}=L_{i,t^{\star}-1}$, making the next interval empty. Thus no weaker schedule condition can guarantee feasibility for every candidate sequence. Finally, solving $L_{it}\leq p_{i,t-1}$ for the smallest nonnegative $\eta_{it}$ gives Eq.~\eqref{eq:minimum_viable_budget}. The lower endpoint contains no $c_{\mathrm{over},it}$, which proves the final statement.
+\end{proof}
+
+For a predeclared schedule, Corollary~\ref{cor:timevarying} gives a full-trajectory certificate before execution. If costs or budgets arrive only prefix causally, Eq.~\eqref{eq:minimum_viable_budget} instead supplies an online viability diagnostic: a declared budget below the floor makes the interval empty and must trigger failure rather than silent budget enlargement.
+
+\begin{corollary}[Exact constrained optimality]
+\label{cor:optimality}
+For every record, the PCHP output is the unique solution of
+\begin{equation}
+\begin{aligned}
+  p_{it}=\operatorname*{arg\,min}_{p\in\R}\;&\frac{1}{2}(p-c_{it})^2\\
+  \text{subject to}\quad
+  &p\in\mathcal Y,\qquad p\leq p_{i,t-1},\\
+  &\sup_{y\in\R}\bigl(|p-y|-|b_{it}-y|\bigr)\leq\delta.
+\end{aligned}
+\label{eq:constrained_optimality}
+\end{equation}
+\end{corollary}
+\begin{proof}
+Theorem~\ref{thm:harm_region} makes the feasible set in Eq.~\eqref{eq:constrained_optimality} exactly $I_{it}$. Theorem~\ref{thm:pchp} makes that interval nonempty. The strictly convex objective therefore has the unique minimizer $\Pi_{I_{it}}(c_{it})$, which is Eq.~\eqref{eq:method}.
+\end{proof}
+
+\begin{corollary}[Aggregation inheritance]
+For any nonnegative weights $w_k$ and budgets $\delta_k$,
+\begin{equation}
+  \sum_k w_k\left(|p_k-y_k|-|b_k-y_k|\right)
+  \leq \sum_k w_k\delta_k.
+  \label{eq:aggregate}
+\end{equation}
+If $\sum_k w_k=1$, the weighted MAE increase is bounded by the weighted average budget.
+\end{corollary}
+
+No independence assumption is needed for Eq.~\eqref{eq:aggregate}. Statistical uncertainty for empirical utility remains separate and must respect the domain--cell--cycle hierarchy. The constant experimental budget is a recursively feasible special case; Corollary~\ref{cor:timevarying} states the exact additional condition required by a time-varying contract.
+
+\subsection{Computational structure}
+
+Once the two frozen regressors have produced the current record's predictions, PCHP stores only $(b_{i,t-1},p_{i,t-1})$ and performs a constant number of scalar operations. It therefore requires $O(1)$ state and $O(1)$ time per record after model inference. The bounded scalar squared-loss extension retains the same complexity because both endpoints in Eq.~\eqref{eq:squared_region} are closed form. The audit trail records $r_{it}$, $c_{it}$, $b_{it}$, $I_{it}$, $p_{it}$, $\alpha$, and $\delta$. Unlike retrospective isotonic regression, no trajectory sorting or future recomputation is required online.
+
+\section{Experimental design}
+
+\subsection{Development domains and nested model selection}
+
+Development data were standardized from the BatteryLife processed snapshot (v11), BatteryML, Battery Archive, and the original experimental sources for CALCE, HNEI, HUST, MATR, MICH and MICH\_EXP, RWTH, SNL, UL\_PUR, SDU, and XJTU \citep{zhang2024batteryml,tan2025batterylife,batterylife2026processed,batteryarchive,xing2013ensemble,devie2018variability,ma2022personalized,severson2019cyclelife,attia2020closedloop,weng2021formation,li2021oneshot,preger2020degradation,juarezrobles2020safety,wang2025sorting,wang2024pinn}. After the first-five reference window, the corpus contained $12$ complete dataset domains, $586$ physical cells, and $601{,}932$ records (Table~\ref{tab:data}). All twelve domains had been opened during method development; they are not described as independent external confirmation.
+
+\begin{table}[t]
+\centering
+\caption{Development corpus after the first-five reference window. Records are nested within physical cells, and cells are nested within complete dataset domains.}
+\label{tab:data}
+\begin{tabular}{lrr@{\qquad}lrr}
+\toprule
+Domain & Cells & Records & Domain & Cells & Records \\
+\midrule
+CALB & 27 & 2,629 & MICH\_EXP & 18 & 6,455 \\
+CALCE & 13 & 14,233 & RWTH & 48 & 105,140 \\
+HNEI & 14 & 15,085 & SDU & 86 & 48,716 \\
+HUST & 77 & 145,735 & SNL & 61 & 96,092 \\
+MATR & 169 & 139,148 & UL\_PUR & 10 & 2,195 \\
+MICH & 40 & 19,681 & XJTU & 23 & 6,823 \\
+\midrule
+\multicolumn{4}{r}{Total} & 586 & 601,932 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The outer evaluation held out one complete target domain. The two regressors were fitted on the remaining eleven domains. Within those source domains, each candidate value
+\[
+\alpha\in\{1,0.5,0.2,0.1,0.05,0.03,0.02,0.015,0.01,0.005\}
+\]
+was evaluated by holding out each source domain in turn and fitting on the other ten. The selected $\alpha$ minimized inner domain-equal cell-macro MAE; ties within $10^{-12}$ favored the larger $\alpha$. The outer target's labels never entered this selection. The harm budget was fixed at $\delta=0.01$ SOH units for all causal analyses. Because this budget was chosen during development, its decision meaning must be supplied by a deployment owner rather than inferred from the external stress result.
+
+For each cell, MAE was first averaged across its post-reference records; cells were then averaged equally within a domain, and the $12$ domain estimates were averaged equally. The primary development estimand was the domain-equal paired difference between PCHP and its $\alpha$-matched protected causal baseline. This hierarchy prevents large archives or long-lived cells from dominating the cross-domain claim.
+
+\subsection{Loss-geometry falsification protocol}
+
+Before integrating the loss extension into the manuscript, we froze its symbolic identities, finite-interval formulas, exterior-point failure checks, recursive-feasibility gate, tolerance $10^{-12}$, and random seed $20{,}260{,}802$. The deterministic test read no battery outcome. It compared the bounded squared-loss closed form against endpoint maximization in $200{,}000$ random configurations, tested both feasible boundaries and adjacent exterior points, and projected arbitrary candidates along $2{,}000$ random non-increasing protected trajectories of length $128$. Separate counterexamples moved the hidden outcome toward the appropriate infinity for nontrivial upward and downward squared-loss updates. Any formula mismatch, feasible-point violation, nonempty exterior point, empty recursive interval, output increase, or failure to diverge required rejection without tolerance adjustment.
+
+\subsection{Mechanism falsification and distinguishing controls}
+
+Before nested scoring, the smallest mechanism test used label-free development predictions only. At prefix fractions $0.25$, $0.50$, and $0.75$, we compared outputs computed on the prefix with the same positions recomputed after the full future trajectory became available. A change above $10^{-4}$ SOH units counted as a retrospective revision. The causal mechanism was required to have zero prefix difference, while full-trajectory isotonic processing was required to revise at least half the cells in at least nine domains. A second intervention added a $+0.05$ or $-0.05$ innovation to one protected raw prediction. The predicted signature was exact rejection of the positive innovation, immediate absorption of the negative innovation at rate $\alpha$, and reduced cumulative disturbance for $\alpha=0.02$ relative to $\alpha=1$ in at least $95\%$ of interventions in at least nine domains.
+
+The principal comparator was the causal protected baseline generated with the same source-selected $\alpha$. A retrospective isotonic harm-capped estimator was retained only as a leakage audit: it has access to the complete target trajectory and is therefore not deployable under the stated information boundary. The strongest alternative explanation was that PCHP merely shifts the protected state by a constant inside the same $\delta$-tube. To test it, a candidate-free control jointly selected $\alpha$ and a constant offset from $\{-0.01,-0.009,\ldots,0.01\}$ using only the eleven source domains of each outer fold. It obeyed the same range, monotonicity, and harm-budget constraints as PCHP.
+
+After the development outcomes had been opened, we protocol-locked a retrospective budget-path sensitivity to test whether this distinction depended on the single value $\delta=0.01$. Before computing the path, we fixed
+\[
+\delta\in\{0,0.0025,0.005,0.0075,0.01,0.015,0.02,0.03\},
+\]
+the original $\alpha$ grid, the outer-domain split, one integrated primary estimand, bootstrap seed $20{,}260{,}811$, and decision gates. For every outer domain, budget, and $\alpha$, the candidate-free comparator used the weighted-median source residual---the exact constant offset minimizing inner domain-equal cell-macro absolute error---clipped to $[-\delta,\delta]$; $\alpha$ was then selected on the same eleven source domains. No outer-target label entered either selection. The zero-budget arm was required to reproduce the protected state, and all arms were required to satisfy the declared displacement, regret, range, and monotonicity checks. This analysis is protocol-locked but retrospective, not a new confirmation experiment.
+
+We also constructed a stronger \emph{unprotected} causal comparator to measure the opportunity cost of the tube. For each outer target, the same source-only double-holdout design selected $\alpha$ for
+\[
+q_{i1}=\Pi_{[0,1.3]}(c_{i1}),\qquad
+q_{it}=\Pi_{[0,1.3]}\!\left(q_{i,t-1}+\alpha\min(c_{it}-q_{i,t-1},0)\right).
+\]
+This comparator is prefix causal, range bounded, and non-increasing, but it has no protected-baseline tube. All twelve outer folds selected $\alpha=0.05$ from source domains only. It is therefore an operationally strong accuracy boundary, not a safety-matched baseline.
+
+\subsection{Outcome-isolated BaSyTec external confirmation}
+
+The Bayreuth degradation-path dataset contains $48$ commercial lithium-ion cells cycled for $70$ ageing cycles under $24$ temperature--C-rate combinations, with two nominal replicates per condition \citep{ramasubramanian2025degradation,roder2025degradationdata}. The public Zenodo record, all $48$ cell archives, and their official checksums were snapshotted before scoring. The first parser specification failed closed before any capacity value was read because the raw export contained cumulative \texttt{Ah[Ah]} rather than a per-cycle capacity field. We preserved that failure. Before inspecting any cumulative-Ah value, cell F0001 was permanently designated as the parser-development cell and excluded from confirmation. A subsequent header-only audit read zero data rows across the remaining $47$ archives and froze the two observed delimiter families and four header signatures before prediction.
+
+For consecutive rows $j-1,j$ within cycle $c$, cumulative ampere-hours $A_j$ and current $I_j$ defined the frozen discharge-capacity reconstruction
+\begin{equation}
+Q_c=\sum_{j=2}^{n_c}\mathbf{1}\!\left(I_j<-10^{-5}\,\mathrm{A}\right)
+\max(A_{j-1}-A_j,0).
+\label{eq:basytec_capacity}
+\end{equation}
+The label-blind stage selected only cycle identity plus charge-side time, current, and voltage; it converted numeric hours to seconds, extracted the fixed $600\,\mathrm{s}$ charge window, and hashed $3{,}101$ post-anchor predictions for $47$ cells before Eq.~\eqref{eq:basytec_capacity} was evaluated. The scorer then formed Eq.~\eqref{eq:soh}. A cell required a first-five median capacity in $[0.08,0.16]\,\mathrm{Ah}$ and at least ten post-anchor labels. The frozen PCHP settings were $\alpha=0.01$ and $\delta=0.01$; the unprotected boundary used the source-selected $\alpha=0.05$.
+
+The decision gate required at least $36$ eligible cells, a negative cell-equal paired MAE difference, improvement in at least two thirds of non-tied cells, a cell-bootstrap $95\%$ interval with upper endpoint below zero, and maximum pointwise displacement, observed absolute-loss regret, and cell-macro harm no greater than $0.01$ within $10^{-12}$ tolerance. The available workspace records prediction hashes before capacity access. Team-level historical exposure outside the workspace cannot be independently excluded, so we call this an outcome-isolated, protocol-frozen public-data confirmation rather than a prospective laboratory trial.
+
+\subsection{Protocol-frozen NASA one-shot stress test}
+
+NASA PCoE Battery Data Set~5 was selected from official metadata and frozen before archive download \citep{saha2007nasa}. The protocol fixed the official archive identity, inclusion of all recursively discovered MATLAB files, charge--discharge pairing, the $600\,\mathrm{s}$ charge window, first-five reference, feature fields, $\alpha=0.01$, $\delta=0.01$, minimum cell size, estimand, decision gates, and hashes of both prediction and scoring programs. The archive contained $38$ MATLAB files representing $34$ physical batteries after duplicate identities were reconciled.
+
+Stage one accessed only cycle type and time plus voltage, current, temperature, and time arrays from charge records. It created and hashed $2{,}598$ post-anchor predictions for $34$ batteries without reading discharge capacity. Stage two independently read the frozen discharge locators and the scalar \texttt{Capacity} field, formed Eq.~\eqref{eq:soh}, and scored the frozen predictions once. A battery required at least ten valid post-anchor records. The frozen outcome contract yielded $33$ batteries and $2{,}556$ scored records; $44$ discharge records with a non-scalar, non-finite, or non-positive capacity were rejected by the prespecified rule. No post-outcome roster, reference, model, parameter, or endpoint change was permitted.
+
+The external gate required a negative cell-equal paired MAE difference, improvement in at least $75\%$ of eligible batteries, maximum cell-macro harm no greater than $0.01$, and all deterministic certificates. The archive is one repository identity from one laboratory program, so batteries are independent units for within-dataset replication but not independent laboratories. In the available project lineage, the frozen prediction artifact preceded access to Dataset~5 discharge capacities. Historical target-outcome exposure by the wider research team outside the auditable workspace cannot be independently excluded; we therefore describe this as a protocol-frozen public-data stress test, not as prospective external confirmation or a prospective laboratory trial.
+
+\subsection{Statistical analysis}
+
+The complete dataset domain was the primary analysis unit for development effects; the physical cell was the unit for the BaSyTec and NASA within-program effects. Repeated records were nested and never counted as independent replications. Development and candidate-control intervals used $100{,}000$ percentile bootstrap replicates of the $12$ paired domain effects with fixed seeds $20{,}260{,}802$ and $20{,}260{,}801$, respectively. For the budget path, the prespecified domain-level estimand was
+\begin{equation}
+A_d=\frac{1}{0.03}\int_{0}^{0.03}
+\left[\operatorname{MAE}^{\mathrm{PCHP}}_d(\delta)-
+\operatorname{MAE}^{\mathrm{shift}}_d(\delta)\right],\mathrm d\delta,
+\label{eq:budget_auc}
+\end{equation}
+evaluated by the trapezoidal rule on the locked grid. The primary report is the domain-equal mean of the $12$ values $A_d$ and its $100{,}000$-replicate domain-bootstrap interval; the per-budget intervals are descriptive slices of this one path, not separate confirmation claims. Because MICH and MICH\_EXP originate from the same experimental program, a conservative post-hoc sensitivity merged them before source-group-equal aggregation and bootstrap resampling; it also recomputed the mean after deleting each source group in turn. BaSyTec uncertainty used $100{,}000$ paired-cell bootstrap replicates with seed $20{,}260{,}808$; a post-hoc sensitivity averaged the two cell replicates within each temperature--C-rate condition and resampled complete conditions. NASA uncertainty used $100{,}000$ paired-battery bootstrap replicates with seed $20{,}260{,}801$. The two-sided exact sign test excluded ties and was descriptive rather than a confirmation gate. All development domains had been opened, so their intervals summarize heterogeneity over the observed domain set rather than provide confirmatory coverage for a prespecified superpopulation. The two public-data workflows used frozen multi-criterion decision gates rather than alpha-calibrated hypothesis tests; no familywise type-I-error claim or multiplicity-adjusted inference is made. Each interval corresponds to its stated comparison, and no cycle-level test or pooled-row confidence interval was used. Deterministic certificates are pointwise mathematical properties and do not depend on these resampling assumptions.
+
+\section{Results}
+
+\subsection{The loss-dependent geometry passes symbolic and recursive falsification}
+
+All $27$ frozen aggregate checks passed. Across the $200{,}000$ bounded squared-loss configurations, the maximum absolute discrepancy between endpoint maximization and Eq.~\eqref{eq:squared_identity} was $1.33\times10^{-15}$; the active lower and upper boundary discrepancies from the declared budget were at most $8.88\times10^{-16}$ and $1.55\times10^{-15}$, respectively. Across $256{,}000$ recursive records, no interval was empty, the maximum output increase was zero, and the maximum budget excess was $7.77\times10^{-16}$. Both unbounded-outcome constructions diverged in the direction predicted by Eq.~\eqref{eq:squared_unbounded}. These tests do not replace the proofs; they exclude sign, endpoint, clipping, and recursion errors in the implemented formulas.
+
+\subsection{The causal operator prevents future revision and has the predicted shock response}
+
+The smallest falsification passed both gates. Full-trajectory isotonic processing revised more than half of the evaluated cell prefixes in all $12$ domains, whereas the maximum difference between a causal prefix and the same prefix inside any future extension was exactly $0$. Under the controlled $+0.05$ intervention, the maximum disturbance of the one-sided protected state was $0$. Under the $-0.05$ intervention, the maximum error from the predicted immediate response $\alpha\times0.05$ was at most $2.00\times10^{-16}$ in the saved intervention table, i.e., within floating-point tolerance. Relative to $\alpha=1$, $\alpha=0.02$ reduced cumulative shock disturbance for at least $95\%$ of interventions in every domain. Figure~\ref{fig:causality} shows that the mechanism is an information-boundary change, not a relabelled offline smoother.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\textwidth]{fig3_prefix_causality.pdf}
+  \caption{Mechanism falsification across $12$ development domains and $586$ physical cells. \textbf{A}, fraction of cells whose historical offline output changed by more than $10^{-4}$ after future records were appended; PCHP's maximum prefix difference was $0$. The dashed line marks the prespecified one-half-cell gate. \textbf{B}, paired domain medians of cumulative shock disturbance under $\alpha=1$ and $\alpha=0.02$ on a logarithmic scale; every intervention improved in every domain. Records and interventions are nested within cells; domains are the cross-domain evaluation units.}
+  \label{fig:causality}
+\end{figure}
+
+\subsection{Nested source-only selection improves cross-domain utility within the harm budget}
+
+Under strict nested leave-one-domain-out evaluation, PCHP changed domain-equal cell-macro MAE from $0.07524$ for its protected causal baseline to $0.07038$, a $6.46\%$ relative reduction. The paired difference was $-0.00486$ with a domain-cluster $95\%$ bootstrap interval of $[-0.00671,-0.00301]$; $11$ domains improved, none tied, and one worsened. The largest domain-level harm was $0.00109$, well inside the $0.01$ pointwise budget. Figure~\ref{fig:domain_effects} reports every domain rather than presenting the $601{,}932$ repeated records as independent evidence.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.92\textwidth]{fig2_domain_effects.pdf}
+  \caption{Paired PCHP-minus-baseline cell-macro MAE for all $12$ held-out development domains. Each point is one complete dataset domain after cell-equal aggregation; negative values favor PCHP. The diamond and horizontal interval denote the domain-equal mean and its $95\%$ percentile bootstrap interval over $100{,}000$ resamples of complete domains.}
+  \label{fig:domain_effects}
+\end{figure}
+
+The causal method also had a lower point estimate than the retrospective harm-capped estimator: $0.07038$ versus $0.07232$. Their paired difference was $-0.00195$ with a $95\%$ interval of $[-0.01073,0.00606]$. This comparison does not establish statistical superiority; it indicates that enforcing the deployable information boundary did not produce a clear domain-level accuracy penalty in the opened development corpus.
+
+\subsection{The learned candidate contributes information beyond a constant safe shift}
+
+The candidate-free control attained domain-equal cell-macro MAE $0.07515$, compared with $0.07038$ for PCHP, a $6.35\%$ relative reduction. Expressed as PCHP minus control, the paired difference was $-0.00477$ with a $95\%$ domain-bootstrap interval of $[-0.00808,-0.00159]$. PCHP improved $9$ domains and worsened $3$, with maximum harm relative to this control of $0.00424$.
+
+The protocol-locked retrospective path made the control exact rather than grid approximated and repeated the comparison from zero to three SOH percentage points. All seven positive budgets favored PCHP in the domain-equal mean; the differences ranged from $-0.00189$ at $\delta=0.0025$ to $-0.01205$ at $\delta=0.03$, and every descriptive per-budget interval lay below zero. The primary budget-normalized AUC difference in Eq.~\eqref{eq:budget_auc} was $-0.00694$, with a domain-bootstrap interval of $[-0.01108,-0.00296]$ and domain wins/ties/losses of $11/0/1$. The zero-budget identity, displacement, regret, range, and monotonicity gates all passed. An independent hash-pinned audit retained the original failed validator record but showed that its sole failed anchor compared the high-precision value $0.0703775121469438$ with a ten-decimal JSON serialization under a $10^{-12}$ tolerance; the authoritative CSV aggregates, all $12$ domain values, and the source-only selection roster matched the historical run. Figure~\ref{fig:candidate_control} therefore weakens the single-budget fixed-bias explanation while preserving the analysis boundary: development outcomes had already been opened, so this path is robustness evidence rather than external confirmation.
+
+The source-group sensitivity did not rely on treating MICH and MICH\_EXP as independent programs. After merging them, the primary source-group-equal difference was $-0.00469$ with a $95\%$ bootstrap interval of $[-0.00667,-0.00274]$ and wins/ties/losses of $10/0/1$. The candidate-control difference was $-0.00467$ with interval $[-0.00825,-0.00125]$ and wins/ties/losses of $8/0/3$. For the primary and control comparisons, respectively, all leave-one-source-group-out means remained negative within $[-0.00526,-0.00417]$ and $[-0.00556,-0.00347]$. This post-hoc sensitivity addresses shared provenance; it does not replace the frozen complete-domain estimand.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\textwidth]{fig4_candidate_control.pdf}
+  \caption{Protocol-locked retrospective budget-path control for candidate information. \textbf{A}, domain-equal PCHP-minus-exact-safe-shift cell-macro MAE over the locked budget grid; negative values favor PCHP, vertical intervals are descriptive domain-bootstrap intervals, and the diamond marks the manuscript setting $\delta=0.01$. For every budget and outer fold, the control uses no candidate features and selects $\alpha$ plus the exact source-optimal constant safe shift using only the other eleven domains. \textbf{B}, the $12$ domain-specific budget-normalized AUC differences from Eq.~\eqref{eq:budget_auc}; the diamond and interval are the domain-equal mean and its $95\%$ percentile bootstrap interval from $100{,}000$ complete-domain resamples. The development outcomes had been opened before this protocol was locked, so the figure reports retrospective mechanism sensitivity, not independent confirmation.}
+  \label{fig:candidate_control}
+\end{figure}
+
+\subsection{A strong unprotected comparator exposes the safety--accuracy opportunity cost}
+
+The source-tuned unprotected causal comparator reduced domain-equal cell-macro MAE from $0.07524$ to $0.05470$. Its paired difference from the protected baseline was $-0.02054$ with a $95\%$ domain-bootstrap interval of $[-0.03364,-0.00675]$ and wins/ties/losses of $10/0/2$. PCHP retained $23.7\%$ of this gain: its MAE exceeded the unprotected comparator by $0.01568$, with interval $[0.00350,0.02725]$ and wins/ties/losses of $3/0/9$. After merging MICH and MICH\_EXP, utility retention was $24.9\%$ and the same qualitative conclusion held.
+
+This additional accuracy was not safety matched. The unprotected comparator exceeded the $\delta=0.01$ displacement budget in all $12$ domains, all $586$ cells, and all $524{,}165$ scored records, with a maximum displacement of $0.35680$. PCHP had no budget violation. The comparison therefore falsifies a dominance claim: PCHP does not beat the strongest causal candidate on accuracy. Its contribution is to occupy a declared worst-case harm region while retaining a measurable fraction of the available utility.
+
+\subsection{The frozen BaSyTec confirmation passes, with a sharp interpretation boundary}
+
+The BaSyTec gate returned \texttt{RETAIN}. Of the $47$ confirmation cells, $45$ satisfied the frozen reference-capacity range, yielding $2{,}969$ scored cycles. Cell-equal MAE changed from $0.17496$ for the protected causal baseline to $0.16510$ for PCHP. The paired difference was $-0.00986$; its paired-cell bootstrap $95\%$ interval extended from $-0.01000$ to $-0.00959$, and all $45$ eligible cells improved. Independent reconstruction matched every cell aggregate within $10^{-12}$. A post-hoc condition-equal sensitivity was negative in all $23$ represented temperature--C-rate conditions, with an interval from $-0.01000$ to $-0.00958$. Maximum PCHP displacement and maximum observed absolute-loss regret were $0.01$ within floating-point tolerance, while the maximum cell-macro difference was $-0.00465$.
+
+Both cells at $0\,^{\circ}\mathrm{C}$ and $1.5C$ were excluded by the prespecified $0.08\,\mathrm{Ah}$ lower reference bound: F0009 and F0048 had first-five medians of $0.06862$ and $0.06935\,\mathrm{Ah}$. A clearly post-hoc sensitivity that included them preserved the result across all $47$ cells and all $24$ conditions: the paired difference was $-0.00986$, its interval was $[-0.01000,-0.00961]$, and $47/47$ cells improved. This sensitivity shows that the exclusion did not create the effect, but it does not replace the frozen $45$-cell estimand.
+
+The same confirmation exposes why the empirical claim must remain narrow. The source-tuned unprotected comparator attained MAE $0.06172$, but its maximum displacement was $0.28508$ and it violated the budget in every eligible cell and all $2{,}969$ records; PCHP retained only $8.7\%$ of its accuracy gain. Moreover, the protected baseline underpredicted every scored record, PCHP saturated the positive $0.01$ boundary in $99.1\%$ of records, and a post-hoc fixed $+0.01$ shift achieved MAE $0.16496$, marginally below PCHP by $0.00014$. Thus, Figure~\ref{fig:basytec} confirms the frozen harm-and-utility contract and quantifies its opportunity cost; this external domain alone does not distinguish adaptive PCHP behavior from a simple safe bias correction.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\textwidth]{fig6_basytec_confirmation.pdf}
+  \caption{Outcome-isolated BaSyTec confirmation and safety--accuracy boundary. \textbf{A}, paired PCHP-minus-baseline MAE for all $45$ confirmatory eligible cells; negative values favor PCHP. The diamond and interval are the cell-equal mean and $95\%$ paired-cell bootstrap interval from $100{,}000$ resamples. \textbf{B}, cell-equal MAE against maximum pointwise displacement from the protected baseline. PCHP remains inside the declared $\delta=0.01$ region. The fixed $+0.01$ shift is a post-hoc diagnostic, whereas the source-tuned unprotected comparator is prefix causal but violates all eligible-cell budgets. Cycles are nested within cells.}
+  \label{fig:basytec}
+\end{figure}
+
+\subsection{The frozen NASA stress test retains relative utility but exposes target incompatibility}
+
+The one-shot NASA gate returned \texttt{RETAIN}. Across $33$ eligible physical batteries, cell-equal MAE changed from $0.73379$ for the causal protected baseline to $0.72791$ for PCHP. The paired difference was $-0.00588$ with a battery-bootstrap $95\%$ interval of $[-0.00784,-0.00373]$; $27$ batteries improved and $6$ worsened. The maximum battery-level harm was $0.00849$. The two-sided exact sign-test value was $0.000324$, reported descriptively because it was not a frozen gate. Every prediction satisfied $|p_{it}-b_{it}|\leq0.01$, the maximum observed absolute-loss increase was $0.01$ within floating-point tolerance, and all protected and final trajectories were non-increasing.
+
+The absolute errors do not support a high-accuracy NASA SOH claim. After the one-shot release, the frozen label audit found that some discharge capacities were not comparable under the first-five reference. Battery B0041 had a reference capacity of $0.05584\,\mathrm{Ah}$ and a maximum normalized value of $21.77$; B0039 had a reference of $0.47114\,\mathrm{Ah}$ and a maximum normalized value of $3.76$. Across released labels, the $95$th percentile was $1.347$ and the maximum was $21.77$, whereas model outputs were frozen to $[0,1.3]$. Figure~\ref{fig:nasa} therefore presents the relative effect and the protocol boundary together. Removing these batteries or redefining the reference after outcome access would invalidate the frozen experiment and was not done.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\textwidth]{fig5_nasa_stress.pdf}
+  \caption{Protocol-frozen NASA stress test. \textbf{A}, paired PCHP-minus-baseline MAE for all $33$ eligible physical batteries; negative values favor PCHP, and the diamond with interval denotes the cell-equal mean and $95\%$ paired-battery bootstrap interval from $100{,}000$ resamples. \textbf{B}, released normalized capacity labels by battery on a logarithmic axis, with the frozen model range $[0,1.3]$ indicated. The same display shows why the relative safety result is valid while a high-accuracy absolute SOH claim is not. The $2{,}556$ records are repeated measurements nested within batteries.}
+  \label{fig:nasa}
+\end{figure}
+
+\begin{table}[t]
+\centering
+\caption{Key paired effects. Differences are compared-method minus reference MAE; intervals resample the stated independent unit, not individual records. The unprotected row is an accuracy boundary and violates the harm budget.}
+\label{tab:primary}
+\small
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}Xrrrrl}
+\toprule
+Evidence tier and comparison & Unit $n$ & Reference MAE & Compared MAE & Difference & $95\%$ interval \\
+\midrule
+Nested development & 12 domains & 0.07524 & 0.07038 & $-0.00486$ & $[-0.00671,-0.00301]$ \\
+PCHP vs candidate-free safe shift & 12 domains & 0.07515 & 0.07038 & $-0.00477$ & $[-0.00808,-0.00159]$ \\
+Unprotected candidate vs baseline & 12 domains & 0.07524 & 0.05470 & $-0.02054$ & $[-0.03364,-0.00675]$ \\
+BaSyTec PCHP vs baseline & 45 cells & 0.17496 & 0.16510 & $-0.00986$ & $[-0.01000,-0.00959]$ \\
+NASA one-shot stress & 33 batteries & 0.73379 & 0.72791 & $-0.00588$ & $[-0.00784,-0.00373]$ \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Discussion}
+
+\subsection{What capability changes}
+
+PCHP changes the operational contract of cross-domain battery prediction. A learned model remains responsible for proposing a useful update, but it no longer has unilateral authority over a deployed record. The protected causal state defines the prediction to be preserved, and the recursive feasible interval defines exactly how far a target-label-free candidate may move. Corollary~\ref{cor:optimality} shows that the final output is not an arbitrary point inside that interval: it is the unique update that preserves maximum fidelity to the current learned proposal under the complete declared constraint set. The resulting guarantee is simultaneously outcome agnostic and executable online. This is different from retrospective smoothing, which may be label free yet still violates the future-information boundary, and from unconstrained target adaptation, whose gain can become negative in an unknown domain.
+
+Theorem~\ref{thm:harm_region} also prevents a misleading interpretation of ``safe'' updating. Without assumptions on the hidden outcome, no method can move a point prediction and remain no worse than its baseline for every possible truth. A positive budget is therefore not a proof relaxation introduced for convenience; it is the unavoidable price of allowing any nontrivial outcome-free update. PCHP makes that price explicit and then spends it only inside the exact intersection with the online trajectory constraints.
+
+The candidate-control result is important for interpreting the method as more than conservative clipping. If a source-selected constant shift had matched PCHP, the learned candidate would have been unnecessary and the contribution would reduce to a generic safety tube. Instead, commissioning-referenced, record-specific information contributes utility after the safe shift and assimilation rate have been matched. The integrated path further shows that this distinction is not an artifact of the single manuscript budget: the control is source-optimal among constant safe shifts at each locked budget, yet the domain-equal advantage remains throughout the positive grid. The data do not identify an electrochemical causal mechanism; they identify the operational value of candidate-specific information under a controlled output contract. Nor does the path calibrate an engineering budget: it was run retrospectively on opened development domains. The distinction is not universal either; BaSyTec exhibits nearly uniform baseline underprediction, under which a post-hoc fixed positive shift marginally outperforms PCHP. We therefore claim adaptive value from the nested development control and its protocol-locked sensitivity, not from every external domain.
+
+\subsection{Meaning of the BaSyTec confirmation and the safety--accuracy boundary}
+
+The BaSyTec experiment tests whether a prediction artifact frozen before capacity access improves its protected baseline while preserving all declared harm checks under a new laboratory, cell type, and $24$-condition stress grid. It passes that test, and the post-hoc full-condition sensitivity shows that the prespecified low-reference exclusion did not generate the direction of effect. This is stronger utility evidence than the NASA stress test because the resulting normalized capacities remain within a plausible SOH regime for the scored cells.
+
+The same experiment prevents an inflated interpretation. Almost every PCHP output reaches the positive edge of the tube, and a fixed positive shift performs marginally better. Consequently, the result supports transfer of the safety-and-relative-utility contract, but not external identification of the adaptive candidate mechanism. The strong unprotected comparator sharpens a different boundary: much more accuracy was available, but only by leaving the declared harm tube for every cell. This is not a defect hidden by the guarantee; it is the engineering trade-off that the guarantee makes measurable. Whether $8.7\%$ retained utility is acceptable depends on decision costs that the present public data do not identify.
+
+\subsection{Meaning of the NASA result}
+
+The NASA experiment tests whether a completely frozen causal update preserves relative utility and deterministic harm control after a substantial data-source shift. It passes that test. It does not test whether the frozen source model produces deployment-grade absolute SOH under every NASA discharge regime. The unusually large normalized capacities reveal that the chosen target definition loses comparability when the first-five discharge records and later records use materially different conditions. The correct inference is therefore bounded: the update improved the protected baseline within its declared budget under a severe protocol shift, while the protected baseline and label contract remained inadequate for absolute deployment.
+
+This distinction illustrates why deterministic and empirical claims must remain separate. Equation~\eqref{eq:pointwise_harm} remains true even when the baseline is poor, because it compares two predictions at the same record. Accuracy, calibration, and operational usefulness require compatible targets and representative deployment data; no output-space theorem can supply those conditions.
+
+\subsection{Choosing the harm budget}
+
+The budget $\delta$ is expressed in SOH units and should be tied to the consequence of changing a protected record. A smaller value preserves the baseline more tightly but limits candidate utility; a larger value admits more gain and more worst-case absolute-loss increase. The present $\delta=0.01$ is a frozen research setting, not a universal engineering tolerance. When underestimation and overestimation have unequal consequences, Corollary~\ref{cor:asymmetric} uses their positive cost weights and a budget $\eta$ in decision-loss units to create different allowable downward and upward radii. Only the cost ratio and the jointly scaled budget determine the standalone interval, so an operator must elicit and document this contract rather than infer it from the present accuracy experiments. Under a time-varying contract, Eq.~\eqref{eq:minimum_viable_budget} additionally reports the least budget that preserves the already emitted prefix; it diagnoses an infeasible declaration but does not calibrate the operational cost. Threshold or nonlinear decision losses still require a new feasible-set derivation and proof.
+
+\subsection{Statistical interpretation}
+
+The deterministic certificate is pointwise and requires no independent sampling. Empirical utility uncertainty has a different scope. In development, $12$ complete dataset domains support a cross-domain effect; $601{,}932$ records do not create that many independent transfers. The source-group sensitivity further shows that the result is not driven by counting two subsets of one experimental program separately. In BaSyTec, $45$ eligible cells support the frozen within-program effect and $23$ represented conditions support a post-hoc condition-cluster sensitivity; the full $47$-cell, $24$-condition analysis is explicitly post hoc. In NASA, $33$ batteries support within-program replication. Neither public workflow creates independent laboratories. The reported intervals therefore resample domains, conservative source groups, cells, conditions, or batteries as dictated by the stated analysis. They quantify heterogeneity over the observed unit set and do not establish universality across all chemistries, laboratories, temperatures, or duty cycles.
+
+\section{Limitations and failure modes}
+
+First, the guarantee is relative to the specified protected causal state. PCHP cannot diagnose an inaccurate baseline, repair incompatible labels, establish calibration, or guarantee electrochemical safety. Second, Theorem~\ref{thm:metric_harm} covers metric losses, while Theorem~\ref{thm:squared_geometry} establishes the bounded-interval squared-loss construction; it does not justify an incorrect or unverifiable outcome bound. The empirical study still evaluates the absolute-loss contract; it does not establish squared-loss utility. Corollary~\ref{cor:timevarying} covers positive time-varying directional weights and nonnegative budgets only when its lower-endpoint condition holds. Threshold, discontinuous, or other non-metric decision losses require a new exact feasible-set derivation, and the present work does not estimate deployment cost weights. Third, strict non-increase estimates a long-term trend and can suppress genuine short-term capacity regeneration or measurement rebound; both raw observations and trend outputs should therefore be retained.
+
+Fourth, all $12$ development domains were previously opened. The nested design prevents current outer-target labels from selecting $\alpha$, and the budget-path protocol was locked before its computation, but both analyses remain retrospective development evidence. Fifth, the BaSyTec workflow required two documented structural restarts before outcome access: one parser-development cell was excluded, and a header-only audit of the $47$ confirmation files preceded the final freeze. The workspace establishes prediction-before-capacity order, not team-wide historical non-exposure. Its $45$-cell result is therefore an outcome-isolated public-data confirmation, not a prospective laboratory trial or an independent-laboratory replication. Sixth, the frozen BaSyTec reference range excluded both cells from the $0\,^{\circ}\mathrm{C}$, $1.5C$ condition; the full-condition sensitivity is reassuring but post hoc. Seventh, the NASA archive is one public laboratory program with heterogeneous operating conditions and supports only a relative stress test, not high-accuracy external SOH or cross-laboratory generalization. Eighth, the method assumes that the first five charge records form a meaningful commissioning reference. Cells entering service after unobserved ageing or with corrupted initial records may violate that assumption.
+
+Finally, PCHP always returns a bounded prediction and does not detect when abstention is preferable. A support or estimability gate could be added, but it would constitute a separate method claim and would require outcome-independent specification and a new validation surface whose outcomes were unavailable across the team and project lineage.
+
+\section{Conclusion}
+
+We introduced PCHP for cross-domain battery SOH estimation when target outcomes and future records are unavailable at prediction time. The method converts a protected source prediction into a one-sided causal state and projects a learned commissioning-referenced candidate into a recursively feasible harm tube. This yields prefix invariance, non-increasing output, $O(1)$ online state and computation, and an exact per-record absolute-loss harm bound. The same analysis proves that the tube is the largest necessary-and-sufficient output set for the declared budget, that a nontrivial unconditional zero-harm update is impossible, and that PCHP uniquely minimizes candidate distortion under the complete online constraints. The loss-level analysis further identifies a reusable feasibility boundary: metric losses induce exact metric balls; bounded squared loss induces an exact baseline-dependent interval with the same recursive implementation; and squared loss over $\R$ admits no nontrivial finite outcome-uniform budget. Directionally weighted and time-varying corollaries provide asymmetric tubes, an exact lower-endpoint viability condition, and a tight minimum current budget. Strict nested evaluation across $12$ domains showed a domain-equal MAE reduction of $0.00486$; a matched candidate-free control and a protocol-locked retrospective budget path showed that the development gain was not confined to one constant safe shift or one budget value. A stronger unprotected comparator obtained substantially lower MAE but violated every domain budget, making the opportunity cost explicit. The outcome-isolated BaSyTec confirmation improved all $45$ eligible cells and retained every harm check, while its fixed-shift diagnostic showed that this external domain validates the contract rather than adaptive superiority. The NASA stress test exposed an incompatible absolute target regime. The contribution is therefore a deployable information and harm-control contract for learned battery-health updates, not a claim of accuracy dominance or universal SOH safety.
+
+\section*{Data and code availability}
+
+The exact development snapshot, BatteryLife\_Processed v11, is archived on Zenodo under CC BY~4.0 \citep{batterylife2026processed}. Its constituent domains originate from the cited providers and remain governed by their own access, attribution, and redistribution terms; consequently, no third-party raw archive is redistributed with this study. The $48$-cell Bayreuth degradation-path dataset is available from Zenodo under CC BY~4.0 \citep{roder2025degradationdata}; NASA PCoE Battery Data Set~5 is available from the official NASA Prognostics Data Repository \citep{saha2007nasa}. An executable review-lite reproducibility package accompanying the submission contains the complete transitive source-code closure, acquisition instructions, source and artifact hashes, the environment specification, pre-freeze records, aggregate per-domain and per-cell evidence, deterministic operator and statistical replay checks, and all figure-generation inputs and scripts. It reproduces the auditable evidence layer without redistributing third-party raw archives; complete source-model refitting and external replay require downloading provider data under their respective terms. The release licence for author-created code will be finalized with the institutional submission record.
+
+\section*{Author information}
+
+Author: Yuyang Wu. Affiliation, correspondence address, ORCID, funding, acknowledgements, and conflict-of-interest statements are intentionally left blank until the submission record is finalized.
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\end{document}

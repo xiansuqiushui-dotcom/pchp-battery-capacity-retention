@@ -1,0 +1,469 @@
+{
+  "status": "EXACT_CURRENT_PCHP_FEATURE_WEIGHTING_FACTORIAL_COMPLETED",
+  "scope": "post-freeze development-only strict LODO attribution audit",
+  "independent_statistical_unit": "complete held-out dataset domain",
+  "number_of_domains": 12,
+  "new_raw_arms_fitted": [
+    "raw_domain_equal",
+    "change_pooled"
+  ],
+  "frozen_raw_arms_reused": [
+    "raw_pooled",
+    "change_domain_equal"
+  ],
+  "pchp_budget_soh_units": 0.01,
+  "v327_selected_method_maximum_reproduction_error": 0.0,
+  "candidate_summary": [
+    {
+      "method": "change_pooled",
+      "domain_equal_cell_macro_mae": 0.0568457597,
+      "worst_domain_cell_macro_mae": 0.1639465929
+    },
+    {
+      "method": "change_domain_equal",
+      "domain_equal_cell_macro_mae": 0.0569441546,
+      "worst_domain_cell_macro_mae": 0.175109317
+    },
+    {
+      "method": "raw_pooled",
+      "domain_equal_cell_macro_mae": 0.0778970081,
+      "worst_domain_cell_macro_mae": 0.1626342945
+    },
+    {
+      "method": "raw_domain_equal",
+      "domain_equal_cell_macro_mae": 0.0816866802,
+      "worst_domain_cell_macro_mae": 0.1797211534
+    }
+  ],
+  "projected_summary": [
+    {
+      "method": "pchp_change_domain_equal",
+      "domain_equal_cell_macro_mae": 0.0703775121,
+      "worst_domain_cell_macro_mae": 0.1453074741
+    },
+    {
+      "method": "pchp_change_pooled",
+      "domain_equal_cell_macro_mae": 0.0705872542,
+      "worst_domain_cell_macro_mae": 0.1453074741
+    },
+    {
+      "method": "pchp_raw_domain_equal",
+      "domain_equal_cell_macro_mae": 0.0758755458,
+      "worst_domain_cell_macro_mae": 0.1435123569
+    },
+    {
+      "method": "pchp_raw_pooled",
+      "domain_equal_cell_macro_mae": 0.0762461627,
+      "worst_domain_cell_macro_mae": 0.1439998269
+    }
+  ],
+  "candidate_factorial_effects": {
+    "feature_effect_under_pooled_weighting": {
+      "method": "change_pooled",
+      "reference": "raw_pooled",
+      "difference_direction": "negative favors method",
+      "mean_domain_difference": -0.021051248361049667,
+      "median_domain_difference": -0.01115861399012311,
+      "ci95_domain_bootstrap": [
+        -0.039573970998254826,
+        -0.003930143695151553
+      ],
+      "exact_two_sided_sign_flip_p": 0.04736328125,
+      "domain_wins_ties_losses": [
+        8,
+        0,
+        4
+      ],
+      "per_domain_difference": {
+        "CALB": -0.04967793887846039,
+        "CALCE": 0.004225715597822345,
+        "HNEI": 0.003886921004743117,
+        "HUST": -0.004163983726112878,
+        "MATR": -0.012310547405073327,
+        "MICH": -0.04984249295827939,
+        "MICH_EXP": -0.04807371759578353,
+        "RWTH": 0.011362936458956058,
+        "SDU": -0.03184251117827733,
+        "SNL": -0.010006680575172892,
+        "UL_PUR": 0.024571653250899578,
+        "XJTU": -0.0907443343278573
+      }
+    },
+    "feature_effect_under_domain_equal_weighting": {
+      "method": "change_domain_equal",
+      "reference": "raw_domain_equal",
+      "difference_direction": "negative favors method",
+      "mean_domain_difference": -0.024742525573660867,
+      "median_domain_difference": -0.009933981405103345,
+      "ci95_domain_bootstrap": [
+        -0.04670644994662591,
+        -0.004904872589972596
+      ],
+      "exact_two_sided_sign_flip_p": 0.04833984375,
+      "domain_wins_ties_losses": [
+        10,
+        0,
+        2
+      ],
+      "per_domain_difference": {
+        "CALB": -0.06702501170974008,
+        "CALCE": -0.00645626845421076,
+        "HNEI": -0.0004201100293204571,
+        "HUST": -0.002557508139499863,
+        "MATR": -0.009824288750152378,
+        "MICH": -0.051774673934400633,
+        "MICH_EXP": -0.05290098233388478,
+        "RWTH": 0.017308805567318702,
+        "SDU": -0.03033921994109036,
+        "SNL": -0.010043674060054311,
+        "UL_PUR": 0.026907087337501717,
+        "XJTU": -0.10978446243639717
+      }
+    },
+    "weighting_effect_with_raw_features": {
+      "method": "raw_domain_equal",
+      "reference": "raw_pooled",
+      "difference_direction": "negative favors method",
+      "mean_domain_difference": 0.0037896720895515133,
+      "median_domain_difference": 0.003058393830163316,
+      "ci95_domain_bootstrap": [
+        -0.0005344335938021986,
+        0.008333596779937275
+      ],
+      "exact_two_sided_sign_flip_p": 0.14453125,
+      "domain_wins_ties_losses": [
+        5,
+        0,
+        7
+      ],
+      "per_domain_difference": {
+        "CALB": 0.018249922240001895,
+        "CALCE": 0.00992356675558164,
+        "HNEI": -1.7638757779096792e-05,
+        "HUST": -0.00025407334424053934,
+        "MATR": -0.009008718754543323,
+        "MICH": 0.005342107335791768,
+        "MICH_EXP": 0.004460795234024817,
+        "RWTH": 0.0052168549692534205,
+        "SDU": -0.005482167352127393,
+        "SNL": 0.0016559924263018153,
+        "UL_PUR": -0.0016974345245139855,
+        "XJTU": 0.017086858846867142
+      }
+    },
+    "weighting_effect_with_change_features": {
+      "method": "change_domain_equal",
+      "reference": "change_pooled",
+      "difference_direction": "negative favors method",
+      "mean_domain_difference": 9.839487694031108e-05,
+      "median_domain_difference": 0.0001357650290058597,
+      "ci95_domain_bootstrap": [
+        -0.0021717126123362036,
+        0.0027141308390666663
+      ],
+      "exact_two_sided_sign_flip_p": 0.9453125,
+      "domain_wins_ties_losses": [
+        6,
+        0,
+        6
+      ],
+      "per_domain_difference": {
+        "CALB": 0.0009028494087222061,
+        "CALCE": -0.0007584172964514649,
+        "HNEI": -0.004324669791842671,
+        "HUST": 0.0013524022423724753,
+        "MATR": -0.006522460099622374,
+        "MICH": 0.003409926359670523,
+        "MICH_EXP": -0.0003664695040764346,
+        "RWTH": 0.011162724077616065,
+        "SDU": -0.0039788761149404245,
+        "SNL": 0.0016189989414203965,
+        "UL_PUR": 0.000637999562088154,
+        "XJTU": -0.0019532692616727187
+      }
+    },
+    "feature_by_weighting_interaction": {
+      "mean_domain_difference": -0.0036912772126112023,
+      "ci95_domain_bootstrap": [
+        -0.008271844853658903,
+        0.00035924777894316684
+      ],
+      "per_domain_difference": {
+        "CALB": -0.01734707283127969,
+        "CALCE": -0.010681984052033106,
+        "HNEI": -0.004307031034063574,
+        "HUST": 0.0016064755866130112,
+        "MATR": 0.002486258654920949,
+        "MICH": -0.001932180976121245,
+        "MICH_EXP": -0.004827264738101245,
+        "RWTH": 0.005945869108362645,
+        "SDU": 0.0015032912371869683,
+        "SNL": -3.699348488141879e-05,
+        "UL_PUR": 0.0023354340866021395,
+        "XJTU": -0.01904012810853986
+      }
+    }
+  },
+  "projected_factorial_effects": {
+    "feature_effect_under_pooled_weighting": {
+      "method": "pchp_change_pooled",
+      "reference": "pchp_raw_pooled",
+      "difference_direction": "negative favors method",
+      "mean_domain_difference": -0.005658908536017976,
+      "median_domain_difference": -0.004735068253937408,
+      "ci95_domain_bootstrap": [
+        -0.00941485418474973,
+        -0.0023469223422644203
+      ],
+      "exact_two_sided_sign_flip_p": 0.0078125,
+      "domain_wins_ties_losses": [
+        11,
+        0,
+        1
+      ],
+      "per_domain_difference": {
+        "CALB": -0.017602098042020585,
+        "CALCE": -0.00041409784338174854,
+        "HNEI": -0.0001859521438099948,
+        "HUST": -0.003659972776935458,
+        "MATR": -0.006780955809641193,
+        "MICH": -0.007489856618684329,
+        "MICH_EXP": -0.005810163730939358,
+        "RWTH": 0.001307647188090899,
+        "SDU": -0.008390286981838191,
+        "SNL": -0.0003786773539466298,
+        "UL_PUR": -0.0003470994801298005,
+        "XJTU": -0.018155388838979325
+      }
+    },
+    "feature_effect_under_domain_equal_weighting": {
+      "method": "pchp_change_domain_equal",
+      "reference": "pchp_raw_domain_equal",
+      "difference_direction": "negative favors method",
+      "mean_domain_difference": -0.005498033619875778,
+      "median_domain_difference": -0.002806654194461213,
+      "ci95_domain_bootstrap": [
+        -0.009696524054925021,
+        -0.0018425439002300085
+      ],
+      "exact_two_sided_sign_flip_p": 0.01025390625,
+      "domain_wins_ties_losses": [
+        10,
+        0,
+        2
+      ],
+      "per_domain_difference": {
+        "CALB": -0.019383352520789314,
+        "CALCE": -0.00018795697821081397,
+        "HNEI": 0.00011827104659038745,
+        "HUST": -0.003742747449208994,
+        "MATR": -0.0018705609397134323,
+        "MICH": -0.011332015791476927,
+        "MICH_EXP": -0.006310469320908868,
+        "RWTH": 0.0017951172393341763,
+        "SDU": -0.006255763675906856,
+        "SNL": -0.0001530247191743328,
+        "UL_PUR": -3.3695072243343505e-05,
+        "XJTU": -0.018620205256801012
+      }
+    },
+    "weighting_effect_with_raw_features": {
+      "method": "pchp_raw_domain_equal",
+      "reference": "pchp_raw_pooled",
+      "difference_direction": "negative favors method",
+      "mean_domain_difference": -0.0003706169325763218,
+      "median_domain_difference": -0.00016890469513638692,
+      "ci95_domain_bootstrap": [
+        -0.0016583875996057425,
+        0.0006400704781968177
+      ],
+      "exact_two_sided_sign_flip_p": 0.6357421875,
+      "domain_wins_ties_losses": [
+        7,
+        0,
+        5
+      ],
+      "per_domain_difference": {
+        "CALB": 0.0016868935374328084,
+        "CALCE": -2.6563183591420125e-05,
+        "HNEI": -0.0003402545210565572,
+        "HUST": 0.0001231550524622288,
+        "MATR": -0.006032548690625118,
+        "MICH": 0.002339835149671926,
+        "MICH_EXP": 0.0004354442775637013,
+        "RWTH": -0.00048747005124327725,
+        "SDU": -0.0023717734637929283,
+        "SNL": 0.0008651609669851484,
+        "UL_PUR": -0.0003112462066813537,
+        "XJTU": -0.0003280360580410202
+      }
+    },
+    "weighting_effect_with_change_features": {
+      "method": "pchp_change_domain_equal",
+      "reference": "pchp_change_pooled",
+      "difference_direction": "negative favors method",
+      "mean_domain_difference": -0.0002097420164341232,
+      "median_domain_difference": -5.044632153099193e-05,
+      "ci95_domain_bootstrap": [
+        -0.0005758337993271358,
+        0.00014823334008485462
+      ],
+      "exact_two_sided_sign_flip_p": 0.302734375,
+      "domain_wins_ties_losses": [
+        7,
+        1,
+        4
+      ],
+      "per_domain_difference": {
+        "CALB": -9.43609413359206e-05,
+        "CALCE": 0.00019957768157951444,
+        "HNEI": -3.603133065617492e-05,
+        "HUST": 4.038038018869261e-05,
+        "MATR": -0.001122153820697358,
+        "MICH": -0.0015023240231206714,
+        "MICH_EXP": -6.486131240580895e-05,
+        "RWTH": 0.0,
+        "SDU": -0.0002372501578615932,
+        "SNL": 0.0010908136017574455,
+        "UL_PUR": 2.158201205103294e-06,
+        "XJTU": -0.000792852475862707
+      }
+    },
+    "feature_by_weighting_interaction": {
+      "mean_domain_difference": 0.00016087491614219981,
+      "ci95_domain_bootstrap": [
+        -0.0009258506984986839,
+        0.0013320647429781185
+      ],
+      "per_domain_difference": {
+        "CALB": -0.001781254478768729,
+        "CALCE": 0.00022614086517093457,
+        "HNEI": 0.00030422319040038226,
+        "HUST": -8.277467227353619e-05,
+        "MATR": 0.00491039486992776,
+        "MICH": -0.0038421591727925974,
+        "MICH_EXP": -0.0005003055899695102,
+        "RWTH": 0.00048747005124327725,
+        "SDU": 0.002134523305931335,
+        "SNL": 0.00022565263477229702,
+        "UL_PUR": 0.000313404407886457,
+        "XJTU": -0.00046481641782167293
+      }
+    }
+  },
+  "folds": [
+    {
+      "target_domain": "CALB",
+      "source_fit_rows": 44642,
+      "target_rows": 2629,
+      "target_cells": 27
+    },
+    {
+      "target_domain": "CALCE",
+      "source_fit_rows": 45762,
+      "target_rows": 14233,
+      "target_cells": 13
+    },
+    {
+      "target_domain": "HNEI",
+      "source_fit_rows": 45682,
+      "target_rows": 15085,
+      "target_cells": 14
+    },
+    {
+      "target_domain": "HUST",
+      "source_fit_rows": 40642,
+      "target_rows": 145735,
+      "target_cells": 77
+    },
+    {
+      "target_domain": "MATR",
+      "source_fit_rows": 33282,
+      "target_rows": 139148,
+      "target_cells": 169
+    },
+    {
+      "target_domain": "MICH",
+      "source_fit_rows": 43602,
+      "target_rows": 19681,
+      "target_cells": 40
+    },
+    {
+      "target_domain": "MICH_EXP",
+      "source_fit_rows": 45362,
+      "target_rows": 6455,
+      "target_cells": 18
+    },
+    {
+      "target_domain": "RWTH",
+      "source_fit_rows": 42962,
+      "target_rows": 105140,
+      "target_cells": 48
+    },
+    {
+      "target_domain": "SDU",
+      "source_fit_rows": 40000,
+      "target_rows": 48716,
+      "target_cells": 86
+    },
+    {
+      "target_domain": "SNL",
+      "source_fit_rows": 41922,
+      "target_rows": 96092,
+      "target_cells": 61
+    },
+    {
+      "target_domain": "UL_PUR",
+      "source_fit_rows": 46002,
+      "target_rows": 2195,
+      "target_cells": 10
+    },
+    {
+      "target_domain": "XJTU",
+      "source_fit_rows": 44962,
+      "target_rows": 6823,
+      "target_cells": 23
+    }
+  ],
+  "interpretation_contract": [
+    "This is a post-freeze development-domain attribution audit, not external confirmation.",
+    "Feature and weighting effects are paired over identical complete held-out domains.",
+    "Every PCHP arm uses the raw/pooled model as the protected predictor and the frozen V326 alpha for its outer domain.",
+    "The selected change/domain-equal PCHP arm must reproduce the authoritative V327 prediction ledger exactly within 1e-12."
+  ],
+  "runtime_seconds": 96.7128117000102,
+  "files": {
+    "candidate_predictions": {
+      "path": "E:\\CCF\\interventional_battery_learning\\feature_weighting_pchp_factorial_v383\\candidate_predictions_v383.parquet",
+      "sha256": "96073dfe964f3cd119bfa5cff5622f6aec87481a84df7f3da1ec59beb5a2957a"
+    },
+    "projected_predictions": {
+      "path": "E:\\CCF\\interventional_battery_learning\\feature_weighting_pchp_factorial_v383\\projected_predictions_v383.parquet",
+      "sha256": "09e172a62f840d4afb0d7ed45188c892e01c21503e39e5af463090d55c892098"
+    },
+    "candidate_cell_metrics": {
+      "path": "E:\\CCF\\interventional_battery_learning\\feature_weighting_pchp_factorial_v383\\candidate_cell_metrics_v383.csv",
+      "sha256": "ace03a21e729c6c19dd239dc87340e29af454a3927ca46085fe40b0a2485a17d"
+    },
+    "candidate_domain_metrics": {
+      "path": "E:\\CCF\\interventional_battery_learning\\feature_weighting_pchp_factorial_v383\\candidate_domain_metrics_v383.csv",
+      "sha256": "aa042c74d04d53da9a1e4cc40f9f36ff63eee1a55d4bb957405dd53e55108056"
+    },
+    "candidate_summary": {
+      "path": "E:\\CCF\\interventional_battery_learning\\feature_weighting_pchp_factorial_v383\\candidate_summary_v383.csv",
+      "sha256": "195314388c110d967444a23b5eff0437f0ab9c62d94b3d9d5dbf0185b4233cc4"
+    },
+    "projected_cell_metrics": {
+      "path": "E:\\CCF\\interventional_battery_learning\\feature_weighting_pchp_factorial_v383\\projected_cell_metrics_v383.csv",
+      "sha256": "a78fa38d6e81ac251b33c9aab1de6205069161887ff34f4a3bec42e5291e3806"
+    },
+    "projected_domain_metrics": {
+      "path": "E:\\CCF\\interventional_battery_learning\\feature_weighting_pchp_factorial_v383\\projected_domain_metrics_v383.csv",
+      "sha256": "a0dff25688d9bac7200de966fce298482941b7e1d9af466ee2d427f11e77b91c"
+    },
+    "projected_summary": {
+      "path": "E:\\CCF\\interventional_battery_learning\\feature_weighting_pchp_factorial_v383\\projected_summary_v383.csv",
+      "sha256": "b8a09929edf078c0a14fcbc0423746fdec30036bcb39a4f8560175b410b16a5a"
+    }
+  }
+}

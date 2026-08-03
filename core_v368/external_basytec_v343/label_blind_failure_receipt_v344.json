@@ -1,0 +1,38 @@
+{
+  "status": "INCONCLUSIVE_SCHEMA_FAILURE_BEFORE_OUTCOME_ACCESS",
+  "recorded_at_local": "2026-08-02T07:16:23+08:00",
+  "failed_stage": "label_blind_prediction_build",
+  "first_affected_cell_zip": "F0001.zip",
+  "observed_header_fields_only": [
+    "~Time[h]",
+    "DataSet",
+    "t-Step[h]",
+    "t-Set[h]",
+    "Line",
+    "Command",
+    "U[V]",
+    "I[A]",
+    "Ah[Ah]",
+    "Ah-Step",
+    "Wh[Wh]",
+    "Cyc-Count",
+    "State",
+    "i_cvend1_ch",
+    "i_cvend1_dch",
+    "i_set",
+    "i_set_dis",
+    "cycle_count"
+  ],
+  "frozen_required_field_not_found": "Ah-Cyc-Discharge",
+  "outcome_values_read": false,
+  "predictions_written": false,
+  "scores_computed": false,
+  "scientific_interpretation": "The V343 confirmation is inconclusive because the frozen parser was structurally incompatible with the raw BaSyTec export. This is not evidence for or against the method.",
+  "prohibited_action": "Do not patch the V343 parser and rerun the same 48-cell confirmation under the original label.",
+  "bound_artifacts_sha256": {
+    "paper_q1/rccp_basytec_external_prefreeze_v343.json": "AC5E6F048C85E302ECD816949A523EAAA37155A34E48B54A3B0E795C2FA2DB9E",
+    "paper_q1/RCCP_BASYTEC_EXTERNAL_PREFREEZE_V343_ZH.md": "D8DC788352049812C094DAD3EB23385F448E8B46845ACD1FEACAA963DF308202",
+    "build_basytec_label_blind_predictions_v344.py": "8376E54519B89CB4CC492C9F5669F65A89A32D50CBDFF0F86FC26C00B8059F9A",
+    "external_basytec_v343/download_receipt_v343.json": "89AFA7A67A2287309A7D7C3F02C84117A642D38FBE49DAEE66BC848BE1B693A3"
+  }
+}

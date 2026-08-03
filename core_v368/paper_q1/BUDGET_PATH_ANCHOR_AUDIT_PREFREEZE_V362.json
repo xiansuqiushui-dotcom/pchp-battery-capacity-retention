@@ -1,0 +1,34 @@
+{
+  "version": "V362",
+  "frozen_before_execution": true,
+  "purpose": "Independently determine whether the sole failed V361 anchor was caused by comparison against a rounded JSON serialization rather than by a scientific mismatch.",
+  "scope": {
+    "scientific_outputs_recomputed": false,
+    "v361_outputs_modified": false,
+    "permitted_operations": [
+      "verify frozen file hashes",
+      "compare the V361 delta=0.01 aggregate values with the authoritative high-precision V327 summary CSV",
+      "compare all twelve V361 delta=0.01 domain metrics with the V327 domain-metric CSV",
+      "compare the V361 delta=0.01 alpha roster and inner scores with the V326 selection CSV",
+      "quantify the precision loss in the V327 report JSON",
+      "verify that all non-anchor V361 scientific gates and primary values are unchanged"
+    ]
+  },
+  "authoritative_anchor_sources": {
+    "aggregate": "nested_prefix_causal_outer_v327/nested_outer_summary_v327.csv",
+    "domain_metrics": "nested_prefix_causal_outer_v327/nested_outer_domain_metrics_v327.csv",
+    "selection_roster": "nested_prefix_causal_selection_v326/nested_alpha_selections_v326.csv"
+  },
+  "comparison_tolerance": {
+    "absolute": 1e-12,
+    "relative": 0.0,
+    "reason": "Preserve the original V361 numerical tolerance while replacing the rounded serialization with high-precision authoritative CSV outputs."
+  },
+  "pass_rule": "All frozen hashes, operational diagnostics, authoritative aggregate checks, all-domain checks, selection checks, and preserved non-anchor scientific gates must pass.",
+  "decision_rule": {
+    "pass": "Classify the V361 anchor failure as an operational JSON-precision false negative and retain the unchanged V361 scientific result only as protocol-locked retrospective sensitivity evidence with a V362 audit trail.",
+    "fail": "Keep the V361 NARROW decision without qualification."
+  },
+  "interpretation_boundary": "V362 cannot change any V361 scientific result or convert retrospective evidence into external confirmation.",
+  "script_sha256": "ca3e2be80c1e995daeaa90741ab6d6e07af94424a294d6b80e09f050b32640b5"
+}

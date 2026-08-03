@@ -1,0 +1,345 @@
+{
+  "version": "v374",
+  "status": "BOUNDED_RECOVERY_PCHP_REJECTED",
+  "decision": "REJECT",
+  "scope": "protocol-locked retrospective development-domain extension",
+  "prefreeze": {
+    "path": "E:\\CCF\\interventional_battery_learning\\BOUNDED_RECOVERY_PCHP_PREFREEZE_V374.json",
+    "sha256": "4f92382d67297e5a062a7bd96c7b9584d2966cae35094803ded10332e5a9328b"
+  },
+  "information_boundary": {
+    "outer_domains": 12,
+    "physical_cells": 586,
+    "post_reference_rows": 601932,
+    "independent_unit": "complete battery dataset domain",
+    "outer_target_labels_used_for_selection": false,
+    "historically_opened_development_data": true,
+    "external_confirmation": false
+  },
+  "budget_soh_units": 0.01,
+  "alpha_grid": [
+    1.0,
+    0.5,
+    0.2,
+    0.1,
+    0.05,
+    0.03,
+    0.02,
+    0.015,
+    0.01,
+    0.005
+  ],
+  "recovery_grid_soh_per_record": [
+    0.0,
+    0.00025,
+    0.0005,
+    0.001,
+    0.002,
+    0.005
+  ],
+  "selection_rule": {
+    "metric": "inner-domain-equal cell-macro MAE of the final bounded-recovery method",
+    "tie_breaker": [
+      "smallest recovery allowance",
+      "largest downward assimilation rate"
+    ],
+    "strict_comparator_selected_independently": true,
+    "outer_target_labels_used_for_selection": false
+  },
+  "selected_parameters": [
+    {
+      "outer_target_domain": "CALB",
+      "selected_alpha": 0.01,
+      "selected_recovery": 0.005,
+      "selected_inner_domain_equal_method_mae": 0.071575815,
+      "strict_selected_alpha": 0.01,
+      "strict_selected_inner_domain_equal_method_mae": 0.0729681432,
+      "inner_domains": 11,
+      "outer_target_labels_used_for_selection": false
+    },
+    {
+      "outer_target_domain": "CALCE",
+      "selected_alpha": 0.005,
+      "selected_recovery": 0.005,
+      "selected_inner_domain_equal_method_mae": 0.0696531738,
+      "strict_selected_alpha": 0.005,
+      "strict_selected_inner_domain_equal_method_mae": 0.0721868163,
+      "inner_domains": 11,
+      "outer_target_labels_used_for_selection": false
+    },
+    {
+      "outer_target_domain": "HNEI",
+      "selected_alpha": 0.005,
+      "selected_recovery": 0.005,
+      "selected_inner_domain_equal_method_mae": 0.0733982397,
+      "strict_selected_alpha": 0.005,
+      "strict_selected_inner_domain_equal_method_mae": 0.0752840341,
+      "inner_domains": 11,
+      "outer_target_labels_used_for_selection": false
+    },
+    {
+      "outer_target_domain": "HUST",
+      "selected_alpha": 0.01,
+      "selected_recovery": 0.005,
+      "selected_inner_domain_equal_method_mae": 0.0696982995,
+      "strict_selected_alpha": 0.01,
+      "strict_selected_inner_domain_equal_method_mae": 0.0711888194,
+      "inner_domains": 11,
+      "outer_target_labels_used_for_selection": false
+    },
+    {
+      "outer_target_domain": "MATR",
+      "selected_alpha": 0.015,
+      "selected_recovery": 0.005,
+      "selected_inner_domain_equal_method_mae": 0.0706791734,
+      "strict_selected_alpha": 0.015,
+      "strict_selected_inner_domain_equal_method_mae": 0.0718346384,
+      "inner_domains": 11,
+      "outer_target_labels_used_for_selection": false
+    },
+    {
+      "outer_target_domain": "MICH",
+      "selected_alpha": 0.015,
+      "selected_recovery": 0.005,
+      "selected_inner_domain_equal_method_mae": 0.0644209264,
+      "strict_selected_alpha": 0.015,
+      "strict_selected_inner_domain_equal_method_mae": 0.0655933885,
+      "inner_domains": 11,
+      "outer_target_labels_used_for_selection": false
+    },
+    {
+      "outer_target_domain": "MICH_EXP",
+      "selected_alpha": 0.01,
+      "selected_recovery": 0.005,
+      "selected_inner_domain_equal_method_mae": 0.0635959632,
+      "strict_selected_alpha": 0.01,
+      "strict_selected_inner_domain_equal_method_mae": 0.0675443633,
+      "inner_domains": 11,
+      "outer_target_labels_used_for_selection": false
+    },
+    {
+      "outer_target_domain": "RWTH",
+      "selected_alpha": 0.01,
+      "selected_recovery": 0.005,
+      "selected_inner_domain_equal_method_mae": 0.0654793684,
+      "strict_selected_alpha": 0.01,
+      "strict_selected_inner_domain_equal_method_mae": 0.0673280611,
+      "inner_domains": 11,
+      "outer_target_labels_used_for_selection": false
+    },
+    {
+      "outer_target_domain": "SDU",
+      "selected_alpha": 0.01,
+      "selected_recovery": 0.005,
+      "selected_inner_domain_equal_method_mae": 0.0784999777,
+      "strict_selected_alpha": 0.01,
+      "strict_selected_inner_domain_equal_method_mae": 0.081612564,
+      "inner_domains": 11,
+      "outer_target_labels_used_for_selection": false
+    },
+    {
+      "outer_target_domain": "SNL",
+      "selected_alpha": 0.01,
+      "selected_recovery": 0.005,
+      "selected_inner_domain_equal_method_mae": 0.0683560538,
+      "strict_selected_alpha": 0.01,
+      "strict_selected_inner_domain_equal_method_mae": 0.070057132,
+      "inner_domains": 11,
+      "outer_target_labels_used_for_selection": false
+    },
+    {
+      "outer_target_domain": "UL_PUR",
+      "selected_alpha": 0.01,
+      "selected_recovery": 0.005,
+      "selected_inner_domain_equal_method_mae": 0.0700915914,
+      "strict_selected_alpha": 0.01,
+      "strict_selected_inner_domain_equal_method_mae": 0.0719620239,
+      "inner_domains": 11,
+      "outer_target_labels_used_for_selection": false
+    },
+    {
+      "outer_target_domain": "XJTU",
+      "selected_alpha": 0.01,
+      "selected_recovery": 0.005,
+      "selected_inner_domain_equal_method_mae": 0.0659188216,
+      "strict_selected_alpha": 0.01,
+      "strict_selected_inner_domain_equal_method_mae": 0.0677011625,
+      "inner_domains": 11,
+      "outer_target_labels_used_for_selection": false
+    }
+  ],
+  "positive_recovery_outer_domains": 12,
+  "summary": [
+    {
+      "method": "bounded_recovery_method",
+      "domain_equal_cell_macro_mae": 0.0695839026,
+      "worst_domain_cell_macro_mae": 0.1497379626
+    },
+    {
+      "method": "strict_method",
+      "domain_equal_cell_macro_mae": 0.0703775121,
+      "worst_domain_cell_macro_mae": 0.1453074741
+    },
+    {
+      "method": "bounded_recovery_state",
+      "domain_equal_cell_macro_mae": 0.0745262872,
+      "worst_domain_cell_macro_mae": 0.1486341807
+    },
+    {
+      "method": "strict_state",
+      "domain_equal_cell_macro_mae": 0.0752398065,
+      "worst_domain_cell_macro_mae": 0.1442151562
+    }
+  ],
+  "primary_comparison": {
+    "method": "bounded_recovery_method",
+    "baseline": "strict_method",
+    "difference_direction": "negative favors bounded recovery",
+    "domain_equal_mean_difference": -0.0007936095949920124,
+    "ci95_domain_cluster_percentile": [
+      -0.0027287831356620665,
+      0.0010267593548299683
+    ],
+    "domain_wins_ties_losses": [
+      7,
+      0,
+      5
+    ],
+    "per_domain": [
+      {
+        "domain": "CALB",
+        "cell_macro_mae_recovery": 0.0378264424,
+        "cell_macro_mae_strict": 0.0404558736,
+        "difference": -0.0026294311
+      },
+      {
+        "domain": "CALCE",
+        "cell_macro_mae_recovery": 0.0577717217,
+        "cell_macro_mae_strict": 0.054468682,
+        "difference": 0.0033030397
+      },
+      {
+        "domain": "HNEI",
+        "cell_macro_mae_recovery": 0.0491292985,
+        "cell_macro_mae_strict": 0.0570002011,
+        "difference": -0.0078709026
+      },
+      {
+        "domain": "HUST",
+        "cell_macro_mae_recovery": 0.0314746113,
+        "cell_macro_mae_strict": 0.030855834,
+        "difference": 0.0006187772
+      },
+      {
+        "domain": "MATR",
+        "cell_macro_mae_recovery": 0.0447998158,
+        "cell_macro_mae_strict": 0.0494696776,
+        "difference": -0.0046698618
+      },
+      {
+        "domain": "MICH",
+        "cell_macro_mae_recovery": 0.0978470903,
+        "cell_macro_mae_strict": 0.0969849615,
+        "difference": 0.0008621288
+      },
+      {
+        "domain": "MICH_EXP",
+        "cell_macro_mae_recovery": 0.0818766457,
+        "cell_macro_mae_strict": 0.0846493862,
+        "difference": -0.0027727405
+      },
+      {
+        "domain": "RWTH",
+        "cell_macro_mae_recovery": 0.1497379626,
+        "cell_macro_mae_strict": 0.1453074741,
+        "difference": 0.0044304885
+      },
+      {
+        "domain": "SDU",
+        "cell_macro_mae_recovery": 0.0639314688,
+        "cell_macro_mae_strict": 0.0652870446,
+        "difference": -0.0013555759
+      },
+      {
+        "domain": "SNL",
+        "cell_macro_mae_recovery": 0.0689181173,
+        "cell_macro_mae_strict": 0.0666876259,
+        "difference": 0.0022304914
+      },
+      {
+        "domain": "UL_PUR",
+        "cell_macro_mae_recovery": 0.0370143424,
+        "cell_macro_mae_strict": 0.0371502208,
+        "difference": -0.0001358784
+      },
+      {
+        "domain": "XJTU",
+        "cell_macro_mae_recovery": 0.1146793138,
+        "cell_macro_mae_strict": 0.1162131642,
+        "difference": -0.0015338504
+      }
+    ]
+  },
+  "deterministic_certificate": {
+    "maximum_absolute_displacement": 0.010000000000000009,
+    "maximum_observed_absolute_loss_regret": 0.010000000000000009,
+    "maximum_state_recovery_excess": 4.336808689942018e-18,
+    "maximum_output_recovery_excess": 4.336808689942018e-18,
+    "maximum_prefix_replay_difference": 0.0,
+    "maximum_zero_recovery_difference_from_v321": 0.0,
+    "minimum_prediction": 0.33993062703424226,
+    "maximum_prediction": 1.017146839525978
+  },
+  "unit_tests": {
+    "return_code": 0,
+    "tests": 6,
+    "passed": true
+  },
+  "gates": {
+    "mean_difference_below_zero": true,
+    "ci95_upper_below_zero": false,
+    "minimum_improved_outer_domains": false,
+    "minimum_positive_recovery_domains": true,
+    "absolute_displacement_budget": true,
+    "observed_absolute_loss_regret": true,
+    "state_recovery_envelope": true,
+    "output_recovery_envelope": true,
+    "physical_range": true,
+    "prefix_replay_exact": true,
+    "zero_recovery_exactly_recovers_v321": true,
+    "unit_tests": true
+  },
+  "limitations": [
+    "All twelve domains were historically opened; this is protocol-locked retrospective development evidence.",
+    "The recovery allowance is per emitted record and is not an electrochemical recovery-rate calibration.",
+    "No external dataset was rerun and no V368 confirmatory claim is changed by this decision."
+  ],
+  "runtime_seconds": 124.95537460000196,
+  "files": {
+    "inner_metrics": {
+      "path": "E:\\CCF\\interventional_battery_learning\\bounded_recovery_pchp_v374\\bounded_recovery_inner_metrics_v374.csv",
+      "bytes": 410520,
+      "sha256": "3ed30fef70f6258af1863893bcd9d5328137b3f235979b9492ee7e807b637f9b"
+    },
+    "selections": {
+      "path": "E:\\CCF\\interventional_battery_learning\\bounded_recovery_pchp_v374\\bounded_recovery_selections_v374.csv",
+      "bytes": 1079,
+      "sha256": "c625fee1b959248cb470bb6c24ab5ecc27b353800b7500ee66bd5740b7e50525"
+    },
+    "summary": {
+      "path": "E:\\CCF\\interventional_battery_learning\\bounded_recovery_pchp_v374\\bounded_recovery_summary_v374.csv",
+      "bytes": 299,
+      "sha256": "421eac2ce5bbe45a466b23ec71d5312785560404043bf3ac052a00ea58a29f30"
+    },
+    "domain_metrics": {
+      "path": "E:\\CCF\\interventional_battery_learning\\bounded_recovery_pchp_v374\\bounded_recovery_domain_metrics_v374.csv",
+      "bytes": 2350,
+      "sha256": "0d8aea77014b4ed6fd4f9c32d476ef280481886d5bf0738dbb9e3f9c63cc35f0"
+    },
+    "outer_predictions": {
+      "path": "E:\\CCF\\interventional_battery_learning\\bounded_recovery_pchp_v374\\bounded_recovery_outer_predictions_v374.parquet",
+      "bytes": 32147430,
+      "sha256": "c7c0045abfa8fdaa862604a273fe1da8f4409e0741148a74c6220f2212c11bdb"
+    }
+  }
+}

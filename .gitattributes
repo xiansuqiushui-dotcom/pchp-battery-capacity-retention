@@ -1,0 +1,14 @@
+# Preserve the exact bytes recorded in manifest_v389.json on every platform.
+* -text
+
+# Keep human-readable diffs without enabling end-of-line conversion.
+*.py diff
+*.md diff
+*.tex diff
+*.bib diff
+*.txt diff
+*.json diff
+*.csv diff
+*.cff diff
+*.yml diff
+*.yaml diff

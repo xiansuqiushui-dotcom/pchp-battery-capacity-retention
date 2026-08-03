@@ -1,0 +1,183 @@
+{
+  "version": "v380",
+  "status": "V380_EXTERNAL_MECHANISM_RETAINED",
+  "decision": "RETAIN",
+  "prefreeze": {
+    "path": "E:\\CCF\\interventional_battery_learning\\PCHP_EXTERNAL_MECHANISM_DECISION_PREFREEZE_V380.json",
+    "sha256": "128fa29a2b21ad8022adf3afecc6351e8b480e770c4c8833a032c7097575b5cc"
+  },
+  "classification": "frozen out-of-design confirmation; not prospectively blinded acquisition",
+  "information_boundary": {
+    "development_domains": 12,
+    "external_surfaces": 6,
+    "external_cells": 659,
+    "external_post_reference_records": 9712,
+    "target_labels_used_for_external_model_fitting": false,
+    "target_labels_used_for_alpha_budget_or_control_selection": false,
+    "independent_top_level_unit": "external battery surface",
+    "nested_unit": "physical cell"
+  },
+  "model_contract": {
+    "backbone": "ExtraTreesRegressor",
+    "trees": 80,
+    "minimum_samples_leaf": 20,
+    "maximum_feature_fraction": 0.8,
+    "seed": 20260801,
+    "source_rows_per_cell_cap": 80,
+    "protected_features": "log1p target cycle number plus frozen early-charge features",
+    "candidate_features": "protected features plus signed raw-scale changes from each cell's first-five-record commissioning median",
+    "protected_weighting": "ordinary pooled development-source rows",
+    "candidate_weighting": "equal total weight per development domain and physical cell",
+    "imputation": "development-source median with missingness indicators",
+    "prediction_range": [
+      0.0,
+      1.3
+    ],
+    "external_refitting_or_finetuning": false
+  },
+  "pchp_contract": {
+    "assimilation_alpha": 0.01,
+    "alpha_origin": "frozen canonical value and modal nested-development selection used by the existing external contract",
+    "absolute_harm_budget_delta": 0.01,
+    "trajectory": "prefix-causal non-increasing",
+    "range": [
+      0.0,
+      1.3
+    ]
+  },
+  "development_shift_control": {
+    "unconstrained_weighted_median_residual": 0.011949412161294859,
+    "selected_budget_feasible_shift": 0.01,
+    "selection_domains": 12,
+    "selection_cells": 586,
+    "selection_records": 601932
+  },
+  "surface_equal_cell_macro_mae": {
+    "protected_state": 0.1306078750189977,
+    "fixed_shift": 0.1332619549952954,
+    "pchp_method": 0.12636478582538288,
+    "raw_candidate": 0.10940934339336138
+  },
+  "primary_mechanism_estimand": {
+    "pchp_minus_fixed_shift": -0.00689716916991253,
+    "two_stage_95_percent_interval": [
+      -0.011921668904922808,
+      -0.00211749268631288
+    ],
+    "surface_wins_ties_losses": [
+      5,
+      0,
+      1
+    ]
+  },
+  "primary_mechanism_gates": {
+    "mean_difference_below_zero": true,
+    "bootstrap_interval_upper_below_zero": true,
+    "minimum_improved_external_surfaces": true,
+    "maximum_absolute_displacement": true,
+    "maximum_observed_absolute_loss_regret": true,
+    "protected_state_nonincreasing": true,
+    "pchp_output_nonincreasing": true,
+    "physical_range": true,
+    "prefix_replay_exact": true
+  },
+  "mechanism_conjunction_passed": true,
+  "deterministic_certificate": {
+    "maximum_absolute_displacement": 0.010000000000000009,
+    "maximum_observed_absolute_loss_regret": 0.010000000000000009,
+    "maximum_protected_state_increase": 0.0,
+    "maximum_pchp_output_increase": 0.0,
+    "minimum_pchp_output": 0.3899004902551727,
+    "maximum_pchp_output": 0.9858999580761885,
+    "maximum_prefix_replay_difference": 0.0
+  },
+  "primary_decision_cost": {
+    "threshold": 0.8,
+    "miss_to_early_cost_ratio": 5.0,
+    "pchp_minus_fixed_shift": 0.0,
+    "pchp_minus_fixed_shift_two_stage_95_percent_interval": [
+      0.0,
+      0.0
+    ],
+    "pchp_minus_protected_state": 0.0,
+    "pchp_minus_protected_two_stage_95_percent_interval": [
+      0.0,
+      0.0
+    ],
+    "gates": {
+      "pchp_cost_below_fixed_shift": false,
+      "pchp_cost_below_protected_state": false,
+      "fixed_shift_interval_upper_below_zero": false
+    },
+    "decision_claim_retained": false
+  },
+  "surface_roster": [
+    {
+      "surface": "AMPERE_A123_LFP",
+      "cells": 20,
+      "post_reference_records": 743
+    },
+    {
+      "surface": "IMPERIAL_M50T",
+      "cells": 40,
+      "post_reference_records": 269
+    },
+    {
+      "surface": "LUH_NMC_SIO",
+      "cells": 180,
+      "post_reference_records": 2377
+    },
+    {
+      "surface": "ISU_ILCC_NMC",
+      "cells": 244,
+      "post_reference_records": 4211
+    },
+    {
+      "surface": "STANFORD_CALENDAR",
+      "cells": 30,
+      "post_reference_records": 765
+    },
+    {
+      "surface": "MULTISTAGE_50E",
+      "cells": 145,
+      "post_reference_records": 1347
+    }
+  ],
+  "runtime_seconds": 18.663190599996597,
+  "environment": {
+    "python": "3.10.11",
+    "numpy": "1.23.5",
+    "pandas": "2.0.3"
+  },
+  "implementation": {
+    "path": "E:\\CCF\\interventional_battery_learning\\run_pchp_external_mechanism_decision_v380.py",
+    "sha256": "9a4e819a20f1053dc2ae447a396800fa4b88af49a101de1692503f18d4d0deb1"
+  },
+  "files": {
+    "predictions": {
+      "path": "E:\\CCF\\interventional_battery_learning\\external_mechanism_decision_v380\\external_mechanism_predictions_v380.parquet",
+      "bytes": 556316,
+      "sha256": "474d01b7473ed30aaa79f117ab1a9237e5028201ecab74dbce37932d3ac9f5e3"
+    },
+    "cell_metrics": {
+      "path": "E:\\CCF\\interventional_battery_learning\\external_mechanism_decision_v380\\external_mechanism_cell_metrics_v380.csv",
+      "bytes": 196102,
+      "sha256": "389122e88d2be14d89134d3fc87fa3a830784dfd01dd952ce5c9f76fab458a5d"
+    },
+    "surface_metrics": {
+      "path": "E:\\CCF\\interventional_battery_learning\\external_mechanism_decision_v380\\external_mechanism_surface_metrics_v380.csv",
+      "bytes": 936,
+      "sha256": "482b6f3717f656c6fcd74ee932aae172c8a5029feebdff5ba21757478ded27b2"
+    },
+    "decision_cell_metrics": {
+      "path": "E:\\CCF\\interventional_battery_learning\\external_mechanism_decision_v380\\external_decision_cell_metrics_v380.csv",
+      "bytes": 2461041,
+      "sha256": "57fe7978f789ee91017cf15e42b5cc5e549e9019bcb55508dc6785599b266787"
+    },
+    "decision_summary": {
+      "path": "E:\\CCF\\interventional_battery_learning\\external_mechanism_decision_v380\\external_decision_summary_v380.csv",
+      "bytes": 3861,
+      "sha256": "4fa9c0716b2fc9c4b56e0c03699207e3cad16aa7fff1e57747d603cf3e2c2d74"
+    }
+  }
+}
